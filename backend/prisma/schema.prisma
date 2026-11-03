@@ -15,4 +15,22 @@ model User {
   status       String   @default("ACTIVE")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+
+  goals        Goal[]
+}
+
+model Goal {
+  id           String   @id @default(uuid())
+  userId       String
+  title        String
+  description  String?
+  startDate    DateTime
+  dueDate      DateTime
+  status       String   @default("ACTIVE")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+
+  use          User     @relation(fields: [userId], references: [id])
 }
