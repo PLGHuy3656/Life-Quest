@@ -1,6 +1,15 @@
 import prisma from '../../config/database.js'
 
 
+const findUserById = async (userId) => {
+  // Dùng để kiểm tra User tồn tại trước khi Goal Service tạo Goal
+  return await prisma.user.findUnique({
+    where: {
+      id: userId
+    }
+  })
+}
+
 // Tìm 1 user bằng email
 const findUserByEmail = async (email) => {
   return await prisma.user.findUnique({
@@ -42,6 +51,7 @@ const createUser = async (userData) => {
 }
 
 export const usersRepository = {
+  findUserById,
   findUserByEmail,
   findUserByUsername,
   findExistingUser,

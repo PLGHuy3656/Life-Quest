@@ -18,7 +18,7 @@ const validate = (schema) => {
     if (validationError) {
       const errorMessage = validationError.details[0].message
 
-      throw new ApiError(400, errorMessage)
+      throw new ApiError(400, errorMessage, 'VALIDATION_ERROR')
     }
     next()
   }
