@@ -20,6 +20,26 @@ const getGoalsByUserId = async (req, res, next) => {
 }
 
 
+const getGoalById = async (req, res, next) => {
+  try {
+    const goalId = req.params.goalId
+    const userId = req.query.userId
+
+
+    const goal = await goalsService.getGoalById(goalId, userId)
+
+    const responseData = {
+      success: true,
+      data: goal
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 const createGoal = async (req, res, next) => {
   try {
     const goalData = req.body
@@ -39,5 +59,6 @@ const createGoal = async (req, res, next) => {
 
 export const goalsController = {
   getGoalsByUserId,
+  getGoalById,
   createGoal
 }

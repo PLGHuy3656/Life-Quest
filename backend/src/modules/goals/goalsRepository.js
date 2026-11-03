@@ -37,6 +37,14 @@ const findGoalsByUserId = async (userId) => {
   })
 }
 
+const findGoalById = async (goalId) => {
+  return await prisma.goal.findUnique({
+    where: {
+      id: goalId
+    }
+  })
+}
+
 
 const createGoal = async (goalData) => {
   // validate dữ liệu trước khi gọi hàm create
@@ -55,6 +63,7 @@ const createGoal = async (goalData) => {
 
 export const goalsRepository = {
   findGoalsByUserId,
+  findGoalById,
   createGoal
 }
 
