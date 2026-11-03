@@ -11,6 +11,25 @@ const getGoalsByUserId = async (userId) => {
 }
 
 
+const getGoalById = async (goalId, userId) => {
+  const goal = await goalsRepository.findGoalById(goalId)
+
+
+  // Kiểm tra Goal có tồn tại
+  if (!goal) {
+    throw new ApiError(404, 'Goal not found', 'GOAL_NOT_FOUND')
+  }
+
+  // Kiểm tra Goal có thuộc User
+  if (goal.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this goal', 'GOAL_ACCESS_DENIED')
+  }
+
+
+  return goal
+}
+
+
 const createGoal = async (goalData) => {
   const user = await usersRepository.findUserById(goalData.userId)
 
@@ -37,5 +56,6 @@ const createGoal = async (goalData) => {
 }
 export const goalsService = {
   getGoalsByUserId,
+  getGoalById,
   createGoal
 }
