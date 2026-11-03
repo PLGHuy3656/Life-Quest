@@ -10,6 +10,18 @@ const getGoalsByUserId = Joi.object({
 })
 
 
+const getGoalById = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+
+})
+
+
 const createGoal = Joi.object({
   body: Joi.object({
     userId: Joi.string().uuid().required(),
@@ -25,5 +37,6 @@ const createGoal = Joi.object({
 
 export const goalsValidation = {
   getGoalsByUserId,
+  getGoalById,
   createGoal
 }
