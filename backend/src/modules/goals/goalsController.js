@@ -59,8 +59,29 @@ const createGoal = async (req, res, next) => {
   }
 }
 
+// Cập nhật thông tin một mục tiêu theo goalId.
+const updateGoal = async (req, res, next) => {
+  try {
+    const goalId = req.params.goalId
+    const userId = req.query.userId
+    const updateData = req.body
+
+
+    const updatedGoal = await goalsService.updateGoal(goalId, userId, updateData)
+
+    const responseData = {
+      success: true,
+      data: updatedGoal
+    }
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const goalsController = {
   getGoalsByUserId,
   getGoalById,
-  createGoal
+  createGoal,
+  updateGoal
 }
