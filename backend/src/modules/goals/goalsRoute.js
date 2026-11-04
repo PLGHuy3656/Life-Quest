@@ -16,6 +16,7 @@ Router.route('/')
 // /api/v1/goals/:goalId
 Router.route('/:goalId')
   .get(validate(goalsValidation.getGoalById), goalsController.getGoalById)
+  .patch(validate(goalsValidation.updateGoal), goalsController.updateGoal)
 
 
 export const goalsRoute = Router

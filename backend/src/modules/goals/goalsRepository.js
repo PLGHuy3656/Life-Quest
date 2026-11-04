@@ -63,10 +63,34 @@ const createGoal = async (goalData) => {
   })
 }
 
+// Cập nhật thông tin mục tiêu theo ID.
+const updateGoal = async (goalId, updateData) => {
+  const validUpdateData = await Joi.object({
+    title: Joi.string().trim().min(3).max(100),
+    description: Joi.string().trim().max(500).allow(''),
+    startDate: Joi.date().iso(),
+    dueDate: Joi.date().iso()
+  })
+    // unknown(false): trong TH hiện tại nó có tác dụng là không cho update các field ngoài khai báo validate ở trên
+    .unknown(false)
+    .min(1)
+    .validateAsync(updateData, {
+      abortEarly: false
+    })
+
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: validUpdateData
+  })
+}
+
 export const goalsRepository = {
   findGoalsByUserId,
   findGoalById,
-  createGoal
+  createGoal,
+  updateGoal
 }
 
 export {
