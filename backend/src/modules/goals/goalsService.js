@@ -55,8 +55,43 @@ const createGoal = async (goalData) => {
 
   return goal
 }
+
+// Cập nhật mục tiêu theo ID có kiểm tra quyền sở hữu và ràng buộc trạng thái.
+const updateGoal = async (goalId, userId, updateData) => {
+  // Kiểm tra Goal tồn tại và User có quyền truy cập
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status === 'COMPLETED' || goal.status === 'ARCHIVED') {
+    throw new ApiError(400, 'Cannot update a completed or archived goal', 'GOAL_CANNOT_BE_UPDATED')
+  }
+
+
+  // Xác định ngày mới, nếu không gửi thì giữ ngày hiện tại
+  const startDate = updateData.startDate ? new Date(updateData.startDate) : goal.startDate
+  const dueDate = updateData.dueDate ? new Date(updateData.dueDate) : goal.dueDate
+
+
+  // Kiểm tra khoảng thời gian của Goal
+  if (startDate >= dueDate) {
+    throw new ApiError(400, 'Start date must be before due date', 'INVALID_GOAL_DATE_RANGE')
+  }
+
+
+  const validUpdateData = {
+    title: updateData.title,
+    description: updateData.description,
+    startDate: updateData.startDate ? startDate : undefined,
+    dueDate: updateData.dueDate ? dueDate : undefined
+  }
+  const updatedGoal = await goalsRepository.updateGoal(goalId, validUpdateData)
+
+  return updatedGoal
+}
+
+
 export const goalsService = {
   getGoalsByUserId,
   getGoalById,
-  createGoal
+  createGoal,
+  updateGoal
 }
