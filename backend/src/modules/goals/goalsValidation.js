@@ -25,7 +25,7 @@ const getGoalById = Joi.object({
 const createGoal = Joi.object({
   body: Joi.object({
     userId: Joi.string().uuid().required(),
-    title: Joi.string().min(3).max(250).required(),
+    title: Joi.string().min(3).max(100).required(),
     description: Joi.string().max(500).allow('').optional(),
     startDate: Joi.date().iso().required(),
     dueDate: Joi.date().iso().greater(Joi.ref('startDate')).required()
@@ -35,8 +35,27 @@ const createGoal = Joi.object({
   query: Joi.object().unknown(true).optional()
 })
 
+
+const updateGoal = Joi.object({
+  body: Joi.object({
+    title: Joi.string().trim().min(3).max(100),
+    description: Joi.string().trim().max(500).allow(''),
+    startDate: Joi.date().iso(),
+    dueDate: Joi.date().iso()
+  })
+    .min(1)
+    .unknown(false),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
 export const goalsValidation = {
   getGoalsByUserId,
   getGoalById,
-  createGoal
+  createGoal,
+  updateGoal
 }
