@@ -26,6 +26,7 @@ const validateGoalBeforeCreate = async (goalData) => {
 }
 
 
+// Lấy danh sách Goal của một người dùng cụ thể, sắp xếp theo thời gian tạo mới nhất.
 const findGoalsByUserId = async (userId) => {
   return await prisma.goal.findMany ({
     where: {
@@ -37,6 +38,7 @@ const findGoalsByUserId = async (userId) => {
   })
 }
 
+// Tìm kiếm chi tiết một mục tiêu (Goal) theo ID.
 const findGoalById = async (goalId) => {
   return await prisma.goal.findUnique({
     where: {
@@ -45,7 +47,7 @@ const findGoalById = async (goalId) => {
   })
 }
 
-
+// Tạo mới một mục tiêu (Goal) cho người dùng sau khi đã qua bước validation.
 const createGoal = async (goalData) => {
   // validate dữ liệu trước khi gọi hàm create
   const validGoalData = await validateGoalBeforeCreate(goalData)

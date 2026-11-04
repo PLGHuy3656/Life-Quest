@@ -2,6 +2,7 @@ import { goalsService } from './goalsService.js'
 import { StatusCodes } from 'http-status-codes'
 
 
+// Lấy danh sách toàn bộ mục tiêu theo ID người dùng
 const getGoalsByUserId = async (req, res, next) => {
   try {
     const userId = req.query.userId
@@ -19,7 +20,7 @@ const getGoalsByUserId = async (req, res, next) => {
   }
 }
 
-
+// Lấy thông tin chi tiết một mục tiêu theo goalId.
 const getGoalById = async (req, res, next) => {
   try {
     const goalId = req.params.goalId
@@ -40,6 +41,7 @@ const getGoalById = async (req, res, next) => {
 }
 
 
+// Tạo mới một mục tiêu(Goal).
 const createGoal = async (req, res, next) => {
   try {
     const goalData = req.body
