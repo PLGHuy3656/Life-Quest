@@ -2,7 +2,7 @@ import { usersRepository } from '../users/usersRepository.js'
 import { goalsRepository } from './goalsRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
 
-
+// Lấy danh sách toàn bộ mục tiêu của một người dùng.
 const getGoalsByUserId = async (userId) => {
   const goals = await goalsRepository.findGoalsByUserId(userId)
 
@@ -10,7 +10,7 @@ const getGoalsByUserId = async (userId) => {
   return goals
 }
 
-
+// Lấy thông tin chi tiết một mục tiêu theo ID và xác thực quyền sở hữu của người dùng.
 const getGoalById = async (goalId, userId) => {
   const goal = await goalsRepository.findGoalById(goalId)
 
@@ -30,11 +30,12 @@ const getGoalById = async (goalId, userId) => {
 }
 
 
+// Tạo mới mục tiêu sau khi kiểm tra sự tồn tại của người dùng và tính hợp lệ của khoảng thời gian.
 const createGoal = async (goalData) => {
   const user = await usersRepository.findUserById(goalData.userId)
 
   if (!user) {
-    throw new ApiError(403, 'User not found', 'USER_NOT_FOUND')
+    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND')
   }
 
   const startDate = new Date(goalData.startDate)
