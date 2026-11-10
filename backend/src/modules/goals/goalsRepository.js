@@ -30,7 +30,15 @@ const findGoalsByUserId = async (userId) => {
 }
 
 // Tìm kiếm chi tiết một mục tiêu (Goal) theo ID.
-const findGoalById = async (goalId) => {
+const findGoalById = async (goalId, tx) => {
+  if (tx) {
+    return await prisma.goal.findUnique({
+      where: {
+        id: goalId
+      }
+    })
+  }
+
   return await prisma.goal.findUnique({
     where: {
       id: goalId
@@ -123,6 +131,17 @@ const archiveGoal = async (goalId) => {
     }
   })
 }
+
+// Khóa Goal trong transaction để tránh xử lý đồng thời
+const lockGoalForUpdate = async (goalId, tx) => {
+  return await tx.$queryRaw`
+    SELECT "id"
+    FROM "Goal"
+    WHERE "id" = ${goalId}
+    FOR UPDATE
+  `
+}
+
 export const goalsRepository = {
   findGoalsByUserId,
   findGoalById,
@@ -131,7 +150,8 @@ export const goalsRepository = {
   pauseGoal,
   resumeGoal,
   completeGoal,
-  archiveGoal
+  archiveGoal,
+  lockGoalForUpdate
 }
 
 export {
