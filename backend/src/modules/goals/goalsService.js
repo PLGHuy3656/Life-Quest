@@ -88,21 +88,6 @@ const updateGoal = async (goalId, userId, updateData) => {
   return updatedGoal
 }
 
-const archiveGoal = async (goalId, userId) => {
-  // Kiểm tra Goal tồn tại và User có quyền truy cập
-  const goal = await getGoalById(goalId, userId)
-
-  if (goal.status === 'ARCHIVED') {
-    throw new ApiError(400, 'Goal is already archived', 'GOAL_ALREADY_ARCHIVED')
-  }
-
-  if (goal.status === 'COMPLETED') {
-    throw new ApiError(400, 'Cannot archived a completed goal', 'GOAL_CANNOT_BE_ARCHIVED')
-  }
-  const archivedGoal = await goalsRepository.archiveGoal(goalId)
-  return archivedGoal
-}
-
 
 const pauseGoal = async (goalId, userId) => {
   const goal = await getGoalById(goalId, userId)
@@ -115,11 +100,51 @@ const pauseGoal = async (goalId, userId) => {
 }
 
 
+const resumeGoal = async (goalId, userId) => {
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status !== 'PAUSED') {
+    throw new ApiError(400, 'Only paused goals can be resumed', 'GOAL_CANNOT_BE_RESUMED')
+  }
+
+  const resumedGoal = await goalsRepository.resumeGoal(goalId)
+  return resumedGoal
+}
+
+
+const completeGoal = async (goalId, userId) => {
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status !== 'ACTIVE') {
+    throw new ApiError(400, 'Only active goals can be completed', 'GOAL_CANNOT_BE_COMPLETED')
+  }
+
+  const completedGoal = await goalsRepository.completeGoal(goalId)
+  return completedGoal
+}
+
+
+const archiveGoal = async (goalId, userId) => {
+  // Kiểm tra Goal tồn tại và User có quyền truy cập
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status === 'ARCHIVED') {
+    throw new ApiError(400, 'Goal is already archived', 'GOAL_ALREADY_ARCHIVED')
+  }
+
+  if (goal.status === 'COMPLETED') {
+    throw new ApiError(400, 'Cannot archive a completed goal', 'GOAL_CANNOT_BE_ARCHIVED')
+  }
+  const archivedGoal = await goalsRepository.archiveGoal(goalId)
+  return archivedGoal
+}
 export const goalsService = {
   getGoalsByUserId,
   getGoalById,
   createGoal,
   updateGoal,
-  archiveGoal,
-  pauseGoal
+  pauseGoal,
+  resumeGoal,
+  completeGoal,
+  archiveGoal
 }
