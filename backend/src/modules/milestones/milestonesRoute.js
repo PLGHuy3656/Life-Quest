@@ -6,6 +6,8 @@ import validate from '../../common/middleware/validate.js'
 const Router = express.Router()
 
 // /api/v1/goals/:goalId/milestones
-Router.get('/:goalId/milestones', validate(milestonesValidation.getMilestonesByGoalId), milestonesController.getMilestonesByGoalId)
+Router.route('/:goalId/milestones')
+  .get(validate(milestonesValidation.getMilestonesByGoalId), milestonesController.getMilestonesByGoalId)
+  .post(validate(milestonesValidation.createMilestone), milestonesController.createMilestone)
 
 export const milestonesRoute = Router
