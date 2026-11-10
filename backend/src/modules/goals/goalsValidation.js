@@ -53,9 +53,33 @@ const updateGoal = Joi.object({
   })
 })
 
+
+const archiveGoal = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
+const pauseGoal = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
 export const goalsValidation = {
   getGoalsByUserId,
   getGoalById,
   createGoal,
-  updateGoal
+  updateGoal,
+  archiveGoal,
+  pauseGoal
 }
