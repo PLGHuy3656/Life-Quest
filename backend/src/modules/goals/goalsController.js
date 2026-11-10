@@ -80,25 +80,6 @@ const updateGoal = async (req, res, next) => {
 }
 
 
-// Xóa mềm Goal
-const archiveGoal = async (req, res, next) => {
-  try {
-    const goalId = req.params.goalId
-    const userId = req.query.userId
-
-    const archivedGoal = await goalsService.archiveGoal(goalId, userId)
-
-    const responseData = {
-      success: true,
-      data: archivedGoal
-    }
-    return res.status(StatusCodes.OK).json(responseData)
-  } catch (error) {
-    next(error)
-  }
-}
-
-
 const pauseGoal = async (req, res, next) => {
   try {
     const goalId = req.params.goalId
@@ -117,11 +98,66 @@ const pauseGoal = async (req, res, next) => {
 }
 
 
+const resumeGoal = async (req, res, next) => {
+  try {
+    const goalId = req.params.goalId
+    const userId = req.query.userId
+
+    const resumedGoal = await goalsService.resumeGoal(goalId, userId)
+
+    const responseData = {
+      success: true,
+      data: resumedGoal
+    }
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+const completeGoal = async (req, res, next) => {
+  try {
+    const goalId = req.params.goalId
+    const userId = req.query.userId
+
+    const completedGoal = await goalsService.completeGoal(goalId, userId)
+
+    const responseData = {
+      success: true,
+      data: completedGoal
+    }
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+// Lưu trữ Goal (Soft Delete)
+const archiveGoal = async (req, res, next) => {
+  try {
+    const goalId = req.params.goalId
+    const userId = req.query.userId
+
+    const archivedGoal = await goalsService.archiveGoal(goalId, userId)
+
+    const responseData = {
+      success: true,
+      data: archivedGoal
+    }
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const goalsController = {
   getGoalsByUserId,
   getGoalById,
   createGoal,
   updateGoal,
-  archiveGoal,
-  pauseGoal
+  pauseGoal,
+  resumeGoal,
+  completeGoal,
+  archiveGoal
 }

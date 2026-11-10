@@ -25,12 +25,12 @@ const getGoalById = Joi.object({
 const createGoal = Joi.object({
   body: Joi.object({
     userId: Joi.string().uuid().required(),
-    title: Joi.string().min(3).max(100).required(),
+    title: Joi.string().trim().min(3).max(100).required(),
     description: Joi.string().max(500).allow('').optional(),
     startDate: Joi.date().iso().required(),
     dueDate: Joi.date().iso().greater(Joi.ref('startDate')).required()
 
-  }),
+  }).unknown(false),
   params: Joi.object().unknown(true).optional(),
   query: Joi.object().unknown(true).optional()
 })
@@ -54,7 +54,7 @@ const updateGoal = Joi.object({
 })
 
 
-const archiveGoal = Joi.object({
+const pauseGoal = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
@@ -65,7 +65,29 @@ const archiveGoal = Joi.object({
 })
 
 
-const pauseGoal = Joi.object({
+const resumeGoal = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
+const completeGoal = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
+const archiveGoal = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
@@ -80,6 +102,8 @@ export const goalsValidation = {
   getGoalById,
   createGoal,
   updateGoal,
-  archiveGoal,
-  pauseGoal
+  pauseGoal,
+  resumeGoal,
+  completeGoal,
+  archiveGoal
 }

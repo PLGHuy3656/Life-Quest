@@ -6,18 +6,9 @@ const GOAL_CREATE_SCHEMA = Joi.object({
   title: Joi.string().trim().min(3).max(100).required(),
   description: Joi.string().trim().max(500).allow('').optional(),
   startDate: Joi.date().iso().required(),
-  dueDate: Joi.date().iso().required()
+  dueDate: Joi.date().iso().greater(Joi.ref('startDate')).required()
 }).unknown(false)
 
-
-// Chỉ định ra những fields mà chúng ta không muốn cho phép cập nhật trong hàm update()
-const INVALID_UPDATE_FIELDS = [
-  'id',
-  'userId',
-  'status',
-  'createdAt',
-  'updatedAt'
-]
 
 const validateGoalBeforeCreate = async (goalData) => {
   return await GOAL_CREATE_SCHEMA.validateAsync(goalData, {
@@ -87,6 +78,41 @@ const updateGoal = async (goalId, updateData) => {
 }
 
 
+const pauseGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'PAUSED'
+    }
+  })
+}
+
+
+const resumeGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'ACTIVE'
+    }
+  })
+}
+
+
+const completeGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'COMPLETED'
+    }
+  })
+}
+
 const archiveGoal = async (goalId) => {
   return await prisma.goal.update({
     where: {
@@ -97,29 +123,17 @@ const archiveGoal = async (goalId) => {
     }
   })
 }
-
-
-const pauseGoal = async (goalId) => {
-  return await prisma.goal.update({
-    where: {
-      id: goalId
-    },
-    data: {
-      status: 'PAUSE'
-    }
-  })
-}
-
 export const goalsRepository = {
   findGoalsByUserId,
   findGoalById,
   createGoal,
   updateGoal,
-  archiveGoal,
-  pauseGoal
+  pauseGoal,
+  resumeGoal,
+  completeGoal,
+  archiveGoal
 }
 
 export {
-  GOAL_CREATE_SCHEMA,
-  INVALID_UPDATE_FIELDS
+  GOAL_CREATE_SCHEMA
 }
