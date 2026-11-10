@@ -13,7 +13,30 @@ const findMilestonesByGoalId = async (goalId) => {
   })
 }
 
+// Lấy position lớn nhất của Milestone trong Goal
+const getMaxPositionByGoalId = async (goalId, tx) => {
+  const result = await tx.milestone.aggregate({
+    where: {
+      goalId
+    },
+    _max: {
+      position: true
+    }
+  })
+
+  return result._max.position
+}
+
+// Tạo mới Milestone có transaction
+const createMilestone = async (milestoneData, tx) => {
+  return await tx.milestone.create({
+    data: milestoneData
+  })
+}
+
 
 export const milestonesRepository = {
-  findMilestonesByGoalId
+  findMilestonesByGoalId,
+  getMaxPositionByGoalId,
+  createMilestone
 }

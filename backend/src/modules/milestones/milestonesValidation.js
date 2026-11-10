@@ -13,6 +13,21 @@ const getMilestonesByGoalId = Joi.object({
 })
 
 
+const createMilestone = Joi.object({
+  body: Joi.object({
+    title: Joi.string().trim().min(1).max(255).required(),
+    description: Joi.string().allow('', null).optional()
+  }).required(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
 export const milestonesValidation = {
-  getMilestonesByGoalId
+  getMilestonesByGoalId,
+  createMilestone
 }
