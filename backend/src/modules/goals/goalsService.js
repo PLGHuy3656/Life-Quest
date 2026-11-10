@@ -88,10 +88,38 @@ const updateGoal = async (goalId, userId, updateData) => {
   return updatedGoal
 }
 
+const archiveGoal = async (goalId, userId) => {
+  // Kiểm tra Goal tồn tại và User có quyền truy cập
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status === 'ARCHIVED') {
+    throw new ApiError(400, 'Goal is already archived', 'GOAL_ALREADY_ARCHIVED')
+  }
+
+  if (goal.status === 'COMPLETED') {
+    throw new ApiError(400, 'Cannot archived a completed goal', 'GOAL_CANNOT_BE_ARCHIVED')
+  }
+  const archivedGoal = await goalsRepository.archiveGoal(goalId)
+  return archivedGoal
+}
+
+
+const pauseGoal = async (goalId, userId) => {
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status !== 'ACTIVE') {
+    throw new ApiError(400, 'Only active goals can be paused', 'GOAL_CANNOT_BE_PAUSED')
+  }
+  const pausedGoal = await goalsRepository.pauseGoal(goalId)
+  return pausedGoal
+}
+
 
 export const goalsService = {
   getGoalsByUserId,
   getGoalById,
   createGoal,
-  updateGoal
+  updateGoal,
+  archiveGoal,
+  pauseGoal
 }

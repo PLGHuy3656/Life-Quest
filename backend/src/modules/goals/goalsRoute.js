@@ -17,6 +17,10 @@ Router.route('/')
 Router.route('/:goalId')
   .get(validate(goalsValidation.getGoalById), goalsController.getGoalById)
   .patch(validate(goalsValidation.updateGoal), goalsController.updateGoal)
+  .delete(validate(goalsValidation.archiveGoal), goalsController.archiveGoal)
 
+// /api/v1/goals/:goalId/pause
+Router.post('/:goalId/pause', validate(goalsValidation.pauseGoal), goalsController.pauseGoal
+)
 
 export const goalsRoute = Router
