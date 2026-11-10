@@ -86,11 +86,37 @@ const updateGoal = async (goalId, updateData) => {
   })
 }
 
+
+const archiveGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'ARCHIVED'
+    }
+  })
+}
+
+
+const pauseGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'PAUSE'
+    }
+  })
+}
+
 export const goalsRepository = {
   findGoalsByUserId,
   findGoalById,
   createGoal,
-  updateGoal
+  updateGoal,
+  archiveGoal,
+  pauseGoal
 }
 
 export {

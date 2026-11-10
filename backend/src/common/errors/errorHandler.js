@@ -11,7 +11,7 @@ const errorHandler = (error, req, res, next) => {
   const errorCode = error.errorCode ? error.errorCode : 'INTERNAL_SERVER_ERROR'
 
   const errorResponse = {
-    succes: false,
+    success: false,
     error: {
       code: errorCode,
       message: errorMessage
