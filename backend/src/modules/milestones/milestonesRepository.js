@@ -35,8 +35,17 @@ const createMilestone = async (milestoneData, tx) => {
 }
 
 
+const findMilestonesById = async (milestoneId) => {
+  return await prisma.milestone.findUnique({
+    where: {
+      id: milestoneId
+    }
+  })
+}
+
 export const milestonesRepository = {
   findMilestonesByGoalId,
   getMaxPositionByGoalId,
-  createMilestone
+  createMilestone,
+  findMilestonesById
 }
