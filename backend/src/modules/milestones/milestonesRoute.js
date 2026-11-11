@@ -10,4 +10,7 @@ Router.route('/:goalId/milestones')
   .get(validate(milestonesValidation.getMilestonesByGoalId), milestonesController.getMilestonesByGoalId)
   .post(validate(milestonesValidation.createMilestone), milestonesController.createMilestone)
 
+// GET    /milestones/:milestoneId
+Router.get('/milestones/:milestoneId', validate(milestonesValidation.getMilestonesById), milestonesController.getMilestonesById)
+
 export const milestonesRoute = Router

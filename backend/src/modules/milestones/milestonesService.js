@@ -62,7 +62,27 @@ const createMilestone = async (goalId, userId, milestoneData) => {
 }
 
 
+// Lấy danh sách Milestone theo GoalId
+const getMilestonesById = async (milestoneId, userId) => {
+  // Tìm Milestone
+  const milestone = await milestonesRepository.findMilestonesById(milestoneId)
+
+  if (!milestone) {
+    throw new ApiError(404, 'Milestone not found', 'MILESTONE_NOT_FOUND')
+  }
+
+  // Tìm Goal chứa Milestone
+  const goal = await goalsRepository.findGoalById(milestone.goalId)
+
+  if (goal.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this milestone', 'GOAL_ACCESS_DENIED')
+  }
+  return milestone
+}
+
+
 export const milestonesService = {
   getMilestonesByGoalId,
-  createMilestone
+  createMilestone,
+  getMilestonesById
 }

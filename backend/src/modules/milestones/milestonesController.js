@@ -42,8 +42,27 @@ const createMilestone = async (req, res, next) => {
   }
 }
 
+const getMilestonesById = async (req, res, next) => {
+  try {
+    const { milestoneId } = req.params
+    const { userId } = req.query
+
+    const milestone = await milestonesService.getMilestonesById(milestoneId, userId)
+
+    const responseData = {
+      success: true,
+      data: milestone
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
 
 export const milestonesController = {
   getMilestonesByGoalId,
-  createMilestone
+  createMilestone,
+  getMilestonesById
 }
