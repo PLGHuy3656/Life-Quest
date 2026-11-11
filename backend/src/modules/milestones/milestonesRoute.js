@@ -13,4 +13,7 @@ Router.route('/:goalId/milestones')
 // GET    /milestones/:milestoneId
 Router.get('/milestones/:milestoneId', validate(milestonesValidation.getMilestonesById), milestonesController.getMilestonesById)
 
+// PATCH /milestones/:milestoneId
+Router.patch('/milestones/:milestoneId', validate(milestonesValidation.updateMilestone), milestonesController.updateMilestone)
+
 export const milestonesRoute = Router
