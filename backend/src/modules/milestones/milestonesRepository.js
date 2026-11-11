@@ -43,9 +43,20 @@ const findMilestonesById = async (milestoneId) => {
   })
 }
 
+// Cập nhật thông tin Milestone
+const updateMilestone = async (milestoneId, data) => {
+  return await prisma.milestone.update({
+    where: {
+      id: milestoneId
+    },
+    data: data
+  })
+}
+
 export const milestonesRepository = {
   findMilestonesByGoalId,
   getMaxPositionByGoalId,
   createMilestone,
-  findMilestonesById
+  findMilestonesById,
+  updateMilestone
 }
