@@ -81,8 +81,46 @@ const getMilestonesById = async (milestoneId, userId) => {
 }
 
 
+// Cập nhật Milestone
+const updateMilestone = async (milestoneId, userId, data) => {
+  // Tìm Milestone
+  const milestone = await milestonesRepository.findMilestonesById(milestoneId)
+
+  if (!milestone) {
+    throw new ApiError(404, 'Milestone not found', 'MILESTONE_NOT_FOUND')
+  }
+
+  // Tìm Goal chứa Milestone
+  const goal = await goalsRepository.findGoalById(milestone.goalId)
+
+  // Kiểm tra quyền sở hữu Goal
+  if (goal.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to update this milestone', 'GOAL_ACCESS_DENIED')
+  }
+
+  // Không cho phép cập nhật Milestone thuộc Goal đã ARCHIVED
+  if (goal.status === 'ARCHIVED') {
+    throw new ApiError(403, 'Cannot update milestone of an archived goal', 'GOAL_ARCHIVED')
+  }
+
+  // Chỉ cập nhật title và description
+  const updateData = {}
+
+  if (data.title !== undefined) {
+    updateData.title = data.title
+  }
+
+  if (data.description !== undefined) {
+    updateData.description = data.description
+  }
+
+  return await milestonesRepository.updateMilestone(milestoneId, updateData)
+}
+
+
 export const milestonesService = {
   getMilestonesByGoalId,
   createMilestone,
-  getMilestonesById
+  getMilestonesById,
+  updateMilestone
 }

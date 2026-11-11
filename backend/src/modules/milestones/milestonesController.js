@@ -44,8 +44,8 @@ const createMilestone = async (req, res, next) => {
 
 const getMilestonesById = async (req, res, next) => {
   try {
-    const { milestoneId } = req.params
-    const { userId } = req.query
+    const milestoneId = req.params.milestoneId
+    const userId = req.query.userId
 
     const milestone = await milestonesService.getMilestonesById(milestoneId, userId)
 
@@ -61,8 +61,27 @@ const getMilestonesById = async (req, res, next) => {
 }
 
 
+// Cập nhật Milestone
+const updateMilestone = async (req, res, next) => {
+  try {
+    const milestoneId = req.params.milestoneId
+    const userId = req.query.userId
+    const data = req.body
+
+    const milestone = await milestonesService.updateMilestone(milestoneId, userId, data)
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      data: milestone
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const milestonesController = {
   getMilestonesByGoalId,
   createMilestone,
-  getMilestonesById
+  getMilestonesById,
+  updateMilestone
 }
