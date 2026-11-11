@@ -8,6 +8,6 @@ const Router = express.Router()
 Router.use('/goals', goalsRoute)
 
 // Milestones Module
-Router.use('/goals', milestonesRoute)
+Router.use('/', milestonesRoute)
 
 export const routes = Router
