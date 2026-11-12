@@ -10,10 +10,10 @@ Router.route('/:goalId/milestones')
   .get(validate(milestonesValidation.getMilestonesByGoalId), milestonesController.getMilestonesByGoalId)
   .post(validate(milestonesValidation.createMilestone), milestonesController.createMilestone)
 
-// GET    /milestones/:milestoneId
-Router.get('/milestones/:milestoneId', validate(milestonesValidation.getMilestonesById), milestonesController.getMilestonesById)
-
-// PATCH /milestones/:milestoneId
-Router.patch('/milestones/:milestoneId', validate(milestonesValidation.updateMilestone), milestonesController.updateMilestone)
+//milestones/:milestoneId
+Router.route('/milestones/:milestoneId')
+  .get(validate(milestonesValidation.getMilestonesById), milestonesController.getMilestonesById)
+  .patch(validate(milestonesValidation.updateMilestone), milestonesController.updateMilestone)
+  .delete(validate(milestonesValidation.deleteMilestone), milestonesController.deleteMilestone)
 
 export const milestonesRoute = Router
