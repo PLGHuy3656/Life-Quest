@@ -44,6 +44,7 @@ model Milestone {
   position    Int
   status      String   @default("ACTIVE")
   completedAt DateTime?
+  deletedAt   DateTime?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

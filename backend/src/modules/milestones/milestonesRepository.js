@@ -5,7 +5,8 @@ import prisma from '../../config/database.js'
 const findMilestonesByGoalId = async (goalId) => {
   return await prisma.milestone.findMany({
     where: {
-      goalId
+      goalId,
+      deletedAt: null
     },
     orderBy: {
       position: 'asc'
@@ -53,10 +54,24 @@ const updateMilestone = async (milestoneId, data) => {
   })
 }
 
+
+// Xóa mềm Milestone
+const softDeleteMilestone = async (milestoneId) => {
+  return await prisma.milestone.update({
+    where: {
+      id: milestoneId
+    },
+    data: {
+      deletedAt: new Date()
+    }
+  })
+}
+
 export const milestonesRepository = {
   findMilestonesByGoalId,
   getMaxPositionByGoalId,
   createMilestone,
   findMilestonesById,
-  updateMilestone
+  updateMilestone,
+  softDeleteMilestone
 }
