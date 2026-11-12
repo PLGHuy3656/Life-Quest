@@ -79,9 +79,32 @@ const updateMilestone = async (req, res, next) => {
   }
 }
 
+// Xóa Milestone
+const deleteMilestone = async (req, res, next) => {
+  try {
+    const milestoneId = req.params.milestoneId
+    const userId = req.query.userId
+
+    await milestonesService.deleteMilestone(
+      milestoneId,
+      userId
+    )
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      data: {
+        message: 'Milestone deleted successfully'
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const milestonesController = {
   getMilestonesByGoalId,
   createMilestone,
   getMilestonesById,
-  updateMilestone
+  updateMilestone,
+  deleteMilestone
 }
