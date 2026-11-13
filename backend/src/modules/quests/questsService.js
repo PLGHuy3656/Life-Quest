@@ -75,8 +75,48 @@ const createQuest = async (questData) => {
   return createdQuest
 }
 
+// Lấy thông tin một Quest theo ID.
+const getQuestById = async (questId, userId) => {
+  // Tìm Quest theo ID.
+  const quest = await questsRepository.findQuestById(questId)
+
+  // Kiểm tra Quest có tồn tại.
+  if (!quest) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  // Kiểm tra Quest có thuộc User.
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  return quest
+}
+
+
+const updateQuest = async (questId, userId, questData) => {
+  // Tìm Quest cần cập nhật
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  // Cập nhật quest
+  const updateQuest = await questsRepository.updateQuest(questId, questData)
+
+  return updateQuest
+}
+
 
 export const questsService = {
   getQuestsByUserId,
-  createQuest
+  createQuest,
+  getQuestById,
+  updateQuest
 }
