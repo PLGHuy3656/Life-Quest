@@ -59,10 +59,34 @@ const deleteQuest = Joi.object({
   })
 })
 
+
+const pinQuest = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
+const unpinQuest = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
 export const questsValidation = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
   updateQuest,
-  deleteQuest
+  deleteQuest,
+  pinQuest,
+  unpinQuest
 }

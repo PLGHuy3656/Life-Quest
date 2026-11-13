@@ -92,12 +92,38 @@ const deleteQuest = async (questId) => {
   })
 }
 
+
+const pinQuest = async (questId) => {
+  return await prisma.quest.update({
+    where: {
+      id: questId
+    },
+    data: {
+      isPinned: true
+    }
+  })
+}
+
+
+const unpinQuest = async (questId) => {
+  return await prisma.quest.update({
+    where: {
+      id: questId
+    },
+    data: {
+      isPinned: false
+    }
+  })
+}
+
 export const questsRepository = {
   findQuestsByUserId,
   createQuest,
   findQuestById,
   updateQuest,
-  deleteQuest
+  deleteQuest,
+  pinQuest,
+  unpinQuest
 }
 
 export {

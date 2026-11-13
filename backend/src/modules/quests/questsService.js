@@ -108,9 +108,9 @@ const updateQuest = async (questId, userId, questData) => {
   }
 
   // Cập nhật quest
-  const updateQuest = await questsRepository.updateQuest(questId, questData)
+  const updatedQuest = await questsRepository.updateQuest(questId, questData)
 
-  return updateQuest
+  return updatedQuest
 }
 
 
@@ -127,16 +127,60 @@ const deleteQuest = async (questId, userId) => {
     throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
   }
 
-  const deleteQuest = await questsRepository.deleteQuest(questId)
+  const deletedQuest = await questsRepository.deleteQuest(questId)
 
-  return deleteQuest
+  return deletedQuest
 }
 
+
+const pinQuest = async (questId, userId) => {
+  // Tìm Quest cần cập nhật
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  if (quest.isPinned) {
+    throw new ApiError(409, 'Quest is already pinned', 'QUEST_ALREADY_PINNED')
+  }
+
+  const pinnedQuest = await questsRepository.pinQuest(questId)
+
+  return pinnedQuest
+}
+
+const unpinQuest = async (questId, userId) => {
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to unpin this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  if (!quest.isPinned) {
+    throw new ApiError(409, 'Quest is not pinned', 'QUEST_NOT_PINNED')
+  }
+
+  const unpinnedQuest = await questsRepository.unpinQuest(questId)
+
+  return unpinnedQuest
+}
 
 export const questsService = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
   updateQuest,
-  deleteQuest
+  deleteQuest,
+  pinQuest,
+  unpinQuest
 }

@@ -16,4 +16,9 @@ Router.route('/:questId')
   .patch(validate(questsValidation.updateQuest), questsController.updateQuest)
   .delete(validate(questsValidation.deleteQuest), questsController.deleteQuest)
 
+//   /quests/:questId/pin
+Router.route('/:questId/pin')
+  .post(validate(questsValidation.pinQuest), questsController.pinQuest)
+  .delete(validate(questsValidation.unpinQuest), questsController.unpinQuest)
+
 export const questsRoute = Router

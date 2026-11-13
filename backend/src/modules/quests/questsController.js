@@ -93,10 +93,50 @@ const deleteQuest = async (req, res, next) => {
   }
 }
 
+
+const pinQuest = async (req, res, next) => {
+  try {
+    const questId = req.params.questId
+    const userId = req.query.userId
+
+    const pinnedQuest = await questsService.pinQuest(questId, userId)
+
+    const responseData = {
+      success: true,
+      data: pinnedQuest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const unpinQuest = async (req, res, next) => {
+  try {
+    const questId = req.params.questId
+    const userId = req.query.userId
+
+    const unpinnedQuest = await questsService.unpinQuest(questId, userId)
+
+    const responseData = {
+      success: true,
+      data: unpinnedQuest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 export const questsController = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
   updateQuest,
-  deleteQuest
+  deleteQuest,
+  pinQuest,
+  unpinQuest
 }
