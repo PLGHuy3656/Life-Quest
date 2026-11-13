@@ -22,7 +22,36 @@ const createQuest = Joi.object({
 })
 
 
+const getQuestById = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
+// Validate dữ liệu khi cập nhật Quest.
+const updateQuest = Joi.object({
+  body: Joi.object({
+    title: Joi.string().trim().min(3).max(100),
+    description: Joi.string().trim().max(500).allow('')
+  })
+    .min(1)
+    .unknown(false),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
 export const questsValidation = {
   getQuestsByUserId,
-  createQuest
+  createQuest,
+  getQuestById,
+  updateQuest
 }

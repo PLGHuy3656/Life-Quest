@@ -34,7 +34,48 @@ const createQuest = async (req, res, next) => {
   }
 }
 
+
+const getQuestById = async (req, res, next) => {
+  try {
+    const questId = req.params.questId
+    const userId = req.query.userId
+
+    const quest = await questsService.getQuestById(questId, userId)
+    const responseData = {
+      success: true,
+      data: quest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+const updateQuest = async (req, res, next) => {
+  try {
+    const questData = req.body
+    const questId = req.params.questId
+    const userId = req.query.userId
+
+
+    const updatedQuest = await questsService.updateQuest(questId, userId, questData)
+
+    const responseData = {
+      success: true,
+      data: updatedQuest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const questsController = {
   getQuestsByUserId,
-  createQuest
+  createQuest,
+  getQuestById,
+  updateQuest
 }
