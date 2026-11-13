@@ -66,10 +66,25 @@ const deleteMilestone = Joi.object({
   })
 })
 
+
+const reorderMilestones = Joi.object({
+  body: Joi.object({
+    milestoneIds: Joi.array().items(Joi.string().uuid()).unique().required()
+  }).required(),
+  params: Joi.object({
+    goalId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
 export const milestonesValidation = {
   getMilestonesByGoalId,
   createMilestone,
   getMilestonesById,
   updateMilestone,
-  deleteMilestone
+  deleteMilestone,
+  reorderMilestones
 }

@@ -31,15 +31,9 @@ const findGoalsByUserId = async (userId) => {
 
 // Tìm kiếm chi tiết một mục tiêu (Goal) theo ID.
 const findGoalById = async (goalId, tx) => {
-  if (tx) {
-    return await prisma.goal.findUnique({
-      where: {
-        id: goalId
-      }
-    })
-  }
+  const db = tx ? tx : prisma
 
-  return await prisma.goal.findUnique({
+  return await db.goal.findUnique({
     where: {
       id: goalId
     }
