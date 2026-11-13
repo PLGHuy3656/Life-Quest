@@ -68,6 +68,7 @@ model Quest {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   deletedAt   DateTime?
+  isPinned    Boolean @default(false)
 
   user        User      @relation(fields: [userId], references: [id])
   goal        Goal?     @relation(fields: [goalId], references: [id])
