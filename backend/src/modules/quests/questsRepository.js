@@ -81,11 +81,23 @@ const updateQuest = async (questId, questData) => {
   })
 }
 
+const deleteQuest = async (questId) => {
+  return await prisma.quest.update({
+    where: {
+      id: questId
+    },
+    data: {
+      deletedAt: new Date()
+    }
+  })
+}
+
 export const questsRepository = {
   findQuestsByUserId,
   createQuest,
   findQuestById,
-  updateQuest
+  updateQuest,
+  deleteQuest
 }
 
 export {

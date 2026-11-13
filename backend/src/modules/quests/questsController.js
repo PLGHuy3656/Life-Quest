@@ -73,9 +73,30 @@ const updateQuest = async (req, res, next) => {
   }
 }
 
+
+const deleteQuest = async (req, res, next) => {
+  try {
+    const questId = req.params.questId
+    const userId = req.query.userId
+
+
+    const deletedQuest = await questsService.deleteQuest(questId, userId)
+
+    const responseData = {
+      success: true,
+      data: deletedQuest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const questsController = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
-  updateQuest
+  updateQuest,
+  deleteQuest
 }

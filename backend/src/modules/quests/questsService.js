@@ -114,9 +114,29 @@ const updateQuest = async (questId, userId, questData) => {
 }
 
 
+const deleteQuest = async (questId, userId) => {
+  // Tìm Quest cần cập nhật
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  const deleteQuest = await questsRepository.deleteQuest(questId)
+
+  return deleteQuest
+}
+
+
 export const questsService = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
-  updateQuest
+  updateQuest,
+  deleteQuest
 }
