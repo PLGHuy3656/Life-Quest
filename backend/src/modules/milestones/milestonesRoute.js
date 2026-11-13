@@ -11,13 +11,13 @@ Router.route('/:goalId/milestones')
   .post(validate(milestonesValidation.createMilestone), milestonesController.createMilestone)
 
 //milestones/:milestoneId
-Router.route('/milestones/:milestoneId')
+Router.route('/:milestoneId')
   .get(validate(milestonesValidation.getMilestonesById), milestonesController.getMilestonesById)
   .patch(validate(milestonesValidation.updateMilestone), milestonesController.updateMilestone)
   .delete(validate(milestonesValidation.deleteMilestone), milestonesController.deleteMilestone)
 
 // POST   /milestones/:milestoneId/complete
-Router.post('/milestones/:milestoneId/complete', validate(milestonesValidation.completeMilestone), milestonesController.completeMilestone)
+Router.post('/:milestoneId/complete', validate(milestonesValidation.completeMilestone), milestonesController.completeMilestone)
 // PATCH /goals/:goalId/milestones/reorder
 Router.patch('/:goalId/milestones/reorder', validate(milestonesValidation.reorderMilestones), milestonesController.reorderMilestones)
 
