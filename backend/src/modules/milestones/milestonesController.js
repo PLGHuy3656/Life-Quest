@@ -29,11 +29,11 @@ const createMilestone = async (req, res, next) => {
     const userId = req.query.userId
     const milestoneData = req.body
 
-    const milestone = await milestonesService.createMilestone(goalId, userId, milestoneData)
+    const createdMilestone = await milestonesService.createMilestone(goalId, userId, milestoneData)
 
     const responseData = {
       success: true,
-      data: milestone
+      data: createdMilestone
     }
 
     return res.status(StatusCodes.OK).json(responseData)
@@ -47,11 +47,11 @@ const getMilestonesById = async (req, res, next) => {
     const milestoneId = req.params.milestoneId
     const userId = req.query.userId
 
-    const milestone = await milestonesService.getMilestonesById(milestoneId, userId)
+    const getByIdMilestoned = await milestonesService.getMilestonesById(milestoneId, userId)
 
     const responseData = {
       success: true,
-      data: milestone
+      data: getByIdMilestoned
     }
 
     return res.status(StatusCodes.OK).json(responseData)
@@ -68,11 +68,11 @@ const updateMilestone = async (req, res, next) => {
     const userId = req.query.userId
     const data = req.body
 
-    const milestone = await milestonesService.updateMilestone(milestoneId, userId, data)
+    const updatedMilestone = await milestonesService.updateMilestone(milestoneId, userId, data)
 
     return res.status(StatusCodes.OK).json({
       success: true,
-      data: milestone
+      data: updatedMilestone
     })
   } catch (error) {
     next(error)
@@ -85,16 +85,28 @@ const deleteMilestone = async (req, res, next) => {
     const milestoneId = req.params.milestoneId
     const userId = req.query.userId
 
-    await milestonesService.deleteMilestone(
-      milestoneId,
-      userId
-    )
+    const deletedMilestone = await milestonesService.deleteMilestone(milestoneId, userId)
 
     return res.status(StatusCodes.OK).json({
       success: true,
-      data: {
-        message: 'Milestone deleted successfully'
-      }
+      data: deletedMilestone
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+const completeMilestone = async (req, res, next) => {
+  try {
+    const milestoneId = req.params.milestoneId
+    const userId = req.query.userId
+
+    const completedMilestone = await milestonesService.completeMilestone(milestoneId, userId)
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      data: completedMilestone
     })
   } catch (error) {
     next(error)
@@ -106,5 +118,6 @@ export const milestonesController = {
   createMilestone,
   getMilestonesById,
   updateMilestone,
-  deleteMilestone
+  deleteMilestone,
+  completeMilestone
 }

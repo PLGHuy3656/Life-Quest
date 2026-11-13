@@ -143,10 +143,41 @@ const deleteMilestone = async (milestoneId, userId) => {
 }
 
 
+const completeMilestone = async (milestoneId, userId) => {
+  // Tìm Milestone
+  const milestone = await milestonesRepository.findMilestonesById(milestoneId)
+
+  if (!milestone || milestone.deletedAt !== null) {
+    throw new ApiError(404, 'Milestone not found', 'MILESTONE_NOT_FOUND')
+  }
+
+
+  // Tìm goal chứa milestone
+  const goal = await goalsRepository.findGoalById(milestone.goalId)
+
+  // Kiểm tra quyền sở hữu Goal
+  if (goal.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to delete this milestone', 'GOAL_ACCESS_DENIED')
+  }
+
+  // Không cho phép xóa Milestone thuộc Goal đã ARCHIVED
+  if (goal.status === 'ARCHIVED') {
+    throw new ApiError(403, 'Cannot delete milestone of an archived goal', 'GOAL_ARCHIVED')
+  }
+
+  if (milestone.status === 'COMPLETED') {
+    throw new ApiError(400, 'Milestone is already completed', 'MILESTONE_ALREADY_COMPLETED')
+  }
+
+  return await milestonesRepository.completeMilestone(milestoneId)
+}
+
+
 export const milestonesService = {
   getMilestonesByGoalId,
   createMilestone,
   getMilestonesById,
   updateMilestone,
-  deleteMilestone
+  deleteMilestone,
+  completeMilestone
 }

@@ -16,4 +16,7 @@ Router.route('/milestones/:milestoneId')
   .patch(validate(milestonesValidation.updateMilestone), milestonesController.updateMilestone)
   .delete(validate(milestonesValidation.deleteMilestone), milestonesController.deleteMilestone)
 
+// POST   /milestones/:milestoneId/complete
+Router.post('/milestones/:milestoneId/complete', validate(milestonesValidation.completeMilestone), milestonesController.completeMilestone)
+
 export const milestonesRoute = Router
