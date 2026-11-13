@@ -113,11 +113,31 @@ const completeMilestone = async (req, res, next) => {
   }
 }
 
+
+const reorderMilestones = async (req, res, next) => {
+  try {
+    const goalId = req.params.goalId
+    const userId = req.query.userId
+    const milestoneIds = req.body.milestoneIds
+
+    const reorderedMilestones = await milestonesService.reorderMilestones(goalId, userId, milestoneIds)
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      data: reorderedMilestones
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 export const milestonesController = {
   getMilestonesByGoalId,
   createMilestone,
   getMilestonesById,
   updateMilestone,
   deleteMilestone,
+  reorderMilestones
   completeMilestone
 }
