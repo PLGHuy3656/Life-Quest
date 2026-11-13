@@ -94,6 +94,6 @@ export const milestonesValidation = {
   getMilestonesById,
   updateMilestone,
   deleteMilestone,
+  completeMilestone,
   reorderMilestones
-  completeMilestone
 }
