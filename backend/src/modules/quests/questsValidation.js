@@ -49,9 +49,20 @@ const updateQuest = Joi.object({
   })
 })
 
+const deleteQuest = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
 export const questsValidation = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
-  updateQuest
+  updateQuest,
+  deleteQuest
 }

@@ -14,5 +14,6 @@ Router.route('/')
 Router.route('/:questId')
   .get(validate(questsValidation.getQuestById), questsController.getQuestById)
   .patch(validate(questsValidation.updateQuest), questsController.updateQuest)
+  .delete(validate(questsValidation.deleteQuest), questsController.deleteQuest)
 
 export const questsRoute = Router
