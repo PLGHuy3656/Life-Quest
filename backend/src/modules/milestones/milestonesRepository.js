@@ -91,6 +91,20 @@ const softDeleteMilestone = async (milestoneId) => {
 }
 
 
+// Đánh dấu Milestone đã hoàn thành
+const completeMilestone = async (milestoneId) => {
+  return await prisma.milestone.update({
+    where: {
+      id: milestoneId
+    },
+    data: {
+      status: 'COMPLETED',
+      completedAt: new Date()
+    }
+  })
+}
+
+
 // Sắp xếp lại thứ tự Milestone trong Goal
 const reorderMilestones = async (goalId, milestoneIds, tx) => {
   // Lấy tất cả Milestone của Goal
@@ -146,18 +160,8 @@ const reorderMilestones = async (goalId, milestoneIds, tx) => {
   )
 
   return reorderedMilestones
-// Đánh dấu Milestone đã hoàn thành
-const completeMilestone = async (milestoneId) => {
-  return await prisma.milestone.update({
-    where: {
-      id: milestoneId
-    },
-    data: {
-      status: 'COMPLETED',
-      completedAt: new Date()
-    }
-  })
 }
+
 
 export const milestonesRepository = {
   findMilestonesByGoalId,
@@ -168,6 +172,6 @@ export const milestonesRepository = {
   findMilestonesById,
   updateMilestone,
   softDeleteMilestone,
+  completeMilestone,
   reorderMilestones
-  completeMilestone
 }

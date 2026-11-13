@@ -16,9 +16,9 @@ Router.route('/milestones/:milestoneId')
   .patch(validate(milestonesValidation.updateMilestone), milestonesController.updateMilestone)
   .delete(validate(milestonesValidation.deleteMilestone), milestonesController.deleteMilestone)
 
-// PATCH /goals/:goalId/milestones/reorder
-Router.patch('/:goalId/milestones/reorder', validate(milestonesValidation.reorderMilestones), milestonesController.reorderMilestones)
 // POST   /milestones/:milestoneId/complete
 Router.post('/milestones/:milestoneId/complete', validate(milestonesValidation.completeMilestone), milestonesController.completeMilestone)
+// PATCH /goals/:goalId/milestones/reorder
+Router.patch('/:goalId/milestones/reorder', validate(milestonesValidation.reorderMilestones), milestonesController.reorderMilestones)
 
 export const milestonesRoute = Router

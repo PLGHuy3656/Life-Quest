@@ -138,6 +138,6 @@ export const milestonesController = {
   getMilestonesById,
   updateMilestone,
   deleteMilestone,
+  completeMilestone,
   reorderMilestones
-  completeMilestone
 }
