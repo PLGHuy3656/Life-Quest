@@ -56,11 +56,19 @@ const updateMilestone = Joi.object({
 
 const deleteMilestone = Joi.object({
   body: Joi.object().unknown(true).optional(),
-
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
 
+const completeMilestone = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    milestoneId: Joi.string().uuid().required()
+  }),
   query: Joi.object({
     userId: Joi.string().uuid().required()
   })
@@ -87,4 +95,5 @@ export const milestonesValidation = {
   updateMilestone,
   deleteMilestone,
   reorderMilestones
+  completeMilestone
 }
