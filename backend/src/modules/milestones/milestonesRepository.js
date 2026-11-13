@@ -146,6 +146,17 @@ const reorderMilestones = async (goalId, milestoneIds, tx) => {
   )
 
   return reorderedMilestones
+// Đánh dấu Milestone đã hoàn thành
+const completeMilestone = async (milestoneId) => {
+  return await prisma.milestone.update({
+    where: {
+      id: milestoneId
+    },
+    data: {
+      status: 'COMPLETED',
+      completedAt: new Date()
+    }
+  })
 }
 
 export const milestonesRepository = {
@@ -158,4 +169,5 @@ export const milestonesRepository = {
   updateMilestone,
   softDeleteMilestone,
   reorderMilestones
+  completeMilestone
 }
