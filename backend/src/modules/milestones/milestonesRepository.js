@@ -67,11 +67,26 @@ const softDeleteMilestone = async (milestoneId) => {
   })
 }
 
+
+// Đánh dấu Milestone đã hoàn thành
+const completeMilestone = async (milestoneId) => {
+  return await prisma.milestone.update({
+    where: {
+      id: milestoneId
+    },
+    data: {
+      status: 'COMPLETED',
+      completedAt: new Date()
+    }
+  })
+}
+
 export const milestonesRepository = {
   findMilestonesByGoalId,
   getMaxPositionByGoalId,
   createMilestone,
   findMilestonesById,
   updateMilestone,
-  softDeleteMilestone
+  softDeleteMilestone,
+  completeMilestone
 }
