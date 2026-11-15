@@ -4,7 +4,11 @@ const getQuestsByUserId = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object().unknown(true).optional(),
   query: Joi.object({
-    userId: Joi.string().uuid().required()
+    userId: Joi.string().uuid().required(),
+    status: Joi.string().valid('ACTIVE', 'ARCHIVED').optional(),
+    goalId: Joi.string().uuid().optional(),
+    milestoneId: Joi.string().uuid().optional(),
+    search: Joi.string().trim().min(1).max(100).optional()
   })
 })
 
@@ -81,6 +85,28 @@ const unpinQuest = Joi.object({
   })
 })
 
+const archiveQuest = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
+const restoreQuest = Joi.object({
+  body: Joi.object().unknown(true).optional(),
+  params: Joi.object({
+    questId: Joi.string().uuid().required()
+  }),
+  query: Joi.object({
+    userId: Joi.string().uuid().required()
+  })
+})
+
+
 export const questsValidation = {
   getQuestsByUserId,
   createQuest,
@@ -88,5 +114,7 @@ export const questsValidation = {
   updateQuest,
   deleteQuest,
   pinQuest,
-  unpinQuest
+  unpinQuest,
+  archiveQuest,
+  restoreQuest
 }

@@ -21,4 +21,9 @@ Router.route('/:questId/pin')
   .post(validate(questsValidation.pinQuest), questsController.pinQuest)
   .delete(validate(questsValidation.unpinQuest), questsController.unpinQuest)
 
+//   /quests/:questId/archive
+Router.post('/:questId/archive', validate(questsValidation.archiveQuest), questsController.archiveQuest)
+
+//   /quests/:questId/restore
+Router.post('/:questId/restore', validate(questsValidation.restoreQuest), questsController.restoreQuest)
 export const questsRoute = Router

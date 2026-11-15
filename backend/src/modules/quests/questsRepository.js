@@ -33,11 +33,33 @@ const validateQuestBeforeUpdate = async (questData) => {
   })
 }
 
-const findQuestsByUserId = async (userId) => {
+const findQuestsByUserId = async (userId, filters = {}) => {
+  const where = {
+    userId,
+    deletedAt: null
+  }
+
+  if (filters.status) {
+    where.status = filters.status
+  }
+
+  if (filters.goalId) {
+    where.goalId = filters.goalId
+  }
+
+  if (filters.milestoneId) {
+    where.milestoneId = filters.milestoneId
+  }
+
+  if (filters.search) {
+    where.title = {
+      contains: filters.search,
+      mode: 'insensitive' // Không phân biệt chữ hoa chữ thường
+    }
+  }
+
   return await prisma.quest.findMany({
-    where: {
-      userId
-    },
+    where,
     orderBy: {
       createdAt: 'desc'
     }
@@ -116,6 +138,30 @@ const unpinQuest = async (questId) => {
   })
 }
 
+
+const archiveQuest = async (questId) => {
+  return await prisma.quest.update({
+    where: {
+      id: questId
+    },
+    data: {
+      status: 'ARCHIVED'
+    }
+  })
+}
+
+const restoreQuest = async (questId) => {
+  return await prisma.quest.update({
+    where: {
+      id: questId
+    },
+    data: {
+      status: 'ACTIVE'
+    }
+  })
+}
+
+
 export const questsRepository = {
   findQuestsByUserId,
   createQuest,
@@ -123,7 +169,9 @@ export const questsRepository = {
   updateQuest,
   deleteQuest,
   pinQuest,
-  unpinQuest
+  unpinQuest,
+  archiveQuest,
+  restoreQuest
 }
 
 export {

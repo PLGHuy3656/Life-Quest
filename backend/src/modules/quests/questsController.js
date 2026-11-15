@@ -4,9 +4,9 @@ import { StatusCodes } from 'http-status-codes'
 
 const getQuestsByUserId = async (req, res, next) => {
   try {
-    const userId = req.query.userId
+    const { userId, status, goalId, milestoneId, search } = req.query
 
-    const quests = await questsService.getQuestsByUserId(userId)
+    const quests = await questsService.getQuestsByUserId(userId, { status, goalId, milestoneId, search })
 
     return res.status(StatusCodes.OK).json({
       success: true,
@@ -130,6 +130,38 @@ const unpinQuest = async (req, res, next) => {
   }
 }
 
+const archiveQuest = async (req, res, next) => {
+  try {
+    const questId = req.params.questId
+    const userId = req.query.userId
+
+    const archivedQuest = await questsService.archiveQuest(questId, userId)
+
+    const responseData = {
+      success: true,
+      data: archivedQuest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+const restoreQuest = async (req, res) => {
+  const questId = req.params.questId
+  const userId = req.query.userId
+
+  const restoredQuest = await questsService.restoreQuest(questId, userId)
+
+  const responseData = {
+    success: true,
+    data: restoredQuest
+  }
+
+  return res.status(StatusCodes.OK).json(responseData)
+}
 
 export const questsController = {
   getQuestsByUserId,
@@ -138,5 +170,7 @@ export const questsController = {
   updateQuest,
   deleteQuest,
   pinQuest,
-  unpinQuest
+  unpinQuest,
+  archiveQuest,
+  restoreQuest
 }
