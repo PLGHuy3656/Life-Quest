@@ -5,8 +5,8 @@ import { usersRepository } from '../users/usersRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
 
 
-const getQuestsByUserId = async (userId) => {
-  const quests = await questsRepository.findQuestsByUserId(userId)
+const getQuestsByUserId = async (userId, filters = {}) => {
+  const quests = await questsRepository.findQuestsByUserId(userId, filters)
 
   return quests
 }
@@ -107,6 +107,10 @@ const updateQuest = async (questId, userId, questData) => {
     throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
   }
 
+  if (quest.status === 'ARCHIVED') {
+    throw new ApiError(409, 'Archived quest cannot be updated', 'QUEST_CANNOT_UPDATE')
+  }
+
   // Cập nhật quest
   const updatedQuest = await questsRepository.updateQuest(questId, questData)
 
@@ -150,6 +154,10 @@ const pinQuest = async (questId, userId) => {
     throw new ApiError(409, 'Quest is already pinned', 'QUEST_ALREADY_PINNED')
   }
 
+  if (quest.status === 'ARCHIVED') {
+    throw new ApiError(409, 'Archived quest cannot be pinned', 'QUEST_CANNOT_PIN')
+  }
+
   const pinnedQuest = await questsRepository.pinQuest(questId)
 
   return pinnedQuest
@@ -175,6 +183,50 @@ const unpinQuest = async (questId, userId) => {
   return unpinnedQuest
 }
 
+const archiveQuest = async (questId, userId) => {
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to archive this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  if (quest.status === 'ARCHIVED') {
+    throw new ApiError(409, 'Quest is already archived', 'QUEST_ALREADY_ARCHIVED')
+  }
+
+  const archivedQuest = await questsRepository.archiveQuest(questId)
+
+  return archivedQuest
+}
+
+
+const restoreQuest = async (questId, userId) => {
+  // Tìm Quest
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  // Kiểm tra quyền sở hữu
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to restore this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  // Chỉ cho phép Restore Quest đã Archive
+  if (quest.status !== 'ARCHIVED') {
+    throw new ApiError(409, 'Quest is not archived', 'QUEST_NOT_ARCHIVED')
+  }
+
+  const restoredQuest = await questsRepository.restoreQuest(questId)
+
+  return restoredQuest
+}
+
 export const questsService = {
   getQuestsByUserId,
   createQuest,
@@ -182,5 +234,7 @@ export const questsService = {
   updateQuest,
   deleteQuest,
   pinQuest,
-  unpinQuest
+  unpinQuest,
+  archiveQuest,
+  restoreQuest
 }

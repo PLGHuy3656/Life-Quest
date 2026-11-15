@@ -7,6 +7,20 @@ datasource db {
   provider = "postgresql"
 }
 
+enum QuestType {
+  SIMPLE
+  QUANTITY
+  DURATION
+  PROGRESS
+  FOCUS
+}
+
+enum ProofRequirement {
+  NONE
+  OPTIONAL
+  REQUIRED
+}
+
 model User {
   id           String   @id @default(uuid())
   email        String   @unique
