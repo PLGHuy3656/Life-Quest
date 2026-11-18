@@ -1,0 +1,66 @@
+{
+  "front": {
+    "silhouette_iou": 0.762,
+    "ref_bbox_px": [
+      133,
+      28,
+      620,
+      676
+    ],
+    "model_bbox_px": [
+      103,
+      35,
+      580,
+      669
+    ],
+    "height_ratio_model_over_ref": 0.978
+  },
+  "34": {
+    "silhouette_iou": 0.659,
+    "ref_bbox_px": [
+      126,
+      27,
+      601,
+      679
+    ],
+    "model_bbox_px": [
+      2,
+      35,
+      562,
+      669
+    ],
+    "height_ratio_model_over_ref": 0.972
+  },
+  "side": {
+    "silhouette_iou": 0.833,
+    "ref_bbox_px": [
+      161,
+      20,
+      664,
+      677
+    ],
+    "model_bbox_px": [
+      163,
+      35,
+      680,
+      669
+    ],
+    "height_ratio_model_over_ref": 0.965
+  },
+  "back": {
+    "silhouette_iou": 0.848,
+    "ref_bbox_px": [
+      119,
+      34,
+      602,
+      670
+    ],
+    "model_bbox_px": [
+      143,
+      35,
+      620,
+      669
+    ],
+    "height_ratio_model_over_ref": 0.997
+  }
+}

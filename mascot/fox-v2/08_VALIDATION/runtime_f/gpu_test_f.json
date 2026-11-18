@@ -1,0 +1,22 @@
+{
+  "gate": "F",
+  "date": "2026-11-17",
+  "device": "lenovo-fox (Windows), AMD Radeon 780M Graphics, ANGLE Direct3D11",
+  "browser": "Claude desktop app built-in browser pane, Chromium 156.0.8078.75, DPR 1.5, viewport 489 x 626",
+  "served_from": "python http.server 127.0.0.1:8766 (localhost only, stopped after the test)",
+  "build": "companion_sandbox/dist (GLB fox_v2_anim_e2.glb e884d675...)",
+  "valid_measurements": {
+    "full_view_single_companion": { "fps": 59.7, "page_raf_p50_ms": 16.7, "page_raf_p95_ms": 16.9, "update_ms_avg": 0.526, "update_ms_max": 1.96, "render_submit_ms_avg": 1.338, "render_submit_ms_max": 7.57, "canvas_px": [667, 778], "draw_calls": 48, "triangles": 73842, "gpu_geometries": 53, "gpu_textures": 34, "js_heap_mb": 32.4 },
+    "glb_load": { "bytes": 2706776, "fetch_ms": 25, "parse_ms": 29, "total_ms": 55, "second_instance": "served from the shared cache (no 2nd download)" },
+    "render_follows_page_frame_rate": "In every run where the page rAF rate was stable, each companion rendered exactly one frame per page frame (fps == page rAF Hz): 29.5 = 29.5 and 30.2 = 30.2 (dashboard, 2 canvases), 29.8 = 29.8 (full view), 15 = 15 (dashboard) while the host throttled the pane.",
+    "per_frame_cost_two_companions": { "mini_update_ms": [0.43, 0.57], "mini_render_submit_ms": [1.8, 2.0], "widget_update_ms": [0.26, 0.36], "widget_render_submit_ms": [1.16, 1.27] },
+    "real_visibility_hidden": { "observed": "window really hidden (document.visibilityState = hidden)", "frames_during_3s": "unchanged (mini 1154, widget 564)", "paused": [true, true], "active": [false, false] },
+    "real_visibility_restored": { "paused": [false, false], "frames_after": "mini 1462, widget 872 (rendering again)" },
+    "mount_unmount_20_cycles": { "shared_dispose_listeners_start": [61, 12], "shared_dispose_listeners_end": [61, 12], "canvases": "2 -> 2", "instances": "2 -> 2", "glb_cache_refs": 2, "js_heap_mb_trend_no_forced_gc": [[0, 24.4], [5, 17.8], [10, 30.1], [15, 30.0], [20, 30.1]], "remount_to_registered_ms_avg": 903 }
+  },
+  "not_verified_on_gpu": {
+    "dashboard_two_companions_at_60hz": "Not verified. During the dashboard runs the host app throttled the pane (page rAF 15-30 Hz, timers throttled) because the app window was not in the foreground. One early run showed 31.2 / 15.7 fps at a 60 Hz page rAF and a later one 37 / 37; neither could be reproduced under stable conditions. No 60 fps claim is made for two simultaneous canvases.",
+    "pointer_overhead_on_gpu": "Not measured: page timers were throttled (5 synthetic pointer events in 4 s). Raycast cost was measured in headless Chrome instead (0.04 ms avg, CPU-bound, not GPU-dependent).",
+    "mobile": "No real mobile device available: mobile performance remains unverified."
+  }
+}
