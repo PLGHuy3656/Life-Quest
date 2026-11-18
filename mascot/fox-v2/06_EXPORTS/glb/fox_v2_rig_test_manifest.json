@@ -1,0 +1,324 @@
+{
+  "file": "06_EXPORTS/glb/fox_v2_rig_test.glb",
+  "bytes": 2089748,
+  "source": "03_RIG/fox_rig_d1_1.blend",
+  "blender": "5.3.0",
+  "export_lod": "Subdivision level 0 (0 = base cage); scarf roll + bandana at level 1",
+  "triangles_exported_estimate": 73840,
+  "decal_refit_mm": {
+    "FOX_Eye_L": 0.29,
+    "FOX_EyeClosedHappy_L": 0.26,
+    "FOX_EyeClosedSleepy_L": 0.23,
+    "FOX_Brow_L": 0.23,
+    "FOX_Blush_L": 0.42,
+    "FOX_Eye_R": 0.29,
+    "FOX_EyeClosedHappy_R": 0.26,
+    "FOX_EyeClosedSleepy_R": 0.23,
+    "FOX_Brow_R": 0.23,
+    "FOX_Blush_R": 0.41,
+    "FOX_Nose": 0.26,
+    "FOX_Mouth_Neutral": 0.63,
+    "FOX_Mouth_Open": 0.49,
+    "FOX_Mouth_Tongue": 0.62,
+    "FOX_Mouth_SmallO": 0.64,
+    "FOX_Mouth_Frown": 0.58,
+    "FOX_Mouth_Smile": 0.6
+  },
+  "duplicate_material_slots_remapped": 12,
+  "nodes": 70,
+  "skins": 1,
+  "joints": 28,
+  "materials": [
+    "MAT_Fox_Orange",
+    "MAT_Fox_Brown",
+    "MAT_Cheek_Blush",
+    "MAT_Face_Detail",
+    "MAT_Eye",
+    "MAT_Tongue",
+    "MAT_Mouth_Inside",
+    "MAT_Fox_Cream",
+    "MAT_Backpack_Buckle",
+    "MAT_Backpack_Green",
+    "MAT_Scarf_Emblem",
+    "MAT_Scarf_Red"
+  ],
+  "textures": 0,
+  "images": 0,
+  "extensions_used": [
+    "KHR_materials_clearcoat",
+    "KHR_materials_specular",
+    "KHR_materials_sheen"
+  ],
+  "animations": {
+    "fox_blink_test": {
+      "channels": 86,
+      "weights_channels": 2,
+      "nodes": [
+        "FOX_Eye_L",
+        "FOX_Eye_R"
+      ]
+    },
+    "fox_head_turn_test": {
+      "channels": 84,
+      "weights_channels": 0,
+      "nodes": []
+    },
+    "fox_idle_test": {
+      "channels": 86,
+      "weights_channels": 2,
+      "nodes": [
+        "FOX_Eye_L",
+        "FOX_Eye_R"
+      ]
+    },
+    "fox_tail_sway_test": {
+      "channels": 84,
+      "weights_channels": 0,
+      "nodes": []
+    }
+  },
+  "meshes": {
+    "FOX_Arm_L": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Blush_L": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Blush_R": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Brow_L": {
+      "primitives": 1,
+      "morph_targets": 3,
+      "target_names": [
+        "show",
+        "Sad",
+        "Proud"
+      ]
+    },
+    "FOX_Brow_R": {
+      "primitives": 1,
+      "morph_targets": 3,
+      "target_names": [
+        "show",
+        "Sad",
+        "Proud"
+      ]
+    },
+    "FOX_Eye_L": {
+      "primitives": 1,
+      "morph_targets": 6,
+      "target_names": [
+        "Blink",
+        "Wide",
+        "Sad",
+        "HalfLid",
+        "Proud",
+        "hide"
+      ]
+    },
+    "FOX_Eye_R": {
+      "primitives": 1,
+      "morph_targets": 6,
+      "target_names": [
+        "Blink",
+        "Wide",
+        "Sad",
+        "HalfLid",
+        "Proud",
+        "hide"
+      ]
+    },
+    "FOX_EyeClosedHappy_L": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedHappy_R": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedSleepy_L": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedSleepy_R": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Frown": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Neutral": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "hide"
+      ]
+    },
+    "FOX_Mouth_Tongue": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Open": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_SmallO": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Smile": {
+      "primitives": 1,
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Nose": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Tuft": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Head": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_Buckle": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_BuckleHole": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_Flap": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_Pocket_L": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_Pocket_R": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_Strap_L": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack_Strap_R": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Backpack": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Arm_R": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Body": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Ear_L": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Ear_R": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_EarInner_L": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_EarInner_R": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Leg_L": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Leg_R": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Scarf_Emblem": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Scarf_Flap": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Scarf_Roll": {
+      "primitives": 1,
+      "morph_targets": 0,
+      "target_names": []
+    },
+    "FOX_Tail": {
+      "primitives": 2,
+      "morph_targets": 0,
+      "target_names": []
+    }
+  }
+}
