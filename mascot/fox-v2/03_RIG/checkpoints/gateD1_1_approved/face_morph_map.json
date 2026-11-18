@@ -1,0 +1,193 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "D1.1",
+  "mechanism": "glTF morph targets only. Default-visible parts carry a \"hide\" morph (collapse to a point); swap parts have a collapsed basis and a \"show\" morph; brow variants Sad/Proud are complete alternatives (use instead of show). No visibility animation, no drivers.",
+  "default_visible": [
+    "FOX_Eye_L",
+    "FOX_Eye_R",
+    "FOX_Mouth_Neutral"
+  ],
+  "swap_parts": [
+    "FOX_EyeClosedHappy_L",
+    "FOX_EyeClosedHappy_R",
+    "FOX_EyeClosedSleepy_L",
+    "FOX_EyeClosedSleepy_R",
+    "FOX_Mouth_Open",
+    "FOX_Mouth_Tongue",
+    "FOX_Mouth_SmallO",
+    "FOX_Mouth_Frown",
+    "FOX_Mouth_Smile",
+    "FOX_Brow_L",
+    "FOX_Brow_R"
+  ],
+  "morphs": {
+    "FOX_Eye_L": [
+      "Blink",
+      "Wide",
+      "Sad",
+      "HalfLid",
+      "Proud",
+      "hide"
+    ],
+    "FOX_Eye_R": [
+      "Blink",
+      "Wide",
+      "Sad",
+      "HalfLid",
+      "Proud",
+      "hide"
+    ],
+    "FOX_Mouth_Neutral": [
+      "hide"
+    ],
+    "FOX_EyeClosedHappy_L": [
+      "show"
+    ],
+    "FOX_EyeClosedHappy_R": [
+      "show"
+    ],
+    "FOX_EyeClosedSleepy_L": [
+      "show"
+    ],
+    "FOX_EyeClosedSleepy_R": [
+      "show"
+    ],
+    "FOX_Mouth_Open": [
+      "show"
+    ],
+    "FOX_Mouth_Tongue": [
+      "show"
+    ],
+    "FOX_Mouth_SmallO": [
+      "show"
+    ],
+    "FOX_Mouth_Frown": [
+      "show"
+    ],
+    "FOX_Mouth_Smile": [
+      "show"
+    ],
+    "FOX_Brow_L": [
+      "show",
+      "Sad",
+      "Proud"
+    ],
+    "FOX_Brow_R": [
+      "show",
+      "Sad",
+      "Proud"
+    ]
+  },
+  "expressions": {
+    "neutral": {},
+    "blink": {
+      "FOX_Eye_L": {
+        "Blink": 1
+      },
+      "FOX_Eye_R": {
+        "Blink": 1
+      }
+    },
+    "happy": {
+      "FOX_Eye_L": {
+        "hide": 1
+      },
+      "FOX_Eye_R": {
+        "hide": 1
+      },
+      "FOX_EyeClosedHappy_L": {
+        "show": 1
+      },
+      "FOX_EyeClosedHappy_R": {
+        "show": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Open": {
+        "show": 1
+      },
+      "FOX_Mouth_Tongue": {
+        "show": 1
+      }
+    },
+    "proud": {
+      "FOX_Eye_L": {
+        "Proud": 1
+      },
+      "FOX_Eye_R": {
+        "Proud": 1
+      },
+      "FOX_Brow_L": {
+        "Proud": 1
+      },
+      "FOX_Brow_R": {
+        "Proud": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Smile": {
+        "show": 1
+      }
+    },
+    "sad": {
+      "FOX_Eye_L": {
+        "Sad": 1
+      },
+      "FOX_Eye_R": {
+        "Sad": 1
+      },
+      "FOX_Brow_L": {
+        "Sad": 1
+      },
+      "FOX_Brow_R": {
+        "Sad": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Frown": {
+        "show": 1
+      }
+    },
+    "surprised": {
+      "FOX_Eye_L": {
+        "Wide": 1
+      },
+      "FOX_Eye_R": {
+        "Wide": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Open": {
+        "show": 1
+      },
+      "FOX_Mouth_Tongue": {
+        "show": 1
+      }
+    },
+    "sleepy": {
+      "FOX_Eye_L": {
+        "hide": 1
+      },
+      "FOX_Eye_R": {
+        "hide": 1
+      },
+      "FOX_EyeClosedSleepy_L": {
+        "show": 1
+      },
+      "FOX_EyeClosedSleepy_R": {
+        "show": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_SmallO": {
+        "show": 1
+      }
+    }
+  },
+  "runtime_note": "Three.js: set mesh.morphTargetInfluences[mesh.morphTargetDictionary[name]]; set frustumCulled=false on collapsed-basis meshes (their bounding sphere is a point)."
+}

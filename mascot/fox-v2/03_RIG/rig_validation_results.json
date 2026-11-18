@@ -1,0 +1,105 @@
+{
+  "blender": "5.3.0",
+  "results": [
+    {
+      "check": "fox_master.blend untouched (== gateC_r4 checkpoint)",
+      "pass": true,
+      "detail": "16ce1a046eb3842b"
+    },
+    {
+      "check": "exists 03_RIG/fox_rig_prototype.blend",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exists 03_RIG/skeleton_spec.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exists 03_RIG/attachment_points.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "rig file opens",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "armature FOX_RIG in RIG collection",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "bones match skeleton_spec.json",
+      "pass": true,
+      "detail": "29 bones"
+    },
+    {
+      "check": "required bones present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "hierarchy matches spec",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "NECK / ARM_* / TAIL_01 ignore body scale (head never squashes)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "armature modifier first on skinned meshes",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "vertex groups map to deform bones",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "every skinned vertex weighted",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "weights normalised (sum = 1)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "head rigid on HEAD bone",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "backpack attached to SPINE bone",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "FACE control properties present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "all drivers valid",
+      "pass": true,
+      "detail": "42 drivers"
+    },
+    {
+      "check": "deformation test action present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test markers T1-T6",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}
