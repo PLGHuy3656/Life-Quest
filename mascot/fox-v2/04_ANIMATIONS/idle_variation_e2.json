@@ -1,0 +1,14 @@
+{
+  "description": "Runtime idle variation layer (Gate E2). Small procedural events layered on top of the 6 s idle clip so the idle never reads as a mechanical loop. Implemented in 07_WEB_PREVIEW/fox_interactive_e2.html (updateIdleVariation).",
+  "enabled": true,
+  "seed_default": 7,
+  "gate": "active only while idle is the dominant base (idle weight > 0.9), no one-shot is playing, the pointer is not hovering the head or tail and the fox is not being dragged; fades in/out over ~0.25 s",
+  "idle_time_scale": {"min": 0.94, "max": 1.06, "note": "re-drawn each time the idle clip wraps, so successive loops are not identical in tempo"},
+  "events": {
+    "blink":      {"interval_s": [3.5, 7.5], "double_chance": 0.25, "duration_s": 0.24, "drives": "FOX_Eye_L/R morph Blink (max with the clip value; skipped while the eyes are hidden by an expression)"},
+    "ear_twitch": {"interval_s": [7.0, 14.0], "duration_s": 0.32, "amplitude_deg": {"forward": 12, "out": 6}, "drives": "EAR_L_01 or EAR_R_01 (random side)"},
+    "glance":     {"interval_s": [10.0, 20.0], "duration_s": [1.4, 2.4], "amplitude_deg": {"yaw": 8, "roll": 4}, "drives": "NECK (additive, root frame)", "skip_when": "the cursor is being tracked"},
+    "tail_flick": {"interval_s": [6.0, 12.0], "duration_s": 0.6, "amplitude_deg": 10, "drives": "TAIL_01..04 sway, phase-lagged"}
+  },
+  "test_hooks": "?seed=N fixes the random sequence; window.__fox.idleVar exposes the schedule and the event log"
+}
