@@ -149,18 +149,22 @@ const archiveQuest = async (req, res, next) => {
 }
 
 
-const restoreQuest = async (req, res) => {
-  const questId = req.params.questId
-  const userId = req.query.userId
+const restoreQuest = async (req, res, next) => {
+  try {
+    const questId = req.params.questId
+    const userId = req.query.userId
 
-  const restoredQuest = await questsService.restoreQuest(questId, userId)
+    const restoredQuest = await questsService.restoreQuest(questId, userId)
 
-  const responseData = {
-    success: true,
-    data: restoredQuest
+    const responseData = {
+      success: true,
+      data: restoredQuest
+    }
+
+    return res.status(StatusCodes.OK).json(responseData)
+  } catch (error) {
+    next(error)
   }
-
-  return res.status(StatusCodes.OK).json(responseData)
 }
 
 export const questsController = {
