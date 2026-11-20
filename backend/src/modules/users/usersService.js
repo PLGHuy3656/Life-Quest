@@ -43,11 +43,29 @@ const createUser = async (userData) => {
   const passwordHash = await bcrypt.hash(userData.password, 10)
 
 
-  const user = await usersRepository.createUser({
-    email: userData.email,
-    username: userData.username,
-    passwordHash
-  })
+  let user
+
+  try {
+    user = await usersRepository.createUser({
+      email: userData.email,
+      username: userData.username,
+      passwordHash
+    })
+  } catch (error) {
+    if (error.code === 'P2002') {
+      const duplicatedField = error.meta?.target
+
+      if (duplicatedField?.includes('email')) {
+        throw new ApiError(409, 'Email already exists', 'EMAIL_ALREADY_EXISTS')
+      }
+
+      if (duplicatedField?.includes('username')) {
+        throw new ApiError(409, 'Username already exists', 'USERNAME_ALREADY_EXISTS')
+      }
+    }
+
+    throw error
+  }
 
   // Xử lý gửi dữ liệu từ BE lên cho FE
   const responseUser = {

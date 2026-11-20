@@ -5,8 +5,8 @@ import { usersRepository } from '../users/usersRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
 
 
-const getQuestsByUserId = async (userId) => {
-  const quests = await questsRepository.findQuestsByUserId(userId)
+const getQuestsByUserId = async (userId, filters = {}) => {
+  const quests = await questsRepository.findQuestsByUserId(userId, filters)
 
   return quests
 }
@@ -69,7 +69,15 @@ const createQuest = async (questData) => {
     goalId: questData.goalId,
     milestoneId: questData.milestoneId,
     title: questData.title,
-    description: questData.description
+    description: questData.description,
+    type: questData.type,
+    priority: questData.priority,
+    proofRequirement: questData.proofRequirement,
+    targetValue: questData.targetValue,
+    targetUnit: questData.targetUnit,
+    estimatedDurationSeconds: questData.estimatedDurationSeconds,
+    startAt: questData.startAt,
+    dueAt: questData.dueAt
   })
 
   return createdQuest
@@ -81,7 +89,7 @@ const getQuestById = async (questId, userId) => {
   const quest = await questsRepository.findQuestById(questId)
 
   // Kiểm tra Quest có tồn tại.
-  if (!quest) {
+  if (!quest || quest.deletedAt) {
     throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
   }
 
@@ -95,10 +103,84 @@ const getQuestById = async (questId, userId) => {
 
 
 const updateQuest = async (questId, userId, questData) => {
+  // Tìm Quest cần cập nhật.
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  // Kiểm tra quyền sở hữu.
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  // Không cho phép cập nhật Quest đã Archive.
+  if (quest.status === 'ARCHIVED') {
+    throw new ApiError(409, 'Archived quest cannot be updated', 'QUEST_CANNOT_UPDATE')
+  }
+
+  // Xác định Goal và Milestone cuối cùng sau khi cập nhật.
+  const finalGoalId = Object.hasOwn(questData, 'goalId') ? questData.goalId : quest.goalId
+
+  const finalMilestoneId = Object.hasOwn(questData, 'milestoneId') ? questData.milestoneId : quest.milestoneId
+
+  // Nếu Milestone tồn tại thì bắt buộc phải có Goal.
+  if (finalMilestoneId && !finalGoalId) {
+    throw new ApiError(400, 'Milestone requires a goal', 'MILESTONE_REQUIRES_GOAL')
+  }
+
+  // Kiểm tra Goal khi Client thay đổi Goal.
+  const goalChanged = Object.hasOwn(questData, 'goalId') &&
+    questData.goalId !== quest.goalId
+
+  if (goalChanged && finalGoalId) {
+    const goal = await goalsRepository.findGoalById(finalGoalId)
+
+    if (!goal) {
+      throw new ApiError(404, 'Goal not found', 'GOAL_NOT_FOUND')
+    }
+
+    if (goal.userId !== userId) {
+      throw new ApiError(403, 'You do not have permission to access this goal', 'GOAL_ACCESS_DENIED')
+    }
+
+    if (goal.status !== 'ACTIVE') {
+      throw new ApiError(400, 'Only active goals can have quests assigned', 'GOAL_CANNOT_ASSIGN_QUEST')
+    }
+  }
+
+  // Kiểm tra Milestone khi quan hệ Goal/Milestone thay đổi.
+  const milestoneChanged = Object.hasOwn(questData, 'milestoneId') &&
+    questData.milestoneId !== quest.milestoneId
+
+  if (finalMilestoneId && (goalChanged || milestoneChanged)) {
+    const milestone = await milestonesRepository.findMilestoneById(finalMilestoneId)
+
+    if (!milestone) {
+      throw new ApiError(404, 'Milestone not found', 'MILESTONE_NOT_FOUND')
+    }
+
+    if (milestone.goalId !== finalGoalId) {
+      throw new ApiError(400, 'Milestone does not belong to the specified goal', 'MILESTONE_GOAL_MISMATCH')
+    }
+  }
+
+  // Cập nhật Quest.
+  const updatedQuest = await questsRepository.updateQuest(
+    questId,
+    questData
+  )
+
+  return updatedQuest
+}
+
+
+const deleteQuest = async (questId, userId) => {
   // Tìm Quest cần cập nhật
   const quest = await questsRepository.findQuestById(questId)
 
-  if (!quest) {
+  if (!quest || quest.deletedAt) {
     throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
   }
 
@@ -107,16 +189,110 @@ const updateQuest = async (questId, userId, questData) => {
     throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
   }
 
-  // Cập nhật quest
-  const updateQuest = await questsRepository.updateQuest(questId, questData)
+  const deletedQuest = await questsRepository.deleteQuest(questId)
 
-  return updateQuest
+  return deletedQuest
 }
 
+
+const pinQuest = async (questId, userId) => {
+  // Tìm Quest cần cập nhật
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to access this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  if (quest.isPinned) {
+    throw new ApiError(409, 'Quest is already pinned', 'QUEST_ALREADY_PINNED')
+  }
+
+  if (quest.status === 'ARCHIVED') {
+    throw new ApiError(409, 'Archived quest cannot be pinned', 'QUEST_CANNOT_PIN')
+  }
+
+  const pinnedQuest = await questsRepository.pinQuest(questId)
+
+  return pinnedQuest
+}
+
+const unpinQuest = async (questId, userId) => {
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to unpin this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  if (!quest.isPinned) {
+    throw new ApiError(409, 'Quest is not pinned', 'QUEST_NOT_PINNED')
+  }
+
+  const unpinnedQuest = await questsRepository.unpinQuest(questId)
+
+  return unpinnedQuest
+}
+
+const archiveQuest = async (questId, userId) => {
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to archive this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  if (quest.status === 'ARCHIVED') {
+    throw new ApiError(409, 'Quest is already archived', 'QUEST_ALREADY_ARCHIVED')
+  }
+
+  const archivedQuest = await questsRepository.archiveQuest(questId)
+
+  return archivedQuest
+}
+
+
+const restoreQuest = async (questId, userId) => {
+  // Tìm Quest
+  const quest = await questsRepository.findQuestById(questId)
+
+  if (!quest || quest.deletedAt) {
+    throw new ApiError(404, 'Quest not found', 'QUEST_NOT_FOUND')
+  }
+
+  // Kiểm tra quyền sở hữu
+  if (quest.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to restore this quest', 'QUEST_ACCESS_DENIED')
+  }
+
+  // Chỉ cho phép Restore Quest đã Archive
+  if (quest.status !== 'ARCHIVED') {
+    throw new ApiError(409, 'Quest is not archived', 'QUEST_NOT_ARCHIVED')
+  }
+
+  const restoredQuest = await questsRepository.restoreQuest(questId)
+
+  return restoredQuest
+}
 
 export const questsService = {
   getQuestsByUserId,
   createQuest,
   getQuestById,
-  updateQuest
+  updateQuest,
+  deleteQuest,
+  pinQuest,
+  unpinQuest,
+  archiveQuest,
+  restoreQuest
 }
