@@ -3,3 +3,6 @@ node_modules
 .env
 
 /src/generated/prisma
+
+# Ignore package-lock.json (project uses yarn)
+package-lock.json
