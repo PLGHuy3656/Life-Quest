@@ -21,18 +21,85 @@ enum ProofRequirement {
   REQUIRED
 }
 
-model User {
-  id           String    @id @default(uuid())
-  email        String    @unique
-  username     String    @unique
-  passwordHash String
-  status       String    @default("ACTIVE")
-  deletedAt    DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+}
 
-  goals  Goal[]
-  quests Quest[]
+enum PostVisibility {
+  FRIENDS
+  PUBLIC
+  PRIVATE
+}
+
+enum AccessTier {
+  FREE
+  PREMIUM
+}
+
+enum CosmeticSlot {
+  ATT_HAT
+  ATT_GLASSES
+  ATT_SCARF
+  ATT_BACKPACK
+  ATT_HAND_L
+  ATT_HAND_R
+}
+
+enum ReactionType {
+  LIKE
+  CELEBRATE
+  FIRE
+  CLAP
+}
+
+enum MascotPlacement {
+  DASHBOARD
+  AUTH
+  PROFILE
+  ADMIN
+  SOCIAL
+  FOCUS
+  SHOP
+}
+
+enum MascotTriggerType {
+  ON_ENTER
+  IDLE_2MIN
+  TAP_HEAD
+  TAP_TAIL
+  TAP_SPAM
+  SLEEP
+  QUEST_COMPLETED
+  STREAK_LOST
+  EMPTY_STATE
+  FOCUS_INTERRUPTED
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  username     String      @unique
+  passwordHash String
+  status       String      @default("ACTIVE")
+  planType     AccessTier  @default(FREE)
+  trialEndsAt  DateTime?
+  deletedAt    DateTime?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  goals                  Goal[]
+  quests                 Quest[]
+  sentFriendRequests     Friendship[]         @relation("SentFriendRequests")
+  receivedFriendRequests Friendship[]         @relation("ReceivedFriendRequests")
+  socialPosts            SocialPost[]
+  postReactions          PostReaction[]
+  postComments           PostComment[]
+  sentPokes              Poke[]               @relation("SentPokes")
+  receivedPokes          Poke[]               @relation("ReceivedPokes")
+  mascotCosmetics        UserMascotCosmetic[]
 }
 
 model Goal {
@@ -97,4 +164,151 @@ model Quest {
   user      User       @relation(fields: [userId], references: [id])
   goal      Goal?      @relation(fields: [goalId], references: [id])
   milestone Milestone? @relation(fields: [milestoneId], references: [id])
+}
+
+model Friendship {
+  id          String           @id @default(uuid())
+  requesterId String
+  receiverId  String
+  status      FriendshipStatus @default(PENDING)
+  blockedById String?
+  acceptedAt  DateTime?
+  blockedAt   DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  requester User @relation("SentFriendRequests", fields: [requesterId], references: [id])
+  receiver  User @relation("ReceivedFriendRequests", fields: [receiverId], references: [id])
+
+  @@unique([requesterId, receiverId])
+}
+
+model SocialPost {
+  id         String         @id @default(uuid())
+  authorId   String
+  content    String
+  mediaUrl   String?
+  sourceType String?
+  sourceId   String?
+  visibility PostVisibility @default(FRIENDS)
+  deletedAt  DateTime?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+
+  author    User           @relation(fields: [authorId], references: [id])
+  reactions PostReaction[]
+  comments  PostComment[]
+}
+
+model PostReaction {
+  id        String       @id @default(uuid())
+  postId    String
+  userId    String
+  type      ReactionType
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  post SocialPost @relation(fields: [postId], references: [id])
+  user User       @relation(fields: [userId], references: [id])
+
+  @@unique([postId, userId])
+}
+
+model PostComment {
+  id        String     @id @default(uuid())
+  postId    String
+  authorId  String
+  content   String
+  deletedAt DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  post   SocialPost @relation(fields: [postId], references: [id])
+  author User       @relation(fields: [authorId], references: [id])
+}
+
+model Poke {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String
+  message    String?
+  createdAt  DateTime @default(now())
+
+  sender   User @relation("SentPokes", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedPokes", fields: [receiverId], references: [id])
+}
+
+model MascotModel {
+  id             String       @id @default(uuid())
+  code           String       @unique
+  name           String
+  assetPath      String
+  requiredTier   AccessTier   @default(FREE)
+  sleepStartHour Int          @default(22)
+  sleepEndHour   Int          @default(6)
+  createdAt      DateTime     @default(now())
+
+  dialogues MascotDialogue[]
+  actions   MascotAction[]
+  cosmetics MascotCosmetic[]
+}
+
+model MascotDialogue {
+  id            String            @id @default(uuid())
+  mascotModelId String
+  triggerType   MascotTriggerType
+  placement     MascotPlacement   @default(DASHBOARD)
+  requiredTier  AccessTier        @default(FREE)
+  actionType    String?
+  content       String
+  clipName      String?
+  activity      String?
+  mood          String?
+
+  mascotModel MascotModel @relation(fields: [mascotModelId], references: [id])
+}
+
+model MascotAction {
+  id              String          @id @default(uuid())
+  mascotModelId   String
+  code            String          @unique
+  name            String
+  description     String?
+  clipName        String
+  mood            String?
+  requiredTier    AccessTier      @default(FREE)
+  cooldownSeconds Int             @default(3)
+  createdAt       DateTime        @default(now())
+
+  mascotModel MascotModel @relation(fields: [mascotModelId], references: [id])
+}
+
+model MascotCosmetic {
+  id            String          @id @default(uuid())
+  mascotModelId String
+  code          String          @unique
+  name          String
+  slot          CosmeticSlot
+  assetKey      String
+  coinPrice     Int             @default(0)
+  requiredTier  AccessTier      @default(FREE)
+  isActive      Boolean         @default(true)
+  createdAt     DateTime        @default(now())
+
+  mascotModel    MascotModel          @relation(fields: [mascotModelId], references: [id])
+  userCosmetics  UserMascotCosmetic[]
+}
+
+model UserMascotCosmetic {
+  id         String          @id @default(uuid())
+  userId     String
+  cosmeticId String
+  isEquipped Boolean         @default(false)
+  equippedAt DateTime?
+  acquiredAt DateTime        @default(now())
+
+  user     User           @relation(fields: [userId], references: [id])
+  cosmetic MascotCosmetic @relation(fields: [cosmeticId], references: [id])
+
+  @@unique([userId, cosmeticId])
 }
