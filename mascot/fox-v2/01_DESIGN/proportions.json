@@ -1,0 +1,440 @@
+{
+  "_meta": {
+    "asset": "LifeQuest Fox V2 — Chibi 3D Master",
+    "version": "2.0.0-gateC-r4",
+    "measurement_source": "00_REFERENCE/supplementary/fox_v2_turnaround_front_34_side.png and fox_v2_turnaround_back_views.png (each view cropped to 724x724 px), cross-checked against 00_REFERENCE/FOX_V2_BASELINE.png",
+    "pixel_origin": "front view crop: fox centre line x=455 px, ground (bottom of feet) y=670 px",
+    "normalisation": "model units = metres; total height (ground to ear tip) 642 px -> 1.000 m; 1 px = 0.001558 m",
+    "axes": "Blender Z-up, character faces -Y, +X = character's LEFT side, ground at Z=0",
+    "confidence_legend": {
+      "measured": "read directly from the orthographic-looking front/side/back turnaround (+-5 px, i.e. +-0.008 m)",
+      "estimated": "inferred from perspective views or occluded areas; treat as design intent, not a measurement",
+      "decided": "chosen to resolve a contradiction between views; see visual_spec.md section 'Discrepancies'"
+    }
+  },
+  "overall": {
+    "total_height_m": {
+      "value": 1.0,
+      "px": 642,
+      "confidence": "measured"
+    },
+    "width_without_tail_m": {
+      "value": 0.704,
+      "px": 452,
+      "note": "cheek-fluff tip to tip",
+      "confidence": "measured"
+    },
+    "height_to_width_ratio": {
+      "value": 1.42,
+      "confidence": "measured"
+    },
+    "head_height_incl_ears_ratio": {
+      "value": 0.587,
+      "note": "ear tip to chin / total height",
+      "confidence": "measured"
+    },
+    "head_to_body_ratio": {
+      "value": 1.04,
+      "note": "crown-to-chin (275 px) : chin-to-ground (265 px)",
+      "confidence": "measured"
+    }
+  },
+  "head": {
+    "crown_z": {
+      "value": 0.841,
+      "px_y": 130,
+      "confidence": "measured"
+    },
+    "chin_z": {
+      "value": 0.413,
+      "px_y": 405,
+      "confidence": "measured"
+    },
+    "max_half_width_at_cheek_fluff": {
+      "value": 0.352,
+      "z": 0.576,
+      "confidence": "measured"
+    },
+    "half_width_without_fluff": {
+      "value": 0.335,
+      "confidence": "estimated"
+    },
+    "depth_m": {
+      "value": 0.59,
+      "px": 380,
+      "note": "side view, nose excluded",
+      "confidence": "measured"
+    },
+    "shape": "wide mochi/onigiri dome, flat-ish underside, horizontal fluff ridge at cheek height that is visible from front and back",
+    "width_profile_front": [
+      [
+        0.42,
+        0.19
+      ],
+      [
+        0.436,
+        0.225
+      ],
+      [
+        0.483,
+        0.298
+      ],
+      [
+        0.576,
+        0.352
+      ],
+      [
+        0.654,
+        0.3
+      ],
+      [
+        0.732,
+        0.27
+      ],
+      [
+        0.81,
+        0.21
+      ],
+      [
+        0.841,
+        0.0
+      ]
+    ],
+    "width_profile_columns": [
+      "z_m",
+      "half_width_m (measured, front view)"
+    ],
+    "construction_r4": "lower half is an exact ellipse (exponent 1.75) from the chin pole z 0.389 to the equator z 0.575; one continuous lower-face swell for cheeks + muzzle"
+  },
+  "face_mask_cream": {
+    "shape": "large horizontal ellipse covering the lower face; eyes sit on the orange just above its top edge",
+    "ellipse_centre_z": {
+      "value": 0.483,
+      "confidence": "measured"
+    },
+    "ellipse_half_width": {
+      "value": 0.284,
+      "confidence": "measured"
+    },
+    "ellipse_half_height": {
+      "value": 0.125,
+      "confidence": "measured"
+    },
+    "top_of_arch_z": {
+      "value": 0.607,
+      "confidence": "measured"
+    }
+  },
+  "eyes": {
+    "centre_x_abs": {
+      "value": 0.105,
+      "confidence": "measured"
+    },
+    "centre_z": {
+      "value": 0.611,
+      "confidence": "measured"
+    },
+    "width": {
+      "value": 0.068,
+      "px": 44,
+      "confidence": "measured"
+    },
+    "height": {
+      "value": 0.101,
+      "px": 65,
+      "confidence": "measured"
+    },
+    "spacing_centre_to_centre": {
+      "value": 0.213,
+      "px": 137,
+      "confidence": "measured"
+    },
+    "shape": "vertical dark-brown ovals, no white sclera, glossy, very slight dome"
+  },
+  "nose": {
+    "centre_z": {
+      "value": 0.587,
+      "confidence": "measured"
+    },
+    "width": {
+      "value": 0.047,
+      "confidence": "measured"
+    },
+    "height": {
+      "value": 0.023,
+      "confidence": "measured"
+    }
+  },
+  "mouth": {
+    "centre_z": {
+      "value": 0.543,
+      "confidence": "measured"
+    },
+    "width": {
+      "value": 0.093,
+      "confidence": "measured"
+    },
+    "shape": "cat 'w' / omega line, dark brown, rounded ends"
+  },
+  "cheek_blush": {
+    "centre_x_abs": {
+      "value": 0.184,
+      "confidence": "measured"
+    },
+    "centre_z": {
+      "value": 0.553,
+      "confidence": "measured"
+    },
+    "width": {
+      "value": 0.101,
+      "confidence": "measured"
+    },
+    "height": {
+      "value": 0.044,
+      "confidence": "measured"
+    }
+  },
+  "ears": {
+    "tip": {
+      "value": [
+        0.252,
+        0.997
+      ],
+      "columns": [
+        "x_abs",
+        "z"
+      ],
+      "confidence": "measured"
+    },
+    "base_centre": {
+      "value": [
+        0.195,
+        0.724
+      ],
+      "columns": [
+        "x_abs",
+        "z"
+      ],
+      "confidence": "estimated"
+    },
+    "height": {
+      "value": 0.283,
+      "confidence": "measured"
+    },
+    "base_width": {
+      "value": 0.24,
+      "confidence": "measured"
+    },
+    "outward_tilt_deg": {
+      "value": 12,
+      "confidence": "estimated"
+    },
+    "depth_position": {
+      "value": "slightly behind head centre (~0.07 m)",
+      "confidence": "estimated"
+    },
+    "inner_ear": "cream, ~60% of ear width, from 12% to 85% of ear height; not visible from the back",
+    "orientation_r2": {
+      "value": "outward tilt 9 deg, yaw 8 deg, lean back 12 deg",
+      "confidence": "decided",
+      "note": "r1 was 16/16/13; relaxed per Gate C review"
+    },
+    "construction_r2": "U-shaped bowl cross-section (rounded rim lip at |x|>0.78w), round dome tip (last 16% of height), cream lining shell inside the bowl",
+    "construction_r3": "r2 U-bowl and dome tip kept; upper half widened (taper exponent 0.68, tip radius 0.058 m)",
+    "construction_r4": "back fullness grows with height (0.75 -> 1.05 x depth); ear arcs 0.032 m backward toward the tip; tip depth 0.056 m"
+  },
+  "hair_tuft": {
+    "position": "top-front of crown, sweeping forward like a wave crest",
+    "front_extent_x_abs": {
+      "value": 0.074,
+      "confidence": "measured"
+    },
+    "z_range": {
+      "value": [
+        0.83,
+        0.93
+      ],
+      "confidence": "measured"
+    },
+    "lobes": 3
+  },
+  "body": {
+    "torso_half_width": {
+      "value": 0.18,
+      "z": 0.234,
+      "confidence": "measured"
+    },
+    "torso_half_depth": {
+      "value": 0.13,
+      "confidence": "measured"
+    },
+    "shape": "short rounded pear/egg, slightly wider at the hips",
+    "belly_patch": {
+      "centre_z": 0.19,
+      "half_width": 0.1,
+      "half_height": 0.097,
+      "confidence": "measured"
+    }
+  },
+  "arms": {
+    "shoulder": {
+      "value": [
+        0.164,
+        0.32
+      ],
+      "columns": [
+        "x_abs",
+        "z"
+      ],
+      "confidence": "estimated"
+    },
+    "paw_centre": {
+      "value": [
+        0.234,
+        0.21
+      ],
+      "columns": [
+        "x_abs",
+        "z"
+      ],
+      "confidence": "measured"
+    },
+    "length_m": {
+      "value": 0.18,
+      "confidence": "estimated"
+    },
+    "radius_m": {
+      "value": 0.047,
+      "confidence": "measured"
+    },
+    "paw_radius_m": {
+      "value": 0.052,
+      "confidence": "measured"
+    },
+    "angle_from_vertical_deg": {
+      "value": 31,
+      "confidence": "measured"
+    },
+    "paw_marking": "dark brown on lower ~45% of arm"
+  },
+  "legs": {
+    "centre_x_abs": {
+      "value": 0.093,
+      "confidence": "measured"
+    },
+    "visible_leg_height": {
+      "value": 0.1,
+      "confidence": "measured"
+    },
+    "foot_width": {
+      "value": 0.156,
+      "confidence": "measured"
+    },
+    "foot_height": {
+      "value": 0.07,
+      "confidence": "measured"
+    },
+    "foot_length": {
+      "value": 0.21,
+      "note": "side view",
+      "confidence": "measured"
+    },
+    "foot_marking": "dark brown, bottom 0.072 m"
+  },
+  "tail": {
+    "side": {
+      "value": "curls toward the character's RIGHT (-X)",
+      "confidence": "decided",
+      "reason": "Gate C r3 user decision (option C): matches the hero illustration, 3/4 view and back view; the front turnaround's mirrored tail is treated as the reference inconsistency"
+    },
+    "bbox_centre": {
+      "value": [
+        -0.13,
+        0.31,
+        0.27
+      ],
+      "confidence": "decided"
+    },
+    "extent": {
+      "value": [
+        0.34,
+        0.37,
+        0.37
+      ],
+      "columns": [
+        "x",
+        "y(depth)",
+        "z"
+      ],
+      "confidence": "measured (back + side views)"
+    },
+    "relative_to_body": "tail volume is about as large as the torso; teardrop curling up, back and outward",
+    "cream_tip": "upper ~32% of tail length, zig-zag boundary with ~5 teeth",
+    "construction_r4": "8-point spine, soft inward curl at the tip, longer rounded end cap (34 %)"
+  },
+  "scarf": {
+    "neck_ring_centre_z": {
+      "value": 0.395,
+      "confidence": "measured (back view)"
+    },
+    "neck_ring_half_width_outer": {
+      "value": 0.187,
+      "confidence": "measured"
+    },
+    "front_flap_top_z": {
+      "value": 0.42,
+      "confidence": "measured"
+    },
+    "front_flap_point_z": {
+      "value": 0.25,
+      "confidence": "measured"
+    },
+    "front_flap_half_width": {
+      "value": 0.187,
+      "confidence": "measured"
+    },
+    "emblem_centre_z": {
+      "value": 0.324,
+      "confidence": "measured"
+    },
+    "emblem_size": {
+      "value": [
+        0.07,
+        0.085
+      ],
+      "confidence": "measured"
+    },
+    "construction": "bunched roll around the neck + bandana triangle on the chest; no visible knot or loose tails in any view"
+  },
+  "backpack": {
+    "placement": "centred on the back",
+    "z_range": {
+      "value": [
+        0.14,
+        0.346
+      ],
+      "confidence": "measured (back view)"
+    },
+    "width": {
+      "value": 0.24,
+      "confidence": "measured"
+    },
+    "depth": {
+      "value": 0.1,
+      "confidence": "measured (side view)"
+    },
+    "flap": "covers upper ~55%, gold square buckle centred on flap bottom",
+    "straps": "two straps over the shoulders, visible on the chest at x=+-0.14 between z 0.22 and 0.34",
+    "side_pockets": "small pocket on each side (side view)"
+  },
+  "level_scale": {
+    "note": "uniform scale of the whole character root; values from the brief, configurable in app code",
+    "map": {
+      "1": 0.8,
+      "5": 0.86,
+      "10": 0.92,
+      "20": 1.0,
+      "30": 1.1
+    }
+  }
+}

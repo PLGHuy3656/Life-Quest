@@ -1,0 +1,180 @@
+{
+  "blender": "5.3.0",
+  "results": [
+    {
+      "check": "exists 00_REFERENCE/FOX_V2_BASELINE.png",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exists 00_REFERENCE/visual_spec.md",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exists 01_DESIGN/character_master_spec.md",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exists 01_DESIGN/proportions.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exists 01_DESIGN/materials.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "valid JSON 01_DESIGN/proportions.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "valid JSON 01_DESIGN/materials.json",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "module head.blend opens with geometry",
+      "pass": true,
+      "detail": "2 mesh objects"
+    },
+    {
+      "check": "module face.blend opens with geometry",
+      "pass": true,
+      "detail": "17 mesh objects"
+    },
+    {
+      "check": "module ears.blend opens with geometry",
+      "pass": true,
+      "detail": "4 mesh objects"
+    },
+    {
+      "check": "module body.blend opens with geometry",
+      "pass": true,
+      "detail": "1 mesh objects"
+    },
+    {
+      "check": "module arms_legs.blend opens with geometry",
+      "pass": true,
+      "detail": "4 mesh objects"
+    },
+    {
+      "check": "module tail.blend opens with geometry",
+      "pass": true,
+      "detail": "1 mesh objects"
+    },
+    {
+      "check": "module scarf.blend opens with geometry",
+      "pass": true,
+      "detail": "3 mesh objects"
+    },
+    {
+      "check": "module backpack.blend opens with geometry",
+      "pass": true,
+      "detail": "8 mesh objects"
+    },
+    {
+      "check": "fox_master.blend opens",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "collection hierarchy FOX_MASTER/*",
+      "pass": true,
+      "detail": "GEO_HEAD, GEO_FACE, GEO_EARS, GEO_BODY, GEO_LIMBS, GEO_TAIL, GEO_SCARF, GEO_BACKPACK, RIG, ATTACHMENTS, LIGHTING_PREVIEW"
+    },
+    {
+      "check": "preview lighting separated from geometry",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "every mesh has materials",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "material indices valid",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "no missing textures",
+      "pass": true,
+      "detail": "textureless asset"
+    },
+    {
+      "check": "clean transforms (rot 0, scale 1)",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "all meshes parented under FOX_ROOT hierarchy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "no broken object references",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "normals point outward on closed parts",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "face decals sit on head surface (0.3 mm .. 12 mm)",
+      "pass": true,
+      "detail": "{\"FOX_Blush_L\": [0.0015, 0.0015], \"FOX_Blush_R\": [0.0015, 0.0015], \"FOX_Eye_L\": [0.002, 0.008], \"FOX_Eye_R\": [0.002, 0.008], \"FOX_Mouth_Neutral\": [0.002, 0.002]}"
+    },
+    {
+      "check": "FOX_Ear_L independent object with base pivot",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "FOX_Ear_R independent object with base pivot",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "backpack is a separate detachable hierarchy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "eye shape keys present",
+      "pass": true,
+      "detail": "Basis, Blink, Wide, Sad, HalfLid, Proud"
+    },
+    {
+      "check": "brow shape keys present",
+      "pass": true,
+      "detail": "Basis, Sad, Proud"
+    },
+    {
+      "check": "expression swap meshes present",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "total height 1.00 m +-3%",
+      "pass": true,
+      "detail": "0.990 m, min z 0.000"
+    },
+    {
+      "check": "nothing below the ground plane (z >= -1 mm)",
+      "pass": true,
+      "detail": "min z 0.0001"
+    },
+    {
+      "check": "base cage (pre-subdivision) <= 60k tris \u2014 web export LOD is decided in Gate F",
+      "pass": true,
+      "detail": "55345 cage tris; 436253 tris with live subdivision (source/render quality, NOT the web budget)"
+    }
+  ]
+}

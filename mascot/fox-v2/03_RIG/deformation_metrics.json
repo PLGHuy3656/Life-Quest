@@ -1,0 +1,1887 @@
+{
+ "rig_file": "03_RIG/fox_rig_prototype.blend",
+ "rest_frame": 1,
+ "poses": {
+  "12": {
+   "label": "head turn +40\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.461,
+     "p99_dev": 0.292
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.009,
+     "p99_dev": 0.009
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 1.011,
+     "p99_dev": 0.371
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.013,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.001,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 45,
+     "max_depth_body_mm": 7.5,
+     "new_in_head": 8,
+     "max_depth_head_mm": 4.6
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0.8,
+    "max_sink": 0.1
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 21,
+    "FOX_Arm_R": 11,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "36": {
+   "label": "head turn \u221240\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.461,
+     "p99_dev": 0.292
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.009,
+     "p99_dev": 0.009
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 1.077,
+     "p99_dev": 0.337
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.015,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.003,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 47,
+     "max_depth_body_mm": 7.1,
+     "new_in_head": 13,
+     "max_depth_head_mm": 4.5
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0.8,
+    "max_sink": 0.1
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 11,
+    "FOX_Arm_R": 21,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "56": {
+   "label": "look up 22\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.431,
+     "p99_dev": 0.309
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.001,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.001,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.003,
+     "p99_dev": 0.003
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.821,
+     "p99_dev": 0.258
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.015,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.003,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 44,
+     "max_depth_body_mm": 6.4,
+     "new_in_head": 504,
+     "max_depth_head_mm": 36.8
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0.8,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "64": {
+   "label": "look down 18\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.348,
+     "p99_dev": 0.252
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.002,
+     "p99_dev": 0.002
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.609,
+     "p99_dev": 0.173
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.013,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.003,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 4,
+     "max_depth_body_mm": 2.6,
+     "new_in_head": 391,
+     "max_depth_head_mm": 31.8
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 1356,
+     "max_depth_head_mm": 26.0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0.3
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "84": {
+   "label": "L ear out 30\u00b0 + tip 25\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 1.38,
+     "p99_dev": 0.895
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.803,
+     "p99_dev": 0.584
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 144,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 23.4,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "108": {
+   "label": "R ear fwd 22\u00b0 + tip 15\u00b0, L ear back 20\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.716,
+     "p99_dev": 0.496
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.972,
+     "p99_dev": 0.556
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.682,
+     "p99_dev": 0.419
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.816,
+     "p99_dev": 0.463
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 11,
+    "FOX_Ear_R": 34,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 14.9,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "132": {
+   "label": "tail sway +20\u00b0 chain (toward body)",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.83,
+     "p99_dev": 0.159
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 12,
+    "max_depth_mm": 6.3
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     41.7,
+     34.5,
+     34.3
+    ]
+   }
+  },
+  "156": {
+   "label": "tail sway \u221228\u00b0 chain",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 1.825,
+     "p99_dev": 0.291
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 2,
+    "max_depth_mm": 2.6
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 10
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     39.4,
+     32.7,
+     33.0
+    ]
+   }
+  },
+  "192": {
+   "label": "both arms up 60\u00b0",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.897,
+     "p99_dev": 0.641
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.895,
+     "p99_dev": 0.666
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 167,
+    "FOX_Arm_R": 167,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "206": {
+   "label": "wave (L arm 130\u00b0, paw +22\u00b0)",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.911,
+     "p99_dev": 0.608
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 199,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "214": {
+   "label": "wave (paw \u221222\u00b0)",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.964,
+     "p99_dev": 0.734
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 199,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "264": {
+   "label": "squash 0.92 / 1.04",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.084,
+     "p99_dev": 0.08
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.092,
+     "p99_dev": 0.076
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.092,
+     "p99_dev": 0.076
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.193,
+     "p99_dev": 0.133
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.193,
+     "p99_dev": 0.133
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.001,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.001,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.08,
+     "p99_dev": 0.049
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.02,
+     "p99_dev": 0.02
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.27,
+     "p99_dev": 0.071
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.065,
+     "p99_dev": 0.062
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 38,
+     "max_depth_body_mm": 4.3,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0.1
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.2
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 1.4,
+    "max_sink": 0.6
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 12,
+    "FOX_Leg_R": 12,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "276": {
+   "label": "stretch 1.07 / 0.97",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.077,
+     "p99_dev": 0.07
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.083,
+     "p99_dev": 0.068
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.083,
+     "p99_dev": 0.068
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.156,
+     "p99_dev": 0.113
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.156,
+     "p99_dev": 0.113
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.07,
+     "p99_dev": 0.045
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.017,
+     "p99_dev": 0.017
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.202,
+     "p99_dev": 0.065
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.069,
+     "p99_dev": 0.069
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.01,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.6,
+     "new_in_head": 9,
+     "max_depth_head_mm": 2.3
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 5,
+     "max_depth_body_mm": 2.4,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.8
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0.4,
+    "max_sink": 1.1
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "304": {
+   "label": "blink",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.0,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "314": {
+   "label": "happy",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.0,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "326": {
+   "label": "proud",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.0,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "338": {
+   "label": "sad",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.0,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "350": {
+   "label": "surprised",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.0,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  },
+  "362": {
+   "label": "sleepy",
+   "stretch": {
+    "FOX_Body": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Arm_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Leg_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Ear_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_L": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_EarInner_R": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Tail": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Roll": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Flap": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    },
+    "FOX_Scarf_Emblem": {
+     "max_dev": 0.0,
+     "p99_dev": 0.0
+    }
+   },
+   "face_decal_drift_mm": 0.0,
+   "eye_min_clearance_mm": 2.0,
+   "scarf_penetration": {
+    "FOX_Scarf_Roll": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 1.0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 1.0
+    },
+    "FOX_Scarf_Flap": {
+     "new_in_body": 0,
+     "max_depth_body_mm": 0,
+     "new_in_head": 0,
+     "max_depth_head_mm": 0
+    }
+   },
+   "tail_into_body": {
+    "new_inside": 0,
+    "max_depth_mm": 1.0
+   },
+   "backpack_gap_change_mm": {
+    "max_open": 0,
+    "max_sink": 0
+   },
+   "detached_root_verts": {
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Tail": 0
+   },
+   "chain_angles_deg": {
+    "EAR_L": 0.0,
+    "EAR_R": 0.0,
+    "TAIL": [
+     40.5,
+     33.7,
+     33.8
+    ]
+   }
+  }
+ }
+}

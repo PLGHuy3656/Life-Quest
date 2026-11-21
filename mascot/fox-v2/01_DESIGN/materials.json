@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "note": "brief_hex = palette from the canonical sheet. observed_render_hex = median colour sampled from the lit main illustration in FOX_V2_BASELINE.png (includes lighting, so it is a check value, not a base colour). model_hex = base colour actually used in Blender (sRGB). Colour management: view transform 'Standard' so base colours are not tone-mapped.",
+    "shading_model": "Principled BSDF, matte soft-vinyl / clay look; no textures, no fur, no noise"
+  },
+  "materials": {
+    "MAT_Fox_Orange":   {"brief_hex": "#FF8A3D", "observed_render_hex": "#FA8832", "model_hex": "#FF8D2E", "roughness": 0.58, "sheen": 0.05, "r3_note": "Gate C r3: base tuned for saturation under the unchanged review lighting; renders #FF9744 (h27 s0.73) vs reference #FE9942 (h28 s0.74). r2 base #FF8A3D rendered #FF944F (h24 s0.69). Brief palette value unchanged.", "use": "head, body, arms, legs, ears (outer), tail base, tuft"},
+    "MAT_Fox_Cream":    {"brief_hex": "#FFE8D3", "observed_render_hex": "#FEE3C4", "model_hex": "#FFE8D3", "roughness": 0.6,  "sheen": 0.2,  "use": "face mask, belly, inner ears, tail tip"},
+    "MAT_Fox_Brown":    {"brief_hex": "#7A482D", "observed_render_hex": "#884420", "model_hex": "#7A482D", "roughness": 0.55, "use": "paws, feet"},
+    "MAT_Scarf_Red":    {"brief_hex": "#CE3A3A", "observed_render_hex": "#D0512A (edge-contaminated sample)", "model_hex": "#CE3A3A", "roughness": 0.7, "sheen": 0.3, "use": "scarf roll and flap"},
+    "MAT_Scarf_Emblem": {"brief_hex": null, "observed_render_hex": "#FFF4E6", "model_hex": "#FFF4E6", "roughness": 0.6, "use": "flame emblem (cream-white with red inner flame = scarf showing through)"},
+    "MAT_Backpack_Green": {"brief_hex": "#4CAF6E", "observed_render_hex": "#688E52", "model_hex": "#688E52", "roughness": 0.82, "sheen": 0.15, "use": "backpack body, flap, straps", "decision": "Gate C r2 (user): base colour moved to the olive #688E52 seen in every rendered reference view; soft matte finish (roughness 0.82, light sheen)."},
+    "MAT_Backpack_Buckle": {"brief_hex": null, "observed_render_hex": "#FEC645", "model_hex": "#F2B636", "roughness": 0.35, "use": "buckle"},
+    "MAT_Eye":          {"brief_hex": null, "observed_render_hex": "#4F260E", "model_hex": "#3A1E10", "roughness": 0.6, "coat": 0.3, "use": "eyes (matte base + small clear-coat highlight)"},
+    "MAT_Face_Detail":  {"brief_hex": "#7A482D (family)", "observed_render_hex": "#4F260E", "model_hex": "#4A2716", "roughness": 0.45, "use": "nose, mouth line, brows"},
+    "MAT_Cheek_Blush":  {"brief_hex": null, "observed_render_hex": "#FAAE8A (on cream)", "model_hex": "#F7A9A0", "roughness": 0.7, "use": "cheek blush decals"},
+    "MAT_Mouth_Inside": {"brief_hex": null, "observed_render_hex": "#C8433F", "model_hex": "#B83A3A", "roughness": 0.5, "use": "open-mouth variant"},
+    "MAT_Tongue":       {"brief_hex": null, "observed_render_hex": "#F27C7C", "model_hex": "#F07A78", "roughness": 0.5, "use": "open-mouth variant"}
+  },
+  "lighting_for_review": {
+    "background_hex": "#FDF6F1",
+    "setup": "warm soft key (front-left-top), fill (front-right), rim (back), low-intensity warm world; orthographic cameras; Cycles; shadow catcher composited onto background"
+  }
+}

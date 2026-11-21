@@ -1,0 +1,612 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "D1 rig prototype",
+  "armature": "FOX_RIG",
+  "units": "metres, Z-up, faces -Y (glTF export converts to Y-up / +Z forward)",
+  "bone_count": 29,
+  "deform_bones": 21,
+  "naming": "UPPER_SNAKE, side suffix _L/_R (character side), chain index _01.._04, non-deforming sockets ATT_*",
+  "bones": [
+    {
+      "name": "ROOT",
+      "parent": null,
+      "deform": false,
+      "head": [
+        0,
+        0,
+        0
+      ],
+      "tail": [
+        0,
+        0.18,
+        0
+      ],
+      "inherit_scale": "FULL",
+      "role": "global placement + uniform level scale"
+    },
+    {
+      "name": "HIPS",
+      "parent": "ROOT",
+      "deform": true,
+      "head": [
+        0,
+        0,
+        0.13
+      ],
+      "tail": [
+        0,
+        0,
+        0.24
+      ],
+      "inherit_scale": "FULL",
+      "role": "body control; squash & stretch = scale"
+    },
+    {
+      "name": "SPINE",
+      "parent": "HIPS",
+      "deform": true,
+      "head": [
+        0,
+        0,
+        0.24
+      ],
+      "tail": [
+        0,
+        0,
+        0.37
+      ],
+      "inherit_scale": "FULL",
+      "role": "upper torso; backpack + scarf anchor"
+    },
+    {
+      "name": "NECK",
+      "parent": "SPINE",
+      "deform": true,
+      "head": [
+        0,
+        0,
+        0.37
+      ],
+      "tail": [
+        0,
+        0,
+        0.43
+      ],
+      "inherit_scale": "NONE",
+      "role": "neck; ignores body squash so the head never distorts"
+    },
+    {
+      "name": "HEAD",
+      "parent": "NECK",
+      "deform": true,
+      "head": [
+        0,
+        0,
+        0.43
+      ],
+      "tail": [
+        0,
+        0,
+        0.86
+      ],
+      "inherit_scale": "FULL",
+      "role": "rigid head incl. face"
+    },
+    {
+      "name": "EAR_L_01",
+      "parent": "HEAD",
+      "deform": true,
+      "head": [
+        0.1936,
+        0.1325,
+        0.7817
+      ],
+      "tail": [
+        0.2044,
+        0.1703,
+        0.8822
+      ],
+      "inherit_scale": "FULL",
+      "role": "ear base rotation (pivot at skull exit)"
+    },
+    {
+      "name": "EAR_L_02",
+      "parent": "EAR_L_01",
+      "deform": true,
+      "head": [
+        0.2044,
+        0.1703,
+        0.8822
+      ],
+      "tail": [
+        0.2151,
+        0.208,
+        0.9828
+      ],
+      "inherit_scale": "FULL",
+      "role": "ear tip bend"
+    },
+    {
+      "name": "EAR_R_01",
+      "parent": "HEAD",
+      "deform": true,
+      "head": [
+        -0.1936,
+        0.1325,
+        0.7817
+      ],
+      "tail": [
+        -0.2044,
+        0.1703,
+        0.8822
+      ],
+      "inherit_scale": "FULL",
+      "role": "ear base rotation (pivot at skull exit)"
+    },
+    {
+      "name": "EAR_R_02",
+      "parent": "EAR_R_01",
+      "deform": true,
+      "head": [
+        -0.2044,
+        0.1703,
+        0.8822
+      ],
+      "tail": [
+        -0.2151,
+        0.208,
+        0.9828
+      ],
+      "inherit_scale": "FULL",
+      "role": "ear tip bend"
+    },
+    {
+      "name": "ARM_L",
+      "parent": "SPINE",
+      "deform": true,
+      "head": [
+        0.1823,
+        -0.009,
+        0.2774
+      ],
+      "tail": [
+        0.215,
+        -0.012,
+        0.245
+      ],
+      "inherit_scale": "NONE",
+      "role": "upper arm (pivot at body surface)"
+    },
+    {
+      "name": "PAW_L",
+      "parent": "ARM_L",
+      "deform": true,
+      "head": [
+        0.215,
+        -0.012,
+        0.245
+      ],
+      "tail": [
+        0.2788,
+        -0.019,
+        0.1806
+      ],
+      "inherit_scale": "FULL",
+      "role": "forearm + paw (wave)"
+    },
+    {
+      "name": "ARM_R",
+      "parent": "SPINE",
+      "deform": true,
+      "head": [
+        -0.1823,
+        -0.009,
+        0.2774
+      ],
+      "tail": [
+        -0.215,
+        -0.012,
+        0.245
+      ],
+      "inherit_scale": "NONE",
+      "role": "upper arm (pivot at body surface)"
+    },
+    {
+      "name": "PAW_R",
+      "parent": "ARM_R",
+      "deform": true,
+      "head": [
+        -0.215,
+        -0.012,
+        0.245
+      ],
+      "tail": [
+        -0.2788,
+        -0.019,
+        0.1806
+      ],
+      "inherit_scale": "FULL",
+      "role": "forearm + paw (wave)"
+    },
+    {
+      "name": "LEG_L",
+      "parent": "ROOT",
+      "deform": true,
+      "head": [
+        0.093,
+        0,
+        0.19
+      ],
+      "tail": [
+        0.093,
+        -0.005,
+        0.07
+      ],
+      "inherit_scale": "FULL",
+      "role": "leg (planted on ROOT)"
+    },
+    {
+      "name": "FOOT_L",
+      "parent": "LEG_L",
+      "deform": true,
+      "head": [
+        0.093,
+        -0.005,
+        0.07
+      ],
+      "tail": [
+        0.093,
+        -0.1,
+        0.03
+      ],
+      "inherit_scale": "FULL",
+      "role": "foot"
+    },
+    {
+      "name": "LEG_R",
+      "parent": "ROOT",
+      "deform": true,
+      "head": [
+        -0.093,
+        0,
+        0.19
+      ],
+      "tail": [
+        -0.093,
+        -0.005,
+        0.07
+      ],
+      "inherit_scale": "FULL",
+      "role": "leg (planted on ROOT)"
+    },
+    {
+      "name": "FOOT_R",
+      "parent": "LEG_R",
+      "deform": true,
+      "head": [
+        -0.093,
+        -0.005,
+        0.07
+      ],
+      "tail": [
+        -0.093,
+        -0.1,
+        0.03
+      ],
+      "inherit_scale": "FULL",
+      "role": "foot"
+    },
+    {
+      "name": "TAIL_01",
+      "parent": "HIPS",
+      "deform": true,
+      "head": [
+        -0.0479,
+        0.1364,
+        0.1258
+      ],
+      "tail": [
+        -0.1262,
+        0.2502,
+        0.1224
+      ],
+      "inherit_scale": "NONE",
+      "role": "tail chain"
+    },
+    {
+      "name": "TAIL_02",
+      "parent": "TAIL_01",
+      "deform": true,
+      "head": [
+        -0.1262,
+        0.2502,
+        0.1224
+      ],
+      "tail": [
+        -0.2064,
+        0.3261,
+        0.2074
+      ],
+      "inherit_scale": "FULL",
+      "role": "tail chain"
+    },
+    {
+      "name": "TAIL_03",
+      "parent": "TAIL_02",
+      "deform": true,
+      "head": [
+        -0.2064,
+        0.3261,
+        0.2074
+      ],
+      "tail": [
+        -0.2529,
+        0.3442,
+        0.3376
+      ],
+      "inherit_scale": "FULL",
+      "role": "tail chain"
+    },
+    {
+      "name": "TAIL_04",
+      "parent": "TAIL_03",
+      "deform": true,
+      "head": [
+        -0.2529,
+        0.3442,
+        0.3376
+      ],
+      "tail": [
+        -0.24,
+        0.308,
+        0.47
+      ],
+      "inherit_scale": "FULL",
+      "role": "tail chain"
+    },
+    {
+      "name": "SCARF_FLAP",
+      "parent": "SPINE",
+      "deform": true,
+      "head": [
+        0,
+        -0.152,
+        0.405
+      ],
+      "tail": [
+        0,
+        -0.168,
+        0.262
+      ],
+      "inherit_scale": "FULL",
+      "role": "scarf bandana secondary motion"
+    },
+    {
+      "name": "FACE",
+      "parent": "HEAD",
+      "deform": false,
+      "head": [
+        0,
+        -0.38,
+        0.62
+      ],
+      "tail": [
+        0,
+        -0.38,
+        0.7
+      ],
+      "inherit_scale": "FULL",
+      "role": "facial control: custom properties drive shape keys + swap meshes"
+    },
+    {
+      "name": "ATT_HAT",
+      "parent": "HEAD",
+      "deform": false,
+      "head": [
+        0,
+        0.02,
+        0.84
+      ],
+      "tail": [
+        0,
+        0.02,
+        0.94
+      ],
+      "inherit_scale": "FULL",
+      "role": "cosmetic attachment socket"
+    },
+    {
+      "name": "ATT_GLASSES",
+      "parent": "HEAD",
+      "deform": false,
+      "head": [
+        0,
+        -0.31,
+        0.611
+      ],
+      "tail": [
+        0,
+        -0.37,
+        0.611
+      ],
+      "inherit_scale": "FULL",
+      "role": "cosmetic attachment socket"
+    },
+    {
+      "name": "ATT_SCARF",
+      "parent": "NECK",
+      "deform": false,
+      "head": [
+        0,
+        0.0,
+        0.395
+      ],
+      "tail": [
+        0,
+        0.0,
+        0.45
+      ],
+      "inherit_scale": "FULL",
+      "role": "cosmetic attachment socket"
+    },
+    {
+      "name": "ATT_BACKPACK",
+      "parent": "SPINE",
+      "deform": false,
+      "head": [
+        0,
+        0.2,
+        0.245
+      ],
+      "tail": [
+        0,
+        0.28,
+        0.245
+      ],
+      "inherit_scale": "FULL",
+      "role": "cosmetic attachment socket"
+    },
+    {
+      "name": "ATT_HAND_L",
+      "parent": "PAW_L",
+      "deform": false,
+      "head": [
+        0.2788,
+        -0.019,
+        0.1806
+      ],
+      "tail": [
+        0.2788,
+        -0.019,
+        0.1306
+      ],
+      "inherit_scale": "FULL",
+      "role": "cosmetic attachment socket"
+    },
+    {
+      "name": "ATT_HAND_R",
+      "parent": "PAW_R",
+      "deform": false,
+      "head": [
+        -0.2788,
+        -0.019,
+        0.1806
+      ],
+      "tail": [
+        -0.2788,
+        -0.019,
+        0.1306
+      ],
+      "inherit_scale": "FULL",
+      "role": "cosmetic attachment socket"
+    }
+  ],
+  "skinned_meshes": {
+    "FOX_Arm_L": [
+      "ARM_L",
+      "PAW_L",
+      "SPINE"
+    ],
+    "FOX_Arm_R": [
+      "ARM_R",
+      "PAW_R",
+      "SPINE"
+    ],
+    "FOX_Body": [
+      "HIPS",
+      "NECK",
+      "SPINE"
+    ],
+    "FOX_Ear_L": [
+      "EAR_L_01",
+      "EAR_L_02",
+      "HEAD"
+    ],
+    "FOX_Ear_R": [
+      "EAR_R_01",
+      "EAR_R_02",
+      "HEAD"
+    ],
+    "FOX_EarInner_L": [
+      "EAR_L_01",
+      "EAR_L_02",
+      "HEAD"
+    ],
+    "FOX_EarInner_R": [
+      "EAR_R_01",
+      "EAR_R_02",
+      "HEAD"
+    ],
+    "FOX_Leg_L": [
+      "FOOT_L",
+      "HIPS",
+      "LEG_L"
+    ],
+    "FOX_Leg_R": [
+      "FOOT_R",
+      "HIPS",
+      "LEG_R"
+    ],
+    "FOX_Scarf_Emblem": [
+      "NECK",
+      "SCARF_FLAP",
+      "SPINE"
+    ],
+    "FOX_Scarf_Flap": [
+      "NECK",
+      "SCARF_FLAP",
+      "SPINE"
+    ],
+    "FOX_Scarf_Roll": [
+      "NECK",
+      "SPINE"
+    ],
+    "FOX_Tail": [
+      "HIPS",
+      "TAIL_01",
+      "TAIL_02",
+      "TAIL_03",
+      "TAIL_04"
+    ]
+  },
+  "rigid_bone_parenting": {
+    "HEAD": [
+      "FOX_Head (+ FOX_Tuft and all GEO_FACE objects via hierarchy)"
+    ],
+    "SPINE": [
+      "FOX_Backpack (+ flap, buckle, pockets, straps via hierarchy)"
+    ]
+  },
+  "facial_controls": {
+    "bone": "FACE",
+    "properties": {
+      "eye_blink": 0.0,
+      "eye_wide": 0.0,
+      "eye_sad": 0.0,
+      "eye_halflid": 0.0,
+      "eye_proud": 0.0,
+      "brow_sad": 0.0,
+      "brow_proud": 0.0,
+      "eyes_mode": 0,
+      "mouth_mode": 0,
+      "brows_visible": 0
+    },
+    "drives": "FOX_Eye_* shape keys (Blink, Wide, Sad, HalfLid, Proud), FOX_Brow_* shape keys (Sad, Proud), visibility of eye/mouth/brow swap meshes"
+  },
+  "level_scale": "scale FOX_ROOT uniformly (rig + all geometry inherit); see 01_DESIGN/proportions.json level_scale",
+  "d1_1": {
+    "rig_file": "03_RIG/fox_rig_d1_1.blend",
+    "changes": [
+      "FACE control bone and its 42 drivers removed: facial expressions are glTF morph targets (see face_morph_map.json)",
+      "scarf roll/bandana weights = torso weight function (no neck penetration)",
+      "ear mid blend 10 cm",
+      "shoulder blend 5 cm",
+      "tail sway authored around the view axis behind the fox, ~30\u00b0 total chain rotation"
+    ],
+    "bone_count": 28,
+    "deform_bones": 21,
+    "removed_bones": [
+      "FACE"
+    ]
+  }
+}

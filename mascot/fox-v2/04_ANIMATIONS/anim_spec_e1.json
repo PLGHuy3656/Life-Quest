@@ -1,0 +1,212 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "E1",
+  "fps": 24,
+  "source_rig": "03_RIG/fox_rig_d1_1.blend",
+  "clips": {
+    "idle": {
+      "loop": true,
+      "frames": 120,
+      "duration_s": 5.0,
+      "role": "base loop",
+      "head_control": 0.0,
+      "face_control": 0.0
+    },
+    "walk": {
+      "loop": true,
+      "frames": 40,
+      "duration_s": 1.6666666666666667,
+      "cycles": 2,
+      "cycle_frames": 20,
+      "speed_mps": 0.22,
+      "stride_m": 0.11,
+      "contact_fraction": 0.6,
+      "role": "base loop (in place; move the character at speed_mps \u00d7 level scale)",
+      "head_control": 0.5,
+      "face_control": 0.0
+    },
+    "run": {
+      "loop": true,
+      "frames": 28,
+      "duration_s": 1.1666666666666667,
+      "cycles": 2,
+      "cycle_frames": 14,
+      "speed_mps": 0.4857,
+      "stride_m": 0.085,
+      "contact_fraction": 0.3,
+      "role": "base loop (in place; move the character at speed_mps \u00d7 level scale)",
+      "head_control": 0.6,
+      "face_control": 1.0
+    },
+    "happy": {
+      "loop": false,
+      "frames": 55,
+      "duration_s": 2.2916666666666665,
+      "role": "one-shot reaction",
+      "head_control": 1.0,
+      "face_control": 1.0
+    },
+    "wave": {
+      "loop": false,
+      "frames": 63,
+      "duration_s": 2.625,
+      "role": "one-shot gesture",
+      "head_control": 1.0,
+      "face_control": 1.0
+    },
+    "head_pet": {
+      "loop": false,
+      "frames": 67,
+      "duration_s": 2.7916666666666665,
+      "role": "interaction reaction (click / stroke on the head)",
+      "head_control": 1.0,
+      "face_control": 1.0
+    },
+    "tail_touch": {
+      "loop": false,
+      "frames": 65,
+      "duration_s": 2.7083333333333335,
+      "role": "interaction reaction (click on the tail)",
+      "head_control": 1.0,
+      "face_control": 1.0
+    }
+  },
+  "head_control_note": "head_control = how much the clip owns the head (1 = look_at_cursor fully suppressed, 0 = free). Runtime look-at weight = 1 - \u03a3(action weight \u00d7 head_control).",
+  "face_control_note": "face_control = 1 means the clip drives the facial morphs; manual expression overrides are suspended.",
+  "expressions": {
+    "neutral": {},
+    "blink": {
+      "FOX_Eye_L": {
+        "Blink": 1
+      },
+      "FOX_Eye_R": {
+        "Blink": 1
+      }
+    },
+    "happy": {
+      "FOX_Eye_L": {
+        "hide": 1
+      },
+      "FOX_Eye_R": {
+        "hide": 1
+      },
+      "FOX_EyeClosedHappy_L": {
+        "show": 1
+      },
+      "FOX_EyeClosedHappy_R": {
+        "show": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Open": {
+        "show": 1
+      },
+      "FOX_Mouth_Tongue": {
+        "show": 1
+      }
+    },
+    "proud": {
+      "FOX_Eye_L": {
+        "Proud": 1
+      },
+      "FOX_Eye_R": {
+        "Proud": 1
+      },
+      "FOX_Brow_L": {
+        "Proud": 1
+      },
+      "FOX_Brow_R": {
+        "Proud": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Smile": {
+        "show": 1
+      }
+    },
+    "sad": {
+      "FOX_Eye_L": {
+        "Sad": 1
+      },
+      "FOX_Eye_R": {
+        "Sad": 1
+      },
+      "FOX_Brow_L": {
+        "Sad": 1
+      },
+      "FOX_Brow_R": {
+        "Sad": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Frown": {
+        "show": 1
+      }
+    },
+    "surprised": {
+      "FOX_Eye_L": {
+        "Wide": 1
+      },
+      "FOX_Eye_R": {
+        "Wide": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Open": {
+        "show": 1
+      },
+      "FOX_Mouth_Tongue": {
+        "show": 1
+      }
+    },
+    "sleepy": {
+      "FOX_Eye_L": {
+        "hide": 1
+      },
+      "FOX_Eye_R": {
+        "hide": 1
+      },
+      "FOX_EyeClosedSleepy_L": {
+        "show": 1
+      },
+      "FOX_EyeClosedSleepy_R": {
+        "show": 1
+      },
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_SmallO": {
+        "show": 1
+      }
+    },
+    "smile": {
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Smile": {
+        "show": 1
+      }
+    },
+    "excited": {
+      "FOX_Mouth_Neutral": {
+        "hide": 1
+      },
+      "FOX_Mouth_Open": {
+        "show": 1
+      },
+      "FOX_Mouth_Tongue": {
+        "show": 1
+      }
+    }
+  },
+  "expressions_note": "smile and excited are combinations of existing D1.1 morph targets; the morph contract is unchanged.",
+  "interaction": {
+    "look_at_cursor": "procedural (runtime): yaw NECK 45 % / HEAD 55 %, pitch NECK 85 % / HEAD 15 %, yaw \u00b140\u00b0, pitch \u221215\u2026+20\u00b0, exponential damping, eyes lead",
+    "head_pet": "click or stroke on the HEAD proxy",
+    "tail_touch": "click on the TAIL proxy"
+  }
+}

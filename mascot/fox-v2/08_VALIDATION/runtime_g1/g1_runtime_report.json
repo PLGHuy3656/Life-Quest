@@ -1,0 +1,1386 @@
+{
+  "meta": {
+    "url": "http://127.0.0.1:4180/index.html",
+    "renderer": "headless Chrome + SwiftShader (no GPU)",
+    "started": "2026-11-18 07:19:25"
+  },
+  "checks": [
+    {
+      "name": "Animation module loaded and every track binds to the existing E2 Fox node / property / morph count",
+      "pass": true,
+      "module": {
+        "id": "g1_quest_reward_streak",
+        "url": "./models/modules/fox_v2_g1_quest_reward_streak.anim.glb",
+        "ok": true,
+        "bytes": 1020436,
+        "loadMs": 32.5,
+        "clips": [
+          "streak_active",
+          "quest_start",
+          "quest_complete",
+          "quest_failed",
+          "receive_xp",
+          "level_up",
+          "achievement_unlock",
+          "streak_lost",
+          "streak_cheer"
+        ],
+        "tracks": 891,
+        "boundTracks": 891,
+        "morphTracks": 135,
+        "problems": []
+      }
+    },
+    {
+      "name": "16 clips available (7 E2 core + 9 G1); the module adds no Fox mesh (one FOX_Body \u2014 split per material by three \u2014 one bone set, E2 triangle budget)",
+      "pass": true,
+      "clips": 16,
+      "fox_body_meshes": 1,
+      "body_mesh_names": [
+        "FOX_Body_1",
+        "FOX_Body_2"
+      ],
+      "skeletons": 1,
+      "triangles": 73842,
+      "glb_requests": [
+        "fox_v2_anim_e2.glb",
+        "fox_v2_g1_quest_reward_streak.anim.glb"
+      ]
+    },
+    {
+      "name": "Binding exactness: module clips on the E2 Fox reproduce the module glTF data (independent numpy FK) \u2264 0.05 mm; morphs = Blender \u2264 0.002",
+      "pass": true,
+      "samples": 54,
+      "max_vs_gltf_fk_mm": 0.00018,
+      "max_morph": 4e-05,
+      "worst": {
+        "clip": "quest_start",
+        "frame": "30",
+        "bone": "EAR_R_01",
+        "mm": 0.00017728098551354925
+      },
+      "missing": []
+    },
+    {
+      "name": "Format fidelity vs Blender \u2264 6.0 mm on every sampled bone (glTF has no shear; approved E2 GLB on its own clips: 3.78 mm)",
+      "pass": true,
+      "max_vs_blender_mm": 5.789,
+      "worst": {
+        "clip": "streak_lost",
+        "frame": "50",
+        "bone": "EAR_L_02",
+        "mm": 5.789369723916238
+      },
+      "e2_reference_mm": 3.78,
+      "per_clip": {
+        "quest_start": 4.5887,
+        "quest_complete": 4.6014,
+        "quest_failed": 5.2306,
+        "receive_xp": 4.2821,
+        "level_up": 3.3423,
+        "achievement_unlock": 4.8128,
+        "streak_active": 1.3115,
+        "streak_lost": 5.7894,
+        "streak_cheer": 1.1829
+      }
+    },
+    {
+      "name": "[harness] Every G1 one-shot plays, animates the face, spawns + cleans its effects and returns to idle",
+      "pass": true,
+      "rows": [
+        {
+          "clip": "quest_start",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "quest_complete",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 4,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "quest_failed",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 2,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "receive_xp",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "level_up",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 4,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "achievement_unlock",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "streak_lost",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "streak_cheer",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 2,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "[harness] Every G1 one-shot plays, animates the face, spawns + cleans its effects and returns to streak_active (streak on)",
+      "pass": true,
+      "rows": [
+        {
+          "clip": "quest_start",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "quest_complete",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 4,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "quest_failed",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 2,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "receive_xp",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "level_up",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 4,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "achievement_unlock",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "streak_lost",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 3,
+          "after": {
+            "shot": null,
+            "base": "idle",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 10,
+            "char": 0
+          },
+          "pass": true
+        },
+        {
+          "clip": "streak_cheer",
+          "r": "played",
+          "faceDelta": 1,
+          "maxEffects": 2,
+          "after": {
+            "shot": null,
+            "base": "streak_active",
+            "baseW": 1,
+            "effects": 0,
+            "rootObjects": 12,
+            "char": 0
+          },
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "[harness] LEVEL_UP (50) is not interrupted by a head tap (20)",
+      "pass": true,
+      "lu": "played",
+      "tap": "rejected",
+      "shot": "level_up"
+    },
+    {
+      "name": "[harness] QUEST_COMPLETED then XP_GAINED: receive_xp waits in the queue and plays after quest_complete",
+      "pass": true,
+      "qc": "played",
+      "xp": "queued",
+      "queue": [
+        "receive_xp"
+      ],
+      "next": "receive_xp"
+    },
+    {
+      "name": "[harness] LEVEL_UP grows the fox at the jump apex (cue 0.917 s), not before",
+      "pass": true,
+      "scaleAt075": 1,
+      "pendingAfterApex": null,
+      "scaleAt215": 1.1
+    },
+    {
+      "name": "[harness] streak_active: base loop with look-at free (head/face not owned); head_pet plays over it, flame stays, returns to streak_active",
+      "pass": true,
+      "base": "streak_active",
+      "w": 1,
+      "pet": "played",
+      "flameDuring": true,
+      "after": "streak_active"
+    },
+    {
+      "name": "[harness] streak_lost interrupted after the strike: char overlay removed (\u2264 0.4 s), streak ended, effects stopped",
+      "pass": true,
+      "charBefore": 0.78,
+      "lightningBefore": 0,
+      "charAfter": 0,
+      "streak": {
+        "active": false,
+        "tier": "orange",
+        "flameVisible": false
+      },
+      "active": {}
+    },
+    {
+      "name": "[harness] Char effect never modifies the Fox materials (same objects, colour, opacity, transparency during and after)",
+      "pass": true,
+      "materials": 47
+    },
+    {
+      "name": "[harness] Streak tiers by days: 3 orange \u00b7 7 blue \u00b7 14 purple \u00b7 30 crimson (flame colours)",
+      "pass": true,
+      "3d": {
+        "tier": "orange",
+        "mid": "#ff8a1f",
+        "want": "#FF8A1F"
+      },
+      "7d": {
+        "tier": "blue",
+        "mid": "#3ea2ff",
+        "want": "#3EA2FF"
+      },
+      "14d": {
+        "tier": "purple",
+        "mid": "#9a5cff",
+        "want": "#9A5CFF"
+      },
+      "30d": {
+        "tier": "crimson",
+        "mid": "#f2427f",
+        "want": "#F2427F"
+      }
+    },
+    {
+      "name": "[harness] Effects disabled: no effect objects spawn, but the level change still applies at the apex",
+      "pass": true,
+      "maxEffects": 0,
+      "scale": 0.8
+    },
+    {
+      "name": "[harness] Reduced motion: STREAK_LOST \u2192 flame fades out gently + sad face, no lightning / char / jolt",
+      "pass": true,
+      "streak": {
+        "active": false,
+        "tier": "crimson",
+        "flameVisible": false
+      },
+      "lightning": 0,
+      "steps": [
+        {
+          "kind": "streak",
+          "active": false
+        },
+        {
+          "kind": "mood",
+          "mood": "sad",
+          "durationS": 3
+        }
+      ]
+    },
+    {
+      "name": "[harness] All 9 G1 clips are bound on this instance (core + module = 16 clips)",
+      "pass": true,
+      "available": [
+        "happy",
+        "head_pet",
+        "idle",
+        "run",
+        "tail_touch",
+        "walk",
+        "wave",
+        "streak_active",
+        "quest_start",
+        "quest_complete",
+        "quest_failed",
+        "receive_xp",
+        "level_up",
+        "achievement_unlock",
+        "streak_lost",
+        "streak_cheer"
+      ]
+    },
+    {
+      "name": "Uniform level scaling: effect root follows the fox scale exactly at Lv1 and Lv30",
+      "pass": true,
+      "lv1_scale": 0.8,
+      "lv30_scale": 1.1,
+      "err": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Lv1 and Lv30: every bone stays inside the canvas through all G1 clips (fixed camera)",
+      "pass": true,
+      "lv1_margin": 133.4,
+      "lv30_margin": 133.4,
+      "lv1_top_margin": 305.7,
+      "lv30_top_margin": 187.6,
+      "note": "min edge margin is the feet (scale origin), the top margin shows the scale"
+    },
+    {
+      "name": "LEVEL_UP: new level held until the apex cue (f23 \u2248 0.92 s), then applied; clip returns to base",
+      "pass": true,
+      "before": 20,
+      "at0_75s": 20,
+      "after1_35s": 30,
+      "end": 30,
+      "oneShotEnd": null
+    },
+    {
+      "name": "Real mouse: hover + click head during streak_active \u2192 head_pet; flame keeps burning; returns to streak_active",
+      "pass": true,
+      "hover": "head",
+      "during": {
+        "oneShot": "head_pet",
+        "base": "streak_active",
+        "flame": {
+          "active": true,
+          "tier": "orange",
+          "flameVisible": true,
+          "colors": {
+            "core": "#ffd25e",
+            "mid": "#ff8a1f",
+            "edge": "#e8480f"
+          }
+        }
+      },
+      "after": {
+        "oneShot": null,
+        "base": "streak_active",
+        "flame": {
+          "active": true,
+          "tier": "orange",
+          "flameVisible": true,
+          "colors": {
+            "core": "#ffd25e",
+            "mid": "#ff8a1f",
+            "edge": "#e8480f"
+          }
+        }
+      }
+    },
+    {
+      "name": "All G1 effects clean up: renderer geometries / textures do not grow across repeated full passes; no active fx, char overlay off",
+      "pass": true,
+      "warm": {
+        "geometries": 55,
+        "textures": 35,
+        "programs": 11,
+        "fxActive": 0,
+        "fxRootObjects": 10,
+        "char": 0
+      },
+      "pass2": {
+        "geometries": 55,
+        "textures": 35,
+        "programs": 11,
+        "fxActive": 0,
+        "fxRootObjects": 10,
+        "char": 0
+      },
+      "pass3": {
+        "geometries": 55,
+        "textures": 35,
+        "programs": 11,
+        "fxActive": 0,
+        "fxRootObjects": 10,
+        "char": 0
+      }
+    },
+    {
+      "name": "No page errors on the G1 harness (a missing favicon.ico 404 from the static test server is ignored)",
+      "pass": true,
+      "errors": [],
+      "http_404": []
+    },
+    {
+      "name": "?modules=0: 7 core clips only; G1 events run their F-era fallback reactions (no unavailable / fabricated clips)",
+      "pass": true,
+      "clips": 7,
+      "bad": {},
+      "quest": {
+        "result": "handled",
+        "play": "played",
+        "steps": [
+          "play:happy",
+          "mood:proud"
+        ],
+        "oneShot": "happy",
+        "mood": "proud"
+      },
+      "streak_lost": {
+        "result": "handled",
+        "play": null,
+        "steps": [
+          "streak:false",
+          "mood:sad"
+        ],
+        "oneShot": null,
+        "mood": "sad"
+      },
+      "errors": []
+    }
+  ],
+  "measurements": {
+    "module": {
+      "modules": [
+        {
+          "id": "g1_quest_reward_streak",
+          "url": "./models/modules/fox_v2_g1_quest_reward_streak.anim.glb",
+          "ok": true,
+          "bytes": 1020436,
+          "loadMs": 32.5,
+          "clips": [
+            "streak_active",
+            "quest_start",
+            "quest_complete",
+            "quest_failed",
+            "receive_xp",
+            "level_up",
+            "achievement_unlock",
+            "streak_lost",
+            "streak_cheer"
+          ],
+          "tracks": 891,
+          "boundTracks": 891,
+          "morphTracks": 135,
+          "problems": []
+        }
+      ],
+      "clips": [
+        "happy",
+        "head_pet",
+        "idle",
+        "run",
+        "tail_touch",
+        "walk",
+        "wave",
+        "streak_active",
+        "quest_start",
+        "quest_complete",
+        "quest_failed",
+        "receive_xp",
+        "level_up",
+        "achievement_unlock",
+        "streak_lost",
+        "streak_cheer"
+      ],
+      "tris": 73842,
+      "bodyMeshes": [
+        "FOX_Body_1",
+        "FOX_Body_2"
+      ],
+      "skeletons": 1,
+      "foxMeshes": 1
+    },
+    "pose_equivalence": {
+      "clips": {
+        "quest_start": {
+          "vsBlenderMm": 4.5887,
+          "vsGltfFkMm": 0.00018,
+          "maxMorph": 0,
+          "samples": 6
+        },
+        "quest_complete": {
+          "vsBlenderMm": 4.6014,
+          "vsGltfFkMm": 0.00012,
+          "maxMorph": 0,
+          "samples": 6
+        },
+        "quest_failed": {
+          "vsBlenderMm": 5.2306,
+          "vsGltfFkMm": 0.00011,
+          "maxMorph": 3e-05,
+          "samples": 6
+        },
+        "receive_xp": {
+          "vsBlenderMm": 4.2821,
+          "vsGltfFkMm": 0.00014,
+          "maxMorph": 3e-05,
+          "samples": 6
+        },
+        "level_up": {
+          "vsBlenderMm": 3.3423,
+          "vsGltfFkMm": 0.00013,
+          "maxMorph": 4e-05,
+          "samples": 6
+        },
+        "achievement_unlock": {
+          "vsBlenderMm": 4.8128,
+          "vsGltfFkMm": 0.0001,
+          "maxMorph": 4e-05,
+          "samples": 6
+        },
+        "streak_active": {
+          "vsBlenderMm": 1.3115,
+          "vsGltfFkMm": 0.00015,
+          "maxMorph": 2e-05,
+          "samples": 6
+        },
+        "streak_lost": {
+          "vsBlenderMm": 5.7894,
+          "vsGltfFkMm": 0.00011,
+          "maxMorph": 2e-05,
+          "samples": 6
+        },
+        "streak_cheer": {
+          "vsBlenderMm": 1.1829,
+          "vsGltfFkMm": 0.00015,
+          "maxMorph": 0,
+          "samples": 6
+        }
+      },
+      "maxBoneMm": 5.789369723916238,
+      "maxBindMm": 0.00017728098551354925,
+      "maxMorph": 3.999471664428711e-05,
+      "samples": 54,
+      "worst": {
+        "clip": "streak_lost",
+        "frame": "50",
+        "bone": "EAR_L_02",
+        "mm": 5.789369723916238
+      },
+      "worstBind": {
+        "clip": "quest_start",
+        "frame": "30",
+        "bone": "EAR_R_01",
+        "mm": 0.00017728098551354925
+      },
+      "worstMorph": {
+        "clip": "achievement_unlock",
+        "frame": "2",
+        "mesh": "FOX_Eye_L",
+        "key": "Wide",
+        "got": 0.5000399947166443,
+        "want": 0.5
+      },
+      "missingNodes": []
+    },
+    "in_page_tests": [
+      {
+        "name": "Every G1 one-shot plays, animates the face, spawns + cleans its effects and returns to idle",
+        "pass": true,
+        "detail": {
+          "rows": [
+            {
+              "clip": "quest_start",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "quest_complete",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 4,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "quest_failed",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 2,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "receive_xp",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "level_up",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 4,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "achievement_unlock",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "streak_lost",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "streak_cheer",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 2,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "Every G1 one-shot plays, animates the face, spawns + cleans its effects and returns to streak_active (streak on)",
+        "pass": true,
+        "detail": {
+          "rows": [
+            {
+              "clip": "quest_start",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "quest_complete",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 4,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "quest_failed",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 2,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "receive_xp",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "level_up",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 4,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "achievement_unlock",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "streak_lost",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 3,
+              "after": {
+                "shot": null,
+                "base": "idle",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 10,
+                "char": 0
+              },
+              "pass": true
+            },
+            {
+              "clip": "streak_cheer",
+              "r": "played",
+              "faceDelta": 1,
+              "maxEffects": 2,
+              "after": {
+                "shot": null,
+                "base": "streak_active",
+                "baseW": 1,
+                "effects": 0,
+                "rootObjects": 12,
+                "char": 0
+              },
+              "pass": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "LEVEL_UP (50) is not interrupted by a head tap (20)",
+        "pass": true,
+        "detail": {
+          "lu": "played",
+          "tap": "rejected",
+          "shot": "level_up"
+        }
+      },
+      {
+        "name": "QUEST_COMPLETED then XP_GAINED: receive_xp waits in the queue and plays after quest_complete",
+        "pass": true,
+        "detail": {
+          "qc": "played",
+          "xp": "queued",
+          "queue": [
+            "receive_xp"
+          ],
+          "next": "receive_xp"
+        }
+      },
+      {
+        "name": "LEVEL_UP grows the fox at the jump apex (cue 0.917 s), not before",
+        "pass": true,
+        "detail": {
+          "scaleAt075": 1,
+          "pendingAfterApex": null,
+          "scaleAt215": 1.1
+        }
+      },
+      {
+        "name": "streak_active: base loop with look-at free (head/face not owned); head_pet plays over it, flame stays, returns to streak_active",
+        "pass": true,
+        "detail": {
+          "base": "streak_active",
+          "w": 1,
+          "pet": "played",
+          "flameDuring": true,
+          "after": "streak_active"
+        }
+      },
+      {
+        "name": "streak_lost interrupted after the strike: char overlay removed (\u2264 0.4 s), streak ended, effects stopped",
+        "pass": true,
+        "detail": {
+          "charBefore": 0.78,
+          "lightningBefore": 0,
+          "charAfter": 0,
+          "streak": {
+            "active": false,
+            "tier": "orange",
+            "flameVisible": false
+          },
+          "active": {}
+        }
+      },
+      {
+        "name": "Char effect never modifies the Fox materials (same objects, colour, opacity, transparency during and after)",
+        "pass": true,
+        "detail": {
+          "materials": 47
+        }
+      },
+      {
+        "name": "Streak tiers by days: 3 orange \u00b7 7 blue \u00b7 14 purple \u00b7 30 crimson (flame colours)",
+        "pass": true,
+        "detail": {
+          "3d": {
+            "tier": "orange",
+            "mid": "#ff8a1f",
+            "want": "#FF8A1F"
+          },
+          "7d": {
+            "tier": "blue",
+            "mid": "#3ea2ff",
+            "want": "#3EA2FF"
+          },
+          "14d": {
+            "tier": "purple",
+            "mid": "#9a5cff",
+            "want": "#9A5CFF"
+          },
+          "30d": {
+            "tier": "crimson",
+            "mid": "#f2427f",
+            "want": "#F2427F"
+          }
+        }
+      },
+      {
+        "name": "Effects disabled: no effect objects spawn, but the level change still applies at the apex",
+        "pass": true,
+        "detail": {
+          "maxEffects": 0,
+          "scale": 0.8
+        }
+      },
+      {
+        "name": "Reduced motion: STREAK_LOST \u2192 flame fades out gently + sad face, no lightning / char / jolt",
+        "pass": true,
+        "detail": {
+          "streak": {
+            "active": false,
+            "tier": "crimson",
+            "flameVisible": false
+          },
+          "lightning": 0,
+          "steps": [
+            {
+              "kind": "streak",
+              "active": false
+            },
+            {
+              "kind": "mood",
+              "mood": "sad",
+              "durationS": 3
+            }
+          ]
+        }
+      },
+      {
+        "name": "All 9 G1 clips are bound on this instance (core + module = 16 clips)",
+        "pass": true,
+        "detail": {
+          "available": [
+            "happy",
+            "head_pet",
+            "idle",
+            "run",
+            "tail_touch",
+            "walk",
+            "wave",
+            "streak_active",
+            "quest_start",
+            "quest_complete",
+            "quest_failed",
+            "receive_xp",
+            "level_up",
+            "achievement_unlock",
+            "streak_lost",
+            "streak_cheer"
+          ]
+        }
+      }
+    ],
+    "level_scaling": {
+      "1": {
+        "level": 1,
+        "clips": {
+          "streak_active": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 331.8,
+            "effectScaleErr": 0
+          },
+          "quest_start": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 321.5,
+            "effectScaleErr": 0
+          },
+          "quest_complete": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 305.7,
+            "effectScaleErr": 0
+          },
+          "quest_failed": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 322.6,
+            "effectScaleErr": 0
+          },
+          "receive_xp": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 322.1,
+            "effectScaleErr": 0
+          },
+          "achievement_unlock": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 324.5,
+            "effectScaleErr": 0
+          },
+          "streak_lost": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 323.2,
+            "effectScaleErr": 0
+          },
+          "streak_cheer": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 322.8,
+            "effectScaleErr": 0
+          }
+        },
+        "foxScale": 0.8,
+        "minMarginPx": 133.4,
+        "minTopMarginPx": 305.7,
+        "maxEffectScaleErr": 0
+      },
+      "30": {
+        "level": 30,
+        "clips": {
+          "streak_active": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 220.5,
+            "effectScaleErr": 0
+          },
+          "quest_start": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 209.1,
+            "effectScaleErr": 0
+          },
+          "quest_complete": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 187.6,
+            "effectScaleErr": 0
+          },
+          "quest_failed": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 201.1,
+            "effectScaleErr": 0
+          },
+          "receive_xp": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 207.9,
+            "effectScaleErr": 0
+          },
+          "achievement_unlock": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 209.1,
+            "effectScaleErr": 0
+          },
+          "streak_lost": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 207.4,
+            "effectScaleErr": 0
+          },
+          "streak_cheer": {
+            "minMarginPx": 133.4,
+            "topMarginPx": 209.8,
+            "effectScaleErr": 0
+          }
+        },
+        "foxScale": 1.1,
+        "minMarginPx": 133.4,
+        "minTopMarginPx": 187.6,
+        "maxEffectScaleErr": 0
+      }
+    },
+    "level_up_apex": {
+      "before": 20,
+      "at0_75s": 20,
+      "after1_35s": 30,
+      "end": 30,
+      "oneShotEnd": null
+    },
+    "streak_pet": {
+      "hover": "head",
+      "during": {
+        "oneShot": "head_pet",
+        "base": "streak_active",
+        "flame": {
+          "active": true,
+          "tier": "orange",
+          "flameVisible": true,
+          "colors": {
+            "core": "#ffd25e",
+            "mid": "#ff8a1f",
+            "edge": "#e8480f"
+          }
+        }
+      },
+      "after": {
+        "oneShot": null,
+        "base": "streak_active",
+        "flame": {
+          "active": true,
+          "tier": "orange",
+          "flameVisible": true,
+          "colors": {
+            "core": "#ffd25e",
+            "mid": "#ff8a1f",
+            "edge": "#e8480f"
+          }
+        }
+      }
+    },
+    "gpu_cleanup": {
+      "after_warmup": {
+        "geometries": 55,
+        "textures": 35,
+        "programs": 11,
+        "fxActive": 0,
+        "fxRootObjects": 10,
+        "char": 0
+      },
+      "baseline": {
+        "geometries": 55,
+        "textures": 35
+      },
+      "after_pass2": {
+        "geometries": 55,
+        "textures": 35,
+        "programs": 11,
+        "fxActive": 0,
+        "fxRootObjects": 10,
+        "char": 0
+      },
+      "after_pass3": {
+        "geometries": 55,
+        "textures": 35,
+        "programs": 11,
+        "fxActive": 0,
+        "fxRootObjects": 10,
+        "char": 0
+      }
+    },
+    "fallback_modules_off": {
+      "clips": 7,
+      "events": {
+        "QUEST_STARTED": {
+          "result": "handled",
+          "play": null,
+          "steps": [
+            "mood:proud"
+          ],
+          "oneShot": null,
+          "mood": "proud"
+        },
+        "QUEST_COMPLETED": {
+          "result": "handled",
+          "play": "played",
+          "steps": [
+            "play:happy",
+            "mood:proud"
+          ],
+          "oneShot": "happy",
+          "mood": "proud"
+        },
+        "QUEST_EXPIRED": {
+          "result": "handled",
+          "play": null,
+          "steps": [
+            "mood:sad"
+          ],
+          "oneShot": null,
+          "mood": "sad"
+        },
+        "XP_GAINED": {
+          "result": "handled",
+          "play": null,
+          "steps": [
+            "mood:smile"
+          ],
+          "oneShot": null,
+          "mood": "smile"
+        },
+        "LEVEL_UP": {
+          "result": "handled",
+          "play": "played",
+          "steps": [
+            "level:",
+            "play:happy",
+            "mood:proud"
+          ],
+          "oneShot": "happy",
+          "mood": "smile"
+        },
+        "ACHIEVEMENT_UNLOCKED": {
+          "result": "handled",
+          "play": "played",
+          "steps": [
+            "play:happy",
+            "mood:proud"
+          ],
+          "oneShot": "happy",
+          "mood": "proud"
+        },
+        "STREAK_UPDATED": {
+          "result": "handled",
+          "play": null,
+          "steps": [
+            "streak:true"
+          ],
+          "oneShot": null,
+          "mood": "proud"
+        },
+        "STREAK_MILESTONE": {
+          "result": "handled",
+          "play": "played",
+          "steps": [
+            "streak:true",
+            "play:happy",
+            "mood:proud"
+          ],
+          "oneShot": "happy",
+          "mood": "proud"
+        },
+        "STREAK_LOST": {
+          "result": "handled",
+          "play": null,
+          "steps": [
+            "streak:false",
+            "mood:sad"
+          ],
+          "oneShot": null,
+          "mood": "sad"
+        }
+      }
+    }
+  },
+  "summary": "23/23 PASS"
+}
