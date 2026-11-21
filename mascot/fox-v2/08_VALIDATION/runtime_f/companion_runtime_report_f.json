@@ -1,0 +1,810 @@
+{
+  "meta": {
+    "url": "http://127.0.0.1:4180/index.html",
+    "renderer": "headless Chrome + SwiftShader (no GPU)",
+    "started": "2026-11-17 08:22:13"
+  },
+  "checks": [
+    {
+      "name": "Dashboard Mini + Companion Widget mounted from the same FoxController class",
+      "pass": true,
+      "instances": [
+        [
+          "fox-1",
+          "mini",
+          [
+            200,
+            200
+          ]
+        ],
+        [
+          "fox-2",
+          "widget",
+          [
+            360,
+            440
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "Fox GLB downloaded once for both instances (shared parse, no duplicated geometry)",
+      "pass": true,
+      "requests": 1
+    },
+    {
+      "name": "Instances share every Fox BufferGeometry (SkeletonUtils clone; only the 5 small hit proxies are per instance)",
+      "pass": true,
+      "a": 47,
+      "b": 47,
+      "same": 47
+    },
+    {
+      "name": "Presentation sizes: Mini 200\u00d7200, Widget 360\u00d7440",
+      "pass": true,
+      "sizes": [
+        [
+          "mini",
+          200,
+          200
+        ],
+        [
+          "widget",
+          360,
+          440
+        ]
+      ]
+    },
+    {
+      "name": "Triangles / draw calls per companion match the E2 budget (\u224873.8k tris, \u2264 50 calls)",
+      "pass": true,
+      "triangles": 73842,
+      "calls": 48
+    },
+    {
+      "name": "play(\"wave\") plays a one-shot; unknown clip is refused",
+      "pass": true,
+      "play": "played",
+      "playing": "wave",
+      "unknown": "unknown",
+      "mood": "happy",
+      "walkW": 1,
+      "idleW": 1,
+      "scale10": 0.92,
+      "lookOff": 0,
+      "interOff": false,
+      "paused": true,
+      "renderWhilePausedFrames": 4,
+      "resumed": true
+    },
+    {
+      "name": "setMood / setActivity / setLevel / setLookAtEnabled / setInteractionEnabled / pause / resume",
+      "pass": true,
+      "play": "played",
+      "playing": "wave",
+      "unknown": "unknown",
+      "mood": "happy",
+      "walkW": 1,
+      "idleW": 1,
+      "scale10": 0.92,
+      "lookOff": 0,
+      "interOff": false,
+      "paused": true,
+      "renderWhilePausedFrames": 4,
+      "resumed": true
+    },
+    {
+      "name": "Major event (50) is not interrupted by a tap (20); equal-priority event is queued",
+      "pass": true,
+      "major": "played",
+      "tapDuringMajor": "rejected",
+      "equalEventQueued": "queued",
+      "queue": [
+        "wave"
+      ],
+      "stillMajor": "happy",
+      "queuedPlaysAfterMajor": "wave",
+      "pet": "played",
+      "petAgainDebounced": "debounced",
+      "tailReplacesPet": "played",
+      "crossfade": {
+        "head_pet": 0.833,
+        "tail_touch": 0.167
+      },
+      "afterFade": {
+        "head_pet": 0,
+        "tail_touch": 1
+      },
+      "levelUpInterrupts": "played",
+      "after": "happy"
+    },
+    {
+      "name": "Repeated tap debounced; a new interaction cross-fades the previous one; LEVEL_UP (50) interrupts",
+      "pass": true,
+      "major": "played",
+      "tapDuringMajor": "rejected",
+      "equalEventQueued": "queued",
+      "queue": [
+        "wave"
+      ],
+      "stillMajor": "happy",
+      "queuedPlaysAfterMajor": "wave",
+      "pet": "played",
+      "petAgainDebounced": "debounced",
+      "tailReplacesPet": "played",
+      "crossfade": {
+        "head_pet": 0.833,
+        "tail_touch": 0.167
+      },
+      "afterFade": {
+        "head_pet": 0,
+        "tail_touch": 1
+      },
+      "levelUpInterrupts": "played",
+      "after": "happy"
+    },
+    {
+      "name": "Idle variation gate stays closed during a one-shot (no random reactions)",
+      "pass": true,
+      "idleEventsIn30s": 13,
+      "eventsDuringShot": 0,
+      "maxIdleWeightDuringShot": 0.040762203978366184,
+      "weightAfter": 0.9999999999999974
+    },
+    {
+      "name": "Hover head detected by raycast (real mouse)",
+      "pass": true,
+      "hover": "head",
+      "at": [
+        1153,
+        550
+      ]
+    },
+    {
+      "name": "Click head \u2192 head_pet",
+      "pass": true,
+      "oneShot": "head_pet"
+    },
+    {
+      "name": "A second click during head_pet does not restart the clip (debounce)",
+      "pass": true,
+      "clip_time_before": 1.0,
+      "clip_time_after": 1.033,
+      "taps": 2,
+      "ignored": 0
+    },
+    {
+      "name": "Hover + click tail (visible, not occluded by the body) \u2192 tail_touch",
+      "pass": true,
+      "hover": "tail",
+      "oneShot": "tail_touch",
+      "candidates": 11
+    },
+    {
+      "name": "Look-at ignores \u00b11.5 px cursor jitter (dead zone + low-pass)",
+      "pass": true,
+      "max_head_change_deg": 0.237
+    },
+    {
+      "name": "Look-at follows a real move (head turns toward the cursor side)",
+      "pass": true,
+      "yaw_before": 37.1,
+      "yaw_after": -37.1
+    },
+    {
+      "name": "Pointer leaves \u2192 gentle return to neutral (look offset \u2248 0)",
+      "pass": true,
+      "lookYaw": 2.3
+    },
+    {
+      "name": "Raycast cost per pick is small (< 1 ms avg on SwiftShader CPU)",
+      "pass": true,
+      "picks": 60,
+      "pick_ms_avg": 0.045,
+      "pick_ms_max": 0.2,
+      "update_ms_idle": 0.029,
+      "update_ms_while_moving": 0.24
+    },
+    {
+      "name": "Uniform level scale: Lv1 0.80 \u00b7 Lv10 0.92 \u00b7 Lv20 1.00 \u00b7 Lv30+ 1.10; hit proxies scale with it",
+      "pass": true,
+      "L1": {
+        "scale": 0.8,
+        "proxyRatio": 0.8
+      },
+      "L10": {
+        "scale": 0.92,
+        "proxyRatio": 0.92
+      },
+      "L20": {
+        "scale": 1,
+        "proxyRatio": 1
+      },
+      "L30": {
+        "scale": 1.1,
+        "proxyRatio": 1.1
+      },
+      "L45": {
+        "scale": 1.1,
+        "proxyRatio": 1.1
+      }
+    },
+    {
+      "name": "Camera framing fixed for all levels; Lv30 fox stays inside the widget during happy",
+      "pass": true,
+      "camera_unchanged": true,
+      "min_margin_px": 58.4
+    },
+    {
+      "name": "Every registered event uses only clips that exist in the E2 contract",
+      "pass": true,
+      "events": 14
+    },
+    {
+      "name": "Fallback events play no fabricated clip (face-only), unknown events are refused, aliases resolve, repeats coalesce",
+      "pass": true,
+      "unknown": "unknown",
+      "alias": "QUEST_COMPLETED",
+      "fallbackPlays": null,
+      "fallbackMood": "sad",
+      "coalesced": "coalesced",
+      "aliasCollisionRejected": true
+    },
+    {
+      "name": "Dashboard \"Ho\u00e0n th\u00e0nh Quest\" publishes QUEST_COMPLETED \u2192 every mounted fox reacts",
+      "pass": true,
+      "instances": [
+        [
+          "mini",
+          "happy"
+        ],
+        [
+          "widget",
+          "happy"
+        ]
+      ]
+    },
+    {
+      "name": "Tab hidden (simulated visibilitychange) \u2192 render loop stops and controllers pause; visible \u2192 resumes",
+      "pass": true,
+      "visibility": "hidden",
+      "frames_hidden": [
+        [
+          [
+            297,
+            true
+          ],
+          [
+            296,
+            true
+          ]
+        ],
+        [
+          297,
+          296
+        ]
+      ],
+      "resumed": [
+        [
+          303,
+          false
+        ],
+        [
+          302,
+          false
+        ]
+      ]
+    },
+    {
+      "name": "Full Companion View uses the same controller (cached GLB, no 2nd download)",
+      "pass": true,
+      "cached": true,
+      "glb_requests": 1
+    },
+    {
+      "name": "Full view: click head \u2192 head_pet",
+      "pass": true
+    },
+    {
+      "name": "Offscreen companion: no frames rendered, controller paused",
+      "pass": true,
+      "instances": [
+        [
+          "C\u00e1o (lab)",
+          19,
+          true,
+          false
+        ],
+        [
+          "C\u00e1o ngo\u00e0i m\u00e0n h\u00ecnh",
+          0,
+          false,
+          true
+        ]
+      ]
+    },
+    {
+      "name": "Scrolled into view \u2192 starts rendering",
+      "pass": true,
+      "instances": [
+        [
+          6,
+          true
+        ]
+      ]
+    },
+    {
+      "name": "40\u00d7 mount / unmount: no leaked controllers, canvases or renderer listeners; heap flat after warm-up (< 40 KB / cycle)",
+      "pass": true,
+      "warmup_cycles": 10,
+      "measured_cycles": 30,
+      "seconds": 29.0,
+      "heap_start_mb": 8.84,
+      "heap_after_warmup_mb": 9.76,
+      "heap_after_mb": 10.27,
+      "heap_growth_per_cycle_kb": 17.5,
+      "shared_dispose_listeners_before": [
+        122,
+        24
+      ],
+      "shared_dispose_listeners_after": [
+        122,
+        24
+      ],
+      "before": {
+        "canvases": 2,
+        "cache": [
+          {
+            "url": "./models/fox_v2_anim_e2.glb",
+            "refs": 2,
+            "loaded": true,
+            "pendingDispose": false
+          }
+        ],
+        "instances": 2
+      },
+      "after": {
+        "canvases": 2,
+        "cache": [
+          {
+            "url": "./models/fox_v2_anim_e2.glb",
+            "refs": 2,
+            "loaded": true,
+            "pendingDispose": false
+          }
+        ],
+        "instances": 2
+      },
+      "unmounted": {
+        "canvases": 1,
+        "cache": [
+          {
+            "url": "./models/fox_v2_anim_e2.glb",
+            "refs": 1,
+            "loaded": true,
+            "pendingDispose": false
+          }
+        ],
+        "instances": 1
+      }
+    },
+    {
+      "name": "Shared GLB stays cached while any instance uses it (refcount)",
+      "pass": true,
+      "cache": [
+        {
+          "url": "./models/fox_v2_anim_e2.glb",
+          "refs": 1,
+          "loaded": true,
+          "pendingDispose": false
+        }
+      ]
+    },
+    {
+      "name": "prefers-reduced-motion: look-at + idle variation off, jumps/hops replaced by face reactions, gentle clips allowed",
+      "pass": true,
+      "reduced": true,
+      "look": 0,
+      "idleVar": 0,
+      "tail": "substituted",
+      "questPlay": null,
+      "questSteps": [
+        "mood:proud"
+      ],
+      "moodAfter": "proud",
+      "wave": "played"
+    },
+    {
+      "name": "Missing GLB \u2192 poster fallback with \"Th\u1eed l\u1ea1i\", page keeps working",
+      "pass": true,
+      "fallbacks": [
+        "load",
+        "load"
+      ],
+      "retry_buttons": 2
+    },
+    {
+      "name": "Touch tap on the head (emulated mobile viewport) \u2192 head_pet",
+      "pass": true,
+      "oneShot": "head_pet"
+    },
+    {
+      "name": "No page errors / console errors during the run",
+      "pass": true,
+      "errors": []
+    },
+    {
+      "name": "WebGL unavailable (Chrome --disable-3d-apis) \u2192 static poster, no canvas, no crash",
+      "pass": true,
+      "fallbacks": [
+        "webgl",
+        "webgl"
+      ],
+      "canvases": 0,
+      "errors": []
+    }
+  ],
+  "measurements": {
+    "dashboard_ready_s": 2.13,
+    "dashboard_instances": [
+      {
+        "id": "fox-1",
+        "p": "mini",
+        "canvas": [
+          200,
+          200
+        ],
+        "calls": 48,
+        "tris": 73842,
+        "asset": {
+          "url": "./models/fox_v2_anim_e2.glb",
+          "bytes": 2706776,
+          "fetchMs": 46.09999999962747,
+          "parseMs": 27.200000000186265,
+          "loadMs": 73.29999999981374,
+          "triangles": 73840,
+          "meshes": 47,
+          "fromCache": false
+        }
+      },
+      {
+        "id": "fox-2",
+        "p": "widget",
+        "canvas": [
+          360,
+          440
+        ],
+        "calls": 48,
+        "tris": 73842,
+        "asset": {
+          "url": "./models/fox_v2_anim_e2.glb",
+          "bytes": 2706776,
+          "fetchMs": 46.09999999962747,
+          "parseMs": 27.200000000186265,
+          "loadMs": 73.29999999981374,
+          "triangles": 73840,
+          "meshes": 47,
+          "fromCache": false
+        }
+      }
+    ],
+    "per_instance_render": {
+      "triangles": 73842,
+      "draw_calls": 48
+    },
+    "api": {
+      "play": "played",
+      "playing": "wave",
+      "unknown": "unknown",
+      "mood": "happy",
+      "walkW": 1,
+      "idleW": 1,
+      "scale10": 0.92,
+      "lookOff": 0,
+      "interOff": false,
+      "paused": true,
+      "renderWhilePausedFrames": 4,
+      "resumed": true
+    },
+    "priorities": {
+      "major": "played",
+      "tapDuringMajor": "rejected",
+      "equalEventQueued": "queued",
+      "queue": [
+        "wave"
+      ],
+      "stillMajor": "happy",
+      "queuedPlaysAfterMajor": "wave",
+      "pet": "played",
+      "petAgainDebounced": "debounced",
+      "tailReplacesPet": "played",
+      "crossfade": {
+        "head_pet": 0.833,
+        "tail_touch": 0.167
+      },
+      "afterFade": {
+        "head_pet": 0,
+        "tail_touch": 1
+      },
+      "levelUpInterrupts": "played",
+      "after": "happy"
+    },
+    "idle_variation": {
+      "idleEventsIn30s": 13,
+      "eventsDuringShot": 0,
+      "maxIdleWeightDuringShot": 0.040762203978366184,
+      "weightAfter": 0.9999999999999974,
+      "log": [
+        {
+          "t": 27.08,
+          "type": "tail_flick",
+          "side": -1,
+          "double": false
+        },
+        {
+          "t": 28.36,
+          "type": "blink",
+          "side": -1,
+          "double": false
+        },
+        {
+          "t": 29.66,
+          "type": "tempo",
+          "v": 0.942
+        },
+        {
+          "t": 36.03,
+          "type": "tempo",
+          "v": 1.032
+        },
+        {
+          "t": 36.43,
+          "type": "blink",
+          "side": -1,
+          "double": false
+        },
+        {
+          "t": 37.43,
+          "type": "glance",
+          "side": 1,
+          "double": false
+        }
+      ]
+    },
+    "pointer_overhead": {
+      "picks": 60,
+      "pick_ms_avg": 0.045,
+      "pick_ms_max": 0.2,
+      "update_ms_idle": 0.029,
+      "update_ms_while_moving": 0.24
+    },
+    "level_scale": {
+      "L1": {
+        "scale": 0.8,
+        "proxyRatio": 0.8
+      },
+      "L10": {
+        "scale": 0.92,
+        "proxyRatio": 0.92
+      },
+      "L20": {
+        "scale": 1,
+        "proxyRatio": 1
+      },
+      "L30": {
+        "scale": 1.1,
+        "proxyRatio": 1.1
+      },
+      "L45": {
+        "scale": 1.1,
+        "proxyRatio": 1.1
+      },
+      "cameraUnchanged": true,
+      "fitMarginPxAtLv30Happy": 58.4
+    },
+    "event_registry": {
+      "events": [
+        {
+          "name": "QUEST_COMPLETED",
+          "coverage": "partial",
+          "priority": 50,
+          "plays": [
+            "happy"
+          ],
+          "planned": "celebrate",
+          "validClips": true
+        },
+        {
+          "name": "TASK_COMPLETED",
+          "coverage": "native",
+          "priority": 20,
+          "plays": [
+            "happy"
+          ],
+          "planned": null,
+          "validClips": true
+        },
+        {
+          "name": "HABIT_CHECKED_IN",
+          "coverage": "fallback",
+          "priority": 20,
+          "plays": [],
+          "planned": "proud_pose",
+          "validClips": true
+        },
+        {
+          "name": "STREAK_MILESTONE",
+          "coverage": "partial",
+          "priority": 30,
+          "plays": [
+            "happy"
+          ],
+          "planned": "streak_cheer",
+          "validClips": true
+        },
+        {
+          "name": "STREAK_LOST",
+          "coverage": "fallback",
+          "priority": 50,
+          "plays": [],
+          "planned": "sad_react",
+          "validClips": true
+        },
+        {
+          "name": "LEVEL_UP",
+          "coverage": "partial",
+          "priority": 50,
+          "plays": [
+            "happy"
+          ],
+          "planned": "level_up",
+          "validClips": true
+        },
+        {
+          "name": "CHALLENGE_WON",
+          "coverage": "partial",
+          "priority": 50,
+          "plays": [
+            "happy"
+          ],
+          "planned": "celebrate",
+          "validClips": true
+        },
+        {
+          "name": "CHALLENGE_LOST",
+          "coverage": "fallback",
+          "priority": 30,
+          "plays": [],
+          "planned": "sad_react",
+          "validClips": true
+        },
+        {
+          "name": "QUEST_DEADLINE_URGENT",
+          "coverage": "fallback",
+          "priority": 45,
+          "plays": [],
+          "planned": "panic",
+          "validClips": true
+        },
+        {
+          "name": "QUEST_EXPIRED",
+          "coverage": "fallback",
+          "priority": 50,
+          "plays": [],
+          "planned": "disappointed",
+          "validClips": true
+        },
+        {
+          "name": "FRIEND_CHEER",
+          "coverage": "native",
+          "priority": 20,
+          "plays": [
+            "wave"
+          ],
+          "planned": null,
+          "validClips": true
+        },
+        {
+          "name": "APP_GREETING",
+          "coverage": "native",
+          "priority": 10,
+          "plays": [
+            "wave"
+          ],
+          "planned": null,
+          "validClips": true
+        },
+        {
+          "name": "USER_IDLE",
+          "coverage": "fallback",
+          "priority": 0,
+          "plays": [],
+          "planned": "sleep_loop",
+          "validClips": true
+        },
+        {
+          "name": "USER_RETURNED",
+          "coverage": "native",
+          "priority": 10,
+          "plays": [
+            "wave"
+          ],
+          "planned": null,
+          "validClips": true
+        }
+      ],
+      "unknown": "unknown",
+      "alias": "QUEST_COMPLETED",
+      "fallbackPlays": null,
+      "fallbackMood": "sad",
+      "coalesced": "coalesced",
+      "aliasCollisionRejected": true
+    },
+    "mount_unmount": {
+      "warmup_cycles": 10,
+      "measured_cycles": 30,
+      "seconds": 29.0,
+      "heap_start_mb": 8.84,
+      "heap_after_warmup_mb": 9.76,
+      "heap_after_mb": 10.27,
+      "heap_growth_per_cycle_kb": 17.5,
+      "shared_dispose_listeners_before": [
+        122,
+        24
+      ],
+      "shared_dispose_listeners_after": [
+        122,
+        24
+      ],
+      "before": {
+        "canvases": 2,
+        "cache": [
+          {
+            "url": "./models/fox_v2_anim_e2.glb",
+            "refs": 2,
+            "loaded": true,
+            "pendingDispose": false
+          }
+        ],
+        "instances": 2
+      },
+      "after": {
+        "canvases": 2,
+        "cache": [
+          {
+            "url": "./models/fox_v2_anim_e2.glb",
+            "refs": 2,
+            "loaded": true,
+            "pendingDispose": false
+          }
+        ],
+        "instances": 2
+      },
+      "unmounted": {
+        "canvases": 1,
+        "cache": [
+          {
+            "url": "./models/fox_v2_anim_e2.glb",
+            "refs": 1,
+            "loaded": true,
+            "pendingDispose": false
+          }
+        ],
+        "instances": 1
+      }
+    },
+    "reduced_motion": {
+      "reduced": true,
+      "look": 0,
+      "idleVar": 0,
+      "tail": "substituted",
+      "questPlay": null,
+      "questSteps": [
+        "mood:proud"
+      ],
+      "moodAfter": "proud",
+      "wave": "played"
+    }
+  },
+  "summary": "35/35 PASS"
+}

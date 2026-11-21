@@ -1,0 +1,669 @@
+{
+ "source": "04_ANIMATIONS/g1_quest_reward_streak/fox_anim_g1.blend",
+ "tolerance_mm": 2.0,
+ "clips": {
+  "quest_start": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 7,
+   "scarf_max_depth_mm": 1.01,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.39,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 1,
+    "FOX_Arm_R": 2,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 3,
+    "FOX_Ear_R": 3,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.215,
+    "FOX_Arm_L": 0.285,
+    "FOX_Arm_R": 0.569,
+    "FOX_Leg_L": 0.18,
+    "FOX_Leg_R": 0.249,
+    "FOX_Ear_L": 0.425,
+    "FOX_Ear_R": 0.425,
+    "FOX_Tail": 0.15,
+    "FOX_Scarf_Roll": 0.252,
+    "FOX_Scarf_Flap": 0.383
+   },
+   "stretch_max": {
+    "FOX_Body": 0.29,
+    "FOX_Arm_L": 0.337,
+    "FOX_Arm_R": 0.706,
+    "FOX_Leg_L": 0.405,
+    "FOX_Leg_R": 0.409,
+    "FOX_Ear_L": 0.697,
+    "FOX_Ear_R": 0.697,
+    "FOX_Tail": 1.273,
+    "FOX_Scarf_Roll": 0.339,
+    "FOX_Scarf_Flap": 0.798
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Arm_R": 12,
+    "detach_FOX_Ear_L": 15,
+    "detach_FOX_Ear_R": 15,
+    "detach_FOX_Arm_L": 17
+   },
+   "scarf_in_head_max_depth_mm": 3.24,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 2.01,
+    "FOX_Arm_R": 4.76,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 3.78,
+    "FOX_Ear_R": 3.78,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 3366,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 60
+  },
+  "quest_complete": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 10,
+   "scarf_max_depth_mm": 1.02,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.68,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 4,
+    "FOX_Arm_R": 4,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 2,
+    "FOX_Ear_R": 2,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.283,
+    "FOX_Arm_L": 0.668,
+    "FOX_Arm_R": 0.668,
+    "FOX_Leg_L": 0.282,
+    "FOX_Leg_R": 0.282,
+    "FOX_Ear_L": 0.421,
+    "FOX_Ear_R": 0.421,
+    "FOX_Tail": 0.197,
+    "FOX_Scarf_Roll": 0.283,
+    "FOX_Scarf_Flap": 0.447
+   },
+   "stretch_max": {
+    "FOX_Body": 0.369,
+    "FOX_Arm_L": 0.827,
+    "FOX_Arm_R": 0.827,
+    "FOX_Leg_L": 0.359,
+    "FOX_Leg_R": 0.359,
+    "FOX_Ear_L": 0.523,
+    "FOX_Ear_R": 0.523,
+    "FOX_Tail": 2.254,
+    "FOX_Scarf_Roll": 0.395,
+    "FOX_Scarf_Flap": 0.836
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Arm_L": 14,
+    "detach_FOX_Arm_R": 14,
+    "detach_FOX_Ear_L": 15,
+    "detach_FOX_Ear_R": 15
+   },
+   "scarf_in_head_max_depth_mm": 3.91,
+   "arm_in_head_max_depth_mm": 0.12,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 6.03,
+    "FOX_Arm_R": 6.01,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 2.91,
+    "FOX_Ear_R": 2.91,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 4026,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 80
+  },
+  "quest_failed": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 13,
+   "scarf_max_depth_mm": 1.31,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.01,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 1,
+    "FOX_Arm_R": 1,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 3,
+    "FOX_Ear_R": 3,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.398,
+    "FOX_Arm_L": 0.14,
+    "FOX_Arm_R": 0.14,
+    "FOX_Leg_L": 0.055,
+    "FOX_Leg_R": 0.055,
+    "FOX_Ear_L": 0.447,
+    "FOX_Ear_R": 0.447,
+    "FOX_Tail": 0.055,
+    "FOX_Scarf_Roll": 0.55,
+    "FOX_Scarf_Flap": 0.536
+   },
+   "stretch_max": {
+    "FOX_Body": 0.594,
+    "FOX_Arm_L": 0.16,
+    "FOX_Arm_R": 0.16,
+    "FOX_Leg_L": 0.119,
+    "FOX_Leg_R": 0.119,
+    "FOX_Ear_L": 0.62,
+    "FOX_Ear_R": 0.62,
+    "FOX_Tail": 0.78,
+    "FOX_Scarf_Roll": 0.713,
+    "FOX_Scarf_Flap": 3.038
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Ear_L": 12,
+    "detach_FOX_Ear_R": 12,
+    "detach_FOX_Arm_L": 44,
+    "detach_FOX_Arm_R": 49
+   },
+   "scarf_in_head_max_depth_mm": 5.82,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 3.0,
+    "FOX_Arm_R": 2.49,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 7.31,
+    "FOX_Ear_R": 7.31,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 5742,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 88
+  },
+  "receive_xp": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 12,
+   "scarf_max_depth_mm": 1.0,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.59,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 2,
+    "FOX_Ear_R": 2,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.292,
+    "FOX_Arm_L": 0.332,
+    "FOX_Arm_R": 0.332,
+    "FOX_Leg_L": 0.088,
+    "FOX_Leg_R": 0.088,
+    "FOX_Ear_L": 0.371,
+    "FOX_Ear_R": 0.371,
+    "FOX_Tail": 0.19,
+    "FOX_Scarf_Roll": 0.294,
+    "FOX_Scarf_Flap": 0.575
+   },
+   "stretch_max": {
+    "FOX_Body": 0.418,
+    "FOX_Arm_L": 0.407,
+    "FOX_Arm_R": 0.407,
+    "FOX_Leg_L": 0.151,
+    "FOX_Leg_R": 0.151,
+    "FOX_Ear_L": 0.575,
+    "FOX_Ear_R": 0.575,
+    "FOX_Tail": 1.98,
+    "FOX_Scarf_Roll": 0.365,
+    "FOX_Scarf_Flap": 1.256
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Ear_L": 25,
+    "detach_FOX_Ear_R": 25
+   },
+   "scarf_in_head_max_depth_mm": 4.24,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 0.86,
+    "FOX_Arm_R": 0.85,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 2.18,
+    "FOX_Ear_R": 2.18,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 2970,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 54
+  },
+  "level_up": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 10,
+   "scarf_max_depth_mm": 1.31,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.68,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 4,
+    "FOX_Arm_R": 4,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.283,
+    "FOX_Arm_L": 0.66,
+    "FOX_Arm_R": 0.66,
+    "FOX_Leg_L": 0.311,
+    "FOX_Leg_R": 0.311,
+    "FOX_Ear_L": 0.425,
+    "FOX_Ear_R": 0.425,
+    "FOX_Tail": 0.196,
+    "FOX_Scarf_Roll": 0.277,
+    "FOX_Scarf_Flap": 0.44
+   },
+   "stretch_max": {
+    "FOX_Body": 0.382,
+    "FOX_Arm_L": 0.856,
+    "FOX_Arm_R": 0.856,
+    "FOX_Leg_L": 0.395,
+    "FOX_Leg_R": 0.395,
+    "FOX_Ear_L": 0.697,
+    "FOX_Ear_R": 0.697,
+    "FOX_Tail": 1.925,
+    "FOX_Scarf_Roll": 0.363,
+    "FOX_Scarf_Flap": 0.811
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Arm_L": 31,
+    "detach_FOX_Arm_R": 31
+   },
+   "scarf_in_head_max_depth_mm": 3.91,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 6.39,
+    "FOX_Arm_R": 6.37,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0.34,
+    "FOX_Ear_R": 0.34,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 5478,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0001
+    ]
+   },
+   "frames_checked": 100
+  },
+  "achievement_unlock": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 10,
+   "scarf_max_depth_mm": 1.0,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.55,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 2,
+    "FOX_Arm_R": 2,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.278,
+    "FOX_Arm_L": 0.587,
+    "FOX_Arm_R": 0.587,
+    "FOX_Leg_L": 0.151,
+    "FOX_Leg_R": 0.151,
+    "FOX_Ear_L": 0.398,
+    "FOX_Ear_R": 0.398,
+    "FOX_Tail": 0.179,
+    "FOX_Scarf_Roll": 0.356,
+    "FOX_Scarf_Flap": 0.452
+   },
+   "stretch_max": {
+    "FOX_Body": 0.388,
+    "FOX_Arm_L": 0.721,
+    "FOX_Arm_R": 0.721,
+    "FOX_Leg_L": 0.225,
+    "FOX_Leg_R": 0.225,
+    "FOX_Ear_L": 0.655,
+    "FOX_Ear_R": 0.655,
+    "FOX_Tail": 1.971,
+    "FOX_Scarf_Roll": 0.446,
+    "FOX_Scarf_Flap": 0.901
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Arm_L": 35,
+    "detach_FOX_Arm_R": 35
+   },
+   "scarf_in_head_max_depth_mm": 3.86,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 5.14,
+    "FOX_Arm_R": 5.13,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0.41,
+    "FOX_Ear_R": 0.41,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 5082,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 86
+  },
+  "streak_active": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 0,
+   "scarf_max_depth_mm": 1.0,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.36,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.089,
+    "FOX_Arm_L": 0.101,
+    "FOX_Arm_R": 0.101,
+    "FOX_Leg_L": 0.111,
+    "FOX_Leg_R": 0.132,
+    "FOX_Ear_L": 0.183,
+    "FOX_Ear_R": 0.18,
+    "FOX_Tail": 0.158,
+    "FOX_Scarf_Roll": 0.096,
+    "FOX_Scarf_Flap": 0.111
+   },
+   "stretch_max": {
+    "FOX_Body": 0.122,
+    "FOX_Arm_L": 0.126,
+    "FOX_Arm_R": 0.126,
+    "FOX_Leg_L": 0.161,
+    "FOX_Leg_R": 0.219,
+    "FOX_Ear_L": 0.298,
+    "FOX_Ear_R": 0.29,
+    "FOX_Tail": 1.603,
+    "FOX_Scarf_Roll": 0.132,
+    "FOX_Scarf_Flap": 0.3
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {},
+   "scarf_in_head_max_depth_mm": 1.68,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 0,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 6336,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "loop_seam": {
+    "pose_diff_deg": 0.0,
+    "pose_diff_mm": 0.0,
+    "step_into_loop_deg/mm": [
+     1.373,
+     6.888
+    ],
+    "step_out_of_loop_deg/mm": [
+     1.241,
+     6.356
+    ]
+   },
+   "frames_checked": 97
+  },
+  "streak_lost": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 6,
+   "scarf_max_depth_mm": 1.36,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.25,
+   "arm_new_in_head": 2,
+   "detached_root_verts": {
+    "FOX_Arm_L": 4,
+    "FOX_Arm_R": 0,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 3,
+    "FOX_Ear_R": 3,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.21,
+    "FOX_Arm_L": 0.455,
+    "FOX_Arm_R": 0.455,
+    "FOX_Leg_L": 0.363,
+    "FOX_Leg_R": 0.363,
+    "FOX_Ear_L": 0.425,
+    "FOX_Ear_R": 0.425,
+    "FOX_Tail": 0.114,
+    "FOX_Scarf_Roll": 0.221,
+    "FOX_Scarf_Flap": 0.45
+   },
+   "stretch_max": {
+    "FOX_Body": 0.286,
+    "FOX_Arm_L": 0.609,
+    "FOX_Arm_R": 0.609,
+    "FOX_Leg_L": 0.55,
+    "FOX_Leg_R": 0.55,
+    "FOX_Ear_L": 0.697,
+    "FOX_Ear_R": 0.697,
+    "FOX_Tail": 1.487,
+    "FOX_Scarf_Roll": 0.31,
+    "FOX_Scarf_Flap": 0.92
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Arm_L": 46,
+    "detach_FOX_Ear_L": 48,
+    "detach_FOX_Ear_R": 48
+   },
+   "scarf_in_head_max_depth_mm": 3.2,
+   "arm_in_head_max_depth_mm": 3.87,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 3.05,
+    "FOX_Arm_R": 1.93,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 6.63,
+    "FOX_Ear_R": 6.63,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 6534,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 100
+  },
+  "streak_cheer": {
+   "scarf_new_in_body": 0,
+   "scarf_new_in_head": 9,
+   "scarf_max_depth_mm": 1.01,
+   "tail_new_in_body": 0,
+   "tail_max_depth_mm": 1.68,
+   "arm_new_in_head": 0,
+   "detached_root_verts": {
+    "FOX_Arm_L": 2,
+    "FOX_Arm_R": 2,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 0,
+    "FOX_Ear_R": 0,
+    "FOX_Tail": 0
+   },
+   "stretch_p99_max": {
+    "FOX_Body": 0.25,
+    "FOX_Arm_L": 0.629,
+    "FOX_Arm_R": 0.629,
+    "FOX_Leg_L": 0.276,
+    "FOX_Leg_R": 0.27,
+    "FOX_Ear_L": 0.375,
+    "FOX_Ear_R": 0.375,
+    "FOX_Tail": 0.196,
+    "FOX_Scarf_Roll": 0.28,
+    "FOX_Scarf_Flap": 0.407
+   },
+   "stretch_max": {
+    "FOX_Body": 0.33,
+    "FOX_Arm_L": 0.812,
+    "FOX_Arm_R": 0.812,
+    "FOX_Leg_L": 0.403,
+    "FOX_Leg_R": 0.394,
+    "FOX_Ear_L": 0.6,
+    "FOX_Ear_R": 0.6,
+    "FOX_Tail": 2.023,
+    "FOX_Scarf_Roll": 0.378,
+    "FOX_Scarf_Flap": 0.761
+   },
+   "sole_min_mm": 0.0,
+   "worst_frames": {
+    "detach_FOX_Arm_R": 11,
+    "detach_FOX_Arm_L": 17
+   },
+   "scarf_in_head_max_depth_mm": 3.57,
+   "arm_in_head_max_depth_mm": 0.0,
+   "detached_root_max_out_mm": {
+    "FOX_Arm_L": 5.56,
+    "FOX_Arm_R": 5.55,
+    "FOX_Leg_L": 0,
+    "FOX_Leg_R": 0,
+    "FOX_Ear_L": 1.15,
+    "FOX_Ear_R": 1.15,
+    "FOX_Tail": 0
+   },
+   "foot_slide_mm_per_frame": {
+    "samples": 4290,
+    "max": 0.0,
+    "p95": 0.0
+   },
+   "rest_match": {
+    "start_deg/mm": [
+     0.0,
+     0.0
+    ],
+    "end_deg/mm": [
+     0.0,
+     0.0
+    ]
+   },
+   "frames_checked": 74
+  }
+ }
+}

@@ -1,0 +1,139 @@
+{
+  "explanation": "Gate G1 \u2014 glTF pose fidelity: what the GLB data itself encodes vs the Blender pose.\n\nUsage (from LifeQuest_Fox_V2/):  python 08_VALIDATION/scripts/gltf_pose_fidelity_g1.py\n\nWhy: the rig has bones with inherit_scale = NONE (NECK, ARM_L, ARM_R, TAIL_01) under a HIPS bone that\nsquashes non-uniformly. glTF / three.js always inherit scale fully and have no shear, so the exporter\nwrites a compensating local scale on those bones; when the child is also rotated relative to HIPS the\ncompensation can only be approximate (the exact result would need shear). The leaf bones (ear tips,\nhand / hat / glasses sockets, tail tip) then sit a few millimetres away from Blender during squash.\nThis is a property of the export format, already present in the approved E2 GLB \u2014 not a binding fault.",
+  "g1_module_vs_blender": {
+    "worst": {
+      "max_mm": 5.789,
+      "at": {
+        "clip": "streak_lost",
+        "frame": "50",
+        "bone": "EAR_L_02"
+      }
+    },
+    "clips": {
+      "quest_start": {
+        "max_mm": 4.589,
+        "at": {
+          "frame": "15",
+          "bone": "EAR_L_02"
+        }
+      },
+      "quest_complete": {
+        "max_mm": 4.601,
+        "at": {
+          "frame": "20",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "quest_failed": {
+        "max_mm": 5.231,
+        "at": {
+          "frame": "44",
+          "bone": "EAR_L_02"
+        }
+      },
+      "receive_xp": {
+        "max_mm": 4.282,
+        "at": {
+          "frame": "27",
+          "bone": "ATT_HAND_R"
+        }
+      },
+      "level_up": {
+        "max_mm": 3.342,
+        "at": {
+          "frame": "25",
+          "bone": "EAR_L_02"
+        }
+      },
+      "achievement_unlock": {
+        "max_mm": 4.813,
+        "at": {
+          "frame": "43",
+          "bone": "EAR_L_02"
+        }
+      },
+      "streak_active": {
+        "max_mm": 1.311,
+        "at": {
+          "frame": "24",
+          "bone": "ATT_HAND_R"
+        }
+      },
+      "streak_lost": {
+        "max_mm": 5.789,
+        "at": {
+          "frame": "50",
+          "bone": "EAR_L_02"
+        }
+      },
+      "streak_cheer": {
+        "max_mm": 1.183,
+        "at": {
+          "frame": "18",
+          "bone": "ATT_HAND_L"
+        }
+      }
+    }
+  },
+  "e2_approved_glb_vs_blender": {
+    "worst": {
+      "max_mm": 3.78,
+      "at": {
+        "clip": "tail_touch",
+        "frame": "35",
+        "bone": "ATT_HAND_R"
+      }
+    },
+    "clips": {
+      "idle": {
+        "max_mm": 1.131,
+        "at": {
+          "frame": "36",
+          "bone": "ATT_HAND_R"
+        }
+      },
+      "walk": {
+        "max_mm": 0.142,
+        "at": {
+          "frame": "10",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "run": {
+        "max_mm": 3.382,
+        "at": {
+          "frame": "1",
+          "bone": "EAR_R_02"
+        }
+      },
+      "happy": {
+        "max_mm": 1.847,
+        "at": {
+          "frame": "15",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "wave": {
+        "max_mm": 1.14,
+        "at": {
+          "frame": "34",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "head_pet": {
+        "max_mm": 3.633,
+        "at": {
+          "frame": "38",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "tail_touch": {
+        "max_mm": 3.78,
+        "at": {
+          "frame": "35",
+          "bone": "ATT_HAND_R"
+        }
+      }
+    }
+  }
+}

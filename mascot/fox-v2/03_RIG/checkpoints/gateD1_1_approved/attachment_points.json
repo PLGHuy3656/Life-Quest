@@ -1,0 +1,95 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "D1",
+  "note": "Sockets are non-deforming bones; attach a cosmetic by parenting it to the bone (Blender) or to the exported glTF node of the same name (Three.js). Socket +Y = bone direction.",
+  "sockets": {
+    "ATT_HAT": {
+      "parent_bone": "HEAD",
+      "head": [
+        0,
+        0.02,
+        0.84
+      ],
+      "tail": [
+        0,
+        0.02,
+        0.94
+      ],
+      "use": "hats, headbands"
+    },
+    "ATT_GLASSES": {
+      "parent_bone": "HEAD",
+      "head": [
+        0,
+        -0.31,
+        0.611
+      ],
+      "tail": [
+        0,
+        -0.37,
+        0.611
+      ],
+      "use": "glasses, masks"
+    },
+    "ATT_SCARF": {
+      "parent_bone": "NECK",
+      "head": [
+        0,
+        0.0,
+        0.395
+      ],
+      "tail": [
+        0,
+        0.0,
+        0.45
+      ],
+      "use": "scarf variants (replace FOX_Scarf_*)"
+    },
+    "ATT_BACKPACK": {
+      "parent_bone": "SPINE",
+      "head": [
+        0,
+        0.2,
+        0.245
+      ],
+      "tail": [
+        0,
+        0.28,
+        0.245
+      ],
+      "use": "backpack variants (replace FOX_Backpack hierarchy)"
+    },
+    "ATT_HAND_L": {
+      "parent_bone": "PAW_L",
+      "head": [
+        0.2788,
+        -0.019,
+        0.1806
+      ],
+      "tail": [
+        0.2788,
+        -0.019,
+        0.1306
+      ],
+      "use": "handheld props (left paw)"
+    },
+    "ATT_HAND_R": {
+      "parent_bone": "PAW_R",
+      "head": [
+        -0.2788,
+        -0.019,
+        0.1806
+      ],
+      "tail": [
+        -0.2788,
+        -0.019,
+        0.1306
+      ],
+      "use": "handheld props (right paw)"
+    }
+  },
+  "existing_attached_items": {
+    "FOX_Backpack": "bone-parented to SPINE (detachable: clear parent or swap)",
+    "FOX_Scarf_*": "skinned to NECK/SPINE/SCARF_FLAP"
+  }
+}
