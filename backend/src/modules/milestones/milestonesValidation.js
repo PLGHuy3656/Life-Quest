@@ -7,9 +7,7 @@ const getMilestonesByGoalId = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 
@@ -21,9 +19,7 @@ const createMilestone = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 
@@ -32,9 +28,7 @@ const getMilestonesById = Joi.object({
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 
@@ -48,9 +42,7 @@ const updateMilestone = Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
 
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 
@@ -59,9 +51,7 @@ const deleteMilestone = Joi.object({
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 const completeMilestone = Joi.object({
@@ -69,9 +59,7 @@ const completeMilestone = Joi.object({
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 
@@ -82,9 +70,7 @@ const reorderMilestones = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 })
 
 
