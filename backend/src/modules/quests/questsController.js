@@ -4,7 +4,8 @@ import { StatusCodes } from 'http-status-codes'
 
 const getQuestsByUserId = async (req, res, next) => {
   try {
-    const { userId, status, goalId, milestoneId, search } = req.query
+    const userId = req.user.id
+    const { status, goalId, milestoneId, search } = req.query
 
     const quests = await questsService.getQuestsByUserId(userId, { status, goalId, milestoneId, search })
 
@@ -20,9 +21,10 @@ const getQuestsByUserId = async (req, res, next) => {
 // Tạo mới Quest cho người dùng.
 const createQuest = async (req, res, next) => {
   try {
+    const userId = req.user.id
     const questData = req.body
 
-    const createdQuest = await questsService.createQuest(questData)
+    const createdQuest = await questsService.createQuest(userId, questData)
     const responseData = {
       success: true,
       data: createdQuest
@@ -38,7 +40,7 @@ const createQuest = async (req, res, next) => {
 const getQuestById = async (req, res, next) => {
   try {
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const quest = await questsService.getQuestById(questId, userId)
     const responseData = {
@@ -57,7 +59,7 @@ const updateQuest = async (req, res, next) => {
   try {
     const questData = req.body
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
 
     const updatedQuest = await questsService.updateQuest(questId, userId, questData)
@@ -77,7 +79,7 @@ const updateQuest = async (req, res, next) => {
 const deleteQuest = async (req, res, next) => {
   try {
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
 
     const deletedQuest = await questsService.deleteQuest(questId, userId)
@@ -97,7 +99,7 @@ const deleteQuest = async (req, res, next) => {
 const pinQuest = async (req, res, next) => {
   try {
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const pinnedQuest = await questsService.pinQuest(questId, userId)
 
@@ -115,7 +117,7 @@ const pinQuest = async (req, res, next) => {
 const unpinQuest = async (req, res, next) => {
   try {
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const unpinnedQuest = await questsService.unpinQuest(questId, userId)
 
@@ -133,7 +135,7 @@ const unpinQuest = async (req, res, next) => {
 const archiveQuest = async (req, res, next) => {
   try {
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const archivedQuest = await questsService.archiveQuest(questId, userId)
 
@@ -152,7 +154,7 @@ const archiveQuest = async (req, res, next) => {
 const restoreQuest = async (req, res, next) => {
   try {
     const questId = req.params.questId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const restoredQuest = await questsService.restoreQuest(questId, userId)
 

@@ -21,18 +21,86 @@ enum ProofRequirement {
   REQUIRED
 }
 
-model User {
-  id           String    @id @default(uuid())
-  email        String    @unique
-  username     String    @unique
-  passwordHash String
-  status       String    @default("ACTIVE")
-  deletedAt    DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+enum ScheduleType {
+  ONE_TIME
+  RECURRING
+}
 
-  goals  Goal[]
-  quests Quest[]
+enum ExecutionStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+  SKIPPED
+  ABANDONED
+}
+
+model User {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  username        String    @unique
+  passwordHash    String
+  status          String    @default("ACTIVE")
+  emailVerifiedAt DateTime?
+  lastLoginAt     DateTime?
+  deletedAt       DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  goals        Goal[]
+  quests       Quest[]
+  profile      UserProfile?
+  settings     UserSettings?
+  gamification UserGamification?
+  sessions     Session[]
+  executions   QuestExecution[]
+}
+
+model UserProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  displayName String?  @db.VarChar(100)
+  bio         String?
+  title       String?  @db.VarChar(100)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserSettings {
+  id                  String   @id @default(uuid())
+  userId              String   @unique
+  timezone            String   @default("UTC") @db.VarChar(100)
+  language            String   @default("vi") @db.VarChar(10)
+  privacyMode         String   @default("FRIENDS") @db.VarChar(20)
+  notificationEnabled Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserGamification {
+  userId      String   @id
+  totalXp     BigInt   @default(0)
+  level       Int      @default(1)
+  coinBalance BigInt   @default(0)
+  updatedAt   DateTime @default(now()) @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id               String    @id @default(uuid())
+  userId           String
+  refreshTokenHash String
+  ipAddress        String?
+  userAgent        String?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Goal {
@@ -94,7 +162,45 @@ model Quest {
   deletedAt                DateTime?
   isPinned                 Boolean          @default(false)
 
-  user      User       @relation(fields: [userId], references: [id])
-  goal      Goal?      @relation(fields: [goalId], references: [id])
-  milestone Milestone? @relation(fields: [milestoneId], references: [id])
+  user       User             @relation(fields: [userId], references: [id])
+  goal       Goal?            @relation(fields: [goalId], references: [id])
+  milestone  Milestone?       @relation(fields: [milestoneId], references: [id])
+  schedules  QuestSchedule[]
+  executions QuestExecution[]
+}
+
+model QuestSchedule {
+  id             String       @id @default(uuid())
+  questId        String
+  scheduleType   ScheduleType @default(ONE_TIME)
+  timezone       String       @db.VarChar(100)
+  startAt        DateTime
+  endAt          DateTime?
+  recurrenceRule Json?
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  quest      Quest            @relation(fields: [questId], references: [id], onDelete: Restrict)
+  executions QuestExecution[]
+}
+
+model QuestExecution {
+  id              String          @id @default(uuid())
+  questId         String
+  userId          String
+  scheduleId      String?
+  status          ExecutionStatus @default(PLANNED)
+  scheduledAt     DateTime?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  abandonedAt     DateTime?
+  progressValue   Decimal         @default(0) @db.Decimal(12, 2)
+  durationSeconds Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  quest    Quest          @relation(fields: [questId], references: [id], onDelete: Restrict)
+  user     User           @relation(fields: [userId], references: [id], onDelete: Restrict)
+  schedule QuestSchedule? @relation(fields: [scheduleId], references: [id], onDelete: Restrict)
 }

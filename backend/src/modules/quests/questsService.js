@@ -1,7 +1,6 @@
 import { questsRepository } from './questsRepository.js'
 import { goalsRepository } from '../goals/goalsRepository.js'
 import { milestonesRepository } from '../milestones/milestonesRepository.js'
-import { usersRepository } from '../users/usersRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
 
 
@@ -11,16 +10,9 @@ const getQuestsByUserId = async (userId, filters = {}) => {
   return quests
 }
 
-// Tạo mới Quest sau khi kiểm tra sự tồn tại của User, Goal và Milestone.
-const createQuest = async (questData) => {
-  // Kiểm tra User có tồn tại.
-  const user = await usersRepository.findUserById(questData.userId)
-
-  if (!user) {
-    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND')
-  }
-
-
+// Tạo mới Quest sau khi kiểm tra sự tồn tại của Goal và Milestone.
+// userId được lấy từ token (đã authenticated), không cần kiểm tra user tồn tại nữa.
+const createQuest = async (userId, questData) => {
   // Nếu Quest thuộc Goal thì kiểm tra Goal.
   if (questData.goalId) {
     const goal = await goalsRepository.findGoalById(questData.goalId)
@@ -31,7 +23,7 @@ const createQuest = async (questData) => {
     }
 
     // Kiểm tra Goal có thuộc User.
-    if (goal.userId !== questData.userId) {
+    if (goal.userId !== userId) {
       throw new ApiError(403, 'You do not have permission to access this goal', 'GOAL_ACCESS_DENIED')
     }
 
@@ -65,7 +57,7 @@ const createQuest = async (questData) => {
 
   // Tạo Quest sau khi hoàn thành các bước kiểm tra.
   const createdQuest = await questsRepository.createQuest({
-    userId: questData.userId,
+    userId,
     goalId: questData.goalId,
     milestoneId: questData.milestoneId,
     title: questData.title,
