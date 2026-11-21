@@ -6,8 +6,11 @@ const app = express()
 
 app.use(express.json())
 
-app.use('/api/v1', routes)
+// Welcome & discovery on root
+app.get('/', (req, res) => res.redirect('/api/v1'))
 
+// Mount API v1 routes
+app.use('/api/v1', routes)
 
 // Xử lý lỗi tập trung
 app.use(errorHandler)
