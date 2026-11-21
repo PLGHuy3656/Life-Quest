@@ -9,7 +9,7 @@ const errorHandler = (error, req, res, next) => {
   // Nếu không có error code thì dùng code mặc định
   const errorCode = error.errorCode ? error.errorCode : 'INTERNAL_SERVER_ERROR';
   const errorResponse = {
-    succes: false,
+    success: false,
     error: {
       code: errorCode,
       message: errorMessage
