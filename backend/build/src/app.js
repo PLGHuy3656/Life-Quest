@@ -1,19 +1,14 @@
 import express from 'express';
 import errorHandler from "./common/errors/errorHandler.js";
-import { usersRoute } from "./modules/users/usersRoute.js";
+import { routes } from "./routes/index.js";
 const app = express();
 app.use(express.json());
 
-// API Users
-app.use('/api/v1/users', usersRoute);
-app.get('/api/v1/health', (req, res) => {
-  res.json({
-    success: true,
-    data: {
-      message: 'LifeQuest API is running'
-    }
-  });
-});
+// Welcome & discovery on root
+app.get('/', (req, res) => res.redirect('/api/v1'));
+
+// Mount API v1 routes
+app.use('/api/v1', routes);
 
 // Xử lý lỗi tập trung
 app.use(errorHandler);

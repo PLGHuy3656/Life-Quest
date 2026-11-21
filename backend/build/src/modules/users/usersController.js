@@ -4,7 +4,7 @@ const getUserByEmail = async (req, res, next) => {
   try {
     const email = req.params.email;
     const user = await usersService.getUserByEmail(email);
-    res.status(StatusCodes.OK).json({
+    return res.status(StatusCodes.OK).json({
       success: true,
       data: user
     });
