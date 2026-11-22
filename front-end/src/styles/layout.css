@@ -1,0 +1,18 @@
+.lq-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 900px) {
+  .lq-container {
+    padding: 0 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .lq-container {
+    padding: 0 14px;
+  }
+}

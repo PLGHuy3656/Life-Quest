@@ -1,0 +1,64 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pinCard {
+  background: var(--lq-bg-elevated);
+  border: 1px solid var(--lq-border);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pinTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--lq-primary);
+  line-height: 1.35;
+}
+
+.pinDesc {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--lq-ink-secondary);
+}
+
+.pinMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

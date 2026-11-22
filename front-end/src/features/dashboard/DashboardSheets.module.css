@@ -1,0 +1,63 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  font-size: 14px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lq-border);
+  background: var(--lq-bg-elevated);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.infoBox {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--lq-bg-elevated);
+  border: 1px solid var(--lq-border);
+  font-size: 13px;
+  color: var(--lq-ink-secondary);
+}
+
+.errorText {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lq-danger-soft);
+  color: var(--lq-danger);
+  font-size: 13px;
+  font-weight: 600;
+}
