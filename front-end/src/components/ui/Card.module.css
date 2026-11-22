@@ -1,0 +1,19 @@
+.card {
+  background: var(--lq-surface);
+  border: 1px solid var(--lq-border);
+  border-radius: var(--lq-radius-card);
+  box-shadow: var(--lq-shadow-card);
+  padding: 20px;
+}
+
+.compact {
+  padding: 16px;
+}
+
+.elevated {
+  box-shadow: var(--lq-shadow-float);
+}
+
+.tinted {
+  background: linear-gradient(150deg, #ffffff 0%, #f9f6ef 100%);
+}

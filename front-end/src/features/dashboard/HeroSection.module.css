@@ -1,0 +1,123 @@
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.85fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.greeting {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--lq-primary);
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--lq-ink-secondary);
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.statTile {
+  background: var(--lq-bg-elevated);
+  border: 1px solid var(--lq-border);
+  border-radius: var(--lq-radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lq-ink-muted);
+}
+
+.statValue {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.statHint {
+  font-size: 11px;
+  color: var(--lq-ink-secondary);
+}
+
+.progressStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-radius: var(--lq-radius-md);
+  background: var(--lq-primary);
+  color: #ffffff;
+}
+
+.xpMeta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.xpHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.xpBarTrack {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--lq-radius-pill);
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.xpBarFill {
+  height: 100%;
+  border-radius: var(--lq-radius-pill);
+  background: linear-gradient(90deg, var(--lq-reward) 0%, var(--lq-accent) 100%);
+  transition: width var(--lq-dur-med) var(--lq-ez);
+}
+
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+}

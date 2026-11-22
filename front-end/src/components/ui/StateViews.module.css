@@ -1,0 +1,61 @@
+.skeleton {
+  border-radius: var(--lq-radius-sm);
+  background: linear-gradient(90deg, #ece8df 25%, #f5f2ea 50%, #ece8df 75%);
+  background-size: 200% 100%;
+  animation: lqShimmer 1.4s infinite linear;
+}
+
+@keyframes lqShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.errorBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--lq-radius-md);
+  background: var(--lq-danger-soft);
+  border: 1px solid rgba(200, 64, 50, 0.25);
+  color: var(--lq-danger);
+}
+
+.errorTitle {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.errorDetail {
+  font-size: 13px;
+  color: var(--lq-ink);
+}
+
+.emptyBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  padding: 24px 16px;
+  border-radius: var(--lq-radius-md);
+  border: 1px dashed var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  color: var(--lq-ink-secondary);
+}
+
+.emptyTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.emptyDesc {
+  font-size: 13px;
+  max-width: 340px;
+}
