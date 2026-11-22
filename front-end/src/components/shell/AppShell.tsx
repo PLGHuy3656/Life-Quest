@@ -1,11 +1,13 @@
 import type { ReactNode } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   Bell,
   Calendar,
   CheckSquare,
   Database,
   Home,
+  LogIn,
+  LogOut,
   MessageCircle,
   Plus,
   Search,
@@ -15,6 +17,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
+import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import styles from './AppShell.module.css'
@@ -39,12 +42,28 @@ const ROUTE_TITLES: Record<string, string> = {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const location = useLocation()
+  const navigate = useNavigate()
   const reducedMotion = useUiStore((s) => s.reducedMotion)
   const toggleReducedMotion = useUiStore((s) => s.toggleReducedMotion)
   const openSheet = useUiStore((s) => s.openSheet)
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
+  const refreshToken = useAuthStore((s) => s.refreshToken)
+  const clearSession = useAuthStore((s) => s.clearSession)
 
   const currentTitle = ROUTE_TITLES[location.pathname] ?? 'LifeQuest'
+
+  const handleLogout = async () => {
+    try {
+      if (refreshToken) {
+        await authApi.logout(refreshToken)
+      }
+    } catch {
+      // Always clear local in-memory session
+    } finally {
+      clearSession()
+      navigate('/login')
+    }
+  }
 
   return (
     <div className={styles.shell}>
@@ -109,7 +128,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
             <div className={styles.headerContext}>
               <span className={styles.headerTitle}>{currentTitle}</span>
-              <span className={styles.headerSub}>FE-01 • Backend-First Dashboard Shell</span>
+              <span className={styles.headerSub}>FE-02 • Auth &amp; Core Workflows</span>
             </div>
 
             <div className={styles.headerActions}>
@@ -139,6 +158,19 @@ export function AppShell({ children }: { children: ReactNode }) {
               >
                 <Bell size={18} />
               </Button>
+              {isAuthenticated ? (
+                <Button variant="ghost" size="sm" onClick={handleLogout} aria-label="Đăng xuất">
+                  <LogOut size={15} />
+                  <span>Đăng xuất</span>
+                </Button>
+              ) : (
+                <Link to="/login">
+                  <Button variant="primary" size="sm">
+                    <LogIn size={15} />
+                    <span>Đăng nhập</span>
+                  </Button>
+                </Link>
+              )}
               <Button
                 variant="subtle"
                 size="sm"

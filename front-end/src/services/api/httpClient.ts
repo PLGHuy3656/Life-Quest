@@ -6,6 +6,15 @@ export interface RequestOptions extends Omit<RequestInit, 'body'> {
   body?: unknown
   requiresAuth?: boolean
   query?: Record<string, string | number | boolean | undefined | null>
+  /** Internal guard: prevents infinite 401 refresh loops */
+  _isRetry?: boolean
+}
+
+// Single-flight refresh promise shared across concurrent 401 responses
+let inFlightRefresh: Promise<string | null> | null = null
+
+export function resetRefreshGuardForTests(): void {
+  inFlightRefresh = null
 }
 
 function buildUrl(path: string, query?: RequestOptions['query']): string {
@@ -23,8 +32,50 @@ function buildUrl(path: string, query?: RequestOptions['query']): string {
   return qs ? `${base}?${qs}` : base
 }
 
+async function performSingleFlightRefresh(): Promise<string | null> {
+  if (inFlightRefresh) {
+    return inFlightRefresh
+  }
+
+  const refreshToken = useAuthStore.getState().refreshToken
+  if (!refreshToken) {
+    return null
+  }
+
+  inFlightRefresh = (async () => {
+    try {
+      const response = await fetch(buildUrl('/auth/refresh'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken })
+      })
+
+      if (!response.ok) {
+        useAuthStore.getState().expireSession('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
+        return null
+      }
+
+      const payload = (await response.json()) as Partial<ApiSuccessEnvelope<{ accessToken: string }>>
+      const nextAccessToken = payload?.data?.accessToken
+      if (!payload?.success || !nextAccessToken) {
+        useAuthStore.getState().expireSession('Không thể làm mới phiên đăng nhập.')
+        return null
+      }
+
+      useAuthStore.getState().setAccessToken(nextAccessToken)
+      return nextAccessToken
+    } catch {
+      return null
+    } finally {
+      inFlightRefresh = null
+    }
+  })()
+
+  return inFlightRefresh
+}
+
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const { body, requiresAuth = true, query, headers: customHeaders, ...rest } = options
+  const { body, requiresAuth = true, query, headers: customHeaders, _isRetry = false, ...rest } = options
   const headers = new Headers(customHeaders)
 
   if (body !== undefined && !headers.has('Content-Type')) {
@@ -57,6 +108,26 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
       message: 'Không thể kết nối máy chủ LifeQuest Backend.',
       isNetworkError: true
     })
+  }
+
+  // Single-flight refresh on 401 (only once per request, never on /auth/* endpoints)
+  if (
+    response.status === 401 &&
+    requiresAuth &&
+    !_isRetry &&
+    !path.startsWith('/auth/')
+  ) {
+    const hasRefreshToken = Boolean(useAuthStore.getState().refreshToken)
+    if (hasRefreshToken) {
+      const refreshedToken = await performSingleFlightRefresh()
+      if (refreshedToken) {
+        return apiRequest<T>(path, { ...options, _isRetry: true })
+      }
+    } else {
+      useAuthStore.getState().expireSession('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
+    }
+  } else if (response.status === 401 && requiresAuth && _isRetry) {
+    useAuthStore.getState().expireSession('Phiên đăng nhập không còn hiệu lực. Vui lòng đăng nhập lại.')
   }
 
   let payload: unknown = null

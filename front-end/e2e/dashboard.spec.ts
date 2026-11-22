@@ -47,3 +47,16 @@ test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ pag
   await page.keyboard.press('Escape')
   await expect(dialog).toBeHidden()
 })
+
+test('protected route /work redirects unauthenticated users to /login with validation', async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/work')
+
+  await expect(page).toHaveURL(/\/login\?redirect=%2Fwork/)
+  await expect(page.getByRole('heading', { name: /Đăng nhập LifeQuest/i })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Đăng nhập' }).click()
+  await expect(page.getByText('Vui lòng nhập email.')).toBeVisible()
+})
