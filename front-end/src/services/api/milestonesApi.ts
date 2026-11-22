@@ -5,9 +5,18 @@ export const milestonesApi = {
   listByGoal: (goalId: string) =>
     apiRequest<Milestone[]>(`/goals/${goalId}/milestones`, { method: 'GET' }),
 
+  getById: (milestoneId: string) =>
+    apiRequest<Milestone>(`/milestones/${milestoneId}`, { method: 'GET' }),
+
   create: (goalId: string, input: { title: string; description?: string | null }) =>
     apiRequest<Milestone>(`/goals/${goalId}/milestones`, {
       method: 'POST',
+      body: input
+    }),
+
+  update: (milestoneId: string, input: { title?: string; description?: string | null }) =>
+    apiRequest<Milestone>(`/milestones/${milestoneId}`, {
+      method: 'PATCH',
       body: input
     }),
 

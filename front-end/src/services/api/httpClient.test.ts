@@ -1,16 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { authApi } from '@/services/api/authApi'
 import { resolveDataMode } from '@/services/api/config'
-import { apiRequest } from '@/services/api/httpClient'
+import { apiRequest, resetRefreshGuardForTests } from '@/services/api/httpClient'
 import { dashboardRepository } from '@/services/repositories/dashboardRepository'
 import { useAuthStore } from '@/stores/authStore'
 import { ApiClientError } from '@/types/api'
 
-describe('httpClient & Live/Mock repository separation', () => {
+describe('httpClient, single-flight refresh & Live/Mock separation', () => {
   const originalFetch = globalThis.fetch
 
   beforeEach(() => {
     useAuthStore.getState().clearSession()
+    resetRefreshGuardForTests()
   })
 
   afterEach(() => {
@@ -46,6 +47,92 @@ describe('httpClient & Live/Mock repository separation', () => {
     const [, init] = fetchMock.mock.calls[0]
     const headers = init.headers as Headers
     expect(headers.get('Authorization')).toBe('Bearer session-token-for-test')
+  })
+
+  it('deduplicates concurrent 401 refreshes via single-flight guard and retries once', async () => {
+    useAuthStore.getState().setSession({
+      accessToken: 'expired-access',
+      refreshToken: 'valid-refresh',
+      user: null
+    })
+
+    let refreshCalls = 0
+    const fetchMock = vi.fn().mockImplementation((input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input)
+      if (url.endsWith('/auth/refresh')) {
+        refreshCalls += 1
+        return Promise.resolve(
+          new Response(JSON.stringify({ success: true, data: { accessToken: 'fresh-access' } }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        )
+      }
+
+      const authHeader = (init?.headers as Headers | undefined)?.get('Authorization')
+      if (authHeader === 'Bearer fresh-access') {
+        return Promise.resolve(
+          new Response(JSON.stringify({ success: true, data: { ok: url } }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        )
+      }
+
+      return Promise.resolve(
+        new Response(
+          JSON.stringify({ success: false, error: { code: 'TOKEN_EXPIRED', message: 'Expired' } }),
+          { status: 401, headers: { 'Content-Type': 'application/json' } }
+        )
+      )
+    })
+    globalThis.fetch = fetchMock as unknown as typeof fetch
+
+    const [r1, r2] = await Promise.all([
+      apiRequest<{ ok: string }>('/goals'),
+      apiRequest<{ ok: string }>('/quests')
+    ])
+
+    expect(refreshCalls).toBe(1)
+    expect(r1.ok).toContain('/goals')
+    expect(r2.ok).toContain('/quests')
+    expect(useAuthStore.getState().accessToken).toBe('fresh-access')
+  })
+
+  it('expires session and never enters infinite retry loop when refresh fails or retry still returns 401', async () => {
+    useAuthStore.getState().setSession({
+      accessToken: 'expired-access',
+      refreshToken: 'revoked-refresh',
+      user: null
+    })
+
+    let refreshCalls = 0
+    globalThis.fetch = vi.fn().mockImplementation((input: RequestInfo | URL) => {
+      const url = String(input)
+      if (url.endsWith('/auth/refresh')) {
+        refreshCalls += 1
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: false,
+              error: { code: 'SESSION_INVALID', message: 'Revoked' }
+            }),
+            { status: 401, headers: { 'Content-Type': 'application/json' } }
+          )
+        )
+      }
+      return Promise.resolve(
+        new Response(
+          JSON.stringify({ success: false, error: { code: 'TOKEN_EXPIRED', message: 'Expired' } }),
+          { status: 401, headers: { 'Content-Type': 'application/json' } }
+        )
+      )
+    }) as unknown as typeof fetch
+
+    await expect(apiRequest('/goals')).rejects.toMatchObject({ status: 401, code: 'TOKEN_EXPIRED' })
+    expect(refreshCalls).toBe(1)
+    expect(useAuthStore.getState().accessToken).toBe('')
+    expect(useAuthStore.getState().sessionExpiredMessage).toBeTruthy()
   })
 
   it('parses Backend error envelope and NEVER silently falls back to mock on LIVE error', async () => {
