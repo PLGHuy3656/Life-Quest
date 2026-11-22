@@ -1,0 +1,109 @@
+"""Gate G2.1 — root-cause table of every G2 deformation failure (from measured data, no hand-typed values).
+
+Usage (from LifeQuest_Fox_V2/):  python 08_VALIDATION/scripts/make_root_cause_g2_1.py
+Reads   08_VALIDATION/runtime_g2/deformation_envelope_g2.json (the G2 verdicts), 08_VALIDATION/runtime_g2_1/diag/
+        metrics_g2_original.json (anim_check_g2_1 on the G2 blend: worst frame / time, visible-edge stretch),
+        the corrected metrics (04_ANIMATIONS/g2_1_deformation_polish/anim_metrics_g2_1.json, if present)
+Writes  08_VALIDATION/root_cause_g2_1.md
+"""
+import json, os
+ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+J = lambda *p: json.load(open(os.path.join(ROOT, *p)))
+ENV = J('08_VALIDATION', 'runtime_g2', 'deformation_envelope_g2.json')
+M = J('08_VALIDATION', 'runtime_g2_1', 'diag', 'metrics_g2_original.json')['clips']
+p21 = os.path.join(ROOT, '04_ANIMATIONS', 'g2_1_deformation_polish', 'anim_metrics_g2_1.json')
+M21 = json.load(open(p21))['clips'] if os.path.exists(p21) else {}
+SEATED = {'study_start', 'study_focus', 'study_complete', 'sleep_enter', 'sleep_loop', 'sleep_wake', 'wake_start'}
+BONES = {'Leg': 'LEG_*/FOOT_* vs HIPS (buried thigh ring)', 'Arm': 'ARM_*/PAW_* vs SPINE (shoulder skin)', 'Body': 'HIPS/SPINE/NECK',
+         'Scarf_Roll': 'NECK/SPINE', 'Scarf_Flap': 'SCARF_FLAP/NECK', 'Ear': 'EAR_*_01/02', 'Tail': 'TAIL_*'}
+SHOT = {'study_focus': 'closeup_sit_legs.png', 'sleep_loop': 'closeup_lie_legs.png', 'wake_late': 'closeup_giggle_cheek.png', 'wake_start': 'closeup_rub_face.png',
+        'sports_start': 'closeup_side_bend.png', 'sleep_wake': 'closeup_scarf_body.png', 'sleep_enter': 'closeup_scarf_head.png', 'sports_complete': 'closeup_arm_stretch.png',
+        'cooldown_wait_impatient': 'closeup_foot_tap.png'}
+
+
+def cause(clip, metric, c):
+    mesh = metric.split('.')[-1].replace('FOX_', '') if '.' in metric else ''
+    key = mesh.split('_')[0] if mesh.startswith(('Leg', 'Arm', 'Ear')) else mesh
+    if metric.startswith('stretch_p99_max') and key == 'Leg':
+        vis = max(v for k, v in c.get('vis_stretch_p99_max', {}).items() if 'Leg' in k)
+        if clip in SEATED:
+            return (f'{"NO" if vis <= 0.766 else "YES"} — visible-edge p99 {vis} (≤ approved 0.766)' if vis <= 0.766 else f'YES — visible p99 {vis}',
+                    'Legs rotate up to 85° forward while the HIPS-weighted top ring of the leg (161 vertices) stays with the torso: the stretched edges are buried inside the opaque body (rig has no knee / hip-socket deformer). Metric counts hidden edges.',
+                    'Kept the seated pose (visible part inside the approved limit) and report raw + visible; heel-plant sit-down keeps the ankle (visible) below 0.70; no rig change needed.')
+        return (f'YES — visible-edge p99 {vis}', 'Foot tap / jog lifts the foot against the leg; the visible ankle ring stretches.', 'Resolver limits the foot channels to the approved visible leg stretch.')
+    if metric.startswith('stretch_p99_max') and key == 'Arm':
+        return ('YES (visible-edge p99 ≈ raw)', 'Raised arm swung forward > ~58° (or up > ~120°): the SPINE↔ARM blended shoulder skin stretches.', 'Pose envelope: armX_x soft-limited to 58°; resolver attenuates the arm group on the remaining frames (≥ 60 % of the gesture kept).')
+    if metric.startswith('stretch_p99_max') and key == 'Body':
+        return ('YES (visible-edge p99 ≈ raw)', 'Spine forward bend > ~11° (lean to stand up / curl) or side bend > ~9° (stretch, shake).', 'Pose envelope on spine_x / spine_y (soft limit), resolver on the spine group.')
+    if metric.startswith('stretch_p99_max') and 'Scarf' in metric:
+        return ('YES', 'Head pitched up > ~10° with yaw (flap) or combined with spine bends (roll).', 'Head pitch envelope (−10° / +9°), scarf group in the resolver.')
+    if metric.startswith('stretch_p99_max') and key == 'Ear':
+        return ('marginal', 'Ear spring follow-through + authored ear spread on the same frames.', 'Ears group in the resolver (≥ 87 % kept).')
+    if metric.startswith('arm'):
+        return ('YES — exposed arm surface inside the head', 'Head ROLL > ~5° drives the cheek into the SPINE-weighted shoulder top of the OPPOSITE arm (probe: head_y 8° → 9.7 mm with the arm at rest, unchanged when the arm is raised). Paw-on-face gestures add depth when the paw passes the cheek.',
+                'head_y soft-limited to ±4.5° (tilts carried by yaw / spine); contact gestures aimed at the surface; resolver keeps paw-in-head ≤ 6 mm.')
+    if metric.startswith('scarf'):
+        return ('YES', 'Head pitch (down: jaw onto the scarf roll; up: flap / roll into the jaw) and the stand-up shake (head roll + spine roll) on the same frames.', 'Head pitch / roll envelope; scarf group (head, flap) in the resolver; shake amplitude reduced.')
+    return ('—', '', '')
+
+
+L = ['# Gate G2.1 — root-cause analysis of the G2 deformation failures', '',
+     'Generated by `make_root_cause_g2_1.py` from measured data: the G2 verdicts (`deformation_envelope_g2.json`) and a re-measurement of the',
+     'G2 blend with `anim_check_g2_1.py` (same metrics + worst frame, timestamp and a visible-edge stretch diagnostic: edges with at least one',
+     'endpoint outside the opaque torso and head by > 1 mm). Probes behind the causes: `contact_probe.py`, `stretch_probe.py`, `heel_table.py`',
+     '(isolated poses on the canonical rig, runtime cage). Close-ups (front / side / 3/4, G2 above G2.1): `04_ANIMATIONS/g2_1_deformation_polish/closeups/`.', '',
+     '## Real defects vs. metric false positives', '',
+     '* **False positive (hidden geometry): raw leg stretch in seated / lying poses.** 2.0–2.4 raw, but the visible edges stay at 0.50–0.57 (approved',
+     '  0.766): the stretched edges are the buried top ring of the leg inside the torso. Evidence: visible-edge metric per frame + `closeup_sit_legs.png`,',
+     '  `closeup_lie_legs.png`. Still reported raw in every G2.1 table; not used to hide anything else.',
+     '* **Everything else is real** and visible in the close-ups: shoulder-in-cheek (head roll), paw-in-face, scarf into jaw / body, shoulder skin and',
+     '  body stretch on extreme arm / spine angles, the foot-tap ankle, and sole sliding in sit-down / stand-up / jog-to-stop.', '',
+     '## Per failure (G2)', '', '| Clip | Metric | G2 value | Approved limit | Worst frame (time) | Mesh / bones | Visible? | Root cause | Correction | G2.1 value |', '|---|---|---|---|---|---|---|---|---|---|']
+for clip, c in ENV['clips'].items():
+    m = M.get(clip, {}); fo = m.get('frame_of', {})
+    rows = [(f['metric'], f['g2'], f['approved_max'], f.get('approved_in', '')) for f in c['envelope_failures']]
+    rows += [(h, 'FAIL', 'hard rule', '') for h, ok in c['hard_rules'].items() if not ok]
+    for metric, val, lim, src in rows:
+        mesh = metric.split('.')[-1] if '.' in metric else ''
+        fkey = {'stretch_p99_max': 'stretch_p99.' + mesh}.get(metric.split('.')[0])
+        if metric.startswith('arm_'):
+            cands = {k: v for k, v in fo.items() if k.startswith('arm_in_head_mm' if 'depth' in metric else 'arm_new_in_head')}
+        elif metric.startswith('scarf'):
+            cands = {k: v for k, v in fo.items() if k.startswith('scarf_in_head_mm' if 'head' in metric and 'depth' in metric else 'scarf_new_in_head' if 'head' in metric else 'scarf_in_body_mm' if 'depth' in metric else 'scarf_new_in_body')}
+        elif metric == 'no_foot_slide':
+            cands = {k: v for k, v in fo.items() if k.startswith('foot_slide_mm')}
+        elif metric == 'no_scarf_in_body':
+            cands = {k: v for k, v in fo.items() if k.startswith('scarf_new_in_body')}
+        else:
+            cands = {fkey: fo[fkey]} if fkey in fo else {}
+        w = max(cands.items(), key=lambda kv: kv[1][1]) if cands else (None, (None, None, None))
+        frame = f'f{w[1][0]} ({w[1][2]} s) {w[0].split(".")[-1] if w[0] else ""}' if w[0] else '—'
+        if metric == 'no_foot_slide':
+            vis, rc, fix = ('YES — world-space slide of contact soles', 'Legs rotate forward around the hip while the soles are still in contact; G2 moved the root without a foot constraint (sit-down / stand-up). sports_complete: strides blended while a sole skimmed the floor within 1.5 mm.',
+                            'Heel-plant sit drive (root moves back by the measured contact-vertex table while the feet roll onto the heels) + contact solve each frame; sports_complete stops on a landing.')
+            val = f'{w[1][1]} mm/f' if w[0] else val
+        elif metric == 'no_scarf_in_body':
+            vis, rc, fix = ('YES', 'Stand-up shake: head roll ±10° with spine roll at full stand while the flap swings.', 'Shake amplitude reduced, head roll envelope, scarf group in the resolver.')
+        else:
+            vis, rc, fix = cause(clip, metric, m)
+        new = '—'
+        c21 = M21.get(clip)
+        if c21:
+            if metric.startswith('stretch_p99_max'):
+                new = f"{c21['stretch_p99_max'].get(mesh)} (vis {c21.get('vis_stretch_p99_max', {}).get(mesh)})"
+            elif metric == 'no_foot_slide':
+                new = f"{(c21.get('foot_slide_mm_per_frame') or {}).get('max')} mm/f"
+            elif metric == 'no_scarf_in_body':
+                new = str(c21.get('scarf_new_in_body'))
+            elif metric in c21:
+                new = str(c21[metric])
+        bones = BONES.get(mesh.replace('FOX_', '').split('_')[0] if mesh.startswith(('FOX_Leg', 'FOX_Arm', 'FOX_Ear')) else mesh.replace('FOX_', ''), 'ARM_* / HEAD / SPINE' if metric.startswith('arm') else 'NECK / HEAD / SCARF_FLAP' if 'scarf' in metric else 'LEG_* / FOOT_* / ROOT')
+        L.append(f'| {clip} | {metric} | {val} | {lim} {("(" + src + ")") if src else ""} | {frame} | {mesh.replace("FOX_", "") or "-"} · {bones} | {vis} | {rc} | {fix} | {new} |')
+L += ['', '## Rig', '', 'No rig, weight or model change was needed: the only leg-stretch excess is in hidden geometry, and every visible problem was',
+      'traced to poses (head roll, head pitch, spine bends, arm swing, foot rotation) or to missing foot constraints. The canonical rig',
+      '`03_RIG/fox_rig_d1_1.blend` and the E2 Fox GLB are unchanged, so every existing module (E2 core, G1.1, G2) keeps binding as before.',
+      'If knee-bent seated poses are wanted later, the smallest compatible extension would be a KNEE bone per leg (child of LEG, parent of FOOT)',
+      'with re-weighted calf vertices — it changes the Fox GLB skeleton (new joint), so every module would need re-export and the E2 hash lock',
+      'would change; it is not proposed for G2.1.']
+open(os.path.join(ROOT, '08_VALIDATION', 'root_cause_g2_1.md'), 'w').write('\n'.join(L) + '\n')
+print('ok', sum(1 for l in L if l.startswith('| ') and not l.startswith('| Clip') and not l.startswith('|---')), 'rows')

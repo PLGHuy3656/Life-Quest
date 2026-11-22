@@ -1,0 +1,137 @@
+{
+  "e2": {
+    "suite": "e2",
+    "script": "browser_anim_test_e2.py",
+    "args": [
+      "--three-dir",
+      "/workspace/07_WEB_PREVIEW/companion_sandbox_i/node_modules/three"
+    ],
+    "url": "static E2 viewer",
+    "exit": 0,
+    "summary": [
+      " \"passed\": 29,",
+      " \"failed\": []",
+      "}"
+    ],
+    "fails": [],
+    "seconds": 240,
+    "stderr_tail": [
+      "127.0.0.1 - - [22/Nov/2026 06:08:38] \"GET /06_EXPORTS/glb/fox_v2_anim_e2.glb HTTP/1.1\" 200 -",
+      "127.0.0.1 - - [22/Nov/2026 06:09:14] \"GET /07_WEB_PREVIEW/fox_interactive_e2.html?size=large&seed=7 HTTP/1.1\" 200 -",
+      "127.0.0.1 - - [22/Nov/2026 06:09:28] \"GET /06_EXPORTS/glb/fox_v2_anim_e2.glb HTTP/1.1\" 200 -"
+    ]
+  },
+  "f_fallback": {
+    "suite": "f_fallback",
+    "script": "browser_companion_regress_g1_1.py",
+    "args": [
+      "--mode",
+      "fallback"
+    ],
+    "url": "http://127.0.0.1:4261/index.html",
+    "exit": 1,
+    "summary": [
+      "PASS No page errors / console errors during the run {\"errors\": []}",
+      "PASS WebGL unavailable (Chrome --disable-3d-apis) \u2192 static poster, no canvas, no crash {\"fallbacks\": [\"webgl\", \"webgl\"], \"canvases\": 0, \"errors\": []}",
+      "34/35 PASS"
+    ],
+    "fails": [
+      "FAIL Pointer leaves \u2192 gentle return to neutral (look offset \u2248 0) {\"lookYaw\": 4.74}"
+    ],
+    "seconds": 227,
+    "stderr_tail": []
+  },
+  "f_g1": {
+    "suite": "f_g1",
+    "script": "browser_companion_regress_g1_1.py",
+    "args": [
+      "--mode",
+      "g1"
+    ],
+    "url": "http://127.0.0.1:4261/index.html",
+    "exit": 0,
+    "summary": [
+      "PASS No page errors / console errors during the run {\"errors\": []}",
+      "PASS WebGL unavailable (Chrome --disable-3d-apis) \u2192 static poster, no canvas, no crash {\"fallbacks\": [\"webgl\", \"webgl\"], \"canvases\": 0, \"errors\": []}",
+      "35/35 PASS"
+    ],
+    "fails": [],
+    "seconds": 258,
+    "stderr_tail": []
+  },
+  "g1_1": {
+    "suite": "g1_1",
+    "script": "browser_g1_1_test.py",
+    "args": [],
+    "url": "http://127.0.0.1:4261/index.html",
+    "exit": 0,
+    "summary": [
+      "PASS No page errors on the G1 harness (a missing favicon.ico 404 from the static test server is ignored) {\"errors\": [], \"http_404\": []}",
+      "PASS ?modules=0: 7 core clips only; G1 events run their F-era fallback reactions (no unavailable / fabricated clips) {\"clips\": 7, \"bad\": {}, \"quest\": {\"result\": \"handled\", \"play\": \"played\", \"steps\": [\"play:happy\", \"mood:proud\"], \"oneShot\": \"happy\", \"mood\": \"proud\"}, \"streak_lost\": {\"result\": \"handled\", \"play\": null, \"steps\": [\"streak:false\", \"mood:sad\"], \"oneShot\": null, \"mood\": \"sad\"}, \"errors\": []}",
+      "23/23 PASS"
+    ],
+    "fails": [],
+    "seconds": 310,
+    "stderr_tail": []
+  },
+  "g2_1": {
+    "suite": "g2_1",
+    "script": "browser_g2_1_test.py",
+    "args": [],
+    "url": "http://127.0.0.1:4262/index.html",
+    "exit": 0,
+    "summary": [
+      "PASS [modules=0] G2 module absent: no G2 clip available {\"modules\": [], \"errors\": []}",
+      "PASS [modules=0] every G2 event answers with its documented fallback (no clip, no prop, no error) {\"rows\": [{\"name\": \"SLEEP_ENTERED\", \"result\": \"handled\", \"state\": \"visible\", \"activity\": \"resting\", \"base\": \"idle\", \"mood\": \"sleepy\", \"shot\": null, \"pass\": true}, {\"name\": \"SLEEP_ENDED\", \"result\": \"handled\", \"state\": \"fallback\", \"activity\": \"idle\", \"base\": \"idle\", \"mood\": \"happy\", \"shot\": null, \"pass\": true}, {\"name\": \"STUDY_STARTED\", \"result\": \"handled\", \"state\": \"visible\", \"activity\": \"idle\", \"b",
+      "41/41 PASS"
+    ],
+    "fails": [],
+    "seconds": 474,
+    "stderr_tail": []
+  },
+  "g3": {
+    "suite": "g3",
+    "script": "browser_g3_test.py",
+    "args": [],
+    "url": "http://127.0.0.1:4263/index.html",
+    "exit": 0,
+    "summary": [
+      "PASS [G3 module filtered out] G3 module unavailable \u2192 documented fallback for all 17 events (no error) {\"CHALLENGE_INVITED\": {\"steps\": [\"mood:smile\"], \"pass\": true}, \"CHALLENGE_ACCEPTED\": {\"steps\": [\"mood:proud\"], \"pass\": true}, \"CHALLENGE_STARTED\": {\"steps\": [\"mood:surprised\", \"mood:proud\"], \"pass\": true}, \"CHALLENGE_WON\": {\"steps\": [\"happy\", \"mood:excited\"], \"pass\": true}, \"CHALLENGE_LOST\": {\"steps\": [\"mood:sad\"], \"pass\": true}, \"CHALLENGE_DRAW\": {\"steps\": [\"mood:smile\"], \"pass\": true}, \"DUO_CELE",
+      "PASS [modules=0] G3 module unavailable \u2192 documented fallback for all 17 events (no error) {\"CHALLENGE_INVITED\": {\"steps\": [\"mood:smile\"], \"pass\": true}, \"CHALLENGE_ACCEPTED\": {\"steps\": [\"mood:proud\"], \"pass\": true}, \"CHALLENGE_STARTED\": {\"steps\": [\"mood:surprised\", \"mood:proud\"], \"pass\": true}, \"CHALLENGE_WON\": {\"steps\": [\"happy\", \"mood:excited\"], \"pass\": true}, \"CHALLENGE_LOST\": {\"steps\": [\"mood:sad\"], \"pass\": true}, \"CHALLENGE_DRAW\": {\"steps\": [\"mood:smile\"], \"pass\": true}, \"DUO_CELE",
+      "34/34 PASS"
+    ],
+    "fails": [],
+    "seconds": 1010,
+    "stderr_tail": []
+  },
+  "h1": {
+    "suite": "h1",
+    "script": "browser_h1_test.py",
+    "args": [],
+    "url": "http://127.0.0.1:4260/index.html",
+    "exit": 0,
+    "summary": [
+      "PASS Render counts measured: default look vs outfits (draw calls / triangles / geometries \u2014 software renderer, no timing claim) {\"default look\": {\"calls\": 48, \"triangles\": 73842, \"geometries\": 53, \"textures\": 34}, \"student\": {\"calls\": 55, \"triangles\": 80358, \"geometries\": 60, \"textures\": 37}, \"all_slots_test (7 items)\": {\"calls\": 56, \"triangles\": 83134, \"geometries\": 68, \"textures\": 41}}",
+      "PASS no page errors / unexpected 404s (only the intentional missing-asset test file, and the static server's missing favicon.ico, matched by count) {\"errors\": [], \"console_404\": 3, \"intentional_404\": 2, \"favicon_status\": 404, \"missing\": [\"http://127.0.0.1:4260/models/cosmetics/__does_not_exist.glb\", \"http://127.0.0.1:4260/models/cosmetics/__does_not_exist.glb\"], \"glb_requests\": [\"__does_not_exist.glb\", \"explorer_backpack.glb\", \"explorer_magnifier.glb\", \"fox_v2_anim_e2.glb\", \"fox_v2_g1_1_quest_reward_streak.anim.glb\", \"fox_v2_g2_1_daily_life.a",
+      "28/28 checks passed"
+    ],
+    "fails": [],
+    "seconds": 279,
+    "stderr_tail": []
+  },
+  "h2": {
+    "suite": "h2",
+    "script": "browser_h2_test.py",
+    "args": [],
+    "url": "http://127.0.0.1:4260/index.html",
+    "exit": 0,
+    "summary": [
+      "PASS Renderer resources back to the default-look baseline after 12 outfit changes while rendering; item cache empty {\"before\": {\"geometries\": 65, \"textures\": 34, \"programs\": 10}, \"after\": {\"geometries\": 53, \"textures\": 34, \"programs\": 9}, \"cache\": []}",
+      "PASS no page errors / unexpected 404s (static server favicon only) {\"errors\": [], \"console_404\": 1, \"missing\": []}",
+      "17/17 checks passed"
+    ],
+    "fails": [],
+    "seconds": 501,
+    "stderr_tail": []
+  }
+}

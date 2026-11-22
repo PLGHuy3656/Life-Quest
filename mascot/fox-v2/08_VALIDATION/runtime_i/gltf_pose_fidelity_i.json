@@ -1,0 +1,131 @@
+{
+  "i_module_vs_blender": {
+    "worst": {
+      "max_mm": 4.76,
+      "at": {
+        "clip": "task_notebook_open",
+        "frame": "27",
+        "bone": "EAR_L_02"
+      }
+    },
+    "clips": {
+      "voice_listen_start": {
+        "max_mm": 1.671,
+        "at": {
+          "frame": "9",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "voice_listening_loop": {
+        "max_mm": 0.123,
+        "at": {
+          "frame": "24",
+          "bone": "EAR_R_02"
+        }
+      },
+      "voice_processing": {
+        "max_mm": 0.127,
+        "at": {
+          "frame": "72",
+          "bone": "EAR_R_02"
+        }
+      },
+      "task_suggestion": {
+        "max_mm": 0.655,
+        "at": {
+          "frame": "16",
+          "bone": "EAR_L_02"
+        }
+      },
+      "task_notebook_open": {
+        "max_mm": 4.76,
+        "at": {
+          "frame": "27",
+          "bone": "EAR_L_02"
+        }
+      },
+      "task_notebook_write": {
+        "max_mm": 0.111,
+        "at": {
+          "frame": "90",
+          "bone": "EAR_L_02"
+        }
+      },
+      "task_notebook_confirm": {
+        "max_mm": 0.644,
+        "at": {
+          "frame": "59",
+          "bone": "EAR_L_02"
+        }
+      },
+      "voice_retry": {
+        "max_mm": 1.551,
+        "at": {
+          "frame": "15",
+          "bone": "EAR_R_02"
+        }
+      }
+    }
+  },
+  "e2_approved_glb_vs_blender": {
+    "worst": {
+      "max_mm": 3.78,
+      "at": {
+        "clip": "tail_touch",
+        "frame": "35",
+        "bone": "ATT_HAND_R"
+      }
+    },
+    "clips": {
+      "idle": {
+        "max_mm": 1.131,
+        "at": {
+          "frame": "36",
+          "bone": "ATT_HAND_R"
+        }
+      },
+      "walk": {
+        "max_mm": 0.142,
+        "at": {
+          "frame": "10",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "run": {
+        "max_mm": 3.382,
+        "at": {
+          "frame": "1",
+          "bone": "EAR_R_02"
+        }
+      },
+      "happy": {
+        "max_mm": 1.847,
+        "at": {
+          "frame": "15",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "wave": {
+        "max_mm": 1.14,
+        "at": {
+          "frame": "34",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "head_pet": {
+        "max_mm": 3.633,
+        "at": {
+          "frame": "38",
+          "bone": "ATT_HAND_L"
+        }
+      },
+      "tail_touch": {
+        "max_mm": 3.78,
+        "at": {
+          "frame": "35",
+          "bone": "ATT_HAND_R"
+        }
+      }
+    }
+  }
+}

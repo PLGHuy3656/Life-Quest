@@ -1,0 +1,517 @@
+{
+  "file": "06_EXPORTS/glb/modules/fox_v2_i_voice_assistant.anim.glb",
+  "bytes": 845220,
+  "kind": "animation-only module (no Fox body; bind to 06_EXPORTS/glb/fox_v2_anim_e2.glb by node name)",
+  "source": "04_ANIMATIONS/i_voice_assistant/fox_anim_i.blend",
+  "blender": "5.3.0",
+  "nodes": 43,
+  "joints": 28,
+  "materials": 0,
+  "textures": 0,
+  "morph_carriers": {
+    "FOX_Eye_L": {
+      "verts": 3,
+      "morph_targets": 6,
+      "names": [
+        "Blink",
+        "Wide",
+        "Sad",
+        "HalfLid",
+        "Proud",
+        "hide"
+      ]
+    },
+    "FOX_Eye_R": {
+      "verts": 3,
+      "morph_targets": 6,
+      "names": [
+        "Blink",
+        "Wide",
+        "Sad",
+        "HalfLid",
+        "Proud",
+        "hide"
+      ]
+    },
+    "FOX_Mouth_Neutral": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "hide"
+      ]
+    },
+    "FOX_EyeClosedHappy_L": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedHappy_R": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedSleepy_L": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedSleepy_R": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Open": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Tongue": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_SmallO": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Frown": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Smile": {
+      "verts": 3,
+      "morph_targets": 1,
+      "names": [
+        "show"
+      ]
+    },
+    "FOX_Brow_L": {
+      "verts": 3,
+      "morph_targets": 3,
+      "names": [
+        "show",
+        "Sad",
+        "Proud"
+      ]
+    },
+    "FOX_Brow_R": {
+      "verts": 3,
+      "morph_targets": 3,
+      "names": [
+        "show",
+        "Sad",
+        "Proud"
+      ]
+    }
+  },
+  "meshes": {
+    "FOX_Brow_L": {
+      "morph_targets": 3,
+      "target_names": [
+        "show",
+        "Sad",
+        "Proud"
+      ]
+    },
+    "FOX_Brow_R": {
+      "morph_targets": 3,
+      "target_names": [
+        "show",
+        "Sad",
+        "Proud"
+      ]
+    },
+    "FOX_Eye_L": {
+      "morph_targets": 6,
+      "target_names": [
+        "Blink",
+        "Wide",
+        "Sad",
+        "HalfLid",
+        "Proud",
+        "hide"
+      ]
+    },
+    "FOX_Eye_R": {
+      "morph_targets": 6,
+      "target_names": [
+        "Blink",
+        "Wide",
+        "Sad",
+        "HalfLid",
+        "Proud",
+        "hide"
+      ]
+    },
+    "FOX_EyeClosedHappy_L": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedHappy_R": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedSleepy_L": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_EyeClosedSleepy_R": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Frown": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Neutral": {
+      "morph_targets": 1,
+      "target_names": [
+        "hide"
+      ]
+    },
+    "FOX_Mouth_Tongue": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Open": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_SmallO": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    },
+    "FOX_Mouth_Smile": {
+      "morph_targets": 1,
+      "target_names": [
+        "show"
+      ]
+    }
+  },
+  "animations": {
+    "task_notebook_confirm": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 3.25
+    },
+    "task_notebook_open": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 2.25
+    },
+    "task_notebook_write": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 5
+    },
+    "task_suggestion": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 2.75
+    },
+    "voice_listen_start": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 1.5
+    },
+    "voice_listening_loop": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 4
+    },
+    "voice_processing": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 4
+    },
+    "voice_retry": {
+      "channels": 98,
+      "weights_channels": 14,
+      "duration_s": 2.5
+    }
+  },
+  "clip_contract": {
+    "voice_listen_start": {
+      "loop": false,
+      "frames": 36,
+      "duration_s": 1.5,
+      "cues": [
+        {
+          "t": 0.1667,
+          "fx": "voice.ping",
+          "at": "head_top",
+          "duration": 0.75
+        },
+        {
+          "t": 0.3333,
+          "fx": "sparkle.soft",
+          "at": "head",
+          "count": 6
+        }
+      ],
+      "end_pose": "voice_listening_loop",
+      "start_pose": "rest",
+      "category": "voice_assistant",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "state": null
+    },
+    "voice_listening_loop": {
+      "loop": true,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [],
+      "state_fx": [
+        "voice.waves"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "voice_assistant",
+      "role": "state loop: voice listening (base clip)",
+      "head_control": 0.5,
+      "face_control": 0.6,
+      "large_motion": false,
+      "state": "voice_listening"
+    },
+    "voice_processing": {
+      "loop": true,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [],
+      "state_fx": [
+        "voice.thinking"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "voice_assistant",
+      "role": "state loop: voice processing (base clip)",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "state": "voice_processing"
+    },
+    "task_suggestion": {
+      "loop": false,
+      "frames": 66,
+      "duration_s": 2.75,
+      "cues": [
+        {
+          "t": 0.4583,
+          "fx": "voice.idea",
+          "at": "head_top",
+          "duration": 1.1
+        },
+        {
+          "t": 0.875,
+          "fx": "sparkle.soft",
+          "at": "hand_r",
+          "count": 8
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "voice_assistant",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "state": null
+    },
+    "task_notebook_open": {
+      "loop": false,
+      "frames": 54,
+      "duration_s": 2.25,
+      "cues": [
+        {
+          "t": 0.2917,
+          "fx": "prop.show",
+          "prop": "notebook",
+          "mode": "pop"
+        },
+        {
+          "t": 1.375,
+          "fx": "prop.phase",
+          "prop": "notebook",
+          "phase": "open"
+        },
+        {
+          "t": 1.4583,
+          "fx": "prop.show",
+          "prop": "pencil",
+          "mode": "pop"
+        },
+        {
+          "t": 1.6667,
+          "fx": "sparkle.soft",
+          "at": "notebook",
+          "count": 6
+        }
+      ],
+      "end_pose": "task_notebook_write",
+      "props_end": [
+        "notebook",
+        "pencil"
+      ],
+      "start_pose": "rest",
+      "category": "voice_assistant",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "task_notebook_write": {
+      "loop": true,
+      "frames": 120,
+      "duration_s": 5.0,
+      "cues": [],
+      "state_fx": [
+        "focus.particles"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "voice_assistant",
+      "role": "state loop: voice task notebook writing (base clip)",
+      "head_control": 0.8,
+      "face_control": 0.6,
+      "large_motion": false,
+      "state": "task_writing"
+    },
+    "task_notebook_confirm": {
+      "loop": false,
+      "frames": 78,
+      "duration_s": 3.25,
+      "cues": [
+        {
+          "t": 0.375,
+          "fx": "voice.check",
+          "at": "notebook",
+          "duration": 1.1
+        },
+        {
+          "t": 0.4167,
+          "fx": "sparkle.soft",
+          "at": "hand_r",
+          "count": 6
+        },
+        {
+          "t": 0.9583,
+          "fx": "prop.phase",
+          "prop": "notebook",
+          "phase": "close"
+        },
+        {
+          "t": 1.0417,
+          "fx": "burst.stars",
+          "at": "notebook",
+          "count": 10
+        },
+        {
+          "t": 1.1667,
+          "fx": "prop.hide",
+          "prop": "pencil",
+          "mode": "poof"
+        },
+        {
+          "t": 1.875,
+          "fx": "prop.hide",
+          "prop": "notebook",
+          "mode": "poof"
+        },
+        {
+          "t": 2.2917,
+          "fx": "sparkle",
+          "at": "head",
+          "count": 10
+        }
+      ],
+      "start_pose": "task_notebook_write",
+      "props_start": [
+        "notebook",
+        "pencil"
+      ],
+      "end_pose": "rest",
+      "category": "voice_assistant",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "voice_retry": {
+      "loop": false,
+      "frames": 60,
+      "duration_s": 2.5,
+      "cues": [
+        {
+          "t": 0.375,
+          "fx": "voice.retry_cue",
+          "at": "head_top",
+          "duration": 1.1
+        },
+        {
+          "t": 1.7083,
+          "fx": "sparkle.soft",
+          "at": "head",
+          "count": 6
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "voice_assistant",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "state": null
+    }
+  },
+  "categories": {
+    "voice_assistant": [
+      "voice_listen_start",
+      "voice_listening_loop",
+      "voice_processing",
+      "task_suggestion",
+      "task_notebook_open",
+      "task_notebook_write",
+      "task_notebook_confirm",
+      "voice_retry"
+    ]
+  }
+}

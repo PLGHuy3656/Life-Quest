@@ -431,3 +431,144 @@ All paths were resolved inside `LifeQuest_Assets\Mascot\LifeQuest_Fox_V2\` (or t
 | `LifeQuest_Fox_V2_GateF.zip` | **Approved** Gate F package (runtime foundation). Keep (protected, latest approved rollback; contains E2 / E1 / D1.1) |
 | `LifeQuest_Fox_V2_GateE2.zip`, `GateE1.zip`, `GateD1_1.zip` | not present on disk at the start of G1 (removal not recorded here); contents preserved in `GateF.zip` and `GateG1.zip` |
 | `LifeQuest_Fox_V2_GateD1.zip`, `GateC_r4.zip` | deleted 2026-11-16 (superseded) |
+
+## Gate G1.1 — cinematic animation & VFX polish: Windows sync (2026-11-19)
+
+**Source:** `LifeQuest_Fox_V2_GateG1_1.zip` (156,686,811 B, SHA-256 `d8660d3f5c87292a4b1cea2885deb55ed085a995dbb3448807eb1214795c33ba`), built and verified in the build container on 2026-11-18. The verification ran again before the sync: `unzip -t` reported no errors, the archive was fully extracted, and 683 / 683 files matched `09_DOCS/GATE_G1_1_SHA256SUMS.txt`.
+
+**Workspace before the sync:** 515 files, identical to the Gate G1 state (manifest SHA-256 `75bb6e14…`, the same manifest taken at the start of G1.1).
+
+**Synchronized:** only the new G1.1 versioned files, **169 files**:
+* the 168 files new in the manifest + `09_DOCS/GATE_G1_1_SHA256SUMS.txt`
+* per folder:
+  * `04_ANIMATIONS/g1_1_cinematic_polish/`: 28
+  * `06_EXPORTS/glb/modules/fox_v2_g1_1_*`: 4
+  * `07_WEB_PREVIEW/companion_sandbox_g1_1/`: 82 (sources + prebuilt `dist/`, no `node_modules/`)
+  * `08_VALIDATION/scripts/` (G1.1 scripts): 13
+  * `08_VALIDATION/runtime_g1_1/`: 37
+  * `08_VALIDATION/gate_g1_1_runtime_report.md`, `vfx_qa_report_g1_1.md`
+  * `09_DOCS/BUILD_G1_1.md`, `KNOWN_LIMITATIONS_GATE_G1_1.md`, `GATE_G1_1_SHA256SUMS.txt`
+* Method:
+  * one transfer tar (`Mascot\_g1_1_sync.tar`, 32,215,040 B, `25af1e14…`, checked on the device)
+  * extracted with `tar -xk`: never overwrites an existing file; no file existed at any target path
+
+**Verification on Windows:**
+* `sha256sum -c 09_DOCS/GATE_G1_1_SHA256SUMS.txt`: **683 / 683 OK**
+* the 515 Gate G1 files re-checked against the pre-sync manifest: **515 / 515 unchanged**, so Gate F, G1, master, rig, E1 / E2 / D1.1 and the checkpoints are preserved
+* workspace now: 684 files (683 + the SUMS file)
+
+**Archive added:** `Mascot\LifeQuest_Fox_V2_GateG1_1.zip`. The SHA-256 on the device is identical (`d8660d3f…`), and `unzip -t` reports no errors.
+
+**Deleted after verification:** only the temporary transfer file `Mascot\_g1_1_sync.tar`.
+
+**Not touched:**
+* `LifeQuest_Fox_V2_GateF.zip` (`563a3c38…`) and `LifeQuest_Fox_V2_GateG1.zip` (`6f929bb7…`): both re-verified intact
+* Git clones / worktrees: none are inside this workspace, and no Git operation was performed (CP-G1.1 is Antigravity's phase)
+
+**Note:** this entry changes `CLEANUP_LOG.md`, so this one file no longer matches its line in `GATE_G1_1_SHA256SUMS.txt`. Every other file does.
+
+### Packages register (current)
+| Package | Status |
+|---|---|
+| `LifeQuest_Fox_V2_GateG1_1.zip` | **Latest valid archive**: Gate G1.1 cinematic animation & VFX polish — approved for checkpoint CP-G1.1 |
+| `LifeQuest_Fox_V2_GateG1.zip` | Gate G1 (technical pass), checkpoint CP-G1 `5d22112a…`. Keep |
+| `LifeQuest_Fox_V2_GateF.zip` | **Approved** Gate F package. Keep (protected; contains E2 / E1 / D1.1) |
+
+## 2026-11-19 — Gate G2 production (daily life)
+
+**Workspace:** Gate G2 was produced in a working copy of the G1.1 workspace (684 files, manifest `507c2e05…`). Every one of
+those 684 files was re-verified byte-identical before packaging (except this log, which receives this entry).
+
+**Removed (temporary files created during G2 authoring only):** Cycles temp frames (`04_ANIMATIONS/g2_daily_life/renders/_tmp_*.png`),
+intermediate check sheets (`fox_g2_blender_{mix,check,check2,wa,cd}.png`), `08_VALIDATION/scripts/__pycache__/`,
+`07_WEB_PREVIEW/companion_sandbox_g2/tsconfig.tsbuildinfo`. No approved file was deleted or modified.
+
+**Added:** versioned G2 files only (see `09_DOCS/GATE_G2_SHA256SUMS.txt` and `BUILD_G2.md`). No Git operation was performed.
+
+### Packages register (current)
+| Package | Status |
+|---|---|
+| `LifeQuest_Fox_V2_GateG2.zip` | **Gate G2 daily life — produced, awaiting visual approval** (not a checkpoint yet) |
+| `LifeQuest_Fox_V2_GateG1_1.zip` | Gate G1.1 — approved for checkpoint CP-G1.1. Keep |
+| `LifeQuest_Fox_V2_GateG1.zip` | Gate G1, checkpoint CP-G1 `5d22112a…`. Keep |
+| `LifeQuest_Fox_V2_GateF.zip` | **Approved** Gate F package. Keep (protected) |
+
+## 2026-11-19 — Gate G2.1 deformation correction (container workspace, before packaging)
+
+Standing permission: controlled cleanup inside the LifeQuest_Fox_V2 workspace. Before packaging, all 893 Gate G2 baseline files
+(`GATE_G2_BASELINE_SHA256.txt`, which covers the original G2 and G1.1 sources) were re-verified byte-identical. G2.1 adds new, versioned files only.
+
+**Removed (temporary files created during G2.1 authoring only):** `04_ANIMATIONS/g2_1_deformation_polish/fox_anim_g2_1.blend1`
+(Blender autosave backup), `07_WEB_PREVIEW/companion_sandbox_g2_1/tsconfig.tsbuildinfo`, `__pycache__/`, and the intermediate flame-test
+frame folder. No approved file was deleted or modified.
+
+**Added:** G2.1 files only (`09_DOCS/GATE_G2_1_SHA256SUMS.txt`, `BUILD_G2_1.md`). Probe scripts were copied to
+`08_VALIDATION/scripts/probes_g2_1/` so the root-cause evidence can be reproduced. No Git operation was performed.
+
+### Packages register (current)
+| Package | Status |
+|---|---|
+| `LifeQuest_Fox_V2_GateG2_1.zip` | **Gate G2.1 deformation correction — produced, awaiting visual approval** |
+| `LifeQuest_Fox_V2_GateG2.zip` | Gate G2 — functional prototype (accepted as functional only; superseded for deformation by G2.1). Keep |
+| `LifeQuest_Fox_V2_GateG1_1.zip` | Gate G1.1 — approved for checkpoint CP-G1.1. Keep |
+| `LifeQuest_Fox_V2_GateG1.zip` | Gate G1, checkpoint CP-G1 `5d22112a…`. Keep |
+| `LifeQuest_Fox_V2_GateF.zip` | **Approved** Gate F package. Keep (protected) |
+
+## 2026-11-19 — Gate G3 challenge / duo-group / private social (container workspace, before packaging)
+
+Standing permission: controlled cleanup inside the LifeQuest_Fox_V2 workspace.
+- **Baseline check.** Before packaging, the 1,142 files of the verified G2.1 baseline (`GATE_G2_1_SHA256SUMS.txt`, the source of CP-G2) were re-verified byte-identical. G3 adds new files only. No approved E2 / F / G1.1 / G2.1 file was modified.
+- **Removed (temporary files created during G3 authoring):** `__pycache__/`, `companion_sandbox_g3/tsconfig.tsbuildinfo`, capture frame folders (`_f_*`), the `_regress_g3_*.py` runner copies, and a stray `_anim_metrics_partial.json` that a partial anim_check run had written into `04_ANIMATIONS/g2_1_deformation_polish/` (not part of the baseline).
+- **Moved out of the workspace (not deleted):** 59 files of an unfinished G2.1 acceptance pass (`g2_1_deformation_polish/acceptance/`, `runtime_g2_1/acceptance/`, `capture_acceptance_g2_1.py`, `exception_closeup_g2_1.py`, `occlusion_proof_g2_1.py`). They came from the interrupted acceptance request, were never synced or approved, and are not part of CP-G2 or G3. They are kept outside the workspace in the container.
+- **Added:** G3 files only (`09_DOCS/G3_ASSET_MANIFEST.md`, `GATE_G3_SHA256SUMS.txt`, `BUILD_G3.md`). No Git operation was performed.
+
+### Packages register (current)
+| Package | Status |
+|---|---|
+| `LifeQuest_Fox_V2_GateG3.zip` | **Gate G3 challenge / duo-group / private social — produced, awaiting visual approval** |
+| `LifeQuest_Fox_V2_GateG2_1.zip` | Gate G2.1 — source of checkpoint CP-G2. Keep |
+| `LifeQuest_Fox_V2_GateG2.zip` | Gate G2 functional prototype (superseded by G2.1). Keep |
+| `LifeQuest_Fox_V2_GateG1_1.zip` | Gate G1.1 — CP-G1.1. Keep |
+| `LifeQuest_Fox_V2_GateG1.zip` | Gate G1, CP-G1. Keep |
+| `LifeQuest_Fox_V2_GateF.zip` | **Approved** Gate F package. Keep (protected) |
+
+## 2026-11-20 — Gate H1 modular cosmetics and equipment (container workspace, before packaging)
+
+Standing permission: controlled cleanup inside the LifeQuest_Fox_V2 workspace.
+- **Baseline check.** Before packaging, the 1,365 files of the verified G3 package (`GATE_G3_SHA256SUMS.txt`) were re-verified byte-identical. H1 adds new files only. No approved E2 / F / G1.1 / G2.1 / G3 file was modified. The canonical rig and the animation blends were opened read-only and never saved.
+- **Removed (temporary files created during H1 authoring):** `08_VALIDATION/scripts/__pycache__/`, `companion_sandbox_h1/tsconfig.tsbuildinfo`, the Blender backup `05_COSMETICS/h1_prototypes/fox_cosmetics_h1.blend1`, preview frame folders (`runtime_h1/previews/_frames_*`), and the `_regress_h1_*.py` runner copies (deleted by the runner).
+- **Added:** H1 files only (`09_DOCS/H1_ASSET_MANIFEST.md`, `GATE_H1_SHA256SUMS.txt`, `BUILD_H1.md`, `FOX_H1_COSMETIC_CONTRACT.md`, `KNOWN_LIMITATIONS_GATE_H1.md`). The render probe used for the cosmetic review was copied to `08_VALIDATION/scripts/probes_h1/`. No Git operation was performed.
+
+### Packages register (current)
+| Package | Status |
+|---|---|
+| `LifeQuest_Fox_V2_GateH1.zip` | **Gate H1 modular cosmetics — produced, awaiting approval** |
+| `LifeQuest_Fox_V2_GateG3.zip` | Gate G3 — accepted as the animation prototype. Keep |
+| `LifeQuest_Fox_V2_GateG2_1.zip` | Gate G2.1 — source of checkpoint CP-G2. Keep |
+| `LifeQuest_Fox_V2_GateG2.zip` | Gate G2 functional prototype (superseded by G2.1). Keep |
+| `LifeQuest_Fox_V2_GateG1_1.zip` | Gate G1.1 — CP-G1.1. Keep |
+| `LifeQuest_Fox_V2_GateG1.zip` | Gate G1, CP-G1. Keep |
+| `LifeQuest_Fox_V2_GateF.zip` | **Approved** Gate F package. Keep (protected) |
+
+## 2026-11-21 — Independent asset portability test (before Gate H1 approval)
+
+- **Gate H1 sync.** Completed to the Windows workspace: 238 new files plus the appended CLEANUP_LOG. All 1,603 files were verified against `GATE_H1_SHA256SUMS.txt`. `LifeQuest_Fox_V2_GateH1.zip` is in the Mascot folder (sha256 `39881de3…3d98a`).
+- **Added (new files only):**
+  - `09_DOCS/ASSET_PORTABILITY_REPORT.md`, `BLENDER_OPEN_TEST.md`, `GLB_COMPATIBILITY_REPORT.md`, `THIRD_PARTY_HANDOFF_GUIDE.md`, `PORTABILITY_SHA256SUMS.txt`;
+  - `08_VALIDATION/scripts/portability_*.py` (4);
+  - `08_VALIDATION/portability/` (viewer tooling, machine A / machine B evidence).
+- **Not changed.** No approved file was modified. No source `.blend` was re-saved: nothing needed packing, and the edit tests ran on temporary copies that were deleted. No Git operation was performed.
+- **Temporary, outside the workspace.** Fresh extractions, npm caches and the second-machine venv were created outside the workspace and are not part of the package.
+
+## 2026-11-21 — Gate H2 cosmetic outfit library + README update (container workspace, before packaging)
+
+- **README.** The root `README.md` was rewritten on request to show the state through H1 / H2. The previous version is preserved as `09_DOCS/README_HISTORY_GATE_G1.md`. This is the only file from the H1 package that changed.
+- **Added (new files only):**
+  - `05_COSMETICS/h2_outfits/` (blend + catalogue);
+  - 12 item GLBs + `cosmetic_reference_h2.json` in `06_EXPORTS/glb/cosmetics/`;
+  - `07_WEB_PREVIEW/companion_sandbox_h2/` (copy of the H1 sandbox plus the outfit library; the H1 sandbox is untouched);
+  - `08_VALIDATION/cosmetics_h2/` and `08_VALIDATION/runtime_h2/`;
+  - the `cosmetics_*_h2.py`, `browser_h2_test.py`, `capture_h2_previews.py`, `regress_h2.py`, `make_reports_h2.py` and `make_manifest_h2.py` scripts, and `probes_h2/`;
+  - in `09_DOCS/`: `FOX_H2_OUTFIT_LIBRARY.md`, `BUILD_H2.md`, `KNOWN_LIMITATIONS_GATE_H2.md`, `H2_ASSET_MANIFEST.md`, `GATE_H2_SHA256SUMS.txt`.
+- **Removed (temporary files created during H2 authoring):** the Blender backup `fox_cosmetics_h2.blend1`, preview frame folders, `_regress_h2_*.py` runner copies (deleted by the runner), and `__pycache__`.
+- **Not changed.** No approved E2 / F / G1.1 / G2.1 / G3 / H1 source was modified. The rig and the animation blends were opened read-only. No Git operation was performed.

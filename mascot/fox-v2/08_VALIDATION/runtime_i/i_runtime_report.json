@@ -1,0 +1,889 @@
+{
+  "meta": {
+    "url": "http://127.0.0.1:4260/index.html",
+    "renderer": "headless Chrome + SwiftShader (no GPU)",
+    "started": "2026-11-22 05:59:36"
+  },
+  "checks": [
+    {
+      "name": "Gate I voice animation module loaded; every track binds to existing E2 Fox; G1.1/G2.1/G3 still bound",
+      "pass": true,
+      "i": {
+        "id": "i_voice_assistant",
+        "url": "./models/modules/fox_v2_i_voice_assistant.anim.glb",
+        "ok": true,
+        "bytes": 845220,
+        "loadMs": 1397.2999999970198,
+        "clips": [
+          "voice_listening_loop",
+          "voice_processing",
+          "task_notebook_write",
+          "voice_listen_start",
+          "task_suggestion",
+          "task_notebook_open",
+          "task_notebook_confirm",
+          "voice_retry"
+        ],
+        "tracks": 792,
+        "boundTracks": 792,
+        "morphTracks": 120,
+        "problems": []
+      },
+      "g3": {
+        "id": "g3_challenge_social",
+        "url": "./models/modules/fox_v2_g3_challenge_social.anim.glb",
+        "ok": true,
+        "bytes": 1965412,
+        "loadMs": 1869.800000000745,
+        "clips": [
+          "challenge_invite",
+          "challenge_accept",
+          "challenge_start",
+          "challenge_win",
+          "challenge_lose",
+          "challenge_draw",
+          "duo_celebrate",
+          "duo_celebrate_mirror",
+          "group_victory",
+          "team_encourage",
+          "group_streak_active",
+          "group_streak_lost",
+          "friend_greet",
+          "photo_reaction",
+          "receive_like",
+          "receive_comment",
+          "friend_support",
+          "friend_miss_you"
+        ],
+        "tracks": 1782,
+        "boundTracks": 1782,
+        "morphTracks": 270,
+        "problems": []
+      },
+      "g2": {
+        "id": "g2_daily_life",
+        "url": "./models/modules/fox_v2_g2_1_daily_life.anim.glb",
+        "ok": true,
+        "bytes": 2104360,
+        "loadMs": 1925.6000000014901,
+        "clips": [
+          "study_focus",
+          "sports_active",
+          "alarm_ring",
+          "sleep_loop",
+          "cooldown_wait",
+          "cooldown_wait_impatient",
+          "study_start",
+          "study_complete",
+          "sports_start",
+          "sports_complete",
+          "wake_start",
+          "wake_late",
+          "alarm_success",
+          "sleep_enter",
+          "sleep_wake",
+          "cooldown_complete"
+        ],
+        "tracks": 1584,
+        "boundTracks": 1584,
+        "morphTracks": 240,
+        "problems": []
+      },
+      "g1": {
+        "id": "g1_quest_reward_streak",
+        "url": "./models/modules/fox_v2_g1_1_quest_reward_streak.anim.glb",
+        "ok": true,
+        "bytes": 1124236,
+        "loadMs": 1481.2000000029802,
+        "clips": [
+          "streak_active",
+          "quest_start",
+          "quest_complete",
+          "quest_failed",
+          "receive_xp",
+          "level_up",
+          "achievement_unlock",
+          "streak_lost",
+          "streak_cheer"
+        ],
+        "tracks": 891,
+        "boundTracks": 891,
+        "morphTracks": 135,
+        "problems": []
+      }
+    },
+    {
+      "name": "58 clips available (7 E2 + 9 G1 + 16 G2 + 18 G3 + 8 I); no extra Fox mesh/skeleton; E2 triangle budget",
+      "pass": true,
+      "clips": 58,
+      "fox_body_meshes": 1,
+      "skeletons": 1,
+      "triangles": 73842,
+      "glb_requests": [
+        "fox_v2_anim_e2.glb",
+        "fox_v2_g1_1_quest_reward_streak.anim.glb",
+        "fox_v2_g2_1_daily_life.anim.glb",
+        "fox_v2_g3_challenge_social.anim.glb",
+        "fox_v2_i_voice_assistant.anim.glb"
+      ]
+    },
+    {
+      "name": "Binding exactness: Gate I clips on E2 Fox reproduce module glTF data (independent numpy FK) <= 0.05 mm; facial morphs <= 0.002",
+      "pass": true,
+      "samples": 48,
+      "max_vs_gltf_fk_mm": 0.00014,
+      "max_morph": 4e-05,
+      "worst": {
+        "clip": "voice_listen_start",
+        "frame": "18",
+        "bone": "ATT_HAT",
+        "mm": 0.0001406749638450191
+      },
+      "missing": []
+    },
+    {
+      "name": "Format fidelity vs Blender <= 6.0 mm on every sampled bone (approved E2 GLB: 3.78 mm)",
+      "pass": true,
+      "max_vs_blender_mm": 4.76,
+      "worst": {
+        "clip": "task_notebook_open",
+        "frame": "27",
+        "bone": "EAR_L_02",
+        "mm": 4.760029099274955
+      },
+      "e2_reference_mm": 3.78,
+      "per_clip": {
+        "voice_listen_start": 1.6708,
+        "voice_listening_loop": 0.1231,
+        "voice_processing": 0.1266,
+        "task_suggestion": 0.6546,
+        "task_notebook_open": 4.76,
+        "task_notebook_write": 0.1109,
+        "task_notebook_confirm": 0.6438,
+        "voice_retry": 1.5507
+      }
+    },
+    {
+      "name": "[harness] All 8 Gate I voice clips loaded and available",
+      "pass": true,
+      "total": 8,
+      "missing": []
+    },
+    {
+      "name": "[harness] Voice -> Task sequence: Listening -> Processing -> Suggesting -> Opening -> Writing -> Confirming",
+      "pass": true,
+      "listenStart": "voice_listen_start",
+      "listenLoop": "voice_listening_loop",
+      "proc": "voice_processing",
+      "sug": "task_suggestion",
+      "openShot": "task_notebook_open",
+      "writeLoop": "task_notebook_write",
+      "stillWritingAfter6s": true,
+      "confirmShot": "task_notebook_confirm",
+      "afterConfirmBase": "idle"
+    },
+    {
+      "name": "[harness] G2.1 NotebookProp + PencilProp attached during writing and cleaned up after TASK_CREATED",
+      "pass": true,
+      "propsWhileWriting": [
+        "notebook",
+        "pencil"
+      ],
+      "propsAfterConfirm": []
+    },
+    {
+      "name": "[harness] Application-driven confirmation: task_notebook_confirm never plays before TASK_CREATED",
+      "pass": true,
+      "shots": [
+        "task_notebook_open",
+        "task_notebook_confirm"
+      ],
+      "confirmedWithoutEvent": false,
+      "confirmedAfterEvent": true
+    },
+    {
+      "name": "[harness] VOICE_CANCELLED exits writing cleanly without task_notebook_confirm and hides notebook/pencil",
+      "pass": true,
+      "cancelShots": [
+        "task_notebook_open"
+      ],
+      "base": "idle",
+      "props": []
+    },
+    {
+      "name": "[harness] VOICE_RETRY_REQUESTED and VOICE_PERMISSION_DENIED cancel active voice state and play voice_retry",
+      "pass": true,
+      "retryShot": "voice_retry",
+      "permShot": "voice_retry",
+      "afterPermBase": "idle"
+    },
+    {
+      "name": "[harness] Reduced motion: skips large-motion transitions while preserving state & completion read",
+      "pass": true,
+      "rmWriteBase": "task_notebook_write",
+      "rmAfterBase": "idle",
+      "rmAfterShot": null,
+      "rmMood": "proud"
+    },
+    {
+      "name": "[harness] All 6 H2 outfits stay attached through voice notebook flow; HAND_RIGHT items hide for PencilProp and restore",
+      "pass": true,
+      "outfit_student": {
+        "ok": true,
+        "handRightDuringWrite": null
+      },
+      "outfit_sports": {
+        "ok": true,
+        "handRightDuringWrite": null
+      },
+      "outfit_explorer": {
+        "ok": true,
+        "handRightDuringWrite": "hidden-hand-busy"
+      },
+      "outfit_mage": {
+        "ok": true,
+        "handRightDuringWrite": "hidden-hand-busy"
+      },
+      "outfit_ninja": {
+        "ok": true,
+        "handRightDuringWrite": null
+      },
+      "outfit_tet": {
+        "ok": true,
+        "handRightDuringWrite": "hidden-hand-busy"
+      }
+    },
+    {
+      "name": "[harness] All 10 approved Gate I voice events registered and handled",
+      "pass": true,
+      "count": 10
+    },
+    {
+      "name": "Uniform level scaling: voice props/effects follow fox scale at Lv1 and Lv30 through full voice sequence",
+      "pass": true,
+      "lv1_scale": 0.8,
+      "lv30_scale": 1.1
+    },
+    {
+      "name": "Lv1 and Lv30: every bone stays inside the canvas through the full voice sequence",
+      "pass": true,
+      "lv1": {
+        "VOICE_LISTEN_STARTED": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        },
+        "VOICE_PROCESSING": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        },
+        "TASK_SUGGESTION_READY": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        },
+        "TASK_NOTEBOOK_OPEN": {
+          "minMarginPx": 138,
+          "effectScaleErr": 0
+        },
+        "TASK_CREATED": {
+          "minMarginPx": 138.9,
+          "effectScaleErr": 0
+        },
+        "VOICE_RETRY_REQUESTED": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        }
+      },
+      "lv30": {
+        "VOICE_LISTEN_STARTED": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        },
+        "VOICE_PROCESSING": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        },
+        "TASK_SUGGESTION_READY": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        },
+        "TASK_NOTEBOOK_OPEN": {
+          "minMarginPx": 135.9,
+          "effectScaleErr": 0
+        },
+        "TASK_CREATED": {
+          "minMarginPx": 137.1,
+          "effectScaleErr": 0
+        },
+        "VOICE_RETRY_REQUESTED": {
+          "minMarginPx": 143.8,
+          "effectScaleErr": 0
+        }
+      }
+    },
+    {
+      "name": "All Gate I props/effects clean up: renderer geometries/textures stable across repeated full passes; nothing left active",
+      "pass": true,
+      "warm": {
+        "geometries": 54,
+        "textures": 35,
+        "programs": 9,
+        "fxActive": 0,
+        "fxRootObjects": 12,
+        "props": 0,
+        "stateFx": 0
+      },
+      "pass2": {
+        "geometries": 54,
+        "textures": 35,
+        "programs": 9,
+        "fxActive": 0,
+        "fxRootObjects": 12,
+        "props": 0,
+        "stateFx": 0
+      },
+      "pass3": {
+        "geometries": 54,
+        "textures": 35,
+        "programs": 9,
+        "fxActive": 0,
+        "fxRootObjects": 12,
+        "props": 0,
+        "stateFx": 0
+      }
+    },
+    {
+      "name": "Dispose with active task_writing state: controller disposed, effects root detached, notebook/pencil released",
+      "pass": true,
+      "before": 2,
+      "disposed": true,
+      "fxParent": false,
+      "props": 0
+    },
+    {
+      "name": "No page errors on the Gate I voice harness",
+      "pass": true,
+      "errors": [],
+      "http_404": []
+    },
+    {
+      "name": "[Gate I module filtered out] Fallback when voice module is absent: all events handled gracefully without errors",
+      "pass": true,
+      "results": [
+        "handled",
+        "handled",
+        "handled",
+        "handled",
+        "handled"
+      ],
+      "errors": []
+    },
+    {
+      "name": "[modules=0] Fallback when voice module is absent: all events handled gracefully without errors",
+      "pass": true,
+      "results": [
+        "handled",
+        "handled",
+        "handled",
+        "handled",
+        "handled"
+      ],
+      "errors": []
+    }
+  ],
+  "measurements": {
+    "module": {
+      "modules": [
+        {
+          "id": "g1_quest_reward_streak",
+          "url": "./models/modules/fox_v2_g1_1_quest_reward_streak.anim.glb",
+          "ok": true,
+          "bytes": 1124236,
+          "loadMs": 1481.2000000029802,
+          "clips": [
+            "streak_active",
+            "quest_start",
+            "quest_complete",
+            "quest_failed",
+            "receive_xp",
+            "level_up",
+            "achievement_unlock",
+            "streak_lost",
+            "streak_cheer"
+          ],
+          "tracks": 891,
+          "boundTracks": 891,
+          "morphTracks": 135,
+          "problems": []
+        },
+        {
+          "id": "g2_daily_life",
+          "url": "./models/modules/fox_v2_g2_1_daily_life.anim.glb",
+          "ok": true,
+          "bytes": 2104360,
+          "loadMs": 1925.6000000014901,
+          "clips": [
+            "study_focus",
+            "sports_active",
+            "alarm_ring",
+            "sleep_loop",
+            "cooldown_wait",
+            "cooldown_wait_impatient",
+            "study_start",
+            "study_complete",
+            "sports_start",
+            "sports_complete",
+            "wake_start",
+            "wake_late",
+            "alarm_success",
+            "sleep_enter",
+            "sleep_wake",
+            "cooldown_complete"
+          ],
+          "tracks": 1584,
+          "boundTracks": 1584,
+          "morphTracks": 240,
+          "problems": []
+        },
+        {
+          "id": "g3_challenge_social",
+          "url": "./models/modules/fox_v2_g3_challenge_social.anim.glb",
+          "ok": true,
+          "bytes": 1965412,
+          "loadMs": 1869.800000000745,
+          "clips": [
+            "challenge_invite",
+            "challenge_accept",
+            "challenge_start",
+            "challenge_win",
+            "challenge_lose",
+            "challenge_draw",
+            "duo_celebrate",
+            "duo_celebrate_mirror",
+            "group_victory",
+            "team_encourage",
+            "group_streak_active",
+            "group_streak_lost",
+            "friend_greet",
+            "photo_reaction",
+            "receive_like",
+            "receive_comment",
+            "friend_support",
+            "friend_miss_you"
+          ],
+          "tracks": 1782,
+          "boundTracks": 1782,
+          "morphTracks": 270,
+          "problems": []
+        },
+        {
+          "id": "i_voice_assistant",
+          "url": "./models/modules/fox_v2_i_voice_assistant.anim.glb",
+          "ok": true,
+          "bytes": 845220,
+          "loadMs": 1397.2999999970198,
+          "clips": [
+            "voice_listening_loop",
+            "voice_processing",
+            "task_notebook_write",
+            "voice_listen_start",
+            "task_suggestion",
+            "task_notebook_open",
+            "task_notebook_confirm",
+            "voice_retry"
+          ],
+          "tracks": 792,
+          "boundTracks": 792,
+          "morphTracks": 120,
+          "problems": []
+        }
+      ],
+      "clips": [
+        "happy",
+        "head_pet",
+        "idle",
+        "run",
+        "tail_touch",
+        "walk",
+        "wave",
+        "streak_active",
+        "quest_start",
+        "quest_complete",
+        "quest_failed",
+        "receive_xp",
+        "level_up",
+        "achievement_unlock",
+        "streak_lost",
+        "streak_cheer",
+        "study_focus",
+        "sports_active",
+        "alarm_ring",
+        "sleep_loop",
+        "cooldown_wait",
+        "cooldown_wait_impatient",
+        "study_start",
+        "study_complete",
+        "sports_start",
+        "sports_complete",
+        "wake_start",
+        "wake_late",
+        "alarm_success",
+        "sleep_enter",
+        "sleep_wake",
+        "cooldown_complete",
+        "challenge_invite",
+        "challenge_accept",
+        "challenge_start",
+        "challenge_win",
+        "challenge_lose",
+        "challenge_draw",
+        "duo_celebrate",
+        "duo_celebrate_mirror",
+        "group_victory",
+        "team_encourage",
+        "group_streak_active",
+        "group_streak_lost",
+        "friend_greet",
+        "photo_reaction",
+        "receive_like",
+        "receive_comment",
+        "friend_support",
+        "friend_miss_you",
+        "voice_listening_loop",
+        "voice_processing",
+        "task_notebook_write",
+        "voice_listen_start",
+        "task_suggestion",
+        "task_notebook_open",
+        "task_notebook_confirm",
+        "voice_retry"
+      ],
+      "tris": 73842,
+      "skeletons": 1,
+      "foxMeshes": 1
+    },
+    "pose_equivalence": {
+      "clips": {
+        "voice_listen_start": {
+          "vsBlenderMm": 1.6708,
+          "vsGltfFkMm": 0.00014,
+          "maxMorph": 1e-05,
+          "samples": 6
+        },
+        "voice_listening_loop": {
+          "vsBlenderMm": 0.1231,
+          "vsGltfFkMm": 0.00011,
+          "maxMorph": 0,
+          "samples": 6
+        },
+        "voice_processing": {
+          "vsBlenderMm": 0.1266,
+          "vsGltfFkMm": 0.00012,
+          "maxMorph": 4e-05,
+          "samples": 6
+        },
+        "task_suggestion": {
+          "vsBlenderMm": 0.6546,
+          "vsGltfFkMm": 0.00011,
+          "maxMorph": 4e-05,
+          "samples": 6
+        },
+        "task_notebook_open": {
+          "vsBlenderMm": 4.76,
+          "vsGltfFkMm": 0.00012,
+          "maxMorph": 1e-05,
+          "samples": 6
+        },
+        "task_notebook_write": {
+          "vsBlenderMm": 0.1109,
+          "vsGltfFkMm": 0.00014,
+          "maxMorph": 1e-05,
+          "samples": 6
+        },
+        "task_notebook_confirm": {
+          "vsBlenderMm": 0.6438,
+          "vsGltfFkMm": 0.00012,
+          "maxMorph": 0,
+          "samples": 6
+        },
+        "voice_retry": {
+          "vsBlenderMm": 1.5507,
+          "vsGltfFkMm": 0.0001,
+          "maxMorph": 0,
+          "samples": 6
+        }
+      },
+      "maxBoneMm": 4.760029099274955,
+      "maxBindMm": 0.0001406749638450191,
+      "maxMorph": 3.904647383023985e-05,
+      "samples": 48,
+      "worst": {
+        "clip": "task_notebook_open",
+        "frame": "27",
+        "bone": "EAR_L_02",
+        "mm": 4.760029099274955
+      },
+      "worstBind": {
+        "clip": "voice_listen_start",
+        "frame": "18",
+        "bone": "ATT_HAT",
+        "mm": 0.0001406749638450191
+      },
+      "worstMorph": {
+        "clip": "task_suggestion",
+        "frame": "50",
+        "mesh": "FOX_Eye_L",
+        "key": "Blink",
+        "got": 3.904647383023985e-05,
+        "want": 0
+      },
+      "missingNodes": []
+    },
+    "in_page_tests": [
+      {
+        "name": "All 8 Gate I voice clips loaded and available",
+        "pass": true,
+        "detail": {
+          "total": 8,
+          "missing": []
+        }
+      },
+      {
+        "name": "Voice -> Task sequence: Listening -> Processing -> Suggesting -> Opening -> Writing -> Confirming",
+        "pass": true,
+        "detail": {
+          "listenStart": "voice_listen_start",
+          "listenLoop": "voice_listening_loop",
+          "proc": "voice_processing",
+          "sug": "task_suggestion",
+          "openShot": "task_notebook_open",
+          "writeLoop": "task_notebook_write",
+          "stillWritingAfter6s": true,
+          "confirmShot": "task_notebook_confirm",
+          "afterConfirmBase": "idle"
+        }
+      },
+      {
+        "name": "G2.1 NotebookProp + PencilProp attached during writing and cleaned up after TASK_CREATED",
+        "pass": true,
+        "detail": {
+          "propsWhileWriting": [
+            "notebook",
+            "pencil"
+          ],
+          "propsAfterConfirm": []
+        }
+      },
+      {
+        "name": "Application-driven confirmation: task_notebook_confirm never plays before TASK_CREATED",
+        "pass": true,
+        "detail": {
+          "shots": [
+            "task_notebook_open",
+            "task_notebook_confirm"
+          ],
+          "confirmedWithoutEvent": false,
+          "confirmedAfterEvent": true
+        }
+      },
+      {
+        "name": "VOICE_CANCELLED exits writing cleanly without task_notebook_confirm and hides notebook/pencil",
+        "pass": true,
+        "detail": {
+          "cancelShots": [
+            "task_notebook_open"
+          ],
+          "base": "idle",
+          "props": []
+        }
+      },
+      {
+        "name": "VOICE_RETRY_REQUESTED and VOICE_PERMISSION_DENIED cancel active voice state and play voice_retry",
+        "pass": true,
+        "detail": {
+          "retryShot": "voice_retry",
+          "permShot": "voice_retry",
+          "afterPermBase": "idle"
+        }
+      },
+      {
+        "name": "Reduced motion: skips large-motion transitions while preserving state & completion read",
+        "pass": true,
+        "detail": {
+          "rmWriteBase": "task_notebook_write",
+          "rmAfterBase": "idle",
+          "rmAfterShot": null,
+          "rmMood": "proud"
+        }
+      },
+      {
+        "name": "All 6 H2 outfits stay attached through voice notebook flow; HAND_RIGHT items hide for PencilProp and restore",
+        "pass": true,
+        "detail": {
+          "outfit_student": {
+            "ok": true,
+            "handRightDuringWrite": null
+          },
+          "outfit_sports": {
+            "ok": true,
+            "handRightDuringWrite": null
+          },
+          "outfit_explorer": {
+            "ok": true,
+            "handRightDuringWrite": "hidden-hand-busy"
+          },
+          "outfit_mage": {
+            "ok": true,
+            "handRightDuringWrite": "hidden-hand-busy"
+          },
+          "outfit_ninja": {
+            "ok": true,
+            "handRightDuringWrite": null
+          },
+          "outfit_tet": {
+            "ok": true,
+            "handRightDuringWrite": "hidden-hand-busy"
+          }
+        }
+      },
+      {
+        "name": "All 10 approved Gate I voice events registered and handled",
+        "pass": true,
+        "detail": {
+          "count": 10
+        }
+      }
+    ],
+    "level_scaling": {
+      "1": {
+        "level": 1,
+        "stages": {
+          "VOICE_LISTEN_STARTED": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          },
+          "VOICE_PROCESSING": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          },
+          "TASK_SUGGESTION_READY": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          },
+          "TASK_NOTEBOOK_OPEN": {
+            "minMarginPx": 138,
+            "effectScaleErr": 0
+          },
+          "TASK_CREATED": {
+            "minMarginPx": 138.9,
+            "effectScaleErr": 0
+          },
+          "VOICE_RETRY_REQUESTED": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          }
+        },
+        "foxScale": 0.8,
+        "minMarginPx": 138,
+        "maxEffectScaleErr": 0
+      },
+      "30": {
+        "level": 30,
+        "stages": {
+          "VOICE_LISTEN_STARTED": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          },
+          "VOICE_PROCESSING": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          },
+          "TASK_SUGGESTION_READY": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          },
+          "TASK_NOTEBOOK_OPEN": {
+            "minMarginPx": 135.9,
+            "effectScaleErr": 0
+          },
+          "TASK_CREATED": {
+            "minMarginPx": 137.1,
+            "effectScaleErr": 0
+          },
+          "VOICE_RETRY_REQUESTED": {
+            "minMarginPx": 143.8,
+            "effectScaleErr": 0
+          }
+        },
+        "foxScale": 1.1,
+        "minMarginPx": 135.9,
+        "maxEffectScaleErr": 0
+      }
+    },
+    "gpu_cleanup": {
+      "after_warmup": {
+        "geometries": 54,
+        "textures": 35,
+        "programs": 9,
+        "fxActive": 0,
+        "fxRootObjects": 12,
+        "props": 0,
+        "stateFx": 0
+      },
+      "after_pass2": {
+        "geometries": 54,
+        "textures": 35,
+        "programs": 9,
+        "fxActive": 0,
+        "fxRootObjects": 12,
+        "props": 0,
+        "stateFx": 0
+      },
+      "after_pass3": {
+        "geometries": 54,
+        "textures": 35,
+        "programs": 9,
+        "fxActive": 0,
+        "fxRootObjects": 12,
+        "props": 0,
+        "stateFx": 0
+      }
+    },
+    "dispose": {
+      "before": 2,
+      "disposed": true,
+      "fxParent": false,
+      "props": 0
+    },
+    "fallback_Gate I module filtered out": [
+      {
+        "name": "Fallback when voice module is absent: all events handled gracefully without errors",
+        "pass": true,
+        "detail": {
+          "results": [
+            "handled",
+            "handled",
+            "handled",
+            "handled",
+            "handled"
+          ]
+        }
+      }
+    ],
+    "fallback_modules=0": [
+      {
+        "name": "Fallback when voice module is absent: all events handled gracefully without errors",
+        "pass": true,
+        "detail": {
+          "results": [
+            "handled",
+            "handled",
+            "handled",
+            "handled",
+            "handled"
+          ]
+        }
+      }
+    ]
+  },
+  "summary": "20/20 PASS"
+}
