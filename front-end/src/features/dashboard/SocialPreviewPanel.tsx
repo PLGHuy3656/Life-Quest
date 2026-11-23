@@ -60,7 +60,6 @@ export function SocialPreviewPanel({
                   src={asset.src}
                   alt={item.illustrationAlt ?? asset.defaultAlt}
                   className={styles.mediaImg}
-                  loading="lazy"
                 />
                 <span
                   className={`${styles.mediaBadge} ${idx % 2 === 0 ? styles.badgeSuccess : styles.badgeAccent}`}
