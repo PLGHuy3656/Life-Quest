@@ -1,6 +1,7 @@
 import { Clock, Coins, Pin, SlidersHorizontal, Sparkles } from 'lucide-react'
 import { QUEST_TYPE_META } from '@/components/ui/questIconMeta'
 import { MAX_PINNED_CARDS } from '@/features/dashboard/PinnedBoard'
+import { foxDialogueBus } from '@/features/mascot/dialogue/dialogueBus'
 import { useQuestsQuery, useTodayQuery } from '@/hooks/useDashboardData'
 import { useUiStore } from '@/stores/uiStore'
 import { FoxPawToggle } from './FoxPawToggle'
@@ -14,8 +15,13 @@ import styles from './PinnedTaskRail.module.css'
  */
 export function PinnedTaskRail() {
   const collapsed = useUiStore((s) => s.pinnedRailCollapsed)
-  const toggleCollapsed = useUiStore((s) => s.togglePinnedRail)
+  const toggleCollapsedRaw = useUiStore((s) => s.togglePinnedRail)
   const openSheet = useUiStore((s) => s.openSheet)
+
+  const toggleCollapsed = () => {
+    toggleCollapsedRaw()
+    foxDialogueBus.emit({ event: 'RAIL_TOGGLED' })
+  }
 
   const questsQuery = useQuestsQuery()
   const todayQuery = useTodayQuery()

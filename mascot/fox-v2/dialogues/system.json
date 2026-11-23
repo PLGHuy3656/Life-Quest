@@ -1,0 +1,20 @@
+{
+  "category": "system",
+  "version": "1.0.0",
+  "entries": [
+    { "id": "sys-gm-01", "event": "APP_GREETING", "text": "Chào buổi sáng! Cùng Fox bắt đầu một bước nhỏ thật nhẹ nhàng nhé.", "emotion": "happy", "timeOfDay": "morning", "weight": 1.2 },
+    { "id": "sys-gm-02", "event": "APP_GREETING", "text": "Sáng tốt lành! Hôm nay mình chọn một việc nhỏ mở màn cho êm nha.", "emotion": "happy", "timeOfDay": "morning", "weight": 1 },
+    { "id": "sys-ga-01", "event": "APP_GREETING", "text": "Chào buổi chiều! Giữ nhịp thật đều và nhớ nghỉ mắt cùng Fox nha.", "emotion": "happy", "timeOfDay": "afternoon", "weight": 1.2 },
+    { "id": "sys-ga-02", "event": "APP_GREETING", "text": "Buổi chiều vui vẻ! Còn nửa ngày nữa để hoàn thành vài việc gọn gàng đó.", "emotion": "encouraging", "timeOfDay": "afternoon", "weight": 1 },
+    { "id": "sys-ge-01", "event": "APP_GREETING", "text": "Chào buổi tối! Khép lại hôm nay thật nhẹ nhàng và trọn vẹn nhé.", "emotion": "calm", "timeOfDay": "evening", "weight": 1.2 },
+    { "id": "sys-ge-02", "event": "APP_GREETING", "text": "Tối ấm áp nha! Rà nhẹ mấy việc cuối ngày rồi nghỉ sớm cùng Fox nào.", "emotion": "calm", "timeOfDay": "evening", "weight": 1 },
+    { "id": "sys-em-01", "event": "EMPTY_TASKS", "text": "Hôm nay chưa có nhiệm vụ nào — gõ bên dưới để Fox ghi giúp nhé!", "emotion": "curious", "weight": 1.2 },
+    { "id": "sys-em-02", "event": "EMPTY_TASKS", "text": "Danh sách đang trống tinh tươm, muốn thêm một việc nhỏ khởi động không?", "emotion": "playful", "weight": 1 },
+    { "id": "sys-em-03", "event": "EMPTY_TASKS", "text": "Chưa có việc nào được tạo — chỉ cần 1 mục tiêu nhỏ cho hôm nay thôi nha.", "emotion": "encouraging", "weight": 1 },
+    { "id": "sys-er-01", "event": "BACKEND_ERROR", "text": "Kết nối máy chủ hơi trục trặc — thử lại một chút nhé.", "emotion": "alert", "weight": 1.2 },
+    { "id": "sys-er-02", "event": "BACKEND_ERROR", "text": "Ối, máy chủ chưa phản hồi kịp — bạn kiểm tra kết nối hoặc thử lại nha.", "emotion": "alert", "weight": 1 },
+    { "id": "sys-er-03", "event": "BACKEND_ERROR", "text": "Fox chưa đồng bộ được dữ liệu lúc này, chờ vài giây rồi thử lại nhé.", "emotion": "alert", "weight": 1 },
+    { "id": "sys-er-04", "event": "BACKEND_ERROR", "text": "Có lỗi nhỏ từ máy chủ, dữ liệu chưa được lưu đâu — thử gửi lại nha.", "emotion": "alert", "weight": 1 },
+    { "id": "sys-re-01", "event": "USER_RETURNED", "text": "Chào mừng bạn quay lại! Fox vẫn giữ nguyên góc làm việc cho bạn nè.", "emotion": "happy", "weight": 1 }
+  ]
+}

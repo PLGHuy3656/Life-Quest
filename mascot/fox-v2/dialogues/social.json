@@ -1,0 +1,28 @@
+{
+  "category": "social",
+  "version": "1.0.0",
+  "entries": [
+    { "id": "soc-01", "event": "SOCIAL_MEDIA_VIEWED", "text": "Khoảnh khắc này trông thú vị ghê! Xem xong nhớ quay lại nhịp của mình nha.", "emotion": "curious", "weight": 1 },
+    { "id": "soc-02", "event": "SOCIAL_MEDIA_VIEWED", "text": "Ôi, nhìn kỹ từng chi tiết trong khung hình phóng to thích mắt thật.", "emotion": "happy", "weight": 1 },
+    { "id": "soc-03", "event": "SOCIAL_MEDIA_VIEWED", "text": "Mỗi tấm ảnh trên bảng tin đều là một dấu mốc nhỏ đáng nhớ đó.", "emotion": "calm", "weight": 1 },
+    { "id": "soc-04", "event": "SOCIAL_MEDIA_VIEWED", "text": "Fox cũng đang nghiêng đầu xem ké khung hình này với bạn nè.", "emotion": "playful", "weight": 1 },
+    { "id": "soc-05", "event": "SOCIAL_MEDIA_VIEWED", "text": "Xem hành trình của mọi người xong có thấy có thêm động lực không?", "emotion": "curious", "weight": 1 },
+    { "id": "soc-06", "event": "SOCIAL_MEDIA_VIEWED", "text": "Góc nhìn phóng to rõ ràng hơn hẳn ha, bấm Esc lúc nào muốn đóng cũng tiện.", "emotion": "neutral", "weight": 1 },
+    { "id": "soc-07", "event": "SOCIAL_MEDIA_VIEWED", "text": "Lưu giữ lại những khoảnh khắc hoàn thành việc nhỏ luôn mang cảm giác rất ấm.", "emotion": "calm", "weight": 1 },
+    { "id": "soc-08", "event": "SOCIAL_MEDIA_VIEWED", "text": "Một bức ảnh minh chứng gọn gàng đôi khi nói thay cả trăm dòng nhật ký.", "emotion": "encouraging", "weight": 1 },
+    { "id": "soc-09", "event": "SOCIAL_MEDIA_VIEWED", "text": "Hôm nào bạn cũng chụp một tấm khoảnh khắc tập trung chia sẻ thử nha!", "emotion": "playful", "weight": 1 },
+    { "id": "soc-10", "event": "SOCIAL_MEDIA_VIEWED", "text": "Không gian chia sẻ nhỏ gọn thế này dễ chịu hơn mạng xã hội ồn ào nhiều.", "emotion": "calm", "weight": 1 },
+    { "id": "soc-11", "event": "SOCIAL_MEDIA_VIEWED", "text": "Fox để ý thấy bạn hay dừng lại xem những khoảnh khắc rất hay ho.", "emotion": "curious", "weight": 1 },
+    { "id": "soc-12", "event": "SOCIAL_MEDIA_VIEWED", "text": "Thật vui khi thấy mọi người đều đang cố gắng từng bước mỗi ngày.", "emotion": "happy", "weight": 1 },
+    { "id": "soc-13", "event": "SOCIAL_MEDIA_VIEWED", "text": "Nghỉ mắt ngắm ảnh một chút rồi mình tiếp tục nhiệm vụ của mình nha.", "emotion": "encouraging", "weight": 1 },
+    { "id": "soc-14", "event": "SOCIAL_MEDIA_VIEWED", "text": "Khung hình sáng sủa và dễ nhìn ghê!", "emotion": "happy", "weight": 1 },
+    { "id": "soc-15", "event": "SOCIAL_MEDIA_VIEWED", "text": "Bạn có thể dùng phím mũi tên trái phải nếu có nhiều ảnh trong cùng bài đó.", "emotion": "neutral", "weight": 1 },
+    { "id": "soc-16", "event": "SOCIAL_MEDIA_VIEWED", "text": "Cảm hứng đôi khi đến từ chính một bức ảnh giản dị như thế này.", "emotion": "calm", "weight": 1 },
+    { "id": "soc-17", "event": "SOCIAL_MEDIA_VIEWED", "text": "Fox thấy bảng tin hôm nay có nhiều năng lượng tích cực lắm.", "emotion": "happy", "weight": 1 },
+    { "id": "soc-18", "event": "SOCIAL_MEDIA_VIEWED", "text": "Xem kỹ xong chưa? Nhớ đừng mải xem quá mà quên việc đang ghim nhé!", "emotion": "playful", "weight": 1 },
+    { "id": "soc-19", "event": "SOCIAL_MEDIA_VIEWED", "text": "Mỗi câu chuyện nhỏ trên bảng tin đều nhắc mình giữ nhịp đều đặn.", "emotion": "encouraging", "weight": 1 },
+    { "id": "soc-20", "event": "SOCIAL_MEDIA_VIEWED", "text": "Ảnh xem trước rõ nét ghê — nhìn thật dễ chịu.", "emotion": "calm", "weight": 1 },
+    { "id": "soc-21", "event": "SOCIAL_MEDIA_VIEWED", "text": "Fox đứng ngay đây chờ bạn xem xong nha, không giục đâu.", "emotion": "playful", "weight": 1 },
+    { "id": "soc-22", "event": "SOCIAL_MEDIA_VIEWED", "text": "Một khoảnh khắc đẹp để tiếp thêm năng lượng cho buổi làm việc hôm nay!", "emotion": "happy", "weight": 1 }
+  ]
+}

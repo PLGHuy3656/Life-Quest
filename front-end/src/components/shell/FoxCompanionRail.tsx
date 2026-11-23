@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
   AlignLeft,
   ChevronDown,
@@ -13,11 +14,10 @@ import { MascotSceneBackdrop } from '@/features/dashboard/MascotSceneBackdrop'
 import { useOptionalCompanion } from '@/features/mascot/CompanionProvider'
 import { FoxCompanionView } from '@/features/mascot/FoxCompanionView'
 import { FoxSpeechBubble } from '@/features/mascot/FoxSpeechBubble'
-import {
-  getDialogueForTrigger,
-  type FoxDialogueEntry,
-  type FoxDialogueTrigger
-} from '@/features/mascot/foxDialogueCatalog'
+import { evaluateQuestDeadlines } from '@/features/mascot/dialogue/deadlineMonitor'
+import { foxDialogueBus } from '@/features/mascot/dialogue/dialogueBus'
+import type { ActiveDialogueBubble, DialogueEventType } from '@/features/mascot/dialogue/types'
+import { useDocumentVisible } from '@/features/mascot/environment'
 import { VoiceAssistantSheet } from '@/features/voice/VoiceAssistantSheet'
 import {
   useCreateQuestMutation,
@@ -53,10 +53,20 @@ const TASK_TYPE_OPTIONS: {
   { type: 'QUANTITY', label: 'Thói quen', dotColor: '#D49400', bg: '#FEF5DC', color: '#8C6200' }
 ]
 
+const IDLE_THRESHOLD_MS = 45_000
+const DEADLINE_POLL_MS = 60_000
+const IDLE_CYCLE: DialogueEventType[] = ['IDLE_CHATTER', 'ENCOURAGEMENT', 'TASK_SUGGESTION']
+
 function getVietnameseGreeting(hour: number): string {
   if (hour < 12) return 'Chào buổi sáng'
   if (hour < 18) return 'Chào buổi chiều'
   return 'Chào buổi tối'
+}
+
+function isEditableElement(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) return false
+  const tag = target.tagName
+  return tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable
 }
 
 export interface FoxCompanionRailProps {
@@ -65,16 +75,19 @@ export interface FoxCompanionRailProps {
 }
 
 /**
- * Shared Desktop RIGHT FoxCompanionPanel promoted into AppShell (FE-03.5I).
+ * Shared Desktop RIGHT FoxCompanionPanel promoted into AppShell (FE-03.5I + FOX-D03).
  * - Persists across all application routes without remounting Fox V2 WebGL.
- * - Preserves unsent Quick Create draft in uiStore across collapse/expand and route switches.
- * - Submits real POST /api/v1/quests when authenticated; never fabricates Backend success.
+ * - Integrates the FOX-D03 contextual dialogue engine (idle chatter, dashboard & social
+ *   reactions, verified task creation, and timezone-safe deadline warnings).
  */
 export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) {
+  const location = useLocation()
+  const documentVisible = useDocumentVisible()
   const collapsed = useUiStore((s) => s.foxRailCollapsed)
   const toggleCollapsed = useUiStore((s) => s.toggleFoxRail)
   const prompt = useUiStore((s) => s.quickCreateDraft)
   const setPrompt = useUiStore((s) => s.setQuickCreateDraft)
+  const activeSheet = useUiStore((s) => s.activeSheet)
   const openSheet = useUiStore((s) => s.openSheet)
 
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
@@ -91,71 +104,138 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const [feedback, setFeedback] = useState<{ kind: 'info' | 'ok' | 'err'; text: string } | null>(
     null
   )
-  const [activeDialogue, setActiveDialogue] = useState<FoxDialogueEntry | null>(null)
+  const [activeDialogue, setActiveDialogue] = useState<ActiveDialogueBubble | null>(() =>
+    foxDialogueBus.getActive()
+  )
 
   const lastHandledEventIdRef = useRef<number>(0)
   const lastEmptyShownRef = useRef<boolean>(false)
   const lastErrorShownRef = useRef<string | null>(null)
-  const dismissTimerRef = useRef<number | null>(null)
+  const lastRouteRef = useRef<string>(location.pathname)
+  const lastSheetRef = useRef<typeof activeSheet>(activeSheet)
+  const idleIdxRef = useRef<number>(0)
+  const lastForwardedGateIIdRef = useRef<string | null>(null)
 
-  const showDialogue = useCallback(
-    (trigger: FoxDialogueTrigger, options?: { taskTitle?: string }) => {
-      if (dismissTimerRef.current !== null) {
-        window.clearTimeout(dismissTimerRef.current)
-        dismissTimerRef.current = null
-      }
-      const entry = getDialogueForTrigger(trigger, options)
-      setActiveDialogue(entry)
-      dismissTimerRef.current = window.setTimeout(() => {
-        setActiveDialogue((curr) => (curr?.id === entry.id ? null : curr))
-        dismissTimerRef.current = null
-      }, entry.durationMs)
-    },
-    []
-  )
-
-  const dismissDialogue = useCallback(() => {
-    if (dismissTimerRef.current !== null) {
-      window.clearTimeout(dismissTimerRef.current)
-      dismissTimerRef.current = null
-    }
-    setActiveDialogue(null)
-  }, [])
-
+  // Subscribe to centralized dialogue bus
   useEffect(() => {
-    return () => {
-      if (dismissTimerRef.current !== null) {
-        window.clearTimeout(dismissTimerRef.current)
+    return foxDialogueBus.subscribe((bubble) => {
+      setActiveDialogue(bubble)
+      if (
+        bubble?.gateIEvent &&
+        bubble.instanceId !== lastForwardedGateIIdRef.current &&
+        bubble.event !== 'APP_GREETING' &&
+        bubble.event !== 'TASK_CREATED'
+      ) {
+        lastForwardedGateIIdRef.current = bubble.instanceId
+        companion?.publish(bubble.gateIEvent as never)
       }
+    })
+  }, [companion])
+
+  // Keep engine pause flags synchronized with UI state
+  useEffect(() => {
+    foxDialogueBus.setPauseReason({
+      foxCollapsed: collapsed,
+      modalOpen: activeSheet !== null || voiceOpen,
+      pageHidden: !documentVisible
+    })
+  }, [collapsed, activeSheet, voiceOpen, documentVisible])
+
+  // Track user typing focus cleanly without leaking listeners
+  useEffect(() => {
+    const onFocusIn = (e: FocusEvent) => {
+      if (isEditableElement(e.target)) {
+        foxDialogueBus.setPauseReason({ typing: true })
+      }
+    }
+    const onFocusOut = () => {
+      const stillTyping = isEditableElement(document.activeElement)
+      foxDialogueBus.setPauseReason({ typing: stillTyping })
+    }
+    document.addEventListener('focusin', onFocusIn)
+    document.addEventListener('focusout', onFocusOut)
+    return () => {
+      document.removeEventListener('focusin', onFocusIn)
+      document.removeEventListener('focusout', onFocusOut)
+      foxDialogueBus.setPauseReason({ typing: false })
     }
   }, [])
 
-  // React to verified CompanionProvider events (APP_GREETING, TASK_CREATED) without duplicates
+  // Idle chatter timer (only fires after meaningful inactivity; auto-cleaned on unmount)
+  useEffect(() => {
+    let timer: number | null = null
+    const scheduleIdle = () => {
+      if (timer !== null) window.clearTimeout(timer)
+      timer = window.setTimeout(() => {
+        if (!foxDialogueBus.isIdlePaused()) {
+          const nextEvt = IDLE_CYCLE[idleIdxRef.current % IDLE_CYCLE.length]
+          idleIdxRef.current += 1
+          foxDialogueBus.emit({ event: nextEvt })
+        }
+        scheduleIdle()
+      }, IDLE_THRESHOLD_MS)
+    }
+
+    const onActivity = () => scheduleIdle()
+    scheduleIdle()
+    window.addEventListener('pointerdown', onActivity, { passive: true })
+    window.addEventListener('keydown', onActivity, { passive: true })
+
+    return () => {
+      if (timer !== null) window.clearTimeout(timer)
+      window.removeEventListener('pointerdown', onActivity)
+      window.removeEventListener('keydown', onActivity)
+    }
+  }, [])
+
+  // React to verified CompanionProvider events (APP_GREETING, TASK_CREATED, TASK_COMPLETED)
   const latestEvent = companion?.eventLog[0]
   useEffect(() => {
     if (!latestEvent || latestEvent.id <= lastHandledEventIdRef.current) return
     lastHandledEventIdRef.current = latestEvent.id
 
     if (latestEvent.name === 'APP_GREETING') {
-      showDialogue('APP_GREETING')
+      foxDialogueBus.emit({ event: 'APP_GREETING', dedupeKey: `greeting-${latestEvent.id}` })
     } else if (latestEvent.name === 'TASK_CREATED') {
-      showDialogue('TASK_CREATED')
+      foxDialogueBus.emit({ event: 'TASK_CREATED', dedupeKey: `task-created-${latestEvent.id}` })
+    } else if (latestEvent.name === 'TASK_COMPLETED') {
+      foxDialogueBus.emit({
+        event: 'TASK_COMPLETED',
+        dedupeKey: `task-completed-${latestEvent.id}`
+      })
     }
-  }, [latestEvent, showDialogue])
+  }, [latestEvent])
 
-  // React once when authenticated quests list is verified empty
-  const isEmptyQuests =
-    questsQuery.isSuccess && questsQuery.data.data.length === 0
+  // Meaningful route transition reaction (not on initial mount)
+  useEffect(() => {
+    if (location.pathname !== lastRouteRef.current) {
+      lastRouteRef.current = location.pathname
+      foxDialogueBus.emit({ event: 'ROUTE_SWITCHED' })
+    }
+  }, [location.pathname])
+
+  // Meaningful Dashboard sheet open reaction
+  useEffect(() => {
+    if (activeSheet && activeSheet !== lastSheetRef.current) {
+      if (activeSheet === 'manage-pins' || activeSheet === 'quick-create') {
+        foxDialogueBus.emit({ event: 'DASHBOARD_ACTION' })
+      }
+    }
+    lastSheetRef.current = activeSheet
+  }, [activeSheet])
+
+  // Verified empty task list state
+  const isEmptyQuests = questsQuery.isSuccess && questsQuery.data.data.length === 0
   useEffect(() => {
     if (isEmptyQuests && !lastEmptyShownRef.current) {
       lastEmptyShownRef.current = true
-      showDialogue('EMPTY_TASKS')
+      foxDialogueBus.emit({ event: 'EMPTY_TASKS', dedupeKey: 'empty-tasks-initial' })
     } else if (!isEmptyQuests) {
       lastEmptyShownRef.current = false
     }
-  }, [isEmptyQuests, showDialogue])
+  }, [isEmptyQuests])
 
-  // React once per distinct verified Backend error
+  // Verified Backend error state
   const backendErrorKey = questsQuery.error
     ? questsQuery.error instanceof Error
       ? questsQuery.error.message
@@ -164,11 +244,39 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   useEffect(() => {
     if (backendErrorKey && lastErrorShownRef.current !== backendErrorKey) {
       lastErrorShownRef.current = backendErrorKey
-      showDialogue('BACKEND_ERROR')
+      foxDialogueBus.emit({ event: 'BACKEND_ERROR', dedupeKey: `err:${backendErrorKey}` })
     } else if (!backendErrorKey) {
       lastErrorShownRef.current = null
     }
-  }, [backendErrorKey, showDialogue])
+  }, [backendErrorKey])
+
+  // Timezone-safe deadline monitor (60m / 15m / overdue) for verified active quests
+  const questsList = questsQuery.data?.data
+  const questsSource = questsQuery.data?.source
+  useEffect(() => {
+    if (!questsList || questsList.length === 0 || questsSource !== 'LIVE') return
+
+    const checkDeadlines = () => {
+      const candidates = evaluateQuestDeadlines(questsList, Date.now())
+      for (const candidate of candidates) {
+        foxDialogueBus.emit({
+          event: candidate.event,
+          dedupeKey: candidate.dedupeKey,
+          taskTitle: candidate.questTitle,
+          actionRoute: '/work',
+          actionLabel: 'Mở nhiệm vụ'
+        })
+      }
+    }
+
+    checkDeadlines()
+    const intervalId = window.setInterval(checkDeadlines, DEADLINE_POLL_MS)
+    return () => window.clearInterval(intervalId)
+  }, [questsList, questsSource])
+
+  const dismissDialogue = useCallback(() => {
+    foxDialogueBus.dismiss()
+  }, [])
 
   const selectedType = TASK_TYPE_OPTIONS[typeIdx]
   const hasDraft = prompt.trim().length > 0
@@ -217,7 +325,7 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
       setPrompt('')
       setFeedback({ kind: 'ok', text: `Đã thêm "${title}" vào danh sách của bạn!` })
     } catch (err) {
-      showDialogue('BACKEND_ERROR')
+      foxDialogueBus.emit({ event: 'BACKEND_ERROR' })
       setFeedback({
         kind: 'err',
         text: err instanceof Error ? err.message : 'Không thể lưu nhiệm vụ lúc này.'

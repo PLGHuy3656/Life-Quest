@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { foxDialogueBus } from '@/features/mascot/dialogue/dialogueBus'
 import { SocialImagePreview } from './SocialImagePreview'
 import { SocialMediaLightbox } from './SocialMediaLightbox'
 import type { SocialMediaItem } from './mediaValidation'
@@ -24,6 +25,12 @@ export function SocialMediaGrid({
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   const returnFocusRef = useRef<HTMLButtonElement | null>(null)
 
+  useEffect(() => {
+    return () => {
+      foxDialogueBus.setPauseReason({ lightboxOpen: false })
+    }
+  }, [])
+
   if (items.length === 0) return null
 
   const visibleItems = items.slice(0, 4)
@@ -41,10 +48,13 @@ export function SocialMediaGrid({
   const handleOpen = (index: number, triggerEl: HTMLButtonElement | null) => {
     returnFocusRef.current = triggerEl
     setLightboxIndex(index)
+    foxDialogueBus.setPauseReason({ lightboxOpen: true })
+    foxDialogueBus.emit({ event: 'SOCIAL_MEDIA_VIEWED' })
   }
 
   const handleClose = () => {
     setLightboxIndex(null)
+    foxDialogueBus.setPauseReason({ lightboxOpen: false })
     // Restore keyboard focus cleanly to the triggering tile
     queueMicrotask(() => {
       returnFocusRef.current?.focus()

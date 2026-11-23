@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useOptionalCompanion } from '@/features/mascot/CompanionProvider'
+import { foxDialogueBus } from '@/features/mascot/dialogue/dialogueBus'
 import { dashboardRepository } from '@/services/repositories/dashboardRepository'
 import { useAuthStore } from '@/stores/authStore'
 import type { CreateQuestInput } from '@/types/domain'
@@ -77,6 +78,7 @@ export function usePinQuestMutation() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['dashboard', 'quests'] })
       qc.invalidateQueries({ queryKey: ['dashboard', 'today'] })
+      foxDialogueBus.emit({ event: 'PIN_UPDATED' })
     }
   })
 }
