@@ -9,6 +9,9 @@ import { todayRoute } from '../modules/today/todayRoute.js'
 import { friendsRoute } from '../modules/friends/friendsRoute.js'
 import { socialRoute } from '../modules/social/socialRoute.js'
 import { mascotRoute } from '../modules/mascot/mascotRoute.js'
+import streaksRoute from '../modules/streaks/streaksRoute.js'
+import duosRoute from '../modules/duos/duosRoute.js'
+import challengesRoute from '../modules/challenges/challengesRoute.js'
 
 const Router = express.Router()
 
@@ -29,7 +32,10 @@ const discoveryHandler = (req, res) => {
       feed: '/api/v1/feed',
       mascotModels: '/api/v1/mascot/models',
       mascotState: '/api/v1/mascot/state?modelCode=FOX_V2',
-      mascotCosmetics: '/api/v1/mascot/cosmetics?modelCode=FOX_V2'
+      mascotCosmetics: '/api/v1/mascot/cosmetics?modelCode=FOX_V2',
+      streaks: '/api/v1/streaks/me',
+      duos: '/api/v1/duos/active',
+      challenges: '/api/v1/challenges'
     }
   })
 }
@@ -59,6 +65,15 @@ Router.use('/schedules', schedulesRoute)
 
 // Today Module
 Router.use('/today', todayRoute)
+
+// Streaks Module
+Router.use('/streaks', streaksRoute)
+
+// Duos Module
+Router.use('/duos', duosRoute)
+
+// Challenges Module
+Router.use('/challenges', challengesRoute)
 
 // Friends Module (/friends, /friends/search, /friend-requests, etc.)
 Router.use('/', friendsRoute)
