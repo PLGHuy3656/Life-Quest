@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useOptionalCompanion } from '@/features/mascot/CompanionProvider'
 import { dashboardRepository } from '@/services/repositories/dashboardRepository'
 import { useAuthStore } from '@/stores/authStore'
 import type { CreateQuestInput } from '@/types/domain'
@@ -57,11 +58,13 @@ export function useSocialPreviewQuery() {
 
 export function useCreateQuestMutation() {
   const qc = useQueryClient()
+  const companion = useOptionalCompanion()
   return useMutation({
     mutationFn: (input: CreateQuestInput) => dashboardRepository.createQuest(input),
-    onSuccess: () => {
+    onSuccess: (created) => {
       qc.invalidateQueries({ queryKey: ['dashboard', 'quests'] })
       qc.invalidateQueries({ queryKey: ['dashboard', 'today'] })
+      companion?.publish('TASK_CREATED', { title: created.title } as never)
     }
   })
 }

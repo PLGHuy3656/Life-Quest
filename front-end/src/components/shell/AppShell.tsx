@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
+import { FloatingMascotDock } from '@/features/mascot/FloatingMascotDock'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
@@ -128,7 +129,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
             <div className={styles.headerContext}>
               <span className={styles.headerTitle}>{currentTitle}</span>
-              <span className={styles.headerSub}>FE-02 • Auth &amp; Core Workflows</span>
+              <span className={styles.headerSub}>FE-03 • Fox V2 Mascot &amp; Workflows</span>
             </div>
 
             <div className={styles.headerActions}>
@@ -285,6 +286,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span>Công việc</span>
         </NavLink>
       </nav>
+
+      <FloatingMascotDock />
     </div>
   )
 }

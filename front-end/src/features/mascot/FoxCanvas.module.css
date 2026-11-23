@@ -1,0 +1,35 @@
+.stage {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 35%, #fff7e6 0%, #f5efe2 65%, #ebe4d5 100%);
+  border: 1px solid rgba(22, 50, 74, 0.08);
+}
+
+.full {
+  min-height: 360px;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(245, 243, 238, 0.72);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+  pointer-events: none;
+}
+
+.badgeOverlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  pointer-events: none;
+}

@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { AppRoutes } from '@/app/router'
+import { CompanionProvider } from '@/features/mascot/CompanionProvider'
 import { PinnedBoard } from '@/features/dashboard/PinnedBoard'
 import { MOCK_QUESTS } from '@/services/repositories/fixtures'
 import { useAuthStore } from '@/stores/authStore'
@@ -15,9 +16,11 @@ function renderApp() {
   })
   return render(
     <QueryClientProvider client={qc}>
-      <MemoryRouter initialEntries={['/']}>
-        <AppRoutes />
-      </MemoryRouter>
+      <CompanionProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <AppRoutes />
+        </MemoryRouter>
+      </CompanionProvider>
     </QueryClientProvider>
   )
 }
@@ -38,7 +41,7 @@ describe('DashboardPage & AppShell FE-01', () => {
     expect(screen.getByRole('heading', { name: 'Nhiệm vụ hôm nay' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Mục tiêu & Cột mốc' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Social và nhật ký hành trình' })).toBeInTheDocument()
-    expect(screen.getByTestId('mascot-slot-placeholder')).toBeInTheDocument()
+    expect(screen.getByTestId('fox-fallback')).toBeInTheDocument()
   })
 
   it('enforces max 3 cards on PinnedBoard even when >3 quests are pinned', () => {

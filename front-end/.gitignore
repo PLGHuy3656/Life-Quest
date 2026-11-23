@@ -13,6 +13,10 @@ dist-ssr
 *.local
 *.tsbuildinfo
 
+# Generated Mascot Gate I runtime assets (synced deterministically via `npm run assets`)
+public/models
+public/fox_poster.png
+
 # Test artifacts
 playwright-report
 test-results

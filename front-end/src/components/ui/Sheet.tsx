@@ -15,6 +15,8 @@ export function Sheet({ open, title, subtitle, onClose, children }: SheetProps) 
   const titleId = useId()
   const dialogRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
 
   useEffect(() => {
     if (!open) return
@@ -24,7 +26,7 @@ export function Sheet({ open, title, subtitle, onClose, children }: SheetProps) 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault()
-        onClose()
+        onCloseRef.current()
       }
     }
 
@@ -33,7 +35,7 @@ export function Sheet({ open, title, subtitle, onClose, children }: SheetProps) 
       document.removeEventListener('keydown', onKeyDown)
       previousFocusRef.current?.focus?.()
     }
-  }, [open, onClose])
+  }, [open])
 
   if (!open) return null
 
