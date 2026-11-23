@@ -5,13 +5,15 @@ export interface ProgressRingProps {
   size?: number
   strokeWidth?: number
   label?: string
+  onDark?: boolean
 }
 
 export function ProgressRing({
   percentage,
   size = 64,
   strokeWidth = 6,
-  label
+  label,
+  onDark = false
 }: ProgressRingProps) {
   const clamped = Math.max(0, Math.min(100, Math.round(percentage)))
   const radius = (size - strokeWidth) / 2
@@ -34,6 +36,7 @@ export function ProgressRing({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
+          style={onDark ? { stroke: 'rgba(255, 255, 255, 0.22)' } : undefined}
         />
         <circle
           className={styles.bar}
@@ -45,7 +48,9 @@ export function ProgressRing({
           strokeDashoffset={dashOffset}
         />
       </svg>
-      <span className={styles.label}>{label ?? `${clamped}%`}</span>
+      <span className={styles.label} style={onDark ? { color: '#FFFFFF', fontSize: 12 } : undefined}>
+        {label ?? `${clamped}%`}
+      </span>
     </div>
   )
 }
