@@ -59,7 +59,7 @@ export function HeroSection({
   const focusMinutes = Math.round((today?.summary.totalFocusDurationSeconds ?? 0) / 60)
 
   return (
-    <Card variant="tinted" data-testid="hero-info-card">
+    <Card variant="tinted" compact data-testid="hero-info-card">
       <div className={styles.left}>
         <div>
           <div className={styles.topRow}>
@@ -120,8 +120,9 @@ export function HeroSection({
           </div>
           <ProgressRing
             percentage={today?.summary.completionRatePercentage ?? 0}
-            size={58}
+            size={48}
             strokeWidth={5}
+            onDark
           />
         </div>
       </div>

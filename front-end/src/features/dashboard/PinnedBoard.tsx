@@ -29,7 +29,7 @@ export function PinnedBoard({
   const pinnedQuests = quests.filter((q) => q.isPinned).slice(0, MAX_PINNED_CARDS)
 
   return (
-    <Card>
+    <Card compact data-testid="pinned-board-card">
       <div className={styles.header}>
         <div className={styles.titleGroup}>
           <Pin size={18} color="#F26B3A" aria-hidden="true" />

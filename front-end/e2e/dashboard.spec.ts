@@ -144,14 +144,19 @@ for (const width of [1024, 1280, 1440, 1920]) {
     expect(rects[0].right).toBeLessThanOrEqual(rects[1].left + 1)
     expect(rects[1].right).toBeLessThanOrEqual(rects[2].left + 1)
 
-    // 2. Verify Fox V2 card spans 2 rows vertically (taller than Hero info alone, original column width)
+    // 2. Verify Fox V2 card spans 2 rows vertically & fits above the fold with Pinned Board
     const layout = await page.evaluate(() => {
       const topGrid = document.querySelector('[data-testid="dashboard-top-grid"]')!.getBoundingClientRect()
       const hero = document.querySelector('[data-testid="hero-info-card"]')!.getBoundingClientRect()
+      const pinned = document.querySelector('[data-testid="pinned-board-card"]')!.getBoundingClientRect()
       const mascot = document.querySelector('[data-testid="hero-mascot-span-card"]')!.getBoundingClientRect()
-      return { topGrid, hero, mascot }
+      return { topGrid, hero, pinned, mascot }
     })
     expect(layout.mascot.height).toBeGreaterThan(layout.hero.height + 40)
     expect(layout.mascot.width).toBeLessThan(layout.topGrid.width * 0.45)
+    // Primary acceptance: Pinned Board and Mascot fully visible within initial viewport without scrolling
+    expect(layout.pinned.bottom).toBeLessThanOrEqual(height)
+    expect(layout.mascot.bottom).toBeLessThanOrEqual(height)
+    expect(Math.abs(layout.mascot.bottom - layout.pinned.bottom)).toBeLessThanOrEqual(2)
   })
 }
