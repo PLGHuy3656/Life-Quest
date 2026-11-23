@@ -7,6 +7,7 @@ import { CalendarPage } from '@/features/calendar/CalendarPage'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { PlaceholderPage } from '@/features/placeholders/PlaceholderPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
+import { WardrobePage } from '@/features/wardrobe/WardrobePage'
 import { WorkPage } from '@/features/work/WorkPage'
 
 export function AppRoutes() {
@@ -55,16 +56,7 @@ export function AppRoutes() {
                   />
                 }
               />
-              <Route
-                path="/wardrobe"
-                element={
-                  <PlaceholderPage
-                    title="Tủ đồ & Mascot Fox V2"
-                    description="Sẵn sàng tích hợp Fox V2 Gate I WebGL Runtime và 20 món trang phục H1/H2."
-                    plannedMilestone="FE-03"
-                  />
-                }
-              />
+              <Route path="/wardrobe" element={<WardrobePage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AppShell>

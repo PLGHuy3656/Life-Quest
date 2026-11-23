@@ -7,7 +7,7 @@ const VIEWPORTS = [
 ] as const
 
 for (const vp of VIEWPORTS) {
-  test(`viewport ${vp.name} (${vp.width}x${vp.height}): responsive nav & zero horizontal overflow`, async ({
+  test(`viewport ${vp.name} (${vp.width}x${vp.height}): responsive nav, Fox V2 & zero overflow`, async ({
     page
   }) => {
     await page.setViewportSize({ width: vp.width, height: vp.height })
@@ -15,7 +15,13 @@ for (const vp of VIEWPORTS) {
 
     await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Social và nhật ký hành trình' })).toBeVisible()
-    await expect(page.getByTestId('mascot-slot-placeholder')).toBeVisible()
+
+    // Fox V2 canvas OR WebGL fallback must be present without duplicate WebGL contexts
+    const foxStage = page.locator('[data-testid="fox-canvas-container"], [data-testid="fox-fallback"]')
+    await expect(foxStage.first()).toBeVisible()
+
+    const canvasCount = await page.locator('canvas').count()
+    expect(canvasCount).toBeLessThanOrEqual(1)
 
     // Production preview must NOT silently fall back to mock for authenticated LIVE endpoints
     await expect(page.getByText(/AUTHENTICATION_REQUIRED/).first()).toBeVisible()
@@ -31,16 +37,41 @@ for (const vp of VIEWPORTS) {
   })
 }
 
+test('nowebgl=1 renders accessible FoxFallback cleanly', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/?nowebgl=1')
+  await expect(page.getByTestId('fox-fallback')).toBeVisible()
+  await expect(page.getByTestId('fox-fallback')).toHaveAttribute('data-reason', 'webgl')
+})
+
+test('wardrobe H1/H2 cosmetic switching, reset & Voice Assistant Gate I sheet', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/wardrobe?nowebgl=1')
+
+  await expect(page.getByRole('heading', { name: /Tủ đồ Fox V2/i })).toBeVisible()
+  await page.getByRole('button', { name: 'Tết' }).click()
+  await expect(page.getByRole('button', { name: /Khôi phục mặc định \(3\)/i })).toBeEnabled()
+  await page.getByRole('button', { name: /Khôi phục mặc định \(3\)/i }).click()
+  await expect(page.getByRole('button', { name: /Khôi phục mặc định \(0\)/i })).toBeDisabled()
+
+  // Open Voice Assistant dock sheet & test state transitions + Escape dismissal
+  await page.getByRole('button', { name: /Mở Trợ lý Giọng nói Fox V2/i }).click()
+  const dialog = page.getByRole('dialog')
+  await expect(dialog).toBeVisible()
+  await page.getByRole('button', { name: 'Lắng nghe' }).click()
+  await expect(page.getByText(/voice_listening_loop/i)).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(dialog).toBeHidden()
+})
+
 test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('/')
+  await page.goto('/?nowebgl=1')
 
-  // Toggle lq-rm
   const rmBtn = page.getByRole('button', { name: /chế độ giảm chuyển động/i })
   await rmBtn.click()
   await expect(page.locator('html')).toHaveClass(/lq-rm/)
 
-  // Open & close Quick-Create Sheet via Escape
   await page.getByRole('button', { name: /Tạo mới nhanh/i }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
@@ -59,4 +90,21 @@ test('protected route /work redirects unauthenticated users to /login with valid
 
   await page.getByRole('button', { name: 'Đăng nhập' }).click()
   await expect(page.getByText('Vui lòng nhập email.')).toBeVisible()
+})
+
+test('route navigation (/ -> /wardrobe -> /) cleans up and maintains single active WebGL renderer', async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/')
+  await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
+  expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
+
+  await page.getByRole('link', { name: 'Tủ đồ Fox' }).click()
+  await expect(page.getByRole('heading', { name: /Tủ đồ Fox V2/i })).toBeVisible()
+  expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
+
+  await page.getByRole('link', { name: 'Trang chủ' }).click()
+  await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
+  expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 })

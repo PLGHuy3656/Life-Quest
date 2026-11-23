@@ -5,6 +5,7 @@ import {
   useTodayQuery,
   useUserMeQuery
 } from '@/hooks/useDashboardData'
+import { MascotEventAdapter } from '@/features/mascot/MascotEventAdapter'
 import { useUiStore } from '@/stores/uiStore'
 import { DashboardSheets } from './DashboardSheets'
 import { GoalsProgressPanel } from './GoalsProgressPanel'
@@ -25,9 +26,15 @@ export function DashboardPage() {
   const socialQuery = useSocialPreviewQuery()
 
   const quests = questsQuery.data?.data ?? []
+  const authoritativeLevel =
+    todayQuery.data?.source === 'LIVE' ? todayQuery.data.data.gamification.level : undefined
 
   return (
     <div className={styles.stack}>
+      <MascotEventAdapter
+        triggerGreetingOnMount
+        authoritativeLevel={authoritativeLevel}
+      />
       <HeroSection
         user={userQuery.data?.data}
         today={todayQuery.data?.data}

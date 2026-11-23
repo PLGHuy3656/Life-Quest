@@ -1,9 +1,9 @@
 import { Flame, Coins, Sparkles } from 'lucide-react'
-import { MascotPlaceholder } from '@/components/shell/MascotPlaceholder'
 import { Card } from '@/components/ui/Card'
 import { Chip } from '@/components/ui/Chip'
 import { ProgressRing } from '@/components/ui/ProgressRing'
 import { ErrorBanner, LoadingSkeleton, SourceBadge } from '@/components/ui/StateViews'
+import { FoxCompanionView } from '@/features/mascot/FoxCompanionView'
 import type { DataSourceMode } from '@/types/api'
 import type { TodayData, UserMe } from '@/types/domain'
 import styles from './HeroSection.module.css'
@@ -46,7 +46,7 @@ export function HeroSection({
           <div className={styles.left}>
             <ErrorBanner error={error} onRetry={onRetry} />
           </div>
-          <MascotPlaceholder />
+          <FoxCompanionView presentation="widget" label="Bạn đồng hành Cáo V2" />
         </div>
       </Card>
     )
@@ -133,7 +133,7 @@ export function HeroSection({
           </div>
         </div>
 
-        <MascotPlaceholder />
+        <FoxCompanionView presentation="widget" label="Bạn đồng hành Cáo V2" />
       </div>
     </Card>
   )
