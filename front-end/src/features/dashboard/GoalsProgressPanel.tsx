@@ -1,4 +1,4 @@
-import { Target } from 'lucide-react'
+import { Calendar, Flag, Target } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
 import { Chip } from '@/components/ui/Chip'
 import { EmptyState, ErrorBanner, LoadingSkeleton, SourceBadge } from '@/components/ui/StateViews'
@@ -25,7 +25,9 @@ export function GoalsProgressPanel({
     <Card>
       <div className={styles.header}>
         <div className={styles.titleGroup}>
-          <Target size={18} color="#16324A" aria-hidden="true" />
+          <span className={styles.sectionIcon} aria-hidden="true">
+            <Target size={16} />
+          </span>
           <h2 className={styles.heading}>Mục tiêu & Cột mốc</h2>
           <SourceBadge source={source} />
         </div>
@@ -49,15 +51,29 @@ export function GoalsProgressPanel({
             return (
               <div key={goal.id} className={styles.goalCard}>
                 <div className={styles.goalHead}>
-                  <span className={styles.goalTitle}>{goal.title}</span>
-                  <Chip tone={pct === 100 ? 'success' : 'neutral'}>{pct}%</Chip>
+                  <div className={styles.goalTitleRow}>
+                    <span className={styles.milestoneIcon} aria-hidden="true">
+                      <Flag size={13} />
+                    </span>
+                    <span className={styles.goalTitle}>{goal.title}</span>
+                  </div>
+                  <Chip tone={pct === 100 ? 'success' : 'accent'}>{pct}%</Chip>
                 </div>
                 <div className={styles.barTrack} aria-hidden="true">
                   <div className={styles.barFill} style={{ width: `${pct}%` }} />
                 </div>
-                <span className={styles.meta}>
-                  {done}/{total} cột mốc hoàn thành • Hạn {goal.dueDate.slice(0, 10)}
-                </span>
+                <div className={styles.metaRow}>
+                  <span className={styles.meta}>
+                    <Flag size={12} aria-hidden="true" />
+                    <span>
+                      {done}/{total} cột mốc hoàn thành
+                    </span>
+                  </span>
+                  <span className={styles.meta}>
+                    <Calendar size={12} aria-hidden="true" />
+                    <span>Hạn {goal.dueDate.slice(0, 10)}</span>
+                  </span>
+                </div>
               </div>
             )
           })}

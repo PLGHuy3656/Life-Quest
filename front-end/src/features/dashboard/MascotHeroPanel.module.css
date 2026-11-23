@@ -1,13 +1,17 @@
 .panel {
-  background: linear-gradient(165deg, #ffffff 0%, #fbf7ef 58%, #f6efe2 100%);
-  border: 1px solid rgba(22, 50, 74, 0.08);
+  position: relative;
+  background: linear-gradient(168deg, #fffdf9 0%, #fcf4e7 54%, #f6ead6 100%);
+  border: 1px solid rgba(242, 107, 58, 0.14);
   border-radius: var(--lq-radius-card);
-  box-shadow: var(--lq-shadow-card);
-  padding: 20px;
+  box-shadow:
+    0 8px 28px rgba(176, 121, 70, 0.08),
+    0 2px 8px rgba(22, 50, 74, 0.04);
+  padding: 18px 20px 20px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   height: 100%;
+  overflow: hidden;
 }
 
 .greetingBlock {
@@ -15,11 +19,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.companionPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: var(--lq-radius-pill);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(242, 107, 58, 0.22);
+  color: #c84b1e;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .greetingTitle {
-  font-size: clamp(21px, 2vw, 26px);
+  font-size: clamp(21px, 1.9vw, 25px);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--lq-primary);
@@ -27,29 +47,77 @@
 }
 
 .greetingSub {
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--lq-ink-secondary);
   max-width: 340px;
   line-height: 1.45;
 }
 
+/* Cozy botanical stage layered behind the alpha-transparent Fox V2 WebGL canvas */
 .mascotStageWrap {
+  position: relative;
   flex: 1;
-  min-height: 260px;
+  min-height: 276px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(164, 128, 86, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: column;
 }
 
+.sceneBackdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.foxCanvasLayer {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.foxCanvasTransparent {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
 /* "Hôm nay bạn muốn làm gì?" action box */
 .promptBox {
-  background: #ffffff;
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(22, 50, 74, 0.09);
   border-radius: 18px;
   padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  box-shadow: 0 4px 16px rgba(22, 50, 74, 0.05);
+  box-shadow: 0 6px 20px rgba(22, 50, 74, 0.06);
+}
+
+.promptHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.promptIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: #fff0e8;
+  color: var(--lq-accent);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
 }
 
 .promptTitle {
@@ -70,10 +138,19 @@
   height: 40px;
   padding: 0 12px;
   border-radius: 12px;
-  border: 1px solid var(--lq-border-strong);
-  background: var(--lq-bg);
+  border: 1px solid rgba(22, 50, 74, 0.14);
+  background: #faf8f4;
   font-size: 13.5px;
   color: var(--lq-primary);
+  transition:
+    border-color var(--lq-dur-fast) var(--lq-ez),
+    background-color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.promptInput:focus {
+  outline: none;
+  border-color: rgba(242, 107, 58, 0.55);
+  background: #ffffff;
 }
 
 .promptInput::placeholder {
@@ -85,7 +162,7 @@
   padding: 0 14px;
   border-radius: 12px;
   border: 0;
-  background: var(--lq-accent);
+  background: linear-gradient(135deg, #f26b3a 0%, #e45828 100%);
   color: #ffffff;
   font-size: 13px;
   font-weight: 700;
@@ -93,11 +170,14 @@
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
-  transition: background-color var(--lq-dur-fast) var(--lq-ez);
+  box-shadow: 0 4px 12px rgba(242, 107, 58, 0.28);
+  transition:
+    transform var(--lq-dur-fast) var(--lq-ez),
+    filter var(--lq-dur-fast) var(--lq-ez);
 }
 
 .sendBtn:hover:not(:disabled) {
-  background: var(--lq-accent-hover);
+  filter: brightness(0.96);
 }
 
 .sendBtn:disabled {
@@ -113,13 +193,16 @@
 }
 
 .quickChip {
-  border: 1px solid rgba(22, 50, 74, 0.12);
-  background: var(--lq-bg-elevated);
+  border: 1px solid rgba(22, 50, 74, 0.11);
+  background: #f8f5ef;
   color: var(--lq-ink-secondary);
   border-radius: var(--lq-radius-pill);
   padding: 5px 11px;
   font-size: 12px;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   transition:
     background-color var(--lq-dur-fast) var(--lq-ez),
     color var(--lq-dur-fast) var(--lq-ez),
@@ -133,7 +216,7 @@
 }
 
 .quickChipActive {
-  background: #fff1ea;
+  background: #fff0e8;
   color: #c2461a;
   border-color: rgba(242, 107, 58, 0.45);
 }

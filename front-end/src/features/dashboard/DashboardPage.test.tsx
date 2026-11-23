@@ -38,6 +38,7 @@ describe('DashboardPage & AppShell FE-01', () => {
     expect(await screen.findByText(/Bạn!/)).toBeInTheDocument()
     expect(screen.queryByText(/Huy/)).not.toBeInTheDocument()
     expect(screen.getByTestId('mascot-greeting-block')).toBeInTheDocument()
+    expect(screen.getByTestId('mascot-decorated-stage')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Hôm nay' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Ngày mai' })).toBeInTheDocument()
@@ -46,6 +47,10 @@ describe('DashboardPage & AppShell FE-01', () => {
     expect(screen.getByRole('heading', { name: 'Nhiệm vụ hôm nay' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Mục tiêu & Cột mốc' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Social và nhật ký hành trình' })).toBeInTheDocument()
+    expect(await screen.findAllByTestId('social-preview-item')).toHaveLength(2)
+    expect((await screen.findAllByText('Tập trung')).length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('Thời lượng').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('Số lượng').length).toBeGreaterThanOrEqual(1)
     expect(screen.getByTestId('fox-fallback')).toBeInTheDocument()
   })
 

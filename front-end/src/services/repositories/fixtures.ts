@@ -280,7 +280,10 @@ export const MOCK_SOCIAL_PREVIEW: SocialPreviewItem[] = [
     caption: 'Hoàn thành 25 phút tập trung đầu ngày — giữ chuỗi 6 ngày liên tiếp.',
     questBadge: 'Focus 25p',
     timeLabel: '24 phút trước',
-    cheerCount: 8
+    cheerCount: 8,
+    illustrationKey: 'study-corner',
+    illustrationAlt: 'Minh họa góc học tập buổi sáng cùng sổ tay và bộ đếm tập trung 25 phút',
+    category: 'focus'
   },
   {
     id: 'social-preview-2',
@@ -289,6 +292,9 @@ export const MOCK_SOCIAL_PREVIEW: SocialPreviewItem[] = [
     caption: 'Vừa chốt xong mốc API Auth & Today trên nhánh develop!',
     questBadge: 'Milestone ✓',
     timeLabel: '1 giờ trước',
-    cheerCount: 12
+    cheerCount: 12,
+    illustrationKey: 'milestone-moment',
+    illustrationAlt: 'Minh họa hành trình hoàn thành cột mốc trên đỉnh đồi sáng sớm',
+    category: 'milestone'
   }
 ]

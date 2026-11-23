@@ -1,18 +1,19 @@
 import { useState, type FormEvent } from 'react'
-import { Send } from 'lucide-react'
+import { CalendarDays, Clock, Send, Sparkles, Sun } from 'lucide-react'
 import { FoxCompanionView } from '@/features/mascot/FoxCompanionView'
 import { useCreateQuestMutation } from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
 import type { TodayData, UserMe } from '@/types/domain'
 import { addDaysLocal, getTodayLocalDate } from '@/utils/date'
+import { MascotSceneBackdrop } from './MascotSceneBackdrop'
 import styles from './MascotHeroPanel.module.css'
 
 type QuickHorizon = 'today' | 'tomorrow' | 'week'
 
-const QUICK_CHIPS: { id: QuickHorizon; label: string }[] = [
-  { id: 'today', label: 'Hôm nay' },
-  { id: 'tomorrow', label: 'Ngày mai' },
-  { id: 'week', label: 'Tuần này' }
+const QUICK_CHIPS: { id: QuickHorizon; label: string; Icon: typeof Sun }[] = [
+  { id: 'today', label: 'Hôm nay', Icon: Sun },
+  { id: 'tomorrow', label: 'Ngày mai', Icon: Clock },
+  { id: 'week', label: 'Tuần này', Icon: CalendarDays }
 ]
 
 function getVietnameseGreeting(hour: number): string {
@@ -92,18 +93,34 @@ export function MascotHeroPanel({ user, today }: MascotHeroPanelProps) {
       aria-label="Bạn đồng hành Fox V2 và lời chào"
     >
       <div className={styles.greetingBlock} data-testid="mascot-greeting-block">
+        <span className={styles.companionPill}>
+          <Sparkles size={12} aria-hidden="true" />
+          <span>Góc đồng hành cùng Fox</span>
+        </span>
         <h1 className={styles.greetingTitle}>
           {greetingPrefix}, {displayName}!
         </h1>
         <p className={styles.greetingSub}>{supportingLine}</p>
       </div>
 
-      <div className={styles.mascotStageWrap}>
-        <FoxCompanionView presentation="widget" label="Bạn đồng hành Cáo V2" />
+      <div className={styles.mascotStageWrap} data-testid="mascot-decorated-stage">
+        <MascotSceneBackdrop />
+        <div className={styles.foxCanvasLayer}>
+          <FoxCompanionView
+            presentation="widget"
+            label="Bạn đồng hành Cáo V2"
+            className={styles.foxCanvasTransparent}
+          />
+        </div>
       </div>
 
       <div className={styles.promptBox} data-testid="mascot-prompt-box">
-        <h2 className={styles.promptTitle}>Hôm nay bạn muốn làm gì?</h2>
+        <div className={styles.promptHeader}>
+          <span className={styles.promptIcon} aria-hidden="true">
+            <Sparkles size={14} />
+          </span>
+          <h2 className={styles.promptTitle}>Hôm nay bạn muốn làm gì?</h2>
+        </div>
 
         <form className={styles.promptForm} onSubmit={handleSubmit}>
           <label htmlFor="mascot-quick-prompt" className="sr-only">
@@ -129,15 +146,16 @@ export function MascotHeroPanel({ user, today }: MascotHeroPanelProps) {
         </form>
 
         <div className={styles.chipsRow} role="group" aria-label="Chọn mốc thời gian nhanh">
-          {QUICK_CHIPS.map((chip) => (
+          {QUICK_CHIPS.map(({ id, label, Icon }) => (
             <button
-              key={chip.id}
+              key={id}
               type="button"
-              className={`${styles.quickChip} ${horizon === chip.id ? styles.quickChipActive : ''}`.trim()}
-              aria-pressed={horizon === chip.id}
-              onClick={() => setHorizon(chip.id)}
+              className={`${styles.quickChip} ${horizon === id ? styles.quickChipActive : ''}`.trim()}
+              aria-pressed={horizon === id}
+              onClick={() => setHorizon(id)}
             >
-              {chip.label}
+              <Icon size={12} aria-hidden="true" />
+              <span>{label}</span>
             </button>
           ))}
         </div>
