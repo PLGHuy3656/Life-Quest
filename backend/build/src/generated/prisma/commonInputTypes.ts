@@ -521,6 +521,40 @@ export type EnumCosmeticSlotWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumCosmeticSlotFilter<$PrismaModel>
 }
 
+export type EnumDuoPartnershipStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoPartnershipStatus | Prisma.EnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoPartnershipStatusFilter<$PrismaModel> | $Enums.DuoPartnershipStatus
+}
+
+export type EnumDuoPartnershipStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoPartnershipStatus | Prisma.EnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoPartnershipStatusWithAggregatesFilter<$PrismaModel> | $Enums.DuoPartnershipStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDuoPartnershipStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDuoPartnershipStatusFilter<$PrismaModel>
+}
+
+export type EnumChallengeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ChallengeType | Prisma.EnumChallengeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumChallengeTypeFilter<$PrismaModel> | $Enums.ChallengeType
+}
+
+export type EnumChallengeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ChallengeType | Prisma.EnumChallengeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumChallengeTypeWithAggregatesFilter<$PrismaModel> | $Enums.ChallengeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumChallengeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumChallengeTypeFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -1012,6 +1046,40 @@ export type NestedEnumCosmeticSlotWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumCosmeticSlotFilter<$PrismaModel>
   _max?: Prisma.NestedEnumCosmeticSlotFilter<$PrismaModel>
+}
+
+export type NestedEnumDuoPartnershipStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoPartnershipStatus | Prisma.EnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoPartnershipStatusFilter<$PrismaModel> | $Enums.DuoPartnershipStatus
+}
+
+export type NestedEnumDuoPartnershipStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DuoPartnershipStatus | Prisma.EnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DuoPartnershipStatus[] | Prisma.ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDuoPartnershipStatusWithAggregatesFilter<$PrismaModel> | $Enums.DuoPartnershipStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDuoPartnershipStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDuoPartnershipStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumChallengeTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ChallengeType | Prisma.EnumChallengeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumChallengeTypeFilter<$PrismaModel> | $Enums.ChallengeType
+}
+
+export type NestedEnumChallengeTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ChallengeType | Prisma.EnumChallengeTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ChallengeType[] | Prisma.ListEnumChallengeTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumChallengeTypeWithAggregatesFilter<$PrismaModel> | $Enums.ChallengeType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumChallengeTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumChallengeTypeFilter<$PrismaModel>
 }
 
 

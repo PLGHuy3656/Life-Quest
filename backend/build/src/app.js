@@ -1,7 +1,11 @@
 import express from 'express';
 import errorHandler from "./common/errors/errorHandler.js";
 import { routes } from "./routes/index.js";
+import registerAccountabilityListeners from "./common/events/registerAccountabilityListeners.js";
 const app = express();
+
+// Register global domain event listeners
+registerAccountabilityListeners();
 app.use(express.json());
 
 // Welcome & discovery on root

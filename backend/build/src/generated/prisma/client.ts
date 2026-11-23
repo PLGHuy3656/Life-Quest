@@ -141,3 +141,23 @@ export type MascotCosmetic = Prisma.MascotCosmeticModel
  * 
  */
 export type UserMascotCosmetic = Prisma.UserMascotCosmeticModel
+/**
+ * Model UserStreak
+ * 
+ */
+export type UserStreak = Prisma.UserStreakModel
+/**
+ * Model DuoPartnership
+ * 
+ */
+export type DuoPartnership = Prisma.DuoPartnershipModel
+/**
+ * Model Challenge
+ * 
+ */
+export type Challenge = Prisma.ChallengeModel
+/**
+ * Model ChallengeParticipant
+ * 
+ */
+export type ChallengeParticipant = Prisma.ChallengeParticipantModel

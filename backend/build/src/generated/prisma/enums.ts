@@ -124,3 +124,22 @@ export const ExecutionStatus = {
 } as const
 
 export type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus]
+
+
+export const DuoPartnershipStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type DuoPartnershipStatus = (typeof DuoPartnershipStatus)[keyof typeof DuoPartnershipStatus]
+
+
+export const ChallengeType = {
+  SOLO: 'SOLO',
+  DUO: 'DUO',
+  COMMUNITY: 'COMMUNITY'
+} as const
+
+export type ChallengeType = (typeof ChallengeType)[keyof typeof ChallengeType]

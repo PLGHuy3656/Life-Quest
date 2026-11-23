@@ -87,9 +87,37 @@ const getUserGamification = async userId => {
     }
   });
 };
+
+// Cập nhật QuestExecution thành COMPLETED
+const findExecutionById = async executionId => {
+  return await prisma.questExecution.findUnique({
+    where: {
+      id: executionId
+    },
+    include: {
+      quest: true
+    }
+  });
+};
+const completeQuestExecution = async (executionId, completedAt = new Date()) => {
+  return await prisma.questExecution.update({
+    where: {
+      id: executionId
+    },
+    data: {
+      status: 'COMPLETED',
+      completedAt
+    },
+    include: {
+      quest: true
+    }
+  });
+};
 export const todayRepository = {
   getUserSettings,
   getExecutionsByDateRange,
   getActiveSchedulesForUser,
-  getUserGamification
+  getUserGamification,
+  findExecutionById,
+  completeQuestExecution
 };

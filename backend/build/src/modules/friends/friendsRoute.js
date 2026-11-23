@@ -2,7 +2,11 @@ import express from 'express';
 import { friendsController } from "./friendsController.js";
 import { friendsValidation } from "./friendsValidation.js";
 import validate from "../../common/middleware/validate.js";
+import authenticate from "../../common/middleware/authenticate.js";
 const Router = express.Router();
+
+// Tất cả các route Friends đều yêu cầu xác thực người dùng
+Router.use(authenticate);
 
 // /friends & /friends/search
 Router.get('/friends', friendsController.getFriends);

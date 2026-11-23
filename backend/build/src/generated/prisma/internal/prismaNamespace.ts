@@ -416,7 +416,11 @@ export const ModelName = {
   MascotDialogue: 'MascotDialogue',
   MascotAction: 'MascotAction',
   MascotCosmetic: 'MascotCosmetic',
-  UserMascotCosmetic: 'UserMascotCosmetic'
+  UserMascotCosmetic: 'UserMascotCosmetic',
+  UserStreak: 'UserStreak',
+  DuoPartnership: 'DuoPartnership',
+  Challenge: 'Challenge',
+  ChallengeParticipant: 'ChallengeParticipant'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -432,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userProfile" | "userSettings" | "userGamification" | "session" | "goal" | "milestone" | "quest" | "questSchedule" | "questExecution" | "friendship" | "socialPost" | "postReaction" | "postComment" | "poke" | "mascotModel" | "mascotDialogue" | "mascotAction" | "mascotCosmetic" | "userMascotCosmetic"
+    modelProps: "user" | "userProfile" | "userSettings" | "userGamification" | "session" | "goal" | "milestone" | "quest" | "questSchedule" | "questExecution" | "friendship" | "socialPost" | "postReaction" | "postComment" | "poke" | "mascotModel" | "mascotDialogue" | "mascotAction" | "mascotCosmetic" | "userMascotCosmetic" | "userStreak" | "duoPartnership" | "challenge" | "challengeParticipant"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1916,6 +1920,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserStreak: {
+      payload: Prisma.$UserStreakPayload<ExtArgs>
+      fields: Prisma.UserStreakFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserStreakFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserStreakFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>
+        }
+        findFirst: {
+          args: Prisma.UserStreakFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserStreakFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>
+        }
+        findMany: {
+          args: Prisma.UserStreakFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>[]
+        }
+        create: {
+          args: Prisma.UserStreakCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>
+        }
+        createMany: {
+          args: Prisma.UserStreakCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserStreakCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>[]
+        }
+        delete: {
+          args: Prisma.UserStreakDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>
+        }
+        update: {
+          args: Prisma.UserStreakUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserStreakDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserStreakUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserStreakUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserStreakUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserStreakPayload>
+        }
+        aggregate: {
+          args: Prisma.UserStreakAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserStreak>
+        }
+        groupBy: {
+          args: Prisma.UserStreakGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserStreakGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserStreakCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserStreakCountAggregateOutputType> | number
+        }
+      }
+    }
+    DuoPartnership: {
+      payload: Prisma.$DuoPartnershipPayload<ExtArgs>
+      fields: Prisma.DuoPartnershipFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DuoPartnershipFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DuoPartnershipFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>
+        }
+        findFirst: {
+          args: Prisma.DuoPartnershipFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DuoPartnershipFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>
+        }
+        findMany: {
+          args: Prisma.DuoPartnershipFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>[]
+        }
+        create: {
+          args: Prisma.DuoPartnershipCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>
+        }
+        createMany: {
+          args: Prisma.DuoPartnershipCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DuoPartnershipCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>[]
+        }
+        delete: {
+          args: Prisma.DuoPartnershipDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>
+        }
+        update: {
+          args: Prisma.DuoPartnershipUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>
+        }
+        deleteMany: {
+          args: Prisma.DuoPartnershipDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DuoPartnershipUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DuoPartnershipUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>[]
+        }
+        upsert: {
+          args: Prisma.DuoPartnershipUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DuoPartnershipPayload>
+        }
+        aggregate: {
+          args: Prisma.DuoPartnershipAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDuoPartnership>
+        }
+        groupBy: {
+          args: Prisma.DuoPartnershipGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DuoPartnershipGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DuoPartnershipCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DuoPartnershipCountAggregateOutputType> | number
+        }
+      }
+    }
+    Challenge: {
+      payload: Prisma.$ChallengePayload<ExtArgs>
+      fields: Prisma.ChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.ChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>
+        }
+        findMany: {
+          args: Prisma.ChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>[]
+        }
+        create: {
+          args: Prisma.ChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>
+        }
+        createMany: {
+          args: Prisma.ChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.ChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>
+        }
+        update: {
+          args: Prisma.ChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.ChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.ChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.ChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChallenge>
+        }
+        groupBy: {
+          args: Prisma.ChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
+    ChallengeParticipant: {
+      payload: Prisma.$ChallengeParticipantPayload<ExtArgs>
+      fields: Prisma.ChallengeParticipantFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ChallengeParticipantFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ChallengeParticipantFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>
+        }
+        findFirst: {
+          args: Prisma.ChallengeParticipantFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ChallengeParticipantFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>
+        }
+        findMany: {
+          args: Prisma.ChallengeParticipantFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>[]
+        }
+        create: {
+          args: Prisma.ChallengeParticipantCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>
+        }
+        createMany: {
+          args: Prisma.ChallengeParticipantCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ChallengeParticipantCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>[]
+        }
+        delete: {
+          args: Prisma.ChallengeParticipantDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>
+        }
+        update: {
+          args: Prisma.ChallengeParticipantUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>
+        }
+        deleteMany: {
+          args: Prisma.ChallengeParticipantDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ChallengeParticipantUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ChallengeParticipantUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>[]
+        }
+        upsert: {
+          args: Prisma.ChallengeParticipantUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChallengeParticipantPayload>
+        }
+        aggregate: {
+          args: Prisma.ChallengeParticipantAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateChallengeParticipant>
+        }
+        groupBy: {
+          args: Prisma.ChallengeParticipantGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChallengeParticipantGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ChallengeParticipantCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ChallengeParticipantCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2261,6 +2561,76 @@ export const UserMascotCosmeticScalarFieldEnum = {
 export type UserMascotCosmeticScalarFieldEnum = (typeof UserMascotCosmeticScalarFieldEnum)[keyof typeof UserMascotCosmeticScalarFieldEnum]
 
 
+export const UserStreakScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  currentStreak: 'currentStreak',
+  longestStreak: 'longestStreak',
+  lastCompletedDate: 'lastCompletedDate',
+  freezeCount: 'freezeCount',
+  isFrozenToday: 'isFrozenToday',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserStreakScalarFieldEnum = (typeof UserStreakScalarFieldEnum)[keyof typeof UserStreakScalarFieldEnum]
+
+
+export const DuoPartnershipScalarFieldEnum = {
+  id: 'id',
+  user1Id: 'user1Id',
+  user2Id: 'user2Id',
+  status: 'status',
+  questId: 'questId',
+  title: 'title',
+  targetValue: 'targetValue',
+  user1Progress: 'user1Progress',
+  user2Progress: 'user2Progress',
+  rewardXp: 'rewardXp',
+  rewardCoins: 'rewardCoins',
+  expiresAt: 'expiresAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DuoPartnershipScalarFieldEnum = (typeof DuoPartnershipScalarFieldEnum)[keyof typeof DuoPartnershipScalarFieldEnum]
+
+
+export const ChallengeScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  targetMetric: 'targetMetric',
+  targetValue: 'targetValue',
+  rewardXp: 'rewardXp',
+  rewardCoins: 'rewardCoins',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChallengeScalarFieldEnum = (typeof ChallengeScalarFieldEnum)[keyof typeof ChallengeScalarFieldEnum]
+
+
+export const ChallengeParticipantScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  userId: 'userId',
+  currentProgress: 'currentProgress',
+  isCompleted: 'isCompleted',
+  rewardClaimed: 'rewardClaimed',
+  completedAt: 'completedAt',
+  joinedAt: 'joinedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChallengeParticipantScalarFieldEnum = (typeof ChallengeParticipantScalarFieldEnum)[keyof typeof ChallengeParticipantScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2554,6 +2924,34 @@ export type ListEnumCosmeticSlotFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'DuoPartnershipStatus'
+ */
+export type EnumDuoPartnershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoPartnershipStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DuoPartnershipStatus[]'
+ */
+export type ListEnumDuoPartnershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DuoPartnershipStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ChallengeType'
+ */
+export type EnumChallengeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChallengeType'>
+    
+
+
+/**
+ * Reference to a field of type 'ChallengeType[]'
+ */
+export type ListEnumChallengeTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChallengeType[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2737,6 +3135,10 @@ export type GlobalOmitConfig = {
   mascotAction?: Prisma.MascotActionOmit
   mascotCosmetic?: Prisma.MascotCosmeticOmit
   userMascotCosmetic?: Prisma.UserMascotCosmeticOmit
+  userStreak?: Prisma.UserStreakOmit
+  duoPartnership?: Prisma.DuoPartnershipOmit
+  challenge?: Prisma.ChallengeOmit
+  challengeParticipant?: Prisma.ChallengeParticipantOmit
 }
 
 /* Types for Logging */

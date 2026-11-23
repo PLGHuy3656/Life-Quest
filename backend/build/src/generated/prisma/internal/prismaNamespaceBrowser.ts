@@ -70,7 +70,11 @@ export const ModelName = {
   MascotDialogue: 'MascotDialogue',
   MascotAction: 'MascotAction',
   MascotCosmetic: 'MascotCosmetic',
-  UserMascotCosmetic: 'UserMascotCosmetic'
+  UserMascotCosmetic: 'UserMascotCosmetic',
+  UserStreak: 'UserStreak',
+  DuoPartnership: 'DuoPartnership',
+  Challenge: 'Challenge',
+  ChallengeParticipant: 'ChallengeParticipant'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -393,6 +397,76 @@ export const UserMascotCosmeticScalarFieldEnum = {
 } as const
 
 export type UserMascotCosmeticScalarFieldEnum = (typeof UserMascotCosmeticScalarFieldEnum)[keyof typeof UserMascotCosmeticScalarFieldEnum]
+
+
+export const UserStreakScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  currentStreak: 'currentStreak',
+  longestStreak: 'longestStreak',
+  lastCompletedDate: 'lastCompletedDate',
+  freezeCount: 'freezeCount',
+  isFrozenToday: 'isFrozenToday',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserStreakScalarFieldEnum = (typeof UserStreakScalarFieldEnum)[keyof typeof UserStreakScalarFieldEnum]
+
+
+export const DuoPartnershipScalarFieldEnum = {
+  id: 'id',
+  user1Id: 'user1Id',
+  user2Id: 'user2Id',
+  status: 'status',
+  questId: 'questId',
+  title: 'title',
+  targetValue: 'targetValue',
+  user1Progress: 'user1Progress',
+  user2Progress: 'user2Progress',
+  rewardXp: 'rewardXp',
+  rewardCoins: 'rewardCoins',
+  expiresAt: 'expiresAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DuoPartnershipScalarFieldEnum = (typeof DuoPartnershipScalarFieldEnum)[keyof typeof DuoPartnershipScalarFieldEnum]
+
+
+export const ChallengeScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  targetMetric: 'targetMetric',
+  targetValue: 'targetValue',
+  rewardXp: 'rewardXp',
+  rewardCoins: 'rewardCoins',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChallengeScalarFieldEnum = (typeof ChallengeScalarFieldEnum)[keyof typeof ChallengeScalarFieldEnum]
+
+
+export const ChallengeParticipantScalarFieldEnum = {
+  id: 'id',
+  challengeId: 'challengeId',
+  userId: 'userId',
+  currentProgress: 'currentProgress',
+  isCompleted: 'isCompleted',
+  rewardClaimed: 'rewardClaimed',
+  completedAt: 'completedAt',
+  joinedAt: 'joinedAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ChallengeParticipantScalarFieldEnum = (typeof ChallengeParticipantScalarFieldEnum)[keyof typeof ChallengeParticipantScalarFieldEnum]
 
 
 export const SortOrder = {

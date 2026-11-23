@@ -253,6 +253,10 @@ export type UserWhereInput = {
   sentPokes?: Prisma.PokeListRelationFilter
   receivedPokes?: Prisma.PokeListRelationFilter
   mascotCosmetics?: Prisma.UserMascotCosmeticListRelationFilter
+  streak?: Prisma.XOR<Prisma.UserStreakNullableScalarRelationFilter, Prisma.UserStreakWhereInput> | null
+  duosInitiated?: Prisma.DuoPartnershipListRelationFilter
+  duosReceived?: Prisma.DuoPartnershipListRelationFilter
+  challengeParticipations?: Prisma.ChallengeParticipantListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -283,6 +287,10 @@ export type UserOrderByWithRelationInput = {
   sentPokes?: Prisma.PokeOrderByRelationAggregateInput
   receivedPokes?: Prisma.PokeOrderByRelationAggregateInput
   mascotCosmetics?: Prisma.UserMascotCosmeticOrderByRelationAggregateInput
+  streak?: Prisma.UserStreakOrderByWithRelationInput
+  duosInitiated?: Prisma.DuoPartnershipOrderByRelationAggregateInput
+  duosReceived?: Prisma.DuoPartnershipOrderByRelationAggregateInput
+  challengeParticipations?: Prisma.ChallengeParticipantOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -316,6 +324,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sentPokes?: Prisma.PokeListRelationFilter
   receivedPokes?: Prisma.PokeListRelationFilter
   mascotCosmetics?: Prisma.UserMascotCosmeticListRelationFilter
+  streak?: Prisma.XOR<Prisma.UserStreakNullableScalarRelationFilter, Prisma.UserStreakWhereInput> | null
+  duosInitiated?: Prisma.DuoPartnershipListRelationFilter
+  duosReceived?: Prisma.DuoPartnershipListRelationFilter
+  challengeParticipations?: Prisma.ChallengeParticipantListRelationFilter
 }, "id" | "email" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -382,6 +394,10 @@ export type UserCreateInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -412,6 +428,10 @@ export type UserUncheckedCreateInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -442,6 +462,10 @@ export type UserUpdateInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -472,6 +496,10 @@ export type UserUncheckedUpdateInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -795,6 +823,62 @@ export type UserUpdateOneRequiredWithoutMascotCosmeticsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMascotCosmeticsInput, Prisma.UserUpdateWithoutMascotCosmeticsInput>, Prisma.UserUncheckedUpdateWithoutMascotCosmeticsInput>
 }
 
+export type UserCreateNestedOneWithoutStreakInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStreakInput, Prisma.UserUncheckedCreateWithoutStreakInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStreakInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStreakNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStreakInput, Prisma.UserUncheckedCreateWithoutStreakInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStreakInput
+  upsert?: Prisma.UserUpsertWithoutStreakInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStreakInput, Prisma.UserUpdateWithoutStreakInput>, Prisma.UserUncheckedUpdateWithoutStreakInput>
+}
+
+export type UserCreateNestedOneWithoutDuosInitiatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDuosInitiatedInput, Prisma.UserUncheckedCreateWithoutDuosInitiatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDuosInitiatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutDuosReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDuosReceivedInput, Prisma.UserUncheckedCreateWithoutDuosReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDuosReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDuosInitiatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDuosInitiatedInput, Prisma.UserUncheckedCreateWithoutDuosInitiatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDuosInitiatedInput
+  upsert?: Prisma.UserUpsertWithoutDuosInitiatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDuosInitiatedInput, Prisma.UserUpdateWithoutDuosInitiatedInput>, Prisma.UserUncheckedUpdateWithoutDuosInitiatedInput>
+}
+
+export type UserUpdateOneRequiredWithoutDuosReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDuosReceivedInput, Prisma.UserUncheckedCreateWithoutDuosReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDuosReceivedInput
+  upsert?: Prisma.UserUpsertWithoutDuosReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDuosReceivedInput, Prisma.UserUpdateWithoutDuosReceivedInput>, Prisma.UserUncheckedUpdateWithoutDuosReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutChallengeParticipationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChallengeParticipationsInput, Prisma.UserUncheckedCreateWithoutChallengeParticipationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChallengeParticipationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutChallengeParticipationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutChallengeParticipationsInput, Prisma.UserUncheckedCreateWithoutChallengeParticipationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutChallengeParticipationsInput
+  upsert?: Prisma.UserUpsertWithoutChallengeParticipationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutChallengeParticipationsInput, Prisma.UserUpdateWithoutChallengeParticipationsInput>, Prisma.UserUncheckedUpdateWithoutChallengeParticipationsInput>
+}
+
 export type UserCreateWithoutProfileInput = {
   id?: string
   email: string
@@ -822,6 +906,10 @@ export type UserCreateWithoutProfileInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfileInput = {
@@ -851,6 +939,10 @@ export type UserUncheckedCreateWithoutProfileInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfileInput = {
@@ -896,6 +988,10 @@ export type UserUpdateWithoutProfileInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfileInput = {
@@ -925,6 +1021,10 @@ export type UserUncheckedUpdateWithoutProfileInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSettingsInput = {
@@ -954,6 +1054,10 @@ export type UserCreateWithoutSettingsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSettingsInput = {
@@ -983,6 +1087,10 @@ export type UserUncheckedCreateWithoutSettingsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSettingsInput = {
@@ -1028,6 +1136,10 @@ export type UserUpdateWithoutSettingsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSettingsInput = {
@@ -1057,6 +1169,10 @@ export type UserUncheckedUpdateWithoutSettingsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGamificationInput = {
@@ -1086,6 +1202,10 @@ export type UserCreateWithoutGamificationInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGamificationInput = {
@@ -1115,6 +1235,10 @@ export type UserUncheckedCreateWithoutGamificationInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGamificationInput = {
@@ -1160,6 +1284,10 @@ export type UserUpdateWithoutGamificationInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGamificationInput = {
@@ -1189,6 +1317,10 @@ export type UserUncheckedUpdateWithoutGamificationInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1218,6 +1350,10 @@ export type UserCreateWithoutSessionsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1247,6 +1383,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1292,6 +1432,10 @@ export type UserUpdateWithoutSessionsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1321,6 +1465,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -1350,6 +1498,10 @@ export type UserCreateWithoutGoalsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -1379,6 +1531,10 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -1424,6 +1580,10 @@ export type UserUpdateWithoutGoalsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -1453,6 +1613,10 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutQuestsInput = {
@@ -1482,6 +1646,10 @@ export type UserCreateWithoutQuestsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutQuestsInput = {
@@ -1511,6 +1679,10 @@ export type UserUncheckedCreateWithoutQuestsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutQuestsInput = {
@@ -1556,6 +1728,10 @@ export type UserUpdateWithoutQuestsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutQuestsInput = {
@@ -1585,6 +1761,10 @@ export type UserUncheckedUpdateWithoutQuestsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutExecutionsInput = {
@@ -1614,6 +1794,10 @@ export type UserCreateWithoutExecutionsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutExecutionsInput = {
@@ -1643,6 +1827,10 @@ export type UserUncheckedCreateWithoutExecutionsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutExecutionsInput = {
@@ -1688,6 +1876,10 @@ export type UserUpdateWithoutExecutionsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutExecutionsInput = {
@@ -1717,6 +1909,10 @@ export type UserUncheckedUpdateWithoutExecutionsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentFriendRequestsInput = {
@@ -1746,6 +1942,10 @@ export type UserCreateWithoutSentFriendRequestsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentFriendRequestsInput = {
@@ -1775,6 +1975,10 @@ export type UserUncheckedCreateWithoutSentFriendRequestsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentFriendRequestsInput = {
@@ -1809,6 +2013,10 @@ export type UserCreateWithoutReceivedFriendRequestsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedFriendRequestsInput = {
@@ -1838,6 +2046,10 @@ export type UserUncheckedCreateWithoutReceivedFriendRequestsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedFriendRequestsInput = {
@@ -1883,6 +2095,10 @@ export type UserUpdateWithoutSentFriendRequestsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentFriendRequestsInput = {
@@ -1912,6 +2128,10 @@ export type UserUncheckedUpdateWithoutSentFriendRequestsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedFriendRequestsInput = {
@@ -1952,6 +2172,10 @@ export type UserUpdateWithoutReceivedFriendRequestsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedFriendRequestsInput = {
@@ -1981,6 +2205,10 @@ export type UserUncheckedUpdateWithoutReceivedFriendRequestsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSocialPostsInput = {
@@ -2010,6 +2238,10 @@ export type UserCreateWithoutSocialPostsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSocialPostsInput = {
@@ -2039,6 +2271,10 @@ export type UserUncheckedCreateWithoutSocialPostsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSocialPostsInput = {
@@ -2084,6 +2320,10 @@ export type UserUpdateWithoutSocialPostsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSocialPostsInput = {
@@ -2113,6 +2353,10 @@ export type UserUncheckedUpdateWithoutSocialPostsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostReactionsInput = {
@@ -2142,6 +2386,10 @@ export type UserCreateWithoutPostReactionsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostReactionsInput = {
@@ -2171,6 +2419,10 @@ export type UserUncheckedCreateWithoutPostReactionsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostReactionsInput = {
@@ -2216,6 +2468,10 @@ export type UserUpdateWithoutPostReactionsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostReactionsInput = {
@@ -2245,6 +2501,10 @@ export type UserUncheckedUpdateWithoutPostReactionsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostCommentsInput = {
@@ -2274,6 +2534,10 @@ export type UserCreateWithoutPostCommentsInput = {
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -2303,6 +2567,10 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -2348,6 +2616,10 @@ export type UserUpdateWithoutPostCommentsInput = {
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -2377,6 +2649,10 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentPokesInput = {
@@ -2406,6 +2682,10 @@ export type UserCreateWithoutSentPokesInput = {
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentPokesInput = {
@@ -2435,6 +2715,10 @@ export type UserUncheckedCreateWithoutSentPokesInput = {
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentPokesInput = {
@@ -2469,6 +2753,10 @@ export type UserCreateWithoutReceivedPokesInput = {
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReceivedPokesInput = {
@@ -2498,6 +2786,10 @@ export type UserUncheckedCreateWithoutReceivedPokesInput = {
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReceivedPokesInput = {
@@ -2543,6 +2835,10 @@ export type UserUpdateWithoutSentPokesInput = {
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentPokesInput = {
@@ -2572,6 +2868,10 @@ export type UserUncheckedUpdateWithoutSentPokesInput = {
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutReceivedPokesInput = {
@@ -2612,6 +2912,10 @@ export type UserUpdateWithoutReceivedPokesInput = {
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReceivedPokesInput = {
@@ -2641,6 +2945,10 @@ export type UserUncheckedUpdateWithoutReceivedPokesInput = {
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMascotCosmeticsInput = {
@@ -2670,6 +2978,10 @@ export type UserCreateWithoutMascotCosmeticsInput = {
   postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
   sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMascotCosmeticsInput = {
@@ -2699,6 +3011,10 @@ export type UserUncheckedCreateWithoutMascotCosmeticsInput = {
   postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
   sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
   receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMascotCosmeticsInput = {
@@ -2744,6 +3060,10 @@ export type UserUpdateWithoutMascotCosmeticsInput = {
   postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
   sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMascotCosmeticsInput = {
@@ -2773,6 +3093,602 @@ export type UserUncheckedUpdateWithoutMascotCosmeticsInput = {
   postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
   sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
   receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStreakInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStreakInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStreakInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStreakInput, Prisma.UserUncheckedCreateWithoutStreakInput>
+}
+
+export type UserUpsertWithoutStreakInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStreakInput, Prisma.UserUncheckedUpdateWithoutStreakInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStreakInput, Prisma.UserUncheckedCreateWithoutStreakInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStreakInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStreakInput, Prisma.UserUncheckedUpdateWithoutStreakInput>
+}
+
+export type UserUpdateWithoutStreakInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStreakInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDuosInitiatedInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDuosInitiatedInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDuosInitiatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDuosInitiatedInput, Prisma.UserUncheckedCreateWithoutDuosInitiatedInput>
+}
+
+export type UserCreateWithoutDuosReceivedInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  challengeParticipations?: Prisma.ChallengeParticipantCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDuosReceivedInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDuosReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDuosReceivedInput, Prisma.UserUncheckedCreateWithoutDuosReceivedInput>
+}
+
+export type UserUpsertWithoutDuosInitiatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDuosInitiatedInput, Prisma.UserUncheckedUpdateWithoutDuosInitiatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDuosInitiatedInput, Prisma.UserUncheckedCreateWithoutDuosInitiatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDuosInitiatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDuosInitiatedInput, Prisma.UserUncheckedUpdateWithoutDuosInitiatedInput>
+}
+
+export type UserUpdateWithoutDuosInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDuosInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutDuosReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDuosReceivedInput, Prisma.UserUncheckedUpdateWithoutDuosReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDuosReceivedInput, Prisma.UserUncheckedCreateWithoutDuosReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDuosReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDuosReceivedInput, Prisma.UserUncheckedUpdateWithoutDuosReceivedInput>
+}
+
+export type UserUpdateWithoutDuosReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDuosReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  challengeParticipations?: Prisma.ChallengeParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutChallengeParticipationsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipCreateNestedManyWithoutUser2Input
+}
+
+export type UserUncheckedCreateWithoutChallengeParticipationsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+  streak?: Prisma.UserStreakUncheckedCreateNestedOneWithoutUserInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser1Input
+  duosReceived?: Prisma.DuoPartnershipUncheckedCreateNestedManyWithoutUser2Input
+}
+
+export type UserCreateOrConnectWithoutChallengeParticipationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutChallengeParticipationsInput, Prisma.UserUncheckedCreateWithoutChallengeParticipationsInput>
+}
+
+export type UserUpsertWithoutChallengeParticipationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutChallengeParticipationsInput, Prisma.UserUncheckedUpdateWithoutChallengeParticipationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutChallengeParticipationsInput, Prisma.UserUncheckedCreateWithoutChallengeParticipationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutChallengeParticipationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutChallengeParticipationsInput, Prisma.UserUncheckedUpdateWithoutChallengeParticipationsInput>
+}
+
+export type UserUpdateWithoutChallengeParticipationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUpdateManyWithoutUser2NestedInput
+}
+
+export type UserUncheckedUpdateWithoutChallengeParticipationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+  streak?: Prisma.UserStreakUncheckedUpdateOneWithoutUserNestedInput
+  duosInitiated?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser1NestedInput
+  duosReceived?: Prisma.DuoPartnershipUncheckedUpdateManyWithoutUser2NestedInput
 }
 
 
@@ -2793,6 +3709,9 @@ export type UserCountOutputType = {
   sentPokes: number
   receivedPokes: number
   mascotCosmetics: number
+  duosInitiated: number
+  duosReceived: number
+  challengeParticipations: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2808,6 +3727,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   sentPokes?: boolean | UserCountOutputTypeCountSentPokesArgs
   receivedPokes?: boolean | UserCountOutputTypeCountReceivedPokesArgs
   mascotCosmetics?: boolean | UserCountOutputTypeCountMascotCosmeticsArgs
+  duosInitiated?: boolean | UserCountOutputTypeCountDuosInitiatedArgs
+  duosReceived?: boolean | UserCountOutputTypeCountDuosReceivedArgs
+  challengeParticipations?: boolean | UserCountOutputTypeCountChallengeParticipationsArgs
 }
 
 /**
@@ -2904,6 +3826,27 @@ export type UserCountOutputTypeCountMascotCosmeticsArgs<ExtArgs extends runtime.
   where?: Prisma.UserMascotCosmeticWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDuosInitiatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DuoPartnershipWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDuosReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DuoPartnershipWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountChallengeParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ChallengeParticipantWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2933,6 +3876,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sentPokes?: boolean | Prisma.User$sentPokesArgs<ExtArgs>
   receivedPokes?: boolean | Prisma.User$receivedPokesArgs<ExtArgs>
   mascotCosmetics?: boolean | Prisma.User$mascotCosmeticsArgs<ExtArgs>
+  streak?: boolean | Prisma.User$streakArgs<ExtArgs>
+  duosInitiated?: boolean | Prisma.User$duosInitiatedArgs<ExtArgs>
+  duosReceived?: boolean | Prisma.User$duosReceivedArgs<ExtArgs>
+  challengeParticipations?: boolean | Prisma.User$challengeParticipationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2998,6 +3945,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sentPokes?: boolean | Prisma.User$sentPokesArgs<ExtArgs>
   receivedPokes?: boolean | Prisma.User$receivedPokesArgs<ExtArgs>
   mascotCosmetics?: boolean | Prisma.User$mascotCosmeticsArgs<ExtArgs>
+  streak?: boolean | Prisma.User$streakArgs<ExtArgs>
+  duosInitiated?: boolean | Prisma.User$duosInitiatedArgs<ExtArgs>
+  duosReceived?: boolean | Prisma.User$duosReceivedArgs<ExtArgs>
+  challengeParticipations?: boolean | Prisma.User$challengeParticipationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3021,6 +3972,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sentPokes: Prisma.$PokePayload<ExtArgs>[]
     receivedPokes: Prisma.$PokePayload<ExtArgs>[]
     mascotCosmetics: Prisma.$UserMascotCosmeticPayload<ExtArgs>[]
+    streak: Prisma.$UserStreakPayload<ExtArgs> | null
+    duosInitiated: Prisma.$DuoPartnershipPayload<ExtArgs>[]
+    duosReceived: Prisma.$DuoPartnershipPayload<ExtArgs>[]
+    challengeParticipations: Prisma.$ChallengeParticipantPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3444,6 +4399,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   sentPokes<T extends Prisma.User$sentPokesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentPokesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedPokes<T extends Prisma.User$receivedPokesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedPokesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PokePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mascotCosmetics<T extends Prisma.User$mascotCosmeticsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mascotCosmeticsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserMascotCosmeticPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  streak<T extends Prisma.User$streakArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$streakArgs<ExtArgs>>): Prisma.Prisma__UserStreakClient<runtime.Types.Result.GetResult<Prisma.$UserStreakPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  duosInitiated<T extends Prisma.User$duosInitiatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$duosInitiatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DuoPartnershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  duosReceived<T extends Prisma.User$duosReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$duosReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DuoPartnershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  challengeParticipations<T extends Prisma.User$challengeParticipationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$challengeParticipationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChallengeParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4220,6 +5179,97 @@ export type User$mascotCosmeticsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.UserMascotCosmeticScalarFieldEnum | Prisma.UserMascotCosmeticScalarFieldEnum[]
+}
+
+/**
+ * User.streak
+ */
+export type User$streakArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserStreak
+   */
+  select?: Prisma.UserStreakSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserStreak
+   */
+  omit?: Prisma.UserStreakOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserStreakInclude<ExtArgs> | null
+  where?: Prisma.UserStreakWhereInput
+}
+
+/**
+ * User.duosInitiated
+ */
+export type User$duosInitiatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DuoPartnership
+   */
+  select?: Prisma.DuoPartnershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DuoPartnership
+   */
+  omit?: Prisma.DuoPartnershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DuoPartnershipInclude<ExtArgs> | null
+  where?: Prisma.DuoPartnershipWhereInput
+  orderBy?: Prisma.DuoPartnershipOrderByWithRelationInput | Prisma.DuoPartnershipOrderByWithRelationInput[]
+  cursor?: Prisma.DuoPartnershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DuoPartnershipScalarFieldEnum | Prisma.DuoPartnershipScalarFieldEnum[]
+}
+
+/**
+ * User.duosReceived
+ */
+export type User$duosReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DuoPartnership
+   */
+  select?: Prisma.DuoPartnershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DuoPartnership
+   */
+  omit?: Prisma.DuoPartnershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DuoPartnershipInclude<ExtArgs> | null
+  where?: Prisma.DuoPartnershipWhereInput
+  orderBy?: Prisma.DuoPartnershipOrderByWithRelationInput | Prisma.DuoPartnershipOrderByWithRelationInput[]
+  cursor?: Prisma.DuoPartnershipWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DuoPartnershipScalarFieldEnum | Prisma.DuoPartnershipScalarFieldEnum[]
+}
+
+/**
+ * User.challengeParticipations
+ */
+export type User$challengeParticipationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ChallengeParticipant
+   */
+  select?: Prisma.ChallengeParticipantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ChallengeParticipant
+   */
+  omit?: Prisma.ChallengeParticipantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ChallengeParticipantInclude<ExtArgs> | null
+  where?: Prisma.ChallengeParticipantWhereInput
+  orderBy?: Prisma.ChallengeParticipantOrderByWithRelationInput | Prisma.ChallengeParticipantOrderByWithRelationInput[]
+  cursor?: Prisma.ChallengeParticipantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ChallengeParticipantScalarFieldEnum | Prisma.ChallengeParticipantScalarFieldEnum[]
 }
 
 /**
