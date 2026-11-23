@@ -251,12 +251,20 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
 
                   <nav className={styles.bubbleMenu} aria-label="Menu tài khoản">
                     <Link
+                      to="/profile"
+                      className={styles.bubbleLink}
+                      role="menuitem"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Trang cá nhân &amp; Album
+                    </Link>
+                    <Link
                       to="/settings"
                       className={styles.bubbleLink}
                       role="menuitem"
                       onClick={() => setProfileOpen(false)}
                     >
-                      Hồ sơ &amp; Cài đặt
+                      Cài đặt tài khoản
                     </Link>
                     <Link
                       to="/wardrobe"

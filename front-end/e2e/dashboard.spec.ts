@@ -13,20 +13,17 @@ for (const vp of VIEWPORTS) {
     await page.setViewportSize({ width: vp.width, height: vp.height })
     await page.goto('/')
 
-    await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Social và nhật ký hành trình' })).toBeVisible()
-
     // Fox V2 canvas OR WebGL fallback must be present without duplicate WebGL contexts
-    const foxStage = page.locator('[data-testid="fox-canvas-container"], [data-testid="fox-fallback"]')
+    const foxStage = page.locator(
+      '[data-testid="fox-canvas-container"], [data-testid="fox-fallback"]'
+    )
     await expect(foxStage.first()).toBeVisible()
 
     const canvasCount = await page.locator('canvas').count()
     expect(canvasCount).toBeLessThanOrEqual(1)
 
     // Production preview must NOT silently fall back to mock for authenticated LIVE endpoints
-    await expect(
-      page.getByTestId('pinned-board-card').getByText(/AUTHENTICATION_REQUIRED/)
-    ).toBeVisible()
+    await expect(page.getByText(/AUTHENTICATION_REQUIRED/).first()).toBeVisible()
 
     // Verify correct nav for breakpoint
     await expect(page.getByLabel(vp.expectedNav)).toBeVisible()
@@ -57,7 +54,7 @@ test('wardrobe H1/H2 cosmetic switching, reset & Voice Assistant Gate I sheet', 
   await expect(page.getByRole('button', { name: /Khôi phục mặc định \(0\)/i })).toBeDisabled()
 
   // Open Voice Assistant dock sheet & test state transitions + Escape dismissal
-  await page.getByRole('button', { name: /Mở Trợ lý Giọng nói Fox V2/i }).click()
+  await page.getByRole('button', { name: /Mở Trợ lý Giọng nói Fox V2/i }).first().click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
   await page.getByRole('button', { name: 'Lắng nghe' }).click()
@@ -74,14 +71,14 @@ test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ pag
   await rmBtn.click()
   await expect(page.locator('html')).toHaveClass(/lq-rm/)
 
-  await page.getByRole('button', { name: /\+ Thêm nhiệm vụ/i }).click()
+  await page.getByRole('button', { name: 'Mở chi tiết tạo nhiệm vụ' }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(dialog).toBeHidden()
 })
 
-test('protected route /work redirects unauthenticated users to /login with validation', async ({
+test('protected routes (/work, /profile) redirect unauthenticated users to /login', async ({
   page
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
@@ -92,37 +89,50 @@ test('protected route /work redirects unauthenticated users to /login with valid
 
   await page.getByRole('button', { name: 'Đăng nhập' }).click()
   await expect(page.getByText('Vui lòng nhập email.')).toBeVisible()
+
+  await page.goto('/profile')
+  await expect(page).toHaveURL(/\/login\?redirect=%2Fprofile/)
 })
 
-test('route navigation (/ -> /wardrobe -> /) cleans up and maintains single active WebGL renderer', async ({
+test('shared AppShell route navigation (/ -> /messages -> /wardrobe -> /) preserves Fox collapse, draft & single WebGL', async ({
   page
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
+  await expect(page.getByTestId('social-feed-section')).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 
+  // Type draft into Quick Create & collapse FoxCompanionRail
+  await page.locator('#mascot-quick-prompt').fill('Ôn tập kiến trúc hệ thống')
+  await page.getByRole('button', { name: 'Thu gọn Fox Companion' }).click()
+  await expect(page.getByTestId('shared-fox-rail')).toHaveAttribute('data-state', 'collapsed')
+
+  // Navigate to /messages and verify collapsed state persists
   const headerNav = page.getByLabel('Điều hướng nhanh')
+  await headerNav.getByRole('link', { name: 'Tin nhắn' }).click()
+  await expect(page.getByRole('heading', { name: /Tin nhắn & Nhóm bạn bè/i })).toBeVisible()
+  await expect(page.getByTestId('shared-fox-rail')).toHaveAttribute('data-state', 'collapsed')
+
+  // Navigate to /wardrobe and verify single active WebGL renderer
   await headerNav.getByRole('link', { name: 'Tủ đồ Fox' }).click()
   await expect(page.getByRole('heading', { name: /Tủ đồ Fox V2/i })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 
+  // Return to /, expand Fox, and verify Quick Create draft survived intact
   await headerNav.getByRole('link', { name: 'Trang chủ' }).click()
-  await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
+  await expect(page.getByTestId('social-feed-section')).toBeVisible()
+  await page.getByRole('button', { name: 'Mở rộng Fox Companion' }).click()
+  await expect(page.locator('#mascot-quick-prompt')).toHaveValue('Ôn tập kiến trúc hệ thống')
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 })
 
 for (const width of [1024, 1280, 1440, 1920]) {
-  test(`FE-03.5E desktop ${width}px: mascot greeting + prompt on right, pinned + social on left, no old left hero`, async ({
+  test(`FE-03.5I desktop ${width}px: shared 3-region AppShell, Social-First feed, Fox rail & alignment`, async ({
     page
   }) => {
     const height = width === 1920 ? 1080 : 900
     await page.setViewportSize({ width, height })
     await page.goto('/?nowebgl=1')
-
-    // 1. Desktop sidebar removed & old left hero hidden on Desktop
-    expect(await page.locator('aside').count()).toBe(0)
-    await expect(page.getByTestId('hero-info-card')).toBeHidden()
 
     const header = page.getByTestId('desktop-canvas-header')
     await expect(header).toBeVisible()
@@ -147,42 +157,31 @@ for (const width of [1024, 1280, 1440, 1920]) {
     expect(rects[0].right).toBeLessThanOrEqual(rects[1].left + 1)
     expect(rects[1].right).toBeLessThanOrEqual(rects[2].left + 1)
 
-    // 2. Greeting, decorated stage & "Hôm nay bạn muốn làm gì?" inside right mascot panel; Pinned + Social on left
-    await expect(page.getByTestId('mascot-greeting-block')).toBeVisible()
-    await expect(page.getByTestId('mascot-decorated-stage')).toBeVisible()
-    await expect(page.getByTestId('mascot-prompt-box')).toBeVisible()
+    // Verify Social-First Home + Compact Composer + Shared Fox Rail
+    await expect(page.getByTestId('social-feed-section')).toBeVisible()
+    await expect(page.getByTestId('social-composer-card')).toBeVisible()
+    await expect(page.getByTestId('shared-fox-rail')).toBeVisible()
     await expect(page.getByTestId('mascot-prompt-mic-btn')).toBeVisible()
-    await expect(page.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeVisible()
 
-    // Verify social mock illustrations loaded cleanly
-    const socialImgs = page.locator('[data-testid="social-preview-item"] img')
-    await expect(socialImgs).toHaveCount(2)
-    for (let i = 0; i < 2; i++) {
-      await expect(socialImgs.nth(i)).toBeVisible()
-      await expect
-        .poll(() =>
-          socialImgs.nth(i).evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
-        )
-        .toBe(true)
-    }
+    // In production build without auth, 0 pinned tasks => PinnedTaskRail auto-hides cleanly
+    await expect(page.getByTestId('shared-pinned-rail')).toHaveCount(0)
 
+    // Verify Header-to-Shell outer alignment within 4px and no overlap with Floating Fox dock
     const layout = await page.evaluate(() => {
       const headerGrid = document.querySelector('[data-testid="desktop-canvas-header"]')?.firstElementChild
       const headerRect = headerGrid?.getBoundingClientRect()
-      const showcase = document.querySelector('[data-testid="dashboard-main-showcase"]')!.getBoundingClientRect()
-      const pinned = document.querySelector('[data-testid="pinned-board-card"]')!.getBoundingClientRect()
-      const social = document.querySelector('[data-testid="social-preview-card"]')!.getBoundingClientRect()
-      const mascot = document.querySelector('[data-testid="mascot-hero-panel"]')!.getBoundingClientRect()
+      const shell = document.querySelector('[data-testid="shared-desktop-three-region"]')!.getBoundingClientRect()
+      const feed = document.querySelector('[data-testid="social-feed-section"]')!.getBoundingClientRect()
+      const fox = document.querySelector('[data-testid="shared-fox-rail"]')!.getBoundingClientRect()
       const prompt = document.querySelector('[data-testid="mascot-prompt-box"]')!.getBoundingClientRect()
       const dock = document.querySelector('[data-testid="floating-mascot-dock"]')!.getBoundingClientRect()
-      return { headerRect, showcase, pinned, social, mascot, prompt, dock }
+      return { headerRect, shell, feed, fox, prompt, dock }
     })
-    expect(Math.abs(layout.showcase.left - layout.headerRect!.left)).toBeLessThanOrEqual(4)
-    expect(Math.abs(layout.showcase.right - layout.headerRect!.right)).toBeLessThanOrEqual(4)
-    expect(layout.pinned.right).toBeLessThanOrEqual(layout.mascot.left + 1)
-    expect(layout.social.right).toBeLessThanOrEqual(layout.mascot.left + 1)
-    expect(layout.social.top).toBeGreaterThanOrEqual(layout.pinned.bottom)
-    // Floating Fox Assistant button must never overlap Quick Create
+
+    expect(Math.abs(layout.shell.left - layout.headerRect!.left)).toBeLessThanOrEqual(4)
+    expect(Math.abs(layout.shell.right - layout.headerRect!.right)).toBeLessThanOrEqual(4)
+    expect(layout.feed.right).toBeLessThanOrEqual(layout.fox.left + 1)
+
     const dockOverlapsPrompt =
       layout.dock.left < layout.prompt.right &&
       layout.dock.right > layout.prompt.left &&

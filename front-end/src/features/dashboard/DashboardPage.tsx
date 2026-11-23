@@ -1,4 +1,4 @@
-import { MascotEventAdapter } from '@/features/mascot/MascotEventAdapter'
+import { ErrorBanner } from '@/components/ui/StateViews'
 import {
   useGoalsWithMilestonesQuery,
   useQuestsQuery,
@@ -6,19 +6,29 @@ import {
   useTodayQuery,
   useUserMeQuery
 } from '@/hooks/useDashboardData'
+import { useIsDesktop } from '@/hooks/useIsDesktop'
 import { useUiStore } from '@/stores/uiStore'
-import { DashboardSheets } from './DashboardSheets'
 import { GoalsProgressPanel } from './GoalsProgressPanel'
 import { HeroSection } from './HeroSection'
 import { MascotHeroPanel } from './MascotHeroPanel'
 import { PinnedBoard } from './PinnedBoard'
+import { SocialFeedSection } from './SocialFeedSection'
 import { SocialPreviewPanel } from './SocialPreviewPanel'
 import { TodayFeed } from './TodayFeed'
 import styles from './DashboardPage.module.css'
 
+/**
+ * Production LifeQuest Home Dashboard (FE-03.5I).
+ * - Desktop (>= 1024px): Social-First central feed inside the shared 3-region AppShell
+ *   (LEFT: PinnedTaskRail, CENTER: SocialFeedSection, RIGHT: FoxCompanionRail).
+ * - Tablet & Mobile (< 1024px): Preserves the existing responsive Dashboard untouched.
+ */
 export function DashboardPage() {
+  const isDesktop = useIsDesktop()
   const searchQuery = useUiStore((s) => s.searchQuery)
   const openSheet = useUiStore((s) => s.openSheet)
+  const pinnedRailCollapsed = useUiStore((s) => s.pinnedRailCollapsed)
+  const foxRailCollapsed = useUiStore((s) => s.foxRailCollapsed)
 
   const userQuery = useUserMeQuery()
   const todayQuery = useTodayQuery()
@@ -27,82 +37,80 @@ export function DashboardPage() {
   const socialQuery = useSocialPreviewQuery()
 
   const quests = questsQuery.data?.data ?? []
-  const authoritativeLevel =
-    todayQuery.data?.source === 'LIVE' ? todayQuery.data.data.gamification.level : undefined
+  const hasPinnedQuests = quests.some((q) => q.isPinned)
+  const userName =
+    userQuery.data?.data.profile?.displayName?.trim() ||
+    userQuery.data?.data.username?.trim() ||
+    'Bạn'
+  const userInitial = userName.slice(0, 1).toUpperCase()
 
+  if (isDesktop) {
+    const bothSidePanelsMinimal = (!hasPinnedQuests || pinnedRailCollapsed) && foxRailCollapsed
+
+    return (
+      <div className={styles.stack} data-testid="dashboard-social-home">
+        {questsQuery.error && (
+          <div data-testid="dashboard-live-auth-error">
+            <ErrorBanner error={questsQuery.error} onRetry={() => questsQuery.refetch()} />
+          </div>
+        )}
+
+        <SocialFeedSection expandedWide={bothSidePanelsMinimal} userInitial={userInitial} />
+      </div>
+    )
+  }
+
+  /* Tablet & Mobile (< 1024px): preserved untouched */
   return (
     <div className={styles.stack}>
-      <MascotEventAdapter
-        triggerGreetingOnMount
-        authoritativeLevel={authoritativeLevel}
+      <HeroSection
+        user={userQuery.data?.data}
+        today={todayQuery.data?.data}
+        source={todayQuery.data?.source ?? userQuery.data?.source ?? 'MOCK'}
+        isLoading={userQuery.isLoading || todayQuery.isLoading}
+        error={userQuery.error || todayQuery.error}
+        onRetry={() => {
+          userQuery.refetch()
+          todayQuery.refetch()
+        }}
       />
 
-      {/* Preserved untouched for Tablet & Mobile (< 1024px); hidden on Desktop */}
-      <div className={styles.mobileHeroOnly}>
-        <HeroSection
-          user={userQuery.data?.data}
-          today={todayQuery.data?.data}
-          source={todayQuery.data?.source ?? userQuery.data?.source ?? 'MOCK'}
-          isLoading={userQuery.isLoading || todayQuery.isLoading}
-          error={userQuery.error || todayQuery.error}
-          onRetry={() => {
-            userQuery.refetch()
-            todayQuery.refetch()
-          }}
-        />
-      </div>
+      <MascotHeroPanel user={userQuery.data?.data} today={todayQuery.data?.data} />
 
-      {/* Desktop Main Showcase: Left = Bảng ghim + Social/Hành trình; Right = Mascot Greeting + Prompt */}
-      <div className={styles.mainShowcase} data-testid="dashboard-main-showcase">
-        <div className={styles.leftShowcase}>
-          <PinnedBoard
-            quests={quests}
-            source={questsQuery.data?.source ?? 'MOCK'}
-            isLoading={questsQuery.isLoading}
-            error={questsQuery.error}
-            onRetry={() => questsQuery.refetch()}
-            onManagePins={() => openSheet('manage-pins')}
-          />
+      <PinnedBoard
+        quests={quests}
+        source={questsQuery.data?.source ?? 'MOCK'}
+        isLoading={questsQuery.isLoading}
+        error={questsQuery.error}
+        onRetry={() => questsQuery.refetch()}
+        onManagePins={() => openSheet('manage-pins')}
+      />
 
-          <SocialPreviewPanel
-            items={socialQuery.data?.data ?? []}
-            note={socialQuery.data?.note}
-          />
-        </div>
+      <SocialPreviewPanel
+        items={socialQuery.data?.data ?? []}
+        note={socialQuery.data?.note}
+      />
 
-        <div className={styles.rightShowcase}>
-          <MascotHeroPanel
-            user={userQuery.data?.data}
-            today={todayQuery.data?.data}
-          />
-        </div>
-      </div>
+      <TodayFeed
+        quests={quests}
+        schedules={todayQuery.data?.data.schedules ?? []}
+        source={questsQuery.data?.source ?? 'MOCK'}
+        isLoading={questsQuery.isLoading || todayQuery.isLoading}
+        error={questsQuery.error || todayQuery.error}
+        onRetry={() => {
+          questsQuery.refetch()
+          todayQuery.refetch()
+        }}
+        onQuickCreate={() => openSheet('quick-create')}
+      />
 
-      {/* Lower Dashboard sections remain cleanly accessible below */}
-      <div className={styles.lowerGrid}>
-        <TodayFeed
-          quests={quests}
-          schedules={todayQuery.data?.data.schedules ?? []}
-          source={questsQuery.data?.source ?? 'MOCK'}
-          isLoading={questsQuery.isLoading || todayQuery.isLoading}
-          error={questsQuery.error || todayQuery.error}
-          onRetry={() => {
-            questsQuery.refetch()
-            todayQuery.refetch()
-          }}
-          onQuickCreate={() => openSheet('quick-create')}
-        />
-
-        <GoalsProgressPanel
-          items={goalsQuery.data?.data ?? []}
-          source={goalsQuery.data?.source ?? 'MOCK'}
-          isLoading={goalsQuery.isLoading}
-          error={goalsQuery.error}
-          onRetry={() => goalsQuery.refetch()}
-        />
-      </div>
-
-      <DashboardSheets quests={quests} />
+      <GoalsProgressPanel
+        items={goalsQuery.data?.data ?? []}
+        source={goalsQuery.data?.source ?? 'MOCK'}
+        isLoading={goalsQuery.isLoading}
+        error={goalsQuery.error}
+        onRetry={() => goalsQuery.refetch()}
+      />
     </div>
   )
 }
