@@ -91,6 +91,19 @@ enum ExecutionStatus {
   ABANDONED
 }
 
+enum DuoPartnershipStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum ChallengeType {
+  SOLO
+  DUO
+  COMMUNITY
+}
+
 model User {
   id              String      @id @default(uuid())
   email           String      @unique
@@ -105,21 +118,25 @@ model User {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
-  goals                  Goal[]
-  quests                 Quest[]
-  profile                UserProfile?
-  settings               UserSettings?
-  gamification           UserGamification?
-  sessions               Session[]
-  executions             QuestExecution[]
-  sentFriendRequests     Friendship[]         @relation("SentFriendRequests")
-  receivedFriendRequests Friendship[]         @relation("ReceivedFriendRequests")
-  socialPosts            SocialPost[]
-  postReactions          PostReaction[]
-  postComments           PostComment[]
-  sentPokes              Poke[]               @relation("SentPokes")
-  receivedPokes          Poke[]               @relation("ReceivedPokes")
-  mascotCosmetics        UserMascotCosmetic[]
+  goals                   Goal[]
+  quests                  Quest[]
+  profile                 UserProfile?
+  settings                UserSettings?
+  gamification            UserGamification?
+  sessions                Session[]
+  executions              QuestExecution[]
+  sentFriendRequests      Friendship[]           @relation("SentFriendRequests")
+  receivedFriendRequests  Friendship[]           @relation("ReceivedFriendRequests")
+  socialPosts             SocialPost[]
+  postReactions           PostReaction[]
+  postComments            PostComment[]
+  sentPokes               Poke[]                 @relation("SentPokes")
+  receivedPokes           Poke[]                 @relation("ReceivedPokes")
+  mascotCosmetics         UserMascotCosmetic[]
+  streak                  UserStreak?
+  duosInitiated           DuoPartnership[]       @relation("DuoUser1")
+  duosReceived            DuoPartnership[]       @relation("DuoUser2")
+  challengeParticipations ChallengeParticipant[]
 }
 
 model UserProfile {
@@ -417,4 +434,74 @@ model UserMascotCosmetic {
   cosmetic MascotCosmetic @relation(fields: [cosmeticId], references: [id])
 
   @@unique([userId, cosmeticId])
+}
+
+model UserStreak {
+  id                String    @id @default(uuid())
+  userId            String    @unique
+  currentStreak     Int       @default(0)
+  longestStreak     Int       @default(0)
+  lastCompletedDate DateTime?
+  freezeCount       Int       @default(1)
+  isFrozenToday     Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DuoPartnership {
+  id            String               @id @default(uuid())
+  user1Id       String
+  user2Id       String
+  status        DuoPartnershipStatus @default(PENDING)
+  questId       String?
+  title         String               @default("Co-op Quest")
+  targetValue   Int                  @default(1)
+  user1Progress Int                  @default(0)
+  user2Progress Int                  @default(0)
+  rewardXp      Int                  @default(100)
+  rewardCoins   Int                  @default(50)
+  expiresAt     DateTime
+  completedAt   DateTime?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  user1 User @relation("DuoUser1", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2 User @relation("DuoUser2", fields: [user2Id], references: [id], onDelete: Cascade)
+}
+
+model Challenge {
+  id           String        @id @default(uuid())
+  title        String
+  description  String?
+  type         ChallengeType @default(COMMUNITY)
+  targetMetric String        @default("QUEST_COUNT")
+  targetValue  Int           @default(5)
+  rewardXp     Int           @default(150)
+  rewardCoins  Int           @default(75)
+  startAt      DateTime
+  endAt        DateTime
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  participants ChallengeParticipant[]
+}
+
+model ChallengeParticipant {
+  id              String    @id @default(uuid())
+  challengeId     String
+  userId          String
+  currentProgress Int       @default(0)
+  isCompleted     Boolean   @default(false)
+  rewardClaimed   Boolean   @default(false)
+  completedAt     DateTime?
+  joinedAt        DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, userId])
 }
