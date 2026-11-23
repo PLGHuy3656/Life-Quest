@@ -32,11 +32,16 @@ describe('DashboardPage & AppShell FE-01', () => {
     useUiStore.getState().closeSheet()
   })
 
-  it('renders Claude Canvas dashboard sections with neutral display-name fallback', async () => {
+  it('renders Claude Canvas dashboard sections with greeting & prompt inside mascot panel', async () => {
     renderApp()
 
     expect(await screen.findByText(/Bạn!/)).toBeInTheDocument()
     expect(screen.queryByText(/Huy/)).not.toBeInTheDocument()
+    expect(screen.getByTestId('mascot-greeting-block')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Hôm nay' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Ngày mai' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Tuần này' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Bảng ghim' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Nhiệm vụ hôm nay' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Mục tiêu & Cột mốc' })).toBeInTheDocument()

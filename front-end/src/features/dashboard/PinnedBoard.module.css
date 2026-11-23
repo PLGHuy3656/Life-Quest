@@ -26,14 +26,23 @@
 }
 
 .pinCard {
-  background: var(--lq-bg-elevated);
+  background: linear-gradient(160deg, #ffffff 0%, #faf7f0 100%);
   border: 1px solid var(--lq-border);
+  border-top: 3px solid var(--lq-accent);
   border-radius: 16px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 8px;
+}
+
+.pinCard:nth-child(2) {
+  border-top-color: var(--lq-success);
+}
+
+.pinCard:nth-child(3) {
+  border-top-color: var(--lq-reward);
 }
 
 .pinTitle {
