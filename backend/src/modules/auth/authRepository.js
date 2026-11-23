@@ -21,33 +21,34 @@ const createUserWithRelations = async (userData) => {
       }
     })
 
-    // Tạo user_profile mặc định
+    // Tạo user_profile mặc định (khớp với model UserProfile trong schema.prisma)
     await tx.userProfile.create({
       data: {
         userId: user.id,
         displayName: user.username,
         bio: null,
-        avatarUrl: null
+        title: null
       }
     })
 
-    // Tạo user_settings mặc định
+    // Tạo user_settings mặc định (khớp với model UserSettings trong schema.prisma)
     await tx.userSettings.create({
       data: {
         userId: user.id,
+        timezone: 'UTC',
         language: 'vi',
-        theme: 'light',
-        emailNotifications: true
+        privacyMode: 'FRIENDS',
+        notificationEnabled: true
       }
     })
 
-    // Tạo user_gamification mặc định
+    // Tạo user_gamification mặc định (khớp với model UserGamification trong schema.prisma)
     await tx.userGamification.create({
       data: {
         userId: user.id,
         level: 1,
-        currentXp: 0,
-        totalXp: 0
+        totalXp: BigInt(0),
+        coinBalance: BigInt(0)
       }
     })
 
@@ -72,7 +73,6 @@ const createSession = async (sessionData) => {
       id: sessionData.id,
       userId: sessionData.userId,
       refreshTokenHash: sessionData.refreshTokenHash,
-      deviceId: sessionData.deviceId || null,
       ipAddress: sessionData.ipAddress || null,
       userAgent: sessionData.userAgent || null,
       expiresAt: sessionData.expiresAt

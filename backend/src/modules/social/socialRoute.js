@@ -2,8 +2,12 @@ import express from 'express'
 import { socialController } from './socialController.js'
 import { socialValidation } from './socialValidation.js'
 import validate from '../../common/middleware/validate.js'
+import authenticate from '../../common/middleware/authenticate.js'
 
 const Router = express.Router()
+
+// Tất cả các route Social (feed, posts, reactions, comments, pokes) đều cần xác thực
+Router.use(authenticate)
 
 // /feed
 Router.get('/feed', validate(socialValidation.getFeed), socialController.getFeed)

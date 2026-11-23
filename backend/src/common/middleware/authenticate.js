@@ -6,7 +6,7 @@ const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'access_secret_default'
 
 
 // Middleware xác thực JWT từ Authorization header
-// Set req.user = { id, email, username, status } nếu token hợp lệ
+// Set req.user = { id, userId, sub, email, username, status } nếu token hợp lệ
 const authenticate = (req, res, next) => {
   try {
     const authHeader = req.headers['authorization']
@@ -33,9 +33,13 @@ const authenticate = (req, res, next) => {
       throw new ApiError(401, 'Invalid token', 'INVALID_TOKEN')
     }
 
-    // Gắn thông tin user vào request
+    const userIdentifier = payload.sub || payload.id || payload.userId
+
+    // Gắn thông tin user vào request (hỗ trợ đầy đủ id, userId, sub)
     req.user = {
-      id: payload.sub,
+      id: userIdentifier,
+      userId: userIdentifier,
+      sub: userIdentifier,
       email: payload.email,
       username: payload.username,
       status: payload.status
@@ -44,6 +48,35 @@ const authenticate = (req, res, next) => {
     next()
   } catch (error) {
     next(error)
+  }
+}
+
+// Middleware xác thực tùy chọn (nếu có Bearer token thì giải mã, không có thì bỏ qua)
+export const authenticateOptional = (req, res, next) => {
+  try {
+    const authHeader = req.headers['authorization']
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      const token = authHeader.split(' ')[1]
+      if (token) {
+        try {
+          const payload = jwt.verify(token, ACCESS_SECRET)
+          const userIdentifier = payload.sub || payload.id || payload.userId
+          req.user = {
+            id: userIdentifier,
+            userId: userIdentifier,
+            sub: userIdentifier,
+            email: payload.email,
+            username: payload.username,
+            status: payload.status
+          }
+        } catch {
+          // Token không hợp lệ hoặc hết hạn thì bỏ qua ở chế độ optional
+        }
+      }
+    }
+    next()
+  } catch {
+    next()
   }
 }
 

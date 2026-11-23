@@ -128,7 +128,6 @@ const login = async (loginData, requestMeta = {}) => {
     id: sessionId,
     userId: user.id,
     refreshTokenHash,
-    deviceId: requestMeta.deviceId || null,
     ipAddress: requestMeta.ipAddress || null,
     userAgent: requestMeta.userAgent || null,
     expiresAt: getRefreshTokenExpiresAt()
