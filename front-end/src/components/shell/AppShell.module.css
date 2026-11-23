@@ -110,15 +110,21 @@
 }
 
 .header {
-  position: sticky;
-  top: 0;
-  z-index: var(--lq-z-header);
-  height: var(--lq-hdh);
-  background: var(--lq-surface-glass);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--lq-border);
-  display: flex;
-  align-items: center;
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: var(--lq-z-header);
+    height: var(--lq-hdh);
+    background: var(--lq-surface-glass);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--lq-border);
+    display: flex;
+    align-items: center;
+  }
 }
 
 .headerInner {

@@ -21,6 +21,7 @@ import { FloatingMascotDock } from '@/features/mascot/FloatingMascotDock'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
+import { DesktopHeader } from './DesktopHeader'
 import styles from './AppShell.module.css'
 
 const DESKTOP_NAV = [
@@ -117,7 +118,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className={styles.mainWrap}>
-        {/* Sticky Glass Adaptive Header */}
+        {/* Restored Claude Canvas Desktop Header (>= 1024px) */}
+        <DesktopHeader onLogout={handleLogout} />
+
+        {/* Existing Tablet/Mobile Header (< 1024px, unchanged) */}
         <header className={styles.header}>
           <div className={styles.headerInner}>
             <div className={styles.mobileBrand}>
