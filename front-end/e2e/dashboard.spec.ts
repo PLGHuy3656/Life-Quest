@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 const VIEWPORTS = [
-  { name: 'desktop', width: 1440, height: 900, expectedNav: 'Điều hướng chính' },
+  { name: 'desktop', width: 1440, height: 900, expectedNav: 'Điều hướng nhanh' },
   { name: 'tablet', width: 820, height: 1180, expectedNav: 'Điều hướng máy tính bảng' },
   { name: 'mobile', width: 390, height: 844, expectedNav: 'Điều hướng di động' }
 ] as const
@@ -72,7 +72,7 @@ test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ pag
   await rmBtn.click()
   await expect(page.locator('html')).toHaveClass(/lq-rm/)
 
-  await page.getByRole('button', { name: /Tạo mới nhanh/i }).click()
+  await page.getByRole('button', { name: /\+ Thêm nhiệm vụ/i }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
   await page.keyboard.press('Escape')
@@ -100,22 +100,26 @@ test('route navigation (/ -> /wardrobe -> /) cleans up and maintains single acti
   await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 
-  const sidebar = page.getByRole('complementary', { name: 'Điều hướng chính' })
-  await sidebar.getByRole('link', { name: 'Tủ đồ Fox' }).click()
+  const headerNav = page.getByLabel('Điều hướng nhanh')
+  await headerNav.getByRole('link', { name: 'Tủ đồ Fox' }).click()
   await expect(page.getByRole('heading', { name: /Tủ đồ Fox V2/i })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 
-  await sidebar.getByRole('link', { name: 'Trang chủ' }).click()
+  await headerNav.getByRole('link', { name: 'Trang chủ' }).click()
   await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 })
 
 for (const width of [1024, 1280, 1440, 1920]) {
-  test(`restored Claude Canvas Desktop Header at ${width}x900 has 3 non-overlapping islands & zero overflow`, async ({
+  test(`FE-03.5C desktop ${width}px: no sidebar, 3-island header, and 2-row vertical mascot span`, async ({
     page
   }) => {
-    await page.setViewportSize({ width, height: 900 })
+    const height = width === 1920 ? 1080 : 900
+    await page.setViewportSize({ width, height })
     await page.goto('/?nowebgl=1')
+
+    // 1. Desktop sidebar removed completely
+    expect(await page.locator('aside').count()).toBe(0)
 
     const header = page.getByTestId('desktop-canvas-header')
     await expect(header).toBeVisible()
@@ -125,7 +129,7 @@ for (const width of [1024, 1280, 1440, 1920]) {
     )
     expect(overflow).toBe(false)
 
-    // Verify 3 islands exist and do not overlap horizontally
+    // Verify 3 header islands exist and do not overlap horizontally
     const rects = await header.evaluate((el) => {
       const grid = el.firstElementChild as HTMLElement
       return Array.from(grid.children).map((c) => {
@@ -139,5 +143,15 @@ for (const width of [1024, 1280, 1440, 1920]) {
     expect(rects[2].height).toBe(64)
     expect(rects[0].right).toBeLessThanOrEqual(rects[1].left + 1)
     expect(rects[1].right).toBeLessThanOrEqual(rects[2].left + 1)
+
+    // 2. Verify Fox V2 card spans 2 rows vertically (taller than Hero info alone, original column width)
+    const layout = await page.evaluate(() => {
+      const topGrid = document.querySelector('[data-testid="dashboard-top-grid"]')!.getBoundingClientRect()
+      const hero = document.querySelector('[data-testid="hero-info-card"]')!.getBoundingClientRect()
+      const mascot = document.querySelector('[data-testid="hero-mascot-span-card"]')!.getBoundingClientRect()
+      return { topGrid, hero, mascot }
+    })
+    expect(layout.mascot.height).toBeGreaterThan(layout.hero.height + 40)
+    expect(layout.mascot.width).toBeLessThan(layout.topGrid.width * 0.45)
   })
 }

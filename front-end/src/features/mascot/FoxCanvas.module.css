@@ -1,7 +1,9 @@
 .stage {
   position: relative;
   width: 100%;
-  min-height: 220px;
+  flex: 1;
+  height: 100%;
+  min-height: 260px;
   border-radius: 18px;
   overflow: hidden;
   background: radial-gradient(circle at 50% 35%, #fff7e6 0%, #f5efe2 65%, #ebe4d5 100%);
