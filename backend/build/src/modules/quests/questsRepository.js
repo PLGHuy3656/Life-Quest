@@ -177,14 +177,26 @@ const unpinQuest = async questId => {
   });
 };
 const archiveQuest = async questId => {
-  return await prisma.quest.update({
-    where: {
-      id: questId
-    },
-    data: {
-      status: 'ARCHIVED',
-      archivedAt: new Date()
-    }
+  return await prisma.$transaction(async tx => {
+    // Vô hiệu hóa tất cả các Schedule đang active của Quest trong cùng transaction
+    await tx.questSchedule.updateMany({
+      where: {
+        questId,
+        isActive: true
+      },
+      data: {
+        isActive: false
+      }
+    });
+    return await tx.quest.update({
+      where: {
+        id: questId
+      },
+      data: {
+        status: 'ARCHIVED',
+        archivedAt: new Date()
+      }
+    });
   });
 };
 const restoreQuest = async questId => {

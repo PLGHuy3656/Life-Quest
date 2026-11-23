@@ -379,6 +379,8 @@ export type QuestWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   goal?: Prisma.XOR<Prisma.GoalNullableScalarRelationFilter, Prisma.GoalWhereInput> | null
   milestone?: Prisma.XOR<Prisma.MilestoneNullableScalarRelationFilter, Prisma.MilestoneWhereInput> | null
+  schedules?: Prisma.QuestScheduleListRelationFilter
+  executions?: Prisma.QuestExecutionListRelationFilter
 }
 
 export type QuestOrderByWithRelationInput = {
@@ -408,6 +410,8 @@ export type QuestOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   goal?: Prisma.GoalOrderByWithRelationInput
   milestone?: Prisma.MilestoneOrderByWithRelationInput
+  schedules?: Prisma.QuestScheduleOrderByRelationAggregateInput
+  executions?: Prisma.QuestExecutionOrderByRelationAggregateInput
 }
 
 export type QuestWhereUniqueInput = Prisma.AtLeast<{
@@ -440,6 +444,8 @@ export type QuestWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   goal?: Prisma.XOR<Prisma.GoalNullableScalarRelationFilter, Prisma.GoalWhereInput> | null
   milestone?: Prisma.XOR<Prisma.MilestoneNullableScalarRelationFilter, Prisma.MilestoneWhereInput> | null
+  schedules?: Prisma.QuestScheduleListRelationFilter
+  executions?: Prisma.QuestExecutionListRelationFilter
 }, "id">
 
 export type QuestOrderByWithAggregationInput = {
@@ -526,6 +532,8 @@ export type QuestCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutQuestsInput
   goal?: Prisma.GoalCreateNestedOneWithoutQuestsInput
   milestone?: Prisma.MilestoneCreateNestedOneWithoutQuestsInput
+  schedules?: Prisma.QuestScheduleCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUncheckedCreateInput = {
@@ -552,6 +560,8 @@ export type QuestUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   isPinned?: boolean
+  schedules?: Prisma.QuestScheduleUncheckedCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUpdateInput = {
@@ -578,6 +588,8 @@ export type QuestUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutQuestsNestedInput
   goal?: Prisma.GoalUpdateOneWithoutQuestsNestedInput
   milestone?: Prisma.MilestoneUpdateOneWithoutQuestsNestedInput
+  schedules?: Prisma.QuestScheduleUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateInput = {
@@ -604,6 +616,8 @@ export type QuestUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  schedules?: Prisma.QuestScheduleUncheckedUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestCreateManyInput = {
@@ -785,6 +799,11 @@ export type QuestSumOrderByAggregateInput = {
   coinReward?: Prisma.SortOrder
 }
 
+export type QuestScalarRelationFilter = {
+  is?: Prisma.QuestWhereInput
+  isNot?: Prisma.QuestWhereInput
+}
+
 export type QuestCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.QuestCreateWithoutUserInput, Prisma.QuestUncheckedCreateWithoutUserInput> | Prisma.QuestCreateWithoutUserInput[] | Prisma.QuestUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.QuestCreateOrConnectWithoutUserInput | Prisma.QuestCreateOrConnectWithoutUserInput[]
@@ -935,8 +954,32 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type QuestCreateNestedOneWithoutSchedulesInput = {
+  create?: Prisma.XOR<Prisma.QuestCreateWithoutSchedulesInput, Prisma.QuestUncheckedCreateWithoutSchedulesInput>
+  connectOrCreate?: Prisma.QuestCreateOrConnectWithoutSchedulesInput
+  connect?: Prisma.QuestWhereUniqueInput
+}
+
+export type QuestUpdateOneRequiredWithoutSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestCreateWithoutSchedulesInput, Prisma.QuestUncheckedCreateWithoutSchedulesInput>
+  connectOrCreate?: Prisma.QuestCreateOrConnectWithoutSchedulesInput
+  upsert?: Prisma.QuestUpsertWithoutSchedulesInput
+  connect?: Prisma.QuestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestUpdateToOneWithWhereWithoutSchedulesInput, Prisma.QuestUpdateWithoutSchedulesInput>, Prisma.QuestUncheckedUpdateWithoutSchedulesInput>
+}
+
+export type QuestCreateNestedOneWithoutExecutionsInput = {
+  create?: Prisma.XOR<Prisma.QuestCreateWithoutExecutionsInput, Prisma.QuestUncheckedCreateWithoutExecutionsInput>
+  connectOrCreate?: Prisma.QuestCreateOrConnectWithoutExecutionsInput
+  connect?: Prisma.QuestWhereUniqueInput
+}
+
+export type QuestUpdateOneRequiredWithoutExecutionsNestedInput = {
+  create?: Prisma.XOR<Prisma.QuestCreateWithoutExecutionsInput, Prisma.QuestUncheckedCreateWithoutExecutionsInput>
+  connectOrCreate?: Prisma.QuestCreateOrConnectWithoutExecutionsInput
+  upsert?: Prisma.QuestUpsertWithoutExecutionsInput
+  connect?: Prisma.QuestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.QuestUpdateToOneWithWhereWithoutExecutionsInput, Prisma.QuestUpdateWithoutExecutionsInput>, Prisma.QuestUncheckedUpdateWithoutExecutionsInput>
 }
 
 export type QuestCreateWithoutUserInput = {
@@ -962,6 +1005,8 @@ export type QuestCreateWithoutUserInput = {
   isPinned?: boolean
   goal?: Prisma.GoalCreateNestedOneWithoutQuestsInput
   milestone?: Prisma.MilestoneCreateNestedOneWithoutQuestsInput
+  schedules?: Prisma.QuestScheduleCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUncheckedCreateWithoutUserInput = {
@@ -987,6 +1032,8 @@ export type QuestUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   isPinned?: boolean
+  schedules?: Prisma.QuestScheduleUncheckedCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutQuestInput
 }
 
 export type QuestCreateOrConnectWithoutUserInput = {
@@ -1067,6 +1114,8 @@ export type QuestCreateWithoutGoalInput = {
   isPinned?: boolean
   user: Prisma.UserCreateNestedOneWithoutQuestsInput
   milestone?: Prisma.MilestoneCreateNestedOneWithoutQuestsInput
+  schedules?: Prisma.QuestScheduleCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUncheckedCreateWithoutGoalInput = {
@@ -1092,6 +1141,8 @@ export type QuestUncheckedCreateWithoutGoalInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   isPinned?: boolean
+  schedules?: Prisma.QuestScheduleUncheckedCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutQuestInput
 }
 
 export type QuestCreateOrConnectWithoutGoalInput = {
@@ -1143,6 +1194,8 @@ export type QuestCreateWithoutMilestoneInput = {
   isPinned?: boolean
   user: Prisma.UserCreateNestedOneWithoutQuestsInput
   goal?: Prisma.GoalCreateNestedOneWithoutQuestsInput
+  schedules?: Prisma.QuestScheduleCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutQuestInput
 }
 
 export type QuestUncheckedCreateWithoutMilestoneInput = {
@@ -1168,6 +1221,8 @@ export type QuestUncheckedCreateWithoutMilestoneInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   isPinned?: boolean
+  schedules?: Prisma.QuestScheduleUncheckedCreateNestedManyWithoutQuestInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutQuestInput
 }
 
 export type QuestCreateOrConnectWithoutMilestoneInput = {
@@ -1194,6 +1249,254 @@ export type QuestUpdateWithWhereUniqueWithoutMilestoneInput = {
 export type QuestUpdateManyWithWhereWithoutMilestoneInput = {
   where: Prisma.QuestScalarWhereInput
   data: Prisma.XOR<Prisma.QuestUpdateManyMutationInput, Prisma.QuestUncheckedUpdateManyWithoutMilestoneInput>
+}
+
+export type QuestCreateWithoutSchedulesInput = {
+  id?: string
+  title: string
+  description?: string | null
+  type?: $Enums.QuestType
+  priority?: number
+  proofRequirement?: $Enums.ProofRequirement
+  targetValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: string | null
+  estimatedDurationSeconds?: number | null
+  xpReward?: number
+  coinReward?: number
+  startAt?: Date | string | null
+  dueAt?: Date | string | null
+  completedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  isPinned?: boolean
+  user: Prisma.UserCreateNestedOneWithoutQuestsInput
+  goal?: Prisma.GoalCreateNestedOneWithoutQuestsInput
+  milestone?: Prisma.MilestoneCreateNestedOneWithoutQuestsInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutQuestInput
+}
+
+export type QuestUncheckedCreateWithoutSchedulesInput = {
+  id?: string
+  userId: string
+  goalId?: string | null
+  milestoneId?: string | null
+  title: string
+  description?: string | null
+  type?: $Enums.QuestType
+  priority?: number
+  proofRequirement?: $Enums.ProofRequirement
+  targetValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: string | null
+  estimatedDurationSeconds?: number | null
+  xpReward?: number
+  coinReward?: number
+  startAt?: Date | string | null
+  dueAt?: Date | string | null
+  completedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  isPinned?: boolean
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutQuestInput
+}
+
+export type QuestCreateOrConnectWithoutSchedulesInput = {
+  where: Prisma.QuestWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestCreateWithoutSchedulesInput, Prisma.QuestUncheckedCreateWithoutSchedulesInput>
+}
+
+export type QuestUpsertWithoutSchedulesInput = {
+  update: Prisma.XOR<Prisma.QuestUpdateWithoutSchedulesInput, Prisma.QuestUncheckedUpdateWithoutSchedulesInput>
+  create: Prisma.XOR<Prisma.QuestCreateWithoutSchedulesInput, Prisma.QuestUncheckedCreateWithoutSchedulesInput>
+  where?: Prisma.QuestWhereInput
+}
+
+export type QuestUpdateToOneWithWhereWithoutSchedulesInput = {
+  where?: Prisma.QuestWhereInput
+  data: Prisma.XOR<Prisma.QuestUpdateWithoutSchedulesInput, Prisma.QuestUncheckedUpdateWithoutSchedulesInput>
+}
+
+export type QuestUpdateWithoutSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestTypeFieldUpdateOperationsInput | $Enums.QuestType
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  proofRequirement?: Prisma.EnumProofRequirementFieldUpdateOperationsInput | $Enums.ProofRequirement
+  targetValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDurationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  coinReward?: Prisma.IntFieldUpdateOperationsInput | number
+  startAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  user?: Prisma.UserUpdateOneRequiredWithoutQuestsNestedInput
+  goal?: Prisma.GoalUpdateOneWithoutQuestsNestedInput
+  milestone?: Prisma.MilestoneUpdateOneWithoutQuestsNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutQuestNestedInput
+}
+
+export type QuestUncheckedUpdateWithoutSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  goalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  milestoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestTypeFieldUpdateOperationsInput | $Enums.QuestType
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  proofRequirement?: Prisma.EnumProofRequirementFieldUpdateOperationsInput | $Enums.ProofRequirement
+  targetValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDurationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  coinReward?: Prisma.IntFieldUpdateOperationsInput | number
+  startAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutQuestNestedInput
+}
+
+export type QuestCreateWithoutExecutionsInput = {
+  id?: string
+  title: string
+  description?: string | null
+  type?: $Enums.QuestType
+  priority?: number
+  proofRequirement?: $Enums.ProofRequirement
+  targetValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: string | null
+  estimatedDurationSeconds?: number | null
+  xpReward?: number
+  coinReward?: number
+  startAt?: Date | string | null
+  dueAt?: Date | string | null
+  completedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  isPinned?: boolean
+  user: Prisma.UserCreateNestedOneWithoutQuestsInput
+  goal?: Prisma.GoalCreateNestedOneWithoutQuestsInput
+  milestone?: Prisma.MilestoneCreateNestedOneWithoutQuestsInput
+  schedules?: Prisma.QuestScheduleCreateNestedManyWithoutQuestInput
+}
+
+export type QuestUncheckedCreateWithoutExecutionsInput = {
+  id?: string
+  userId: string
+  goalId?: string | null
+  milestoneId?: string | null
+  title: string
+  description?: string | null
+  type?: $Enums.QuestType
+  priority?: number
+  proofRequirement?: $Enums.ProofRequirement
+  targetValue?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: string | null
+  estimatedDurationSeconds?: number | null
+  xpReward?: number
+  coinReward?: number
+  startAt?: Date | string | null
+  dueAt?: Date | string | null
+  completedAt?: Date | string | null
+  archivedAt?: Date | string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  isPinned?: boolean
+  schedules?: Prisma.QuestScheduleUncheckedCreateNestedManyWithoutQuestInput
+}
+
+export type QuestCreateOrConnectWithoutExecutionsInput = {
+  where: Prisma.QuestWhereUniqueInput
+  create: Prisma.XOR<Prisma.QuestCreateWithoutExecutionsInput, Prisma.QuestUncheckedCreateWithoutExecutionsInput>
+}
+
+export type QuestUpsertWithoutExecutionsInput = {
+  update: Prisma.XOR<Prisma.QuestUpdateWithoutExecutionsInput, Prisma.QuestUncheckedUpdateWithoutExecutionsInput>
+  create: Prisma.XOR<Prisma.QuestCreateWithoutExecutionsInput, Prisma.QuestUncheckedCreateWithoutExecutionsInput>
+  where?: Prisma.QuestWhereInput
+}
+
+export type QuestUpdateToOneWithWhereWithoutExecutionsInput = {
+  where?: Prisma.QuestWhereInput
+  data: Prisma.XOR<Prisma.QuestUpdateWithoutExecutionsInput, Prisma.QuestUncheckedUpdateWithoutExecutionsInput>
+}
+
+export type QuestUpdateWithoutExecutionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestTypeFieldUpdateOperationsInput | $Enums.QuestType
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  proofRequirement?: Prisma.EnumProofRequirementFieldUpdateOperationsInput | $Enums.ProofRequirement
+  targetValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDurationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  coinReward?: Prisma.IntFieldUpdateOperationsInput | number
+  startAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  user?: Prisma.UserUpdateOneRequiredWithoutQuestsNestedInput
+  goal?: Prisma.GoalUpdateOneWithoutQuestsNestedInput
+  milestone?: Prisma.MilestoneUpdateOneWithoutQuestsNestedInput
+  schedules?: Prisma.QuestScheduleUpdateManyWithoutQuestNestedInput
+}
+
+export type QuestUncheckedUpdateWithoutExecutionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  goalId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  milestoneId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumQuestTypeFieldUpdateOperationsInput | $Enums.QuestType
+  priority?: Prisma.IntFieldUpdateOperationsInput | number
+  proofRequirement?: Prisma.EnumProofRequirementFieldUpdateOperationsInput | $Enums.ProofRequirement
+  targetValue?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  targetUnit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estimatedDurationSeconds?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  xpReward?: Prisma.IntFieldUpdateOperationsInput | number
+  coinReward?: Prisma.IntFieldUpdateOperationsInput | number
+  startAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dueAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  archivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  schedules?: Prisma.QuestScheduleUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestCreateManyUserInput = {
@@ -1244,6 +1547,8 @@ export type QuestUpdateWithoutUserInput = {
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   goal?: Prisma.GoalUpdateOneWithoutQuestsNestedInput
   milestone?: Prisma.MilestoneUpdateOneWithoutQuestsNestedInput
+  schedules?: Prisma.QuestScheduleUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateWithoutUserInput = {
@@ -1269,6 +1574,8 @@ export type QuestUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  schedules?: Prisma.QuestScheduleUncheckedUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateManyWithoutUserInput = {
@@ -1344,6 +1651,8 @@ export type QuestUpdateWithoutGoalInput = {
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutQuestsNestedInput
   milestone?: Prisma.MilestoneUpdateOneWithoutQuestsNestedInput
+  schedules?: Prisma.QuestScheduleUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateWithoutGoalInput = {
@@ -1369,6 +1678,8 @@ export type QuestUncheckedUpdateWithoutGoalInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  schedules?: Prisma.QuestScheduleUncheckedUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateManyWithoutGoalInput = {
@@ -1444,6 +1755,8 @@ export type QuestUpdateWithoutMilestoneInput = {
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
   user?: Prisma.UserUpdateOneRequiredWithoutQuestsNestedInput
   goal?: Prisma.GoalUpdateOneWithoutQuestsNestedInput
+  schedules?: Prisma.QuestScheduleUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateWithoutMilestoneInput = {
@@ -1469,6 +1782,8 @@ export type QuestUncheckedUpdateWithoutMilestoneInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  schedules?: Prisma.QuestScheduleUncheckedUpdateManyWithoutQuestNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutQuestNestedInput
 }
 
 export type QuestUncheckedUpdateManyWithoutMilestoneInput = {
@@ -1496,6 +1811,44 @@ export type QuestUncheckedUpdateManyWithoutMilestoneInput = {
   isPinned?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
+
+/**
+ * Count Type QuestCountOutputType
+ */
+
+export type QuestCountOutputType = {
+  schedules: number
+  executions: number
+}
+
+export type QuestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  schedules?: boolean | QuestCountOutputTypeCountSchedulesArgs
+  executions?: boolean | QuestCountOutputTypeCountExecutionsArgs
+}
+
+/**
+ * QuestCountOutputType without action
+ */
+export type QuestCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestCountOutputType
+   */
+  select?: Prisma.QuestCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * QuestCountOutputType without action
+ */
+export type QuestCountOutputTypeCountSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestScheduleWhereInput
+}
+
+/**
+ * QuestCountOutputType without action
+ */
+export type QuestCountOutputTypeCountExecutionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestExecutionWhereInput
+}
 
 
 export type QuestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1525,6 +1878,9 @@ export type QuestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   goal?: boolean | Prisma.Quest$goalArgs<ExtArgs>
   milestone?: boolean | Prisma.Quest$milestoneArgs<ExtArgs>
+  schedules?: boolean | Prisma.Quest$schedulesArgs<ExtArgs>
+  executions?: boolean | Prisma.Quest$executionsArgs<ExtArgs>
+  _count?: boolean | Prisma.QuestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["quest"]>
 
 export type QuestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1616,6 +1972,9 @@ export type QuestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   goal?: boolean | Prisma.Quest$goalArgs<ExtArgs>
   milestone?: boolean | Prisma.Quest$milestoneArgs<ExtArgs>
+  schedules?: boolean | Prisma.Quest$schedulesArgs<ExtArgs>
+  executions?: boolean | Prisma.Quest$executionsArgs<ExtArgs>
+  _count?: boolean | Prisma.QuestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type QuestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1634,6 +1993,8 @@ export type $QuestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     user: Prisma.$UserPayload<ExtArgs>
     goal: Prisma.$GoalPayload<ExtArgs> | null
     milestone: Prisma.$MilestonePayload<ExtArgs> | null
+    schedules: Prisma.$QuestSchedulePayload<ExtArgs>[]
+    executions: Prisma.$QuestExecutionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2056,6 +2417,8 @@ export interface Prisma__QuestClient<T, Null = never, ExtArgs extends runtime.Ty
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   goal<T extends Prisma.Quest$goalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quest$goalArgs<ExtArgs>>): Prisma.Prisma__GoalClient<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   milestone<T extends Prisma.Quest$milestoneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quest$milestoneArgs<ExtArgs>>): Prisma.Prisma__MilestoneClient<runtime.Types.Result.GetResult<Prisma.$MilestonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  schedules<T extends Prisma.Quest$schedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quest$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executions<T extends Prisma.Quest$executionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Quest$executionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestExecutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2544,6 +2907,54 @@ export type Quest$milestoneArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   include?: Prisma.MilestoneInclude<ExtArgs> | null
   where?: Prisma.MilestoneWhereInput
+}
+
+/**
+ * Quest.schedules
+ */
+export type Quest$schedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestSchedule
+   */
+  select?: Prisma.QuestScheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestSchedule
+   */
+  omit?: Prisma.QuestScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestScheduleInclude<ExtArgs> | null
+  where?: Prisma.QuestScheduleWhereInput
+  orderBy?: Prisma.QuestScheduleOrderByWithRelationInput | Prisma.QuestScheduleOrderByWithRelationInput[]
+  cursor?: Prisma.QuestScheduleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestScheduleScalarFieldEnum | Prisma.QuestScheduleScalarFieldEnum[]
+}
+
+/**
+ * Quest.executions
+ */
+export type Quest$executionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestExecution
+   */
+  select?: Prisma.QuestExecutionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestExecution
+   */
+  omit?: Prisma.QuestExecutionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestExecutionInclude<ExtArgs> | null
+  where?: Prisma.QuestExecutionWhereInput
+  orderBy?: Prisma.QuestExecutionOrderByWithRelationInput | Prisma.QuestExecutionOrderByWithRelationInput[]
+  cursor?: Prisma.QuestExecutionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestExecutionScalarFieldEnum | Prisma.QuestExecutionScalarFieldEnum[]
 }
 
 /**

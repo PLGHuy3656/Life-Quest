@@ -52,9 +52,15 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  UserProfile: 'UserProfile',
+  UserSettings: 'UserSettings',
+  UserGamification: 'UserGamification',
+  Session: 'Session',
   Goal: 'Goal',
   Milestone: 'Milestone',
   Quest: 'Quest',
+  QuestSchedule: 'QuestSchedule',
+  QuestExecution: 'QuestExecution',
   Friendship: 'Friendship',
   SocialPost: 'SocialPost',
   PostReaction: 'PostReaction',
@@ -91,12 +97,66 @@ export const UserScalarFieldEnum = {
   status: 'status',
   planType: 'planType',
   trialEndsAt: 'trialEndsAt',
+  emailVerifiedAt: 'emailVerifiedAt',
+  lastLoginAt: 'lastLoginAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserProfileScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  displayName: 'displayName',
+  bio: 'bio',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserProfileScalarFieldEnum = (typeof UserProfileScalarFieldEnum)[keyof typeof UserProfileScalarFieldEnum]
+
+
+export const UserSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  timezone: 'timezone',
+  language: 'language',
+  privacyMode: 'privacyMode',
+  notificationEnabled: 'notificationEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserSettingsScalarFieldEnum = (typeof UserSettingsScalarFieldEnum)[keyof typeof UserSettingsScalarFieldEnum]
+
+
+export const UserGamificationScalarFieldEnum = {
+  userId: 'userId',
+  totalXp: 'totalXp',
+  level: 'level',
+  coinBalance: 'coinBalance',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserGamificationScalarFieldEnum = (typeof UserGamificationScalarFieldEnum)[keyof typeof UserGamificationScalarFieldEnum]
+
+
+export const SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  refreshTokenHash: 'refreshTokenHash',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
 export const GoalScalarFieldEnum = {
@@ -157,6 +217,41 @@ export const QuestScalarFieldEnum = {
 } as const
 
 export type QuestScalarFieldEnum = (typeof QuestScalarFieldEnum)[keyof typeof QuestScalarFieldEnum]
+
+
+export const QuestScheduleScalarFieldEnum = {
+  id: 'id',
+  questId: 'questId',
+  scheduleType: 'scheduleType',
+  timezone: 'timezone',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  recurrenceRule: 'recurrenceRule',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuestScheduleScalarFieldEnum = (typeof QuestScheduleScalarFieldEnum)[keyof typeof QuestScheduleScalarFieldEnum]
+
+
+export const QuestExecutionScalarFieldEnum = {
+  id: 'id',
+  questId: 'questId',
+  userId: 'userId',
+  scheduleId: 'scheduleId',
+  status: 'status',
+  scheduledAt: 'scheduledAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  abandonedAt: 'abandonedAt',
+  progressValue: 'progressValue',
+  durationSeconds: 'durationSeconds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type QuestExecutionScalarFieldEnum = (typeof QuestExecutionScalarFieldEnum)[keyof typeof QuestExecutionScalarFieldEnum]
 
 
 export const FriendshipScalarFieldEnum = {
@@ -308,6 +403,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -322,4 +425,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

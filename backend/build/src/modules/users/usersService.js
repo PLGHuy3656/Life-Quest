@@ -1,71 +1,75 @@
 import { usersRepository } from "./usersRepository.js";
-import bcrypt from 'bcrypt';
 import ApiError from "../../common/errors/ApiError.js";
 
-// Lấy 1 User bằng Email
-const getUserByEmail = async email => {
-  const user = await usersRepository.findUserByEmail(email);
+// Lấy thông tin cá nhân đầy đủ của user đang đăng nhập (bao gồm profile)
+const getMe = async userId => {
+  const user = await usersRepository.findUserWithProfile(userId);
   if (!user) {
     throw new ApiError(404, 'User not found', 'USER_NOT_FOUND');
   }
-
-  // Xử lý gửi dữ liệu từ BE lên cho FE
-  const responseUser = {
+  return {
     id: user.id,
     email: user.email,
     username: user.username,
     status: user.status,
+    emailVerifiedAt: user.emailVerifiedAt,
+    lastLoginAt: user.lastLoginAt,
     createdAt: user.createdAt,
-    updatedAt: user.updatedAt
+    updatedAt: user.updatedAt,
+    profile: user.profile
   };
-  return responseUser;
 };
 
-// Tạo 1 User
-const createUser = async userData => {
-  // Kiểm tra email hoặc username đã tồn tại
-  const existingUser = await usersRepository.findExistingUser(userData.email, userData.username);
-  if (existingUser) {
-    if (existingUser.email === userData.email) {
-      throw new ApiError(409, 'Email already exists', 'EMAIL_ALREADY_EXISTS');
-    }
-    if (existingUser.username === userData.username) {
-      throw new ApiError(409, 'Username already exists', 'USERNAME_ALREADY_EXISTS');
-    }
+// Cập nhật thông tin profile của user đang đăng nhập
+const updateMe = async (userId, updateData) => {
+  const user = await usersRepository.findUserWithProfile(userId);
+  if (!user) {
+    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND');
   }
-  const passwordHash = await bcrypt.hash(userData.password, 10);
-  let user;
-  try {
-    user = await usersRepository.createUser({
-      email: userData.email,
-      username: userData.username,
-      passwordHash
-    });
-  } catch (error) {
-    if (error.code === 'P2002') {
-      const duplicatedField = error.meta?.target;
-      if (duplicatedField?.includes('email')) {
-        throw new ApiError(409, 'Email already exists', 'EMAIL_ALREADY_EXISTS');
-      }
-      if (duplicatedField?.includes('username')) {
-        throw new ApiError(409, 'Username already exists', 'USERNAME_ALREADY_EXISTS');
-      }
-    }
-    throw error;
-  }
+  const updatedProfile = await usersRepository.updateUserProfile(userId, {
+    displayName: updateData.displayName,
+    bio: updateData.bio,
+    title: updateData.title
+  });
+  return updatedProfile;
+};
 
-  // Xử lý gửi dữ liệu từ BE lên cho FE
-  const responseUser = {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    status: user.status,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt
-  };
-  return responseUser;
+// Lấy cài đặt của user đang đăng nhập
+const getMySettings = async userId => {
+  const settings = await usersRepository.findUserSettings(userId);
+  if (!settings) {
+    throw new ApiError(404, 'Settings not found', 'SETTINGS_NOT_FOUND');
+  }
+  return settings;
+};
+
+// Cập nhật cài đặt của user đang đăng nhập
+const updateMySettings = async (userId, settingsData) => {
+  const settings = await usersRepository.findUserSettings(userId);
+  if (!settings) {
+    throw new ApiError(404, 'Settings not found', 'SETTINGS_NOT_FOUND');
+  }
+  const updatedSettings = await usersRepository.updateUserSettings(userId, {
+    timezone: settingsData.timezone,
+    language: settingsData.language,
+    privacyMode: settingsData.privacyMode,
+    notificationEnabled: settingsData.notificationEnabled
+  });
+  return updatedSettings;
+};
+
+// Lấy thông tin public của một user khác theo userId
+const getUserById = async userId => {
+  const user = await usersRepository.findPublicUserById(userId);
+  if (!user) {
+    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND');
+  }
+  return user;
 };
 export const usersService = {
-  getUserByEmail,
-  createUser
+  getMe,
+  updateMe,
+  getMySettings,
+  updateMySettings,
+  getUserById
 };

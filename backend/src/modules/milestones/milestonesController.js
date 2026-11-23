@@ -7,7 +7,7 @@ import { StatusCodes } from 'http-status-codes'
 const getMilestonesByGoalId = async (req, res, next) => {
   try {
     const goalId = req.params.goalId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const milestones = await milestonesService.getMilestonesByGoalId(goalId, userId)
 
@@ -26,7 +26,7 @@ const getMilestonesByGoalId = async (req, res, next) => {
 const createMilestone = async (req, res, next) => {
   try {
     const goalId = req.params.goalId
-    const userId = req.query.userId
+    const userId = req.user.id
     const milestoneData = req.body
 
     const createdMilestone = await milestonesService.createMilestone(goalId, userId, milestoneData)
@@ -45,7 +45,7 @@ const createMilestone = async (req, res, next) => {
 const getMilestonesById = async (req, res, next) => {
   try {
     const milestoneId = req.params.milestoneId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const getByIdMilestoned = await milestonesService.getMilestonesById(milestoneId, userId)
 
@@ -65,7 +65,7 @@ const getMilestonesById = async (req, res, next) => {
 const updateMilestone = async (req, res, next) => {
   try {
     const milestoneId = req.params.milestoneId
-    const userId = req.query.userId
+    const userId = req.user.id
     const data = req.body
 
     const updatedMilestone = await milestonesService.updateMilestone(milestoneId, userId, data)
@@ -83,7 +83,7 @@ const updateMilestone = async (req, res, next) => {
 const deleteMilestone = async (req, res, next) => {
   try {
     const milestoneId = req.params.milestoneId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const deletedMilestone = await milestonesService.deleteMilestone(milestoneId, userId)
 
@@ -100,7 +100,7 @@ const deleteMilestone = async (req, res, next) => {
 const completeMilestone = async (req, res, next) => {
   try {
     const milestoneId = req.params.milestoneId
-    const userId = req.query.userId
+    const userId = req.user.id
 
     const completedMilestone = await milestonesService.completeMilestone(milestoneId, userId)
 
@@ -117,7 +117,7 @@ const completeMilestone = async (req, res, next) => {
 const reorderMilestones = async (req, res, next) => {
   try {
     const goalId = req.params.goalId
-    const userId = req.query.userId
+    const userId = req.user.id
     const milestoneIds = req.body.milestoneIds
 
     const reorderedMilestones = await milestonesService.reorderMilestones(goalId, userId, milestoneIds)

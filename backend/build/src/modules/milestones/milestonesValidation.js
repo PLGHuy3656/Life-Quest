@@ -6,9 +6,7 @@ const getMilestonesByGoalId = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const createMilestone = Joi.object({
   body: Joi.object({
@@ -18,18 +16,14 @@ const createMilestone = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const getMilestonesById = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const updateMilestone = Joi.object({
   body: Joi.object({
@@ -39,27 +33,21 @@ const updateMilestone = Joi.object({
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const deleteMilestone = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const completeMilestone = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     milestoneId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const reorderMilestones = Joi.object({
   body: Joi.object({
@@ -68,9 +56,7 @@ const reorderMilestones = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 export const milestonesValidation = {
   getMilestonesByGoalId,

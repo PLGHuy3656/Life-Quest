@@ -9,9 +9,15 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User.ts'
+export type * from './models/UserProfile.ts'
+export type * from './models/UserSettings.ts'
+export type * from './models/UserGamification.ts'
+export type * from './models/Session.ts'
 export type * from './models/Goal.ts'
 export type * from './models/Milestone.ts'
 export type * from './models/Quest.ts'
+export type * from './models/QuestSchedule.ts'
+export type * from './models/QuestExecution.ts'
 export type * from './models/Friendship.ts'
 export type * from './models/SocialPost.ts'
 export type * from './models/PostReaction.ts'

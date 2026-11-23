@@ -1,4 +1,3 @@
-import { usersRepository } from "../users/usersRepository.js";
 import { goalsRepository } from "./goalsRepository.js";
 import ApiError from "../../common/errors/ApiError.js";
 
@@ -24,19 +23,16 @@ const getGoalById = async (goalId, userId) => {
   return goal;
 };
 
-// Tạo mới mục tiêu sau khi kiểm tra sự tồn tại của người dùng và tính hợp lệ của khoảng thời gian.
-const createGoal = async goalData => {
-  const user = await usersRepository.findUserById(goalData.userId);
-  if (!user) {
-    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND');
-  }
+// Tạo mới mục tiêu sau khi kiểm tra tính hợp lệ của khoảng thời gian.
+// userId được lấy từ token (đã authenticated), không cần kiểm tra user tồn tại nữa.
+const createGoal = async (userId, goalData) => {
   const startDate = new Date(goalData.startDate);
   const dueDate = new Date(goalData.dueDate);
   if (startDate >= dueDate) {
     throw new ApiError(400, 'Start date must be before due date', 'INVALID_GOAL_DATE_RANGE');
   }
   const goal = await goalsRepository.createGoal({
-    userId: goalData.userId,
+    userId,
     title: goalData.title,
     description: goalData.description,
     startDate,

@@ -471,10 +471,6 @@ export type GoalUncheckedUpdateManyWithoutUseNestedInput = {
   deleteMany?: Prisma.GoalScalarWhereInput | Prisma.GoalScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type GoalCreateNestedOneWithoutMilestonesInput = {
   create?: Prisma.XOR<Prisma.GoalCreateWithoutMilestonesInput, Prisma.GoalUncheckedCreateWithoutMilestonesInput>
   connectOrCreate?: Prisma.GoalCreateOrConnectWithoutMilestonesInput

@@ -531,14 +531,6 @@ export type MilestoneUncheckedUpdateManyWithoutGoalNestedInput = {
   deleteMany?: Prisma.MilestoneScalarWhereInput | Prisma.MilestoneScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type MilestoneCreateNestedOneWithoutQuestsInput = {
   create?: Prisma.XOR<Prisma.MilestoneCreateWithoutQuestsInput, Prisma.MilestoneUncheckedCreateWithoutQuestsInput>
   connectOrCreate?: Prisma.MilestoneCreateOrConnectWithoutQuestsInput

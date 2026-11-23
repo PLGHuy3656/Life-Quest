@@ -2,22 +2,17 @@ import Joi from 'joi';
 const getGoalsByUserId = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object().unknown(true).optional(),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const getGoalById = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const createGoal = Joi.object({
   body: Joi.object({
-    userId: Joi.string().uuid().required(),
     title: Joi.string().trim().min(3).max(100).required(),
     description: Joi.string().max(500).allow('').optional(),
     startDate: Joi.date().iso().required(),
@@ -36,45 +31,35 @@ const updateGoal = Joi.object({
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const pauseGoal = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const resumeGoal = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const completeGoal = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const archiveGoal = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     goalId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 export const goalsValidation = {
   getGoalsByUserId,

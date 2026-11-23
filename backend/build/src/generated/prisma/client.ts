@@ -47,6 +47,26 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model UserProfile
+ * 
+ */
+export type UserProfile = Prisma.UserProfileModel
+/**
+ * Model UserSettings
+ * 
+ */
+export type UserSettings = Prisma.UserSettingsModel
+/**
+ * Model UserGamification
+ * 
+ */
+export type UserGamification = Prisma.UserGamificationModel
+/**
+ * Model Session
+ * 
+ */
+export type Session = Prisma.SessionModel
+/**
  * Model Goal
  * 
  */
@@ -61,6 +81,16 @@ export type Milestone = Prisma.MilestoneModel
  * 
  */
 export type Quest = Prisma.QuestModel
+/**
+ * Model QuestSchedule
+ * 
+ */
+export type QuestSchedule = Prisma.QuestScheduleModel
+/**
+ * Model QuestExecution
+ * 
+ */
+export type QuestExecution = Prisma.QuestExecutionModel
 /**
  * Model Friendship
  * 

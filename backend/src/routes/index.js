@@ -1,7 +1,11 @@
 import express from 'express'
+import { authRoute } from '../modules/auth/authRoute.js'
+import { usersRoute } from '../modules/users/usersRoute.js'
 import { goalsRoute } from '../modules/goals/goalsRoute.js'
 import { milestonesRoute } from '../modules/milestones/milestonesRoute.js'
 import { questsRoute } from '../modules/quests/questsRoute.js'
+import { schedulesRoute } from '../modules/schedules/schedulesRoute.js'
+import { todayRoute } from '../modules/today/todayRoute.js'
 import { friendsRoute } from '../modules/friends/friendsRoute.js'
 import { socialRoute } from '../modules/social/socialRoute.js'
 import { mascotRoute } from '../modules/mascot/mascotRoute.js'
@@ -14,19 +18,30 @@ const discoveryHandler = (req, res) => {
     success: true,
     message: 'LifeQuest API v1 is running smoothly!',
     endpoints: {
-      mascotModels: '/api/v1/mascot/models',
-      mascotState: '/api/v1/mascot/state?modelCode=FOX_V2',
-      mascotCosmetics: '/api/v1/mascot/cosmetics?modelCode=FOX_V2',
+      auth: '/api/v1/auth',
+      users: '/api/v1/users',
+      goals: '/api/v1/goals',
+      milestones: '/api/v1/milestones',
+      quests: '/api/v1/quests',
+      schedules: '/api/v1/schedules',
+      today: '/api/v1/today',
       friends: '/api/v1/friends',
       feed: '/api/v1/feed',
-      goals: '/api/v1/goals',
-      quests: '/api/v1/quests'
+      mascotModels: '/api/v1/mascot/models',
+      mascotState: '/api/v1/mascot/state?modelCode=FOX_V2',
+      mascotCosmetics: '/api/v1/mascot/cosmetics?modelCode=FOX_V2'
     }
   })
 }
 
 Router.get('/', discoveryHandler)
 Router.get('', discoveryHandler)
+
+// Auth Module
+Router.use('/auth', authRoute)
+
+// Users Module
+Router.use('/users', usersRoute)
 
 // Goals Module
 Router.use('/goals', goalsRoute)
@@ -37,6 +52,13 @@ Router.use('/milestones', milestonesRoute)
 
 // Quests Module
 Router.use('/quests', questsRoute)
+
+// Schedules Module
+Router.use('/quests', schedulesRoute)
+Router.use('/schedules', schedulesRoute)
+
+// Today Module
+Router.use('/today', todayRoute)
 
 // Friends Module (/friends, /friends/search, /friend-requests, etc.)
 Router.use('/', friendsRoute)

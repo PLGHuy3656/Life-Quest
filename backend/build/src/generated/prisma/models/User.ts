@@ -32,6 +32,8 @@ export type UserMinAggregateOutputType = {
   status: string | null
   planType: $Enums.AccessTier | null
   trialEndsAt: Date | null
+  emailVerifiedAt: Date | null
+  lastLoginAt: Date | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -45,6 +47,8 @@ export type UserMaxAggregateOutputType = {
   status: string | null
   planType: $Enums.AccessTier | null
   trialEndsAt: Date | null
+  emailVerifiedAt: Date | null
+  lastLoginAt: Date | null
   deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -58,6 +62,8 @@ export type UserCountAggregateOutputType = {
   status: number
   planType: number
   trialEndsAt: number
+  emailVerifiedAt: number
+  lastLoginAt: number
   deletedAt: number
   createdAt: number
   updatedAt: number
@@ -73,6 +79,8 @@ export type UserMinAggregateInputType = {
   status?: true
   planType?: true
   trialEndsAt?: true
+  emailVerifiedAt?: true
+  lastLoginAt?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -86,6 +94,8 @@ export type UserMaxAggregateInputType = {
   status?: true
   planType?: true
   trialEndsAt?: true
+  emailVerifiedAt?: true
+  lastLoginAt?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -99,6 +109,8 @@ export type UserCountAggregateInputType = {
   status?: true
   planType?: true
   trialEndsAt?: true
+  emailVerifiedAt?: true
+  lastLoginAt?: true
   deletedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -185,6 +197,8 @@ export type UserGroupByOutputType = {
   status: string
   planType: $Enums.AccessTier
   trialEndsAt: Date | null
+  emailVerifiedAt: Date | null
+  lastLoginAt: Date | null
   deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -219,11 +233,18 @@ export type UserWhereInput = {
   status?: Prisma.StringFilter<"User"> | string
   planType?: Prisma.EnumAccessTierFilter<"User"> | $Enums.AccessTier
   trialEndsAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   goals?: Prisma.GoalListRelationFilter
   quests?: Prisma.QuestListRelationFilter
+  profile?: Prisma.XOR<Prisma.UserProfileNullableScalarRelationFilter, Prisma.UserProfileWhereInput> | null
+  settings?: Prisma.XOR<Prisma.UserSettingsNullableScalarRelationFilter, Prisma.UserSettingsWhereInput> | null
+  gamification?: Prisma.XOR<Prisma.UserGamificationNullableScalarRelationFilter, Prisma.UserGamificationWhereInput> | null
+  sessions?: Prisma.SessionListRelationFilter
+  executions?: Prisma.QuestExecutionListRelationFilter
   sentFriendRequests?: Prisma.FriendshipListRelationFilter
   receivedFriendRequests?: Prisma.FriendshipListRelationFilter
   socialPosts?: Prisma.SocialPostListRelationFilter
@@ -242,11 +263,18 @@ export type UserOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   planType?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   goals?: Prisma.GoalOrderByRelationAggregateInput
   quests?: Prisma.QuestOrderByRelationAggregateInput
+  profile?: Prisma.UserProfileOrderByWithRelationInput
+  settings?: Prisma.UserSettingsOrderByWithRelationInput
+  gamification?: Prisma.UserGamificationOrderByWithRelationInput
+  sessions?: Prisma.SessionOrderByRelationAggregateInput
+  executions?: Prisma.QuestExecutionOrderByRelationAggregateInput
   sentFriendRequests?: Prisma.FriendshipOrderByRelationAggregateInput
   receivedFriendRequests?: Prisma.FriendshipOrderByRelationAggregateInput
   socialPosts?: Prisma.SocialPostOrderByRelationAggregateInput
@@ -268,11 +296,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.StringFilter<"User"> | string
   planType?: Prisma.EnumAccessTierFilter<"User"> | $Enums.AccessTier
   trialEndsAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   goals?: Prisma.GoalListRelationFilter
   quests?: Prisma.QuestListRelationFilter
+  profile?: Prisma.XOR<Prisma.UserProfileNullableScalarRelationFilter, Prisma.UserProfileWhereInput> | null
+  settings?: Prisma.XOR<Prisma.UserSettingsNullableScalarRelationFilter, Prisma.UserSettingsWhereInput> | null
+  gamification?: Prisma.XOR<Prisma.UserGamificationNullableScalarRelationFilter, Prisma.UserGamificationWhereInput> | null
+  sessions?: Prisma.SessionListRelationFilter
+  executions?: Prisma.QuestExecutionListRelationFilter
   sentFriendRequests?: Prisma.FriendshipListRelationFilter
   receivedFriendRequests?: Prisma.FriendshipListRelationFilter
   socialPosts?: Prisma.SocialPostListRelationFilter
@@ -291,6 +326,8 @@ export type UserOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   planType?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -310,6 +347,8 @@ export type UserScalarWhereWithAggregatesInput = {
   status?: Prisma.StringWithAggregatesFilter<"User"> | string
   planType?: Prisma.EnumAccessTierWithAggregatesFilter<"User"> | $Enums.AccessTier
   trialEndsAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  emailVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -323,11 +362,18 @@ export type UserCreateInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -346,11 +392,18 @@ export type UserUncheckedCreateInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -369,11 +422,18 @@ export type UserUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -392,11 +452,18 @@ export type UserUncheckedUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -415,6 +482,8 @@ export type UserCreateManyInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -428,6 +497,8 @@ export type UserUpdateManyMutationInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -441,6 +512,8 @@ export type UserUncheckedUpdateManyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -454,6 +527,8 @@ export type UserCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   planType?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -467,6 +542,8 @@ export type UserMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   planType?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -480,6 +557,8 @@ export type UserMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   planType?: Prisma.SortOrder
   trialEndsAt?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -504,6 +583,62 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedOneWithoutProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileInput
+  upsert?: Prisma.UserUpsertWithoutProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileInput, Prisma.UserUpdateWithoutProfileInput>, Prisma.UserUncheckedUpdateWithoutProfileInput>
+}
+
+export type UserCreateNestedOneWithoutSettingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
+  upsert?: Prisma.UserUpsertWithoutSettingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingsInput, Prisma.UserUpdateWithoutSettingsInput>, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+}
+
+export type UserCreateNestedOneWithoutGamificationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGamificationInput, Prisma.UserUncheckedCreateWithoutGamificationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGamificationInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGamificationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGamificationInput, Prisma.UserUncheckedCreateWithoutGamificationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGamificationInput
+  upsert?: Prisma.UserUpsertWithoutGamificationInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGamificationInput, Prisma.UserUpdateWithoutGamificationInput>, Prisma.UserUncheckedUpdateWithoutGamificationInput>
+}
+
+export type UserCreateNestedOneWithoutSessionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSessionsInput
+  upsert?: Prisma.UserUpsertWithoutSessionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
 }
 
 export type UserCreateNestedOneWithoutGoalsInput = {
@@ -532,6 +667,20 @@ export type UserUpdateOneRequiredWithoutQuestsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutQuestsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutQuestsInput, Prisma.UserUpdateWithoutQuestsInput>, Prisma.UserUncheckedUpdateWithoutQuestsInput>
+}
+
+export type UserCreateNestedOneWithoutExecutionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutionsInput, Prisma.UserUncheckedCreateWithoutExecutionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutExecutionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutExecutionsInput, Prisma.UserUncheckedCreateWithoutExecutionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutExecutionsInput
+  upsert?: Prisma.UserUpsertWithoutExecutionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutExecutionsInput, Prisma.UserUpdateWithoutExecutionsInput>, Prisma.UserUncheckedUpdateWithoutExecutionsInput>
 }
 
 export type UserCreateNestedOneWithoutSentFriendRequestsInput = {
@@ -646,6 +795,534 @@ export type UserUpdateOneRequiredWithoutMascotCosmeticsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMascotCosmeticsInput, Prisma.UserUpdateWithoutMascotCosmeticsInput>, Prisma.UserUncheckedUpdateWithoutMascotCosmeticsInput>
 }
 
+export type UserCreateWithoutProfileInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProfileInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+}
+
+export type UserUpsertWithoutProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfileInput, Prisma.UserUncheckedUpdateWithoutProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfileInput, Prisma.UserUncheckedUpdateWithoutProfileInput>
+}
+
+export type UserUpdateWithoutProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSettingsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSettingsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSettingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+}
+
+export type UserUpsertWithoutSettingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSettingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+}
+
+export type UserUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGamificationInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGamificationInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGamificationInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGamificationInput, Prisma.UserUncheckedCreateWithoutGamificationInput>
+}
+
+export type UserUpsertWithoutGamificationInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGamificationInput, Prisma.UserUncheckedUpdateWithoutGamificationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGamificationInput, Prisma.UserUncheckedCreateWithoutGamificationInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGamificationInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGamificationInput, Prisma.UserUncheckedUpdateWithoutGamificationInput>
+}
+
+export type UserUpdateWithoutGamificationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGamificationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSessionsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSessionsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSessionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+}
+
+export type UserUpsertWithoutSessionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSessionsInput, Prisma.UserUncheckedCreateWithoutSessionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSessionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSessionsInput, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+}
+
 export type UserCreateWithoutGoalsInput = {
   id?: string
   email: string
@@ -654,10 +1331,17 @@ export type UserCreateWithoutGoalsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -676,10 +1360,17 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -714,10 +1405,17 @@ export type UserUpdateWithoutGoalsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -736,10 +1434,17 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -758,10 +1463,17 @@ export type UserCreateWithoutQuestsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -780,10 +1492,17 @@ export type UserUncheckedCreateWithoutQuestsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -818,10 +1537,17 @@ export type UserUpdateWithoutQuestsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -840,10 +1566,149 @@ export type UserUncheckedUpdateWithoutQuestsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUncheckedUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUncheckedUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutExecutionsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutExecutionsInput = {
+  id?: string
+  email: string
+  username: string
+  passwordHash: string
+  status?: string
+  planType?: $Enums.AccessTier
+  trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
+  quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
+  receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
+  socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
+  postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  sentPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutSenderInput
+  receivedPokes?: Prisma.PokeUncheckedCreateNestedManyWithoutReceiverInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutExecutionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutionsInput, Prisma.UserUncheckedCreateWithoutExecutionsInput>
+}
+
+export type UserUpsertWithoutExecutionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutExecutionsInput, Prisma.UserUncheckedUpdateWithoutExecutionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutExecutionsInput, Prisma.UserUncheckedCreateWithoutExecutionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutExecutionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutExecutionsInput, Prisma.UserUncheckedUpdateWithoutExecutionsInput>
+}
+
+export type UserUpdateWithoutExecutionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
+  receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
+  socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
+  postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  sentPokes?: Prisma.PokeUpdateManyWithoutSenderNestedInput
+  receivedPokes?: Prisma.PokeUpdateManyWithoutReceiverNestedInput
+  mascotCosmetics?: Prisma.UserMascotCosmeticUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutExecutionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
+  quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -862,11 +1727,18 @@ export type UserCreateWithoutSentFriendRequestsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
   postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
@@ -884,11 +1756,18 @@ export type UserUncheckedCreateWithoutSentFriendRequestsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
   postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
@@ -911,11 +1790,18 @@ export type UserCreateWithoutReceivedFriendRequestsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
   postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
@@ -933,11 +1819,18 @@ export type UserUncheckedCreateWithoutReceivedFriendRequestsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
   postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
@@ -971,11 +1864,18 @@ export type UserUpdateWithoutSentFriendRequestsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
   postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
@@ -993,11 +1893,18 @@ export type UserUncheckedUpdateWithoutSentFriendRequestsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
   postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1026,11 +1933,18 @@ export type UserUpdateWithoutReceivedFriendRequestsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
   postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
@@ -1048,11 +1962,18 @@ export type UserUncheckedUpdateWithoutReceivedFriendRequestsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
   postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1070,11 +1991,18 @@ export type UserCreateWithoutSocialPostsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   postReactions?: Prisma.PostReactionCreateNestedManyWithoutUserInput
@@ -1092,11 +2020,18 @@ export type UserUncheckedCreateWithoutSocialPostsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   postReactions?: Prisma.PostReactionUncheckedCreateNestedManyWithoutUserInput
@@ -1130,11 +2065,18 @@ export type UserUpdateWithoutSocialPostsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   postReactions?: Prisma.PostReactionUpdateManyWithoutUserNestedInput
@@ -1152,11 +2094,18 @@ export type UserUncheckedUpdateWithoutSocialPostsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   postReactions?: Prisma.PostReactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1174,11 +2123,18 @@ export type UserCreateWithoutPostReactionsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -1196,11 +2152,18 @@ export type UserUncheckedCreateWithoutPostReactionsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1234,11 +2197,18 @@ export type UserUpdateWithoutPostReactionsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -1256,11 +2226,18 @@ export type UserUncheckedUpdateWithoutPostReactionsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1278,11 +2255,18 @@ export type UserCreateWithoutPostCommentsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -1300,11 +2284,18 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1338,11 +2329,18 @@ export type UserUpdateWithoutPostCommentsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -1360,11 +2358,18 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1382,11 +2387,18 @@ export type UserCreateWithoutSentPokesInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -1404,11 +2416,18 @@ export type UserUncheckedCreateWithoutSentPokesInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1431,11 +2450,18 @@ export type UserCreateWithoutReceivedPokesInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -1453,11 +2479,18 @@ export type UserUncheckedCreateWithoutReceivedPokesInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1491,11 +2524,18 @@ export type UserUpdateWithoutSentPokesInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -1513,11 +2553,18 @@ export type UserUncheckedUpdateWithoutSentPokesInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1546,11 +2593,18 @@ export type UserUpdateWithoutReceivedPokesInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -1568,11 +2622,18 @@ export type UserUncheckedUpdateWithoutReceivedPokesInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1590,11 +2651,18 @@ export type UserCreateWithoutMascotCosmeticsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostCreateNestedManyWithoutAuthorInput
@@ -1612,11 +2680,18 @@ export type UserUncheckedCreateWithoutMascotCosmeticsInput = {
   status?: string
   planType?: $Enums.AccessTier
   trialEndsAt?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUseInput
   quests?: Prisma.QuestUncheckedCreateNestedManyWithoutUserInput
+  profile?: Prisma.UserProfileUncheckedCreateNestedOneWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  gamification?: Prisma.UserGamificationUncheckedCreateNestedOneWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  executions?: Prisma.QuestExecutionUncheckedCreateNestedManyWithoutUserInput
   sentFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutRequesterInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedCreateNestedManyWithoutReceiverInput
   socialPosts?: Prisma.SocialPostUncheckedCreateNestedManyWithoutAuthorInput
@@ -1650,11 +2725,18 @@ export type UserUpdateWithoutMascotCosmeticsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUpdateManyWithoutAuthorNestedInput
@@ -1672,11 +2754,18 @@ export type UserUncheckedUpdateWithoutMascotCosmeticsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   planType?: Prisma.EnumAccessTierFieldUpdateOperationsInput | $Enums.AccessTier
   trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUseNestedInput
   quests?: Prisma.QuestUncheckedUpdateManyWithoutUserNestedInput
+  profile?: Prisma.UserProfileUncheckedUpdateOneWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  gamification?: Prisma.UserGamificationUncheckedUpdateOneWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  executions?: Prisma.QuestExecutionUncheckedUpdateManyWithoutUserNestedInput
   sentFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutRequesterNestedInput
   receivedFriendRequests?: Prisma.FriendshipUncheckedUpdateManyWithoutReceiverNestedInput
   socialPosts?: Prisma.SocialPostUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1694,6 +2783,8 @@ export type UserUncheckedUpdateWithoutMascotCosmeticsInput = {
 export type UserCountOutputType = {
   goals: number
   quests: number
+  sessions: number
+  executions: number
   sentFriendRequests: number
   receivedFriendRequests: number
   socialPosts: number
@@ -1707,6 +2798,8 @@ export type UserCountOutputType = {
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   goals?: boolean | UserCountOutputTypeCountGoalsArgs
   quests?: boolean | UserCountOutputTypeCountQuestsArgs
+  sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  executions?: boolean | UserCountOutputTypeCountExecutionsArgs
   sentFriendRequests?: boolean | UserCountOutputTypeCountSentFriendRequestsArgs
   receivedFriendRequests?: boolean | UserCountOutputTypeCountReceivedFriendRequestsArgs
   socialPosts?: boolean | UserCountOutputTypeCountSocialPostsArgs
@@ -1739,6 +2832,20 @@ export type UserCountOutputTypeCountGoalsArgs<ExtArgs extends runtime.Types.Exte
  */
 export type UserCountOutputTypeCountQuestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.QuestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountExecutionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestExecutionWhereInput
 }
 
 /**
@@ -1806,11 +2913,18 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   status?: boolean
   planType?: boolean
   trialEndsAt?: boolean
+  emailVerifiedAt?: boolean
+  lastLoginAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   quests?: boolean | Prisma.User$questsArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
+  gamification?: boolean | Prisma.User$gamificationArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  executions?: boolean | Prisma.User$executionsArgs<ExtArgs>
   sentFriendRequests?: boolean | Prisma.User$sentFriendRequestsArgs<ExtArgs>
   receivedFriendRequests?: boolean | Prisma.User$receivedFriendRequestsArgs<ExtArgs>
   socialPosts?: boolean | Prisma.User$socialPostsArgs<ExtArgs>
@@ -1830,6 +2944,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   planType?: boolean
   trialEndsAt?: boolean
+  emailVerifiedAt?: boolean
+  lastLoginAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1843,6 +2959,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   status?: boolean
   planType?: boolean
   trialEndsAt?: boolean
+  emailVerifiedAt?: boolean
+  lastLoginAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1856,15 +2974,22 @@ export type UserSelectScalar = {
   status?: boolean
   planType?: boolean
   trialEndsAt?: boolean
+  emailVerifiedAt?: boolean
+  lastLoginAt?: boolean
   deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "passwordHash" | "status" | "planType" | "trialEndsAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "username" | "passwordHash" | "status" | "planType" | "trialEndsAt" | "emailVerifiedAt" | "lastLoginAt" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   quests?: boolean | Prisma.User$questsArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
+  gamification?: boolean | Prisma.User$gamificationArgs<ExtArgs>
+  sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  executions?: boolean | Prisma.User$executionsArgs<ExtArgs>
   sentFriendRequests?: boolean | Prisma.User$sentFriendRequestsArgs<ExtArgs>
   receivedFriendRequests?: boolean | Prisma.User$receivedFriendRequestsArgs<ExtArgs>
   socialPosts?: boolean | Prisma.User$socialPostsArgs<ExtArgs>
@@ -1883,6 +3008,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     goals: Prisma.$GoalPayload<ExtArgs>[]
     quests: Prisma.$QuestPayload<ExtArgs>[]
+    profile: Prisma.$UserProfilePayload<ExtArgs> | null
+    settings: Prisma.$UserSettingsPayload<ExtArgs> | null
+    gamification: Prisma.$UserGamificationPayload<ExtArgs> | null
+    sessions: Prisma.$SessionPayload<ExtArgs>[]
+    executions: Prisma.$QuestExecutionPayload<ExtArgs>[]
     sentFriendRequests: Prisma.$FriendshipPayload<ExtArgs>[]
     receivedFriendRequests: Prisma.$FriendshipPayload<ExtArgs>[]
     socialPosts: Prisma.$SocialPostPayload<ExtArgs>[]
@@ -1900,6 +3030,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     status: string
     planType: $Enums.AccessTier
     trialEndsAt: Date | null
+    emailVerifiedAt: Date | null
+    lastLoginAt: Date | null
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -2299,6 +3431,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   goals<T extends Prisma.User$goalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   quests<T extends Prisma.User$questsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$questsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__UserProfileClient<runtime.Types.Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  settings<T extends Prisma.User$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingsArgs<ExtArgs>>): Prisma.Prisma__UserSettingsClient<runtime.Types.Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  gamification<T extends Prisma.User$gamificationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$gamificationArgs<ExtArgs>>): Prisma.Prisma__UserGamificationClient<runtime.Types.Result.GetResult<Prisma.$UserGamificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  executions<T extends Prisma.User$executionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$executionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestExecutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentFriendRequests<T extends Prisma.User$sentFriendRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentFriendRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receivedFriendRequests<T extends Prisma.User$receivedFriendRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedFriendRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   socialPosts<T extends Prisma.User$socialPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$socialPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SocialPostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2343,6 +3480,8 @@ export interface UserFieldRefs {
   readonly status: Prisma.FieldRef<"User", 'String'>
   readonly planType: Prisma.FieldRef<"User", 'AccessTier'>
   readonly trialEndsAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly emailVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -2784,6 +3923,111 @@ export type User$questsArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.QuestScalarFieldEnum | Prisma.QuestScalarFieldEnum[]
+}
+
+/**
+ * User.profile
+ */
+export type User$profileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserProfile
+   */
+  select?: Prisma.UserProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserProfile
+   */
+  omit?: Prisma.UserProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserProfileInclude<ExtArgs> | null
+  where?: Prisma.UserProfileWhereInput
+}
+
+/**
+ * User.settings
+ */
+export type User$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserSettings
+   */
+  select?: Prisma.UserSettingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserSettings
+   */
+  omit?: Prisma.UserSettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserSettingsInclude<ExtArgs> | null
+  where?: Prisma.UserSettingsWhereInput
+}
+
+/**
+ * User.gamification
+ */
+export type User$gamificationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserGamification
+   */
+  select?: Prisma.UserGamificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserGamification
+   */
+  omit?: Prisma.UserGamificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserGamificationInclude<ExtArgs> | null
+  where?: Prisma.UserGamificationWhereInput
+}
+
+/**
+ * User.sessions
+ */
+export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Session
+   */
+  select?: Prisma.SessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Session
+   */
+  omit?: Prisma.SessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SessionInclude<ExtArgs> | null
+  where?: Prisma.SessionWhereInput
+  orderBy?: Prisma.SessionOrderByWithRelationInput | Prisma.SessionOrderByWithRelationInput[]
+  cursor?: Prisma.SessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * User.executions
+ */
+export type User$executionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the QuestExecution
+   */
+  select?: Prisma.QuestExecutionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the QuestExecution
+   */
+  omit?: Prisma.QuestExecutionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestExecutionInclude<ExtArgs> | null
+  where?: Prisma.QuestExecutionWhereInput
+  orderBy?: Prisma.QuestExecutionOrderByWithRelationInput | Prisma.QuestExecutionOrderByWithRelationInput[]
+  cursor?: Prisma.QuestExecutionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestExecutionScalarFieldEnum | Prisma.QuestExecutionScalarFieldEnum[]
 }
 
 /**

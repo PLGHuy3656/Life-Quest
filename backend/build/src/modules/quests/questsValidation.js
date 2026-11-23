@@ -3,18 +3,16 @@ const getQuestsByUserId = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object().unknown(true).optional(),
   query: Joi.object({
-    userId: Joi.string().uuid().required(),
     status: Joi.string().valid('ACTIVE', 'ARCHIVED').optional(),
     goalId: Joi.string().uuid().optional(),
     milestoneId: Joi.string().uuid().optional(),
     search: Joi.string().trim().min(1).max(100).optional()
-  })
+  }).unknown(true).optional()
 });
 
 // Validate dữ liệu khi tạo Quest.
 const createQuest = Joi.object({
   body: Joi.object({
-    userId: Joi.string().uuid().required(),
     goalId: Joi.string().uuid().allow(null).optional(),
     milestoneId: Joi.string().uuid().allow(null).optional(),
     title: Joi.string().trim().min(3).max(100).required(),
@@ -43,9 +41,7 @@ const getQuestById = Joi.object({
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 
 // Validate dữ liệu khi cập nhật Quest.
@@ -75,54 +71,42 @@ const updateQuest = Joi.object({
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const deleteQuest = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const pinQuest = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const unpinQuest = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const archiveQuest = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 const restoreQuest = Joi.object({
   body: Joi.object().unknown(true).optional(),
   params: Joi.object({
     questId: Joi.string().uuid().required()
   }),
-  query: Joi.object({
-    userId: Joi.string().uuid().required()
-  })
+  query: Joi.object().unknown(true).optional()
 });
 export const questsValidation = {
   getQuestsByUserId,

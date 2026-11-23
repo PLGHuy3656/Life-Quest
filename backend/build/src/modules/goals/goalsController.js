@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 // Lấy danh sách toàn bộ mục tiêu theo ID người dùng
 const getGoalsByUserId = async (req, res, next) => {
   try {
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const goals = await goalsService.getGoalsByUserId(userId);
     const responseData = {
       success: true,
@@ -20,7 +20,7 @@ const getGoalsByUserId = async (req, res, next) => {
 const getGoalById = async (req, res, next) => {
   try {
     const goalId = req.params.goalId;
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const goal = await goalsService.getGoalById(goalId, userId);
     const responseData = {
       success: true,
@@ -35,8 +35,9 @@ const getGoalById = async (req, res, next) => {
 // Tạo mới một mục tiêu(Goal).
 const createGoal = async (req, res, next) => {
   try {
+    const userId = req.user.id;
     const goalData = req.body;
-    const goal = await goalsService.createGoal(goalData);
+    const goal = await goalsService.createGoal(userId, goalData);
     const responseData = {
       success: true,
       data: goal
@@ -51,7 +52,7 @@ const createGoal = async (req, res, next) => {
 const updateGoal = async (req, res, next) => {
   try {
     const goalId = req.params.goalId;
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const updateData = req.body;
     const updatedGoal = await goalsService.updateGoal(goalId, userId, updateData);
     const responseData = {
@@ -66,7 +67,7 @@ const updateGoal = async (req, res, next) => {
 const pauseGoal = async (req, res, next) => {
   try {
     const goalId = req.params.goalId;
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const pausedGoal = await goalsService.pauseGoal(goalId, userId);
     const responseData = {
       success: true,
@@ -80,7 +81,7 @@ const pauseGoal = async (req, res, next) => {
 const resumeGoal = async (req, res, next) => {
   try {
     const goalId = req.params.goalId;
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const resumedGoal = await goalsService.resumeGoal(goalId, userId);
     const responseData = {
       success: true,
@@ -94,7 +95,7 @@ const resumeGoal = async (req, res, next) => {
 const completeGoal = async (req, res, next) => {
   try {
     const goalId = req.params.goalId;
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const completedGoal = await goalsService.completeGoal(goalId, userId);
     const responseData = {
       success: true,
@@ -110,7 +111,7 @@ const completeGoal = async (req, res, next) => {
 const archiveGoal = async (req, res, next) => {
   try {
     const goalId = req.params.goalId;
-    const userId = req.query.userId;
+    const userId = req.user.id;
     const archivedGoal = await goalsService.archiveGoal(goalId, userId);
     const responseData = {
       success: true,

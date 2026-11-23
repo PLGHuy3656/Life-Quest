@@ -105,3 +105,22 @@ export const MascotTriggerType = {
 } as const
 
 export type MascotTriggerType = (typeof MascotTriggerType)[keyof typeof MascotTriggerType]
+
+
+export const ScheduleType = {
+  ONE_TIME: 'ONE_TIME',
+  RECURRING: 'RECURRING'
+} as const
+
+export type ScheduleType = (typeof ScheduleType)[keyof typeof ScheduleType]
+
+
+export const ExecutionStatus = {
+  PLANNED: 'PLANNED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  SKIPPED: 'SKIPPED',
+  ABANDONED: 'ABANDONED'
+} as const
+
+export type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus]
