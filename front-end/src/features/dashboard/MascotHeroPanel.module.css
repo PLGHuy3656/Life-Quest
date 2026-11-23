@@ -1,0 +1,171 @@
+.panel {
+  background: linear-gradient(165deg, #ffffff 0%, #fbf7ef 58%, #f6efe2 100%);
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: var(--lq-radius-card);
+  box-shadow: var(--lq-shadow-card);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+.greetingBlock {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.greetingTitle {
+  font-size: clamp(21px, 2vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--lq-primary);
+  line-height: 1.2;
+}
+
+.greetingSub {
+  font-size: 13.5px;
+  color: var(--lq-ink-secondary);
+  max-width: 340px;
+  line-height: 1.45;
+}
+
+.mascotStageWrap {
+  flex: 1;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* "Hôm nay bạn muốn làm gì?" action box */
+.promptBox {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.09);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(22, 50, 74, 0.05);
+}
+
+.promptTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.promptForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.promptInput {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg);
+  font-size: 13.5px;
+  color: var(--lq-primary);
+}
+
+.promptInput::placeholder {
+  color: var(--lq-ink-muted);
+}
+
+.sendBtn {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 0;
+  background: var(--lq-accent);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  transition: background-color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.sendBtn:hover:not(:disabled) {
+  background: var(--lq-accent-hover);
+}
+
+.sendBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.quickChip {
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  background: var(--lq-bg-elevated);
+  color: var(--lq-ink-secondary);
+  border-radius: var(--lq-radius-pill);
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    color var(--lq-dur-fast) var(--lq-ez),
+    border-color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.quickChip:hover {
+  background: var(--lq-accent-soft);
+  color: var(--lq-accent);
+  border-color: rgba(242, 107, 58, 0.35);
+}
+
+.quickChipActive {
+  background: #fff1ea;
+  color: #c2461a;
+  border-color: rgba(242, 107, 58, 0.45);
+}
+
+.feedbackNote {
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--lq-bg-elevated);
+  color: var(--lq-ink-secondary);
+}
+
+.feedbackError {
+  background: var(--lq-danger-soft);
+  color: var(--lq-danger);
+  font-weight: 600;
+}
+
+.feedbackSuccess {
+  background: var(--lq-success-soft);
+  color: var(--lq-success);
+  font-weight: 600;
+}
+
+@media (max-width: 1023px) {
+  .greetingBlock,
+  .promptBox {
+    display: none;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+}

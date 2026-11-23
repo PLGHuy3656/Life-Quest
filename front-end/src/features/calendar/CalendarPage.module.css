@@ -1,0 +1,190 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.viewSwitch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--lq-radius-pill);
+  background: var(--lq-surface-subtle);
+  border: 1px solid var(--lq-border);
+}
+
+.viewBtn {
+  border: none;
+  background: transparent;
+  padding: 7px 14px;
+  border-radius: var(--lq-radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-ink-secondary);
+}
+
+.viewBtnActive {
+  background: var(--lq-primary);
+  color: #ffffff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.navRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.monthLabel {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.weekdays,
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--lq-ink-muted);
+  padding: 4px 0;
+}
+
+.dayCell {
+  border: 1px solid var(--lq-border);
+  border-radius: 12px;
+  background: var(--lq-bg-elevated);
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.dayMuted {
+  opacity: 0.45;
+}
+
+.dayToday {
+  border-color: var(--lq-accent);
+  color: var(--lq-accent);
+}
+
+.daySelected {
+  background: var(--lq-primary);
+  border-color: var(--lq-primary);
+  color: #ffffff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rowCard {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--lq-border);
+  background: var(--lq-bg-elevated);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  font-size: 14px;
+}
+
+.daysRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dowBtn {
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dowBtnActive {
+  background: var(--lq-primary);
+  border-color: var(--lq-primary);
+  color: #ffffff;
+}
+
+.errorBox {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lq-danger-soft);
+  color: var(--lq-danger);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,134 @@
+.wrap {
+  min-height: calc(100dvh - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brandMark {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--lq-primary) 0%, #244c6e 100%);
+  color: var(--lq-reward);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lq-primary);
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--lq-ink-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  font-size: 14px;
+}
+
+.fieldError {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lq-danger);
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.alertError {
+  background: var(--lq-danger-soft);
+  border: 1px solid rgba(200, 64, 50, 0.25);
+  color: var(--lq-danger);
+}
+
+.alertInfo {
+  background: var(--lq-reward-soft);
+  border: 1px solid rgba(212, 154, 0, 0.3);
+  color: var(--lq-reward-ink);
+}
+
+.alertSuccess {
+  background: var(--lq-success-soft);
+  border: 1px solid rgba(22, 140, 120, 0.28);
+  color: var(--lq-success);
+}
+
+.footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--lq-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--lq-ink-secondary);
+}
+
+.link {
+  color: var(--lq-accent);
+  font-weight: 700;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.securityNote {
+  font-size: 12px;
+  color: var(--lq-ink-muted);
+  line-height: 1.45;
+}

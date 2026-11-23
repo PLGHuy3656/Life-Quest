@@ -1,0 +1,273 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "H1",
+  "kind": "cosmetic prototypes (technical validation set)",
+  "source_rig": "03_RIG/fox_rig_d1_1.blend",
+  "binding": "every item = one skinned mesh on the canonical armature (glTF skin); rigid items carry one weight (1.0) on the deform bone that rigidly carries their socket (sockets are non-deform, never keyed)",
+  "items": {
+    "student_glasses": {
+      "slot": "FACE",
+      "name": "Student glasses",
+      "file": "cosmetics/student_glasses.glb",
+      "socket": "ATT_GLASSES",
+      "bytes": 60492,
+      "hides": [],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 1740,
+      "vertices": 914,
+      "materials": [
+        "glasses_frame",
+        "glasses_lens"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3269,
+          0.5552,
+          -0.0093
+        ],
+        "max": [
+          0.3269,
+          0.6708,
+          0.3185
+        ]
+      },
+      "fixture": false,
+      "note": "rigid on ATT_GLASSES"
+    },
+    "student_cap": {
+      "slot": "HEAD",
+      "name": "Student cap",
+      "file": "cosmetics/student_cap.glb",
+      "socket": "ATT_HAT",
+      "bytes": 111668,
+      "hides": [
+        "FOX_Tuft"
+      ],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 3328,
+      "vertices": 1684,
+      "materials": [
+        "cap_crown",
+        "cap_band",
+        "cap_brim",
+        "cap_button"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2084,
+          0.7353,
+          0.0657
+        ],
+        "max": [
+          0.2084,
+          0.8732,
+          0.3058
+        ]
+      },
+      "fixture": false,
+      "note": "rigid on ATT_HAT; sits in front of the ears; hides the hair tuft"
+    },
+    "sports_headband": {
+      "slot": "HEAD",
+      "name": "Sports headband",
+      "file": "cosmetics/sports_headband.glb",
+      "socket": "HEAD",
+      "bytes": 26900,
+      "hides": [],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 576,
+      "vertices": 288,
+      "materials": [
+        "band_teal",
+        "band_white"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3375,
+          0.5061,
+          -0.3099
+        ],
+        "max": [
+          0.3375,
+          0.7268,
+          0.2649
+        ]
+      },
+      "fixture": false,
+      "note": "rigid on HEAD; tilted plane under the ear roots"
+    },
+    "explorer_backpack": {
+      "slot": "BACK",
+      "name": "Explorer backpack",
+      "file": "cosmetics/explorer_backpack.glb",
+      "socket": "ATT_BACKPACK",
+      "bytes": 137436,
+      "hides": [
+        "FOX_Backpack"
+      ],
+      "bones": [
+        "SPINE"
+      ],
+      "triangles": 4452,
+      "vertices": 2244,
+      "materials": [
+        "pack_canvas",
+        "pack_flap",
+        "pack_pocket",
+        "pack_strap",
+        "pack_bottle",
+        "pack_badge"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2014,
+          0.1502,
+          -0.223
+        ],
+        "max": [
+          0.2014,
+          0.4421,
+          0.123
+        ]
+      },
+      "fixture": false,
+      "note": "rigid on SPINE; replaces the default backpack (and its straps)"
+    },
+    "simple_jacket": {
+      "slot": "BODY",
+      "name": "Simple jacket",
+      "file": "cosmetics/simple_jacket.glb",
+      "socket": null,
+      "bytes": 98896,
+      "hides": [],
+      "bones": [
+        "ARM_L",
+        "ARM_R",
+        "HIPS",
+        "NECK",
+        "PAW_L",
+        "PAW_R",
+        "SPINE"
+      ],
+      "triangles": 3204,
+      "vertices": 1612,
+      "materials": [
+        "jacket_teal"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2565,
+          0.161,
+          -0.148
+        ],
+        "max": [
+          0.2565,
+          0.3448,
+          0.1451
+        ]
+      },
+      "fixture": false,
+      "note": "skinned with the body / arm weights; strap cut-outs"
+    },
+    "explorer_magnifier": {
+      "slot": "HAND_RIGHT",
+      "name": "Explorer magnifier",
+      "file": "cosmetics/explorer_magnifier.glb",
+      "socket": "ATT_HAND_R",
+      "bytes": 29956,
+      "hides": [],
+      "bones": [
+        "PAW_R"
+      ],
+      "triangles": 650,
+      "vertices": 344,
+      "materials": [
+        "mag_handle",
+        "mag_rim",
+        "mag_lens"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3436,
+          0.1502,
+          -0.0042
+        ],
+        "max": [
+          -0.2602,
+          0.2734,
+          0.1428
+        ]
+      },
+      "fixture": false,
+      "note": "rigid on ATT_HAND_R; hidden while the right paw holds a temporary animation prop"
+    },
+    "slot_test_sneakers": {
+      "slot": "FEET",
+      "name": "Slot test: sneakers",
+      "file": "cosmetics/slot_test_sneakers.glb",
+      "socket": null,
+      "bytes": 40684,
+      "hides": [],
+      "bones": [
+        "FOOT_L",
+        "FOOT_R"
+      ],
+      "triangles": 1088,
+      "vertices": 578,
+      "materials": [
+        "shoe_white",
+        "shoe_sole"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.1758,
+          0.0,
+          -0.0896
+        ],
+        "max": [
+          0.1758,
+          0.0579,
+          0.1297
+        ]
+      },
+      "fixture": true,
+      "note": "TECHNICAL FIXTURE (not library content): skinned with the leg weights"
+    },
+    "slot_test_tail_ribbon": {
+      "slot": "TAIL",
+      "name": "Slot test: tail ribbon",
+      "file": "cosmetics/slot_test_tail_ribbon.glb",
+      "socket": "TAIL_03",
+      "bytes": 25056,
+      "hides": [],
+      "bones": [
+        "TAIL_03"
+      ],
+      "triangles": 580,
+      "vertices": 292,
+      "materials": [
+        "ribbon_pink"
+      ],
+      "rest_bounds_threejs": {
+        "min": [
+          -0.1155,
+          0.3161,
+          -0.3224
+        ],
+        "max": [
+          -0.0529,
+          0.3381,
+          -0.2319
+        ]
+      },
+      "fixture": true,
+      "note": "TECHNICAL FIXTURE (not library content): rigid on TAIL_03"
+    }
+  }
+}

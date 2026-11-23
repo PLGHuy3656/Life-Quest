@@ -1,0 +1,72 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.banner {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--lq-reward-soft);
+  border: 1px solid rgba(212, 154, 0, 0.28);
+  color: var(--lq-reward-ink);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.phaseBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--lq-bg-elevated);
+  border: 1px solid var(--lq-border);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  font-size: 14px;
+}
+
+.errorBox {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lq-danger-soft);
+  color: var(--lq-danger);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.successBox {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lq-success-soft);
+  color: var(--lq-success);
+  font-size: 13px;
+  font-weight: 600;
+}

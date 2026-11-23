@@ -1,0 +1,32 @@
+.dock {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: var(--lq-z-nav);
+  pointer-events: auto;
+}
+
+.dockBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid var(--lq-border);
+  background: var(--lq-primary);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: var(--lq-shadow-float);
+}
+
+.dockBtn:hover {
+  background: var(--lq-primary-hover);
+}
+
+@media (max-width: 1023px) {
+  .dock {
+    bottom: 88px;
+    right: 14px;
+  }
+}

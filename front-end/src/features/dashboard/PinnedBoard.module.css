@@ -1,0 +1,78 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heading {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.pinCard {
+  background: linear-gradient(160deg, #ffffff 0%, #faf7f0 100%);
+  border: 1px solid var(--lq-border);
+  border-top: 3px solid var(--lq-accent);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pinCard:nth-child(2) {
+  border-top-color: var(--lq-success);
+}
+
+.pinCard:nth-child(3) {
+  border-top-color: var(--lq-reward);
+}
+
+.pinTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lq-primary);
+  line-height: 1.3;
+}
+
+.pinDesc {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--lq-ink-secondary);
+  line-height: 1.38;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pinMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

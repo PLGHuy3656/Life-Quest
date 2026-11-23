@@ -1,0 +1,431 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "H2",
+  "kind": "cosmetic outfit library (new items; Student / Sports / Explorer also use H1 items)",
+  "source_rig": "03_RIG/fox_rig_d1_1.blend",
+  "binding": "same as H1: one skinned mesh per item on the canonical armature",
+  "items": {
+    "sports_jersey": {
+      "slot": "BODY",
+      "name": "Sports jersey",
+      "file": "cosmetics/sports_jersey.glb",
+      "socket": null,
+      "bytes": 65100,
+      "hides": [],
+      "bones": [
+        "HIPS",
+        "NECK",
+        "SPINE"
+      ],
+      "triangles": 2004,
+      "vertices": 1008,
+      "materials": [
+        "jersey_blue",
+        "jersey_white",
+        "jersey_gold"
+      ],
+      "outfit": "sports",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.1956,
+          0.161,
+          -0.148
+        ],
+        "max": [
+          0.1956,
+          0.3448,
+          0.1451
+        ]
+      },
+      "note": "skinned with the body weights; sleeveless; V-neck; strap cut-outs"
+    },
+    "sports_sneakers": {
+      "slot": "FEET",
+      "name": "Sports sneakers",
+      "file": "cosmetics/sports_sneakers.glb",
+      "socket": null,
+      "bytes": 40680,
+      "hides": [],
+      "bones": [
+        "FOOT_L",
+        "FOOT_R"
+      ],
+      "triangles": 1088,
+      "vertices": 578,
+      "materials": [
+        "sneaker_white",
+        "sneaker_sole",
+        "sneaker_stripe"
+      ],
+      "outfit": "sports",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.1763,
+          0.0,
+          -0.0901
+        ],
+        "max": [
+          0.1763,
+          0.0583,
+          0.1302
+        ]
+      },
+      "note": "skinned with the leg weights; soles never below the floor"
+    },
+    "explorer_hat": {
+      "slot": "HEAD",
+      "name": "Safari hat",
+      "file": "cosmetics/explorer_hat.glb",
+      "socket": "ATT_HAT",
+      "bytes": 109624,
+      "hides": [
+        "FOX_Tuft"
+      ],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 3248,
+      "vertices": 1648,
+      "materials": [
+        "safari_khaki",
+        "safari_band",
+        "safari_brim",
+        "safari_badge"
+      ],
+      "outfit": "explorer",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2097,
+          0.7048,
+          0.0736
+        ],
+        "max": [
+          0.2097,
+          0.8761,
+          0.3091
+        ]
+      },
+      "note": "rigid on ATT_HAT (HEAD); domed crown in front of the ears, side brim"
+    },
+    "mage_hat": {
+      "slot": "HEAD",
+      "name": "Mage hat",
+      "file": "cosmetics/mage_hat.glb",
+      "socket": "ATT_HAT",
+      "bytes": 128572,
+      "hides": [
+        "FOX_Tuft"
+      ],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 3972,
+      "vertices": 2003,
+      "materials": [
+        "mage_violet",
+        "mage_gold",
+        "mage_star"
+      ],
+      "outfit": "mage",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.209,
+          0.7392,
+          -0.0429
+        ],
+        "max": [
+          0.209,
+          0.942,
+          0.2429
+        ]
+      },
+      "note": "rigid on ATT_HAT (HEAD); pointed cone between the ears with a floppy tip folded back (low, stays in frame at Lv30)"
+    },
+    "mage_capelet": {
+      "slot": "BACK",
+      "name": "Mage capelet",
+      "file": "cosmetics/mage_capelet.glb",
+      "socket": null,
+      "bytes": 42356,
+      "hides": [
+        "FOX_Backpack"
+      ],
+      "bones": [
+        "HIPS",
+        "NECK",
+        "SPINE"
+      ],
+      "triangles": 1156,
+      "vertices": 582,
+      "materials": [
+        "cape_violet",
+        "cape_gold",
+        "cape_lining"
+      ],
+      "outfit": "mage",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.1975,
+          0.225,
+          -0.1541
+        ],
+        "max": [
+          0.1975,
+          0.3596,
+          0.1202
+        ]
+      },
+      "note": "skinned with the body weights, 12 mm off the body (layers over BODY items); replaces the backpack"
+    },
+    "mage_wand": {
+      "slot": "HAND_RIGHT",
+      "name": "Star wand",
+      "file": "cosmetics/mage_wand.glb",
+      "socket": "ATT_HAND_R",
+      "bytes": 18832,
+      "hides": [],
+      "bones": [
+        "PAW_R"
+      ],
+      "triangles": 276,
+      "vertices": 142,
+      "materials": [
+        "wand_wood",
+        "wand_gold",
+        "wand_star"
+      ],
+      "outfit": "mage",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3287,
+          0.151,
+          -0.0035
+        ],
+        "max": [
+          -0.2612,
+          0.2511,
+          0.12
+        ]
+      },
+      "note": "rigid on ATT_HAND_R (PAW_R); hand-busy rules apply"
+    },
+    "ninja_headband": {
+      "slot": "HEAD",
+      "name": "Ninja headband",
+      "file": "cosmetics/ninja_headband.glb",
+      "socket": "HEAD",
+      "bytes": 29872,
+      "hides": [],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 704,
+      "vertices": 360,
+      "materials": [
+        "ninja_navy",
+        "ninja_steel"
+      ],
+      "outfit": "ninja",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3409,
+          0.4081,
+          -0.3682
+        ],
+        "max": [
+          0.3409,
+          0.7241,
+          0.2769
+        ]
+      },
+      "note": "rigid on HEAD; steel plate, knot tails at the back"
+    },
+    "ninja_gi": {
+      "slot": "BODY",
+      "name": "Ninja gi",
+      "file": "cosmetics/ninja_gi.glb",
+      "socket": null,
+      "bytes": 108744,
+      "hides": [],
+      "bones": [
+        "ARM_L",
+        "ARM_R",
+        "HIPS",
+        "NECK",
+        "PAW_L",
+        "PAW_R",
+        "SPINE"
+      ],
+      "triangles": 3556,
+      "vertices": 1788,
+      "materials": [
+        "gi_charcoal",
+        "gi_belt",
+        "gi_trim"
+      ],
+      "outfit": "ninja",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2657,
+          0.161,
+          -0.148
+        ],
+        "max": [
+          0.2657,
+          0.3448,
+          0.1451
+        ]
+      },
+      "note": "skinned with the body / arm weights; obi belt; lapel trim"
+    },
+    "ninja_scroll": {
+      "slot": "BACK",
+      "name": "Ninja scroll",
+      "file": "cosmetics/ninja_scroll.glb",
+      "socket": "ATT_BACKPACK",
+      "bytes": 105712,
+      "hides": [
+        "FOX_Backpack"
+      ],
+      "bones": [
+        "SPINE"
+      ],
+      "triangles": 3332,
+      "vertices": 1676,
+      "materials": [
+        "scroll_paper",
+        "scroll_wood",
+        "scroll_cord",
+        "scroll_strap"
+      ],
+      "outfit": "ninja",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2014,
+          0.1502,
+          -0.21
+        ],
+        "max": [
+          0.2014,
+          0.4421,
+          0.123
+        ]
+      },
+      "note": "rigid on ATT_BACKPACK (SPINE); default strap path re-coloured; replaces the backpack"
+    },
+    "tet_khan_dong": {
+      "slot": "HEAD",
+      "name": "Kh\u0103n \u0111\u00f3ng (T\u1ebft)",
+      "file": "cosmetics/tet_khan_dong.glb",
+      "socket": "ATT_HAT",
+      "bytes": 116272,
+      "hides": [
+        "FOX_Tuft"
+      ],
+      "bones": [
+        "HEAD"
+      ],
+      "triangles": 3648,
+      "vertices": 1826,
+      "materials": [
+        "khan_red",
+        "khan_gold"
+      ],
+      "outfit": "tet",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3529,
+          0.4777,
+          -0.3127
+        ],
+        "max": [
+          0.3529,
+          0.8524,
+          0.2727
+        ]
+      },
+      "note": "rigid on ATT_HAT (HEAD); crown + wrapped band"
+    },
+    "tet_ao_dai": {
+      "slot": "BODY",
+      "name": "\u00c1o d\u00e0i top (T\u1ebft)",
+      "file": "cosmetics/tet_ao_dai.glb",
+      "socket": null,
+      "bytes": 111772,
+      "hides": [],
+      "bones": [
+        "ARM_L",
+        "ARM_R",
+        "HIPS",
+        "NECK",
+        "PAW_L",
+        "PAW_R",
+        "SPINE"
+      ],
+      "triangles": 3664,
+      "vertices": 1842,
+      "materials": [
+        "aodai_red",
+        "aodai_gold",
+        "aodai_flower"
+      ],
+      "outfit": "tet",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.2612,
+          0.1464,
+          -0.148
+        ],
+        "max": [
+          0.2612,
+          0.3478,
+          0.1451
+        ]
+      },
+      "note": "skinned with the body / arm weights; 3/4 sleeves, gold trim"
+    },
+    "tet_lixi": {
+      "slot": "HAND_RIGHT",
+      "name": "L\u00ec x\u00ec envelope",
+      "file": "cosmetics/tet_lixi.glb",
+      "socket": "ATT_HAND_R",
+      "bytes": 11404,
+      "hides": [],
+      "bones": [
+        "PAW_R"
+      ],
+      "triangles": 52,
+      "vertices": 30,
+      "materials": [
+        "lixi_red",
+        "lixi_gold"
+      ],
+      "outfit": "tet",
+      "fixture": false,
+      "rest_bounds_threejs": {
+        "min": [
+          -0.3299,
+          0.177,
+          0.0278
+        ],
+        "max": [
+          -0.2566,
+          0.2558,
+          0.0968
+        ]
+      },
+      "note": "rigid on ATT_HAND_R (PAW_R); hand-busy rules apply"
+    }
+  }
+}
