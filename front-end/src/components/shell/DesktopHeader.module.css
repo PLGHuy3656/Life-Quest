@@ -8,7 +8,7 @@
   height: 80px;
   background: rgba(245, 243, 238, 0.84);
   backdrop-filter: blur(14px);
-  padding: 0 24px;
+  padding: 0 var(--lq-page-gutter);
 }
 
 @media (max-width: 1023px) {
@@ -19,12 +19,12 @@
 
 .grid {
     width: 100%;
-    max-width: 1200px;
+    max-width: var(--lq-container-max);
     margin: 0 auto;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 16px;
+    gap: var(--lq-grid-gap);
     min-width: 0;
   }
 

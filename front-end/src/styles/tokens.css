@@ -47,6 +47,9 @@
   --lq-shadow-sheet: 0 20px 56px rgba(22, 50, 74, 0.22);
 
   /* Layout & Motion */
+  --lq-container-max: 1200px;
+  --lq-page-gutter: 24px;
+  --lq-grid-gap: 16px;
   --lq-hdh: 76px;
   --lq-sidebar-w: 248px;
   --lq-bnav-h: 72px;

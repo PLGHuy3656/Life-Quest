@@ -167,13 +167,27 @@ for (const width of [1024, 1280, 1440, 1920]) {
     }
 
     const layout = await page.evaluate(() => {
+      const headerGrid = document.querySelector('[data-testid="desktop-canvas-header"]')?.firstElementChild
+      const headerRect = headerGrid?.getBoundingClientRect()
+      const showcase = document.querySelector('[data-testid="dashboard-main-showcase"]')!.getBoundingClientRect()
       const pinned = document.querySelector('[data-testid="pinned-board-card"]')!.getBoundingClientRect()
       const social = document.querySelector('[data-testid="social-preview-card"]')!.getBoundingClientRect()
       const mascot = document.querySelector('[data-testid="mascot-hero-panel"]')!.getBoundingClientRect()
-      return { pinned, social, mascot }
+      const prompt = document.querySelector('[data-testid="mascot-prompt-box"]')!.getBoundingClientRect()
+      const dock = document.querySelector('[data-testid="floating-mascot-dock"]')!.getBoundingClientRect()
+      return { headerRect, showcase, pinned, social, mascot, prompt, dock }
     })
+    expect(Math.abs(layout.showcase.left - layout.headerRect!.left)).toBeLessThanOrEqual(4)
+    expect(Math.abs(layout.showcase.right - layout.headerRect!.right)).toBeLessThanOrEqual(4)
     expect(layout.pinned.right).toBeLessThanOrEqual(layout.mascot.left + 1)
     expect(layout.social.right).toBeLessThanOrEqual(layout.mascot.left + 1)
     expect(layout.social.top).toBeGreaterThanOrEqual(layout.pinned.bottom)
+    // Floating Fox Assistant button must never overlap Quick Create
+    const dockOverlapsPrompt =
+      layout.dock.left < layout.prompt.right &&
+      layout.dock.right > layout.prompt.left &&
+      layout.dock.top < layout.prompt.bottom &&
+      layout.dock.bottom > layout.prompt.top
+    expect(dockOverlapsPrompt).toBe(false)
   })
 }
