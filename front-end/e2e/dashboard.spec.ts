@@ -190,3 +190,46 @@ for (const width of [1024, 1280, 1440, 1920]) {
     expect(dockOverlapsPrompt).toBe(false)
   })
 }
+
+test('FE-03.5J adaptive social media preview: multi-image selection, +N overlay, lightbox keyboard nav & removal', async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/?nowebgl=1')
+
+  // Minimal valid 1x1 PNG buffer
+  const pngBuffer = Buffer.from(
+    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+    'base64'
+  )
+
+  // Compact before selection
+  await expect(page.getByTestId('social-composer-card')).toHaveAttribute('data-has-media', '0')
+
+  // Upload 5 local images to trigger 2x2 + "+1" overlay
+  await page.getByTestId('social-media-file-input').setInputFiles([
+    { name: 'img-1.png', mimeType: 'image/png', buffer: pngBuffer },
+    { name: 'img-2.png', mimeType: 'image/png', buffer: pngBuffer },
+    { name: 'img-3.png', mimeType: 'image/png', buffer: pngBuffer },
+    { name: 'img-4.png', mimeType: 'image/png', buffer: pngBuffer },
+    { name: 'img-5.png', mimeType: 'image/png', buffer: pngBuffer }
+  ])
+
+  const drawer = page.getByTestId('composer-media-drawer')
+  await expect(drawer).toBeVisible()
+  await expect(drawer.getByTestId('social-media-overflow-badge')).toHaveText('+1')
+
+  // Open lightbox and navigate via keyboard
+  await drawer.getByRole('button', { name: /img-1\.png/i }).first().click()
+  const lightbox = page.getByTestId('social-media-lightbox')
+  await expect(lightbox).toBeVisible()
+  await expect(lightbox.getByText('1 / 5')).toBeVisible()
+  await page.keyboard.press('ArrowRight')
+  await expect(lightbox.getByText('2 / 5')).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(lightbox).toBeHidden()
+
+  // Clear all collapses composer back to compact state
+  await drawer.getByRole('button', { name: 'Xóa tất cả' }).click()
+  await expect(page.getByTestId('social-composer-card')).toHaveAttribute('data-has-media', '0')
+})

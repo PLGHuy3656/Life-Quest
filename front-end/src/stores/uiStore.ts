@@ -37,6 +37,7 @@ interface UiState {
   pinnedRailCollapsed: boolean
   foxRailCollapsed: boolean
   quickCreateDraft: string
+  socialComposerDraft: string
   setReducedMotion: (enabled: boolean) => void
   toggleReducedMotion: () => void
   openSheet: (sheet: Exclude<ActiveSheet, null>) => void
@@ -47,6 +48,7 @@ interface UiState {
   setFoxRailCollapsed: (collapsed: boolean) => void
   toggleFoxRail: () => void
   setQuickCreateDraft: (draft: string) => void
+  setSocialComposerDraft: (draft: string) => void
 }
 
 const initialReducedMotion = readReducedMotion()
@@ -59,6 +61,7 @@ export const useUiStore = create<UiState>((set, get) => ({
   pinnedRailCollapsed: getDefaultPinnedRailCollapsed(),
   foxRailCollapsed: false,
   quickCreateDraft: '',
+  socialComposerDraft: '',
   setReducedMotion: (enabled) => {
     applyReducedMotionClass(enabled)
     if (typeof window !== 'undefined') {
@@ -80,5 +83,6 @@ export const useUiStore = create<UiState>((set, get) => ({
   togglePinnedRail: () => set((s) => ({ pinnedRailCollapsed: !s.pinnedRailCollapsed })),
   setFoxRailCollapsed: (foxRailCollapsed) => set({ foxRailCollapsed }),
   toggleFoxRail: () => set((s) => ({ foxRailCollapsed: !s.foxRailCollapsed })),
-  setQuickCreateDraft: (quickCreateDraft) => set({ quickCreateDraft })
+  setQuickCreateDraft: (quickCreateDraft) => set({ quickCreateDraft }),
+  setSocialComposerDraft: (socialComposerDraft) => set({ socialComposerDraft })
 }))
