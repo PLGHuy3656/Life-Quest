@@ -1,5 +1,3 @@
-import { Card } from '@/components/ui/Card'
-import { FoxCompanionView } from '@/features/mascot/FoxCompanionView'
 import { MascotEventAdapter } from '@/features/mascot/MascotEventAdapter'
 import {
   useGoalsWithMilestonesQuery,
@@ -12,6 +10,7 @@ import { useUiStore } from '@/stores/uiStore'
 import { DashboardSheets } from './DashboardSheets'
 import { GoalsProgressPanel } from './GoalsProgressPanel'
 import { HeroSection } from './HeroSection'
+import { MascotHeroPanel } from './MascotHeroPanel'
 import { PinnedBoard } from './PinnedBoard'
 import { SocialPreviewPanel } from './SocialPreviewPanel'
 import { TodayFeed } from './TodayFeed'
@@ -38,30 +37,24 @@ export function DashboardPage() {
         authoritativeLevel={authoritativeLevel}
       />
 
-      <div className={styles.topGrid} data-testid="dashboard-top-grid">
-        <div className={styles.heroSlot}>
-          <HeroSection
-            user={userQuery.data?.data}
-            today={todayQuery.data?.data}
-            source={todayQuery.data?.source ?? userQuery.data?.source ?? 'MOCK'}
-            isLoading={userQuery.isLoading || todayQuery.isLoading}
-            error={userQuery.error || todayQuery.error}
-            onRetry={() => {
-              userQuery.refetch()
-              todayQuery.refetch()
-            }}
-          />
-        </div>
+      {/* Preserved untouched for Tablet & Mobile (< 1024px); hidden on Desktop */}
+      <div className={styles.mobileHeroOnly}>
+        <HeroSection
+          user={userQuery.data?.data}
+          today={todayQuery.data?.data}
+          source={todayQuery.data?.source ?? userQuery.data?.source ?? 'MOCK'}
+          isLoading={userQuery.isLoading || todayQuery.isLoading}
+          error={userQuery.error || todayQuery.error}
+          onRetry={() => {
+            userQuery.refetch()
+            todayQuery.refetch()
+          }}
+        />
+      </div>
 
-        <Card
-          variant="tinted"
-          className={styles.mascotSpan}
-          data-testid="hero-mascot-span-card"
-        >
-          <FoxCompanionView presentation="widget" label="Bạn đồng hành Cáo V2" />
-        </Card>
-
-        <div className={styles.pinnedSlot}>
+      {/* Desktop Main Showcase: Left = Bảng ghim + Social/Hành trình; Right = Mascot Greeting + Prompt */}
+      <div className={styles.mainShowcase} data-testid="dashboard-main-showcase">
+        <div className={styles.leftShowcase}>
           <PinnedBoard
             quests={quests}
             source={questsQuery.data?.source ?? 'MOCK'}
@@ -70,10 +63,23 @@ export function DashboardPage() {
             onRetry={() => questsQuery.refetch()}
             onManagePins={() => openSheet('manage-pins')}
           />
+
+          <SocialPreviewPanel
+            items={socialQuery.data?.data ?? []}
+            note={socialQuery.data?.note}
+          />
+        </div>
+
+        <div className={styles.rightShowcase}>
+          <MascotHeroPanel
+            user={userQuery.data?.data}
+            today={todayQuery.data?.data}
+          />
         </div>
       </div>
 
-      <div className={styles.twoCol}>
+      {/* Lower Dashboard sections remain cleanly accessible below */}
+      <div className={styles.lowerGrid}>
         <TodayFeed
           quests={quests}
           schedules={todayQuery.data?.data.schedules ?? []}
@@ -87,20 +93,13 @@ export function DashboardPage() {
           onQuickCreate={() => openSheet('quick-create')}
         />
 
-        <div className={styles.rightCol}>
-          <GoalsProgressPanel
-            items={goalsQuery.data?.data ?? []}
-            source={goalsQuery.data?.source ?? 'MOCK'}
-            isLoading={goalsQuery.isLoading}
-            error={goalsQuery.error}
-            onRetry={() => goalsQuery.refetch()}
-          />
-
-          <SocialPreviewPanel
-            items={socialQuery.data?.data ?? []}
-            note={socialQuery.data?.note}
-          />
-        </div>
+        <GoalsProgressPanel
+          items={goalsQuery.data?.data ?? []}
+          source={goalsQuery.data?.source ?? 'MOCK'}
+          isLoading={goalsQuery.isLoading}
+          error={goalsQuery.error}
+          onRetry={() => goalsQuery.refetch()}
+        />
       </div>
 
       <DashboardSheets quests={quests} />

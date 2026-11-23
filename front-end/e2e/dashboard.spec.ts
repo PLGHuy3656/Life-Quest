@@ -24,7 +24,9 @@ for (const vp of VIEWPORTS) {
     expect(canvasCount).toBeLessThanOrEqual(1)
 
     // Production preview must NOT silently fall back to mock for authenticated LIVE endpoints
-    await expect(page.getByText(/AUTHENTICATION_REQUIRED/).first()).toBeVisible()
+    await expect(
+      page.getByTestId('pinned-board-card').getByText(/AUTHENTICATION_REQUIRED/)
+    ).toBeVisible()
 
     // Verify correct nav for breakpoint
     await expect(page.getByLabel(vp.expectedNav)).toBeVisible()
@@ -111,15 +113,16 @@ test('route navigation (/ -> /wardrobe -> /) cleans up and maintains single acti
 })
 
 for (const width of [1024, 1280, 1440, 1920]) {
-  test(`FE-03.5C desktop ${width}px: no sidebar, 3-island header, and 2-row vertical mascot span`, async ({
+  test(`FE-03.5E desktop ${width}px: mascot greeting + prompt on right, pinned + social on left, no old left hero`, async ({
     page
   }) => {
     const height = width === 1920 ? 1080 : 900
     await page.setViewportSize({ width, height })
     await page.goto('/?nowebgl=1')
 
-    // 1. Desktop sidebar removed completely
+    // 1. Desktop sidebar removed & old left hero hidden on Desktop
     expect(await page.locator('aside').count()).toBe(0)
+    await expect(page.getByTestId('hero-info-card')).toBeHidden()
 
     const header = page.getByTestId('desktop-canvas-header')
     await expect(header).toBeVisible()
@@ -144,19 +147,19 @@ for (const width of [1024, 1280, 1440, 1920]) {
     expect(rects[0].right).toBeLessThanOrEqual(rects[1].left + 1)
     expect(rects[1].right).toBeLessThanOrEqual(rects[2].left + 1)
 
-    // 2. Verify Fox V2 card spans 2 rows vertically & fits above the fold with Pinned Board
+    // 2. Greeting & "Hôm nay bạn muốn làm gì?" inside right mascot panel; Pinned + Social on left
+    await expect(page.getByTestId('mascot-greeting-block')).toBeVisible()
+    await expect(page.getByTestId('mascot-prompt-box')).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeVisible()
+
     const layout = await page.evaluate(() => {
-      const topGrid = document.querySelector('[data-testid="dashboard-top-grid"]')!.getBoundingClientRect()
-      const hero = document.querySelector('[data-testid="hero-info-card"]')!.getBoundingClientRect()
       const pinned = document.querySelector('[data-testid="pinned-board-card"]')!.getBoundingClientRect()
-      const mascot = document.querySelector('[data-testid="hero-mascot-span-card"]')!.getBoundingClientRect()
-      return { topGrid, hero, pinned, mascot }
+      const social = document.querySelector('[data-testid="social-preview-card"]')!.getBoundingClientRect()
+      const mascot = document.querySelector('[data-testid="mascot-hero-panel"]')!.getBoundingClientRect()
+      return { pinned, social, mascot }
     })
-    expect(layout.mascot.height).toBeGreaterThan(layout.hero.height + 40)
-    expect(layout.mascot.width).toBeLessThan(layout.topGrid.width * 0.45)
-    // Primary acceptance: Pinned Board and Mascot fully visible within initial viewport without scrolling
-    expect(layout.pinned.bottom).toBeLessThanOrEqual(height)
-    expect(layout.mascot.bottom).toBeLessThanOrEqual(height)
-    expect(Math.abs(layout.mascot.bottom - layout.pinned.bottom)).toBeLessThanOrEqual(2)
+    expect(layout.pinned.right).toBeLessThanOrEqual(layout.mascot.left + 1)
+    expect(layout.social.right).toBeLessThanOrEqual(layout.mascot.left + 1)
+    expect(layout.social.top).toBeGreaterThanOrEqual(layout.pinned.bottom)
   })
 }
