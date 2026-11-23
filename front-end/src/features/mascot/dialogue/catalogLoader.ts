@@ -5,6 +5,7 @@ import idleJson from '@dialogues/idle.json'
 import socialJson from '@dialogues/social.json'
 import systemJson from '@dialogues/system.json'
 import taskJson from '@dialogues/task.json'
+import touchJson from '@dialogues/touch.json'
 import type {
   DialogueCategory,
   DialogueCollectionFile,
@@ -32,7 +33,8 @@ const MIN_CATEGORY_COUNTS: Record<DialogueCategory, number> = {
   social: 20,
   task: 25,
   deadline: 20,
-  system: 10
+  system: 10,
+  touch: 30
 }
 
 export const ALL_DIALOGUE_COLLECTIONS: DialogueCollectionFile[] = [
@@ -42,7 +44,8 @@ export const ALL_DIALOGUE_COLLECTIONS: DialogueCollectionFile[] = [
   socialJson as DialogueCollectionFile,
   taskJson as DialogueCollectionFile,
   deadlineJson as DialogueCollectionFile,
-  systemJson as DialogueCollectionFile
+  systemJson as DialogueCollectionFile,
+  touchJson as DialogueCollectionFile
 ]
 
 export interface CatalogValidationReport {
@@ -65,7 +68,8 @@ export function validateDialogueCatalog(
     social: 0,
     task: 0,
     deadline: 0,
-    system: 0
+    system: 0,
+    touch: 0
   }
 
   let totalEntries = 0

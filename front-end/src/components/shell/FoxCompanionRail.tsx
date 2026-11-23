@@ -16,6 +16,7 @@ import { FoxCompanionView } from '@/features/mascot/FoxCompanionView'
 import { FoxSpeechBubble } from '@/features/mascot/FoxSpeechBubble'
 import { evaluateQuestDeadlines } from '@/features/mascot/dialogue/deadlineMonitor'
 import { foxDialogueBus } from '@/features/mascot/dialogue/dialogueBus'
+import { FoxTouchClassifier } from '@/features/mascot/dialogue/touchClassifier'
 import type { ActiveDialogueBubble, DialogueEventType } from '@/features/mascot/dialogue/types'
 import { useDocumentVisible } from '@/features/mascot/environment'
 import { VoiceAssistantSheet } from '@/features/voice/VoiceAssistantSheet'
@@ -115,16 +116,19 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const lastSheetRef = useRef<typeof activeSheet>(activeSheet)
   const idleIdxRef = useRef<number>(0)
   const lastForwardedGateIIdRef = useRef<string | null>(null)
+  const touchClassifierRef = useRef<FoxTouchClassifier>(new FoxTouchClassifier())
 
   // Subscribe to centralized dialogue bus
   useEffect(() => {
     return foxDialogueBus.subscribe((bubble) => {
       setActiveDialogue(bubble)
+      const voiceBusy = companion && companion.voicePhase !== 'idle'
       if (
         bubble?.gateIEvent &&
         bubble.instanceId !== lastForwardedGateIIdRef.current &&
         bubble.event !== 'APP_GREETING' &&
-        bubble.event !== 'TASK_CREATED'
+        bubble.event !== 'TASK_CREATED' &&
+        !voiceBusy
       ) {
         lastForwardedGateIIdRef.current = bubble.instanceId
         companion?.publish(bubble.gateIEvent as never)
@@ -278,6 +282,15 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
     foxDialogueBus.dismiss()
   }, [])
 
+  const handleFoxTouch = useCallback(() => {
+    if (collapsed) return
+    const isSleeping =
+      companion?.settings.activity === 'resting' || companion?.settings.mood === 'sleepy'
+    const touchEvent = touchClassifierRef.current.classify({ isSleeping })
+    if (!touchEvent) return
+    foxDialogueBus.emit({ event: touchEvent })
+  }, [collapsed, companion?.settings.activity, companion?.settings.mood])
+
   const selectedType = TASK_TYPE_OPTIONS[typeIdx]
   const hasDraft = prompt.trim().length > 0
   const user = userQuery.data?.data
@@ -402,6 +415,14 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
               dialogue={activeDialogue}
               visible={!collapsed}
               onDismiss={dismissDialogue}
+            />
+            <button
+              type="button"
+              className={styles.foxTouchTarget}
+              onClick={handleFoxTouch}
+              aria-label="Chạm vào Fox"
+              title="Chạm vào Fox"
+              data-testid="fox-touch-target"
             />
             <div className={styles.canvasLayer}>
               <FoxCompanionView

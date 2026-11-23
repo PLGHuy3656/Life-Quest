@@ -8,6 +8,7 @@ export type DialogueCategory =
   | 'task'
   | 'deadline'
   | 'system'
+  | 'touch'
 
 export type DialogueEmotion =
   | 'neutral'
@@ -33,6 +34,10 @@ export type DialogueEventType =
   | 'USER_RETURNED'
   | 'APP_GREETING'
   | 'EMPTY_TASKS'
+  | 'TOUCH_SINGLE'
+  | 'TOUCH_REPEAT'
+  | 'TOUCH_SLEEP'
+  | 'TOUCH_RETURN'
   | 'TASK_CREATED'
   | 'TASK_COMPLETED'
   | 'BACKEND_ERROR'
@@ -103,6 +108,10 @@ export const EVENT_PRIORITY: Record<DialogueEventType, number> = {
   USER_RETURNED: 30,
   APP_GREETING: 35,
   EMPTY_TASKS: 35,
+  TOUCH_SINGLE: 40,
+  TOUCH_REPEAT: 40,
+  TOUCH_SLEEP: 42,
+  TOUCH_RETURN: 42,
   TASK_CREATED: 50,
   TASK_COMPLETED: 55,
   BACKEND_ERROR: 60,
@@ -123,6 +132,10 @@ export const EVENT_COOLDOWN_MS: Record<DialogueEventType, number> = {
   USER_RETURNED: 30_000,
   APP_GREETING: 60_000,
   EMPTY_TASKS: 60_000,
+  TOUCH_SINGLE: 1_200,
+  TOUCH_REPEAT: 1_200,
+  TOUCH_SLEEP: 2_000,
+  TOUCH_RETURN: 5_000,
   TASK_CREATED: 2_000,
   TASK_COMPLETED: 2_000,
   BACKEND_ERROR: 8_000,
@@ -135,6 +148,10 @@ export const EVENT_COOLDOWN_MS: Record<DialogueEventType, number> = {
 export const VERIFIED_GATE_I_MAP: Partial<Record<DialogueEventType, FoxEventName>> = {
   IDLE_CHATTER: 'USER_IDLE',
   SOCIAL_MEDIA_VIEWED: 'PHOTO_REACTION',
+  TOUCH_SINGLE: 'FRIEND_GREETING',
+  TOUCH_REPEAT: 'FRIEND_CHEER',
+  TOUCH_SLEEP: 'SLEEP_ENDED',
+  TOUCH_RETURN: 'USER_RETURNED',
   TASK_CREATED: 'TASK_CREATED',
   TASK_COMPLETED: 'TASK_COMPLETED',
   DEADLINE_60M: 'QUEST_DEADLINE_URGENT',

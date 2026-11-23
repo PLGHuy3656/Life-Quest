@@ -136,6 +136,29 @@
   flex-direction: column;
 }
 
+/* Carefully bounded, accessible interaction target aligned strictly over Fox's visible body */
+.foxTouchTarget {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 112px;
+  height: 152px;
+  z-index: 2;
+  border: 0;
+  border-radius: 56px 56px 36px 36px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  touch-action: manipulation;
+}
+
+.foxTouchTarget:focus-visible {
+  outline: 2px solid var(--lq-accent);
+  outline-offset: 2px;
+  background: rgba(242, 107, 58, 0.06);
+}
+
 .canvasTransparent {
   background: transparent !important;
   border: 0 !important;
