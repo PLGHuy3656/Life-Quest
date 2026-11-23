@@ -9,6 +9,7 @@ import {
   LogIn,
   MessageCircle,
   Search,
+  Settings,
   ShoppingBag,
   ZapOff
 } from 'lucide-react'
@@ -22,7 +23,8 @@ const HEADER_NAV = [
   { to: '/work', label: 'Công việc', icon: Layers, end: false },
   { to: '/calendar', label: 'Lịch', icon: Calendar, end: false },
   { to: '/wardrobe', label: 'Tủ đồ Fox', icon: ShoppingBag, end: false },
-  { to: '/messages', label: 'Tin nhắn', icon: MessageCircle, end: false }
+  { to: '/messages', label: 'Tin nhắn', icon: MessageCircle, end: false },
+  { to: '/settings', label: 'Cài đặt', icon: Settings, end: false }
 ]
 
 function getInitials(name: string): string {

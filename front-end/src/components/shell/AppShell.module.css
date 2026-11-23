@@ -1,29 +1,8 @@
 .shell {
   min-height: 100dvh;
   display: flex;
-  background: var(--lq-bg);
-}
-
-/* Desktop Sidebar (>= 1024px) */
-.sidebar {
-  width: var(--lq-sidebar-w);
-  flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  height: 100dvh;
-  padding: 20px 16px;
-  border-right: 1px solid var(--lq-border);
-  background: var(--lq-bg-elevated);
-  display: flex;
   flex-direction: column;
-  gap: 20px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 8px;
+  background: var(--lq-bg);
 }
 
 .brandMark {
@@ -39,11 +18,6 @@
   box-shadow: 0 4px 12px rgba(22, 50, 74, 0.2);
 }
 
-.brandText {
-  display: flex;
-  flex-direction: column;
-}
-
 .brandName {
   font-size: 16px;
   font-weight: 800;
@@ -51,59 +25,10 @@
   line-height: 1.15;
 }
 
-.brandSub {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--lq-ink-muted);
-}
-
-.sideNav {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-}
-
-.sideLink {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 11px 14px;
-  border-radius: 14px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--lq-ink-secondary);
-  transition:
-    background-color var(--lq-dur-fast) var(--lq-ez),
-    color var(--lq-dur-fast) var(--lq-ez);
-}
-
-.sideLink:hover {
-  background: var(--lq-primary-soft);
-  color: var(--lq-primary);
-}
-
-.sideLinkActive {
-  background: var(--lq-primary);
-  color: #ffffff;
-}
-
-.sideLinkActive:hover {
-  background: var(--lq-primary-hover);
-  color: #ffffff;
-}
-
-.sideFooter {
-  padding-top: 12px;
-  border-top: 1px solid var(--lq-border);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 /* Main Column */
 .mainWrap {
   flex: 1;
+  width: 100%;
   min-width: 0;
   display: flex;
   flex-direction: column;

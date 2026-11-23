@@ -4,15 +4,12 @@ import {
   Bell,
   Calendar,
   CheckSquare,
-  Database,
   Home,
   LogIn,
   LogOut,
   MessageCircle,
   Plus,
   Search,
-  Settings,
-  Sparkles,
   ZapOff
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -23,15 +20,6 @@ import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import { DesktopHeader } from './DesktopHeader'
 import styles from './AppShell.module.css'
-
-const DESKTOP_NAV = [
-  { to: '/', label: 'Trang chủ', icon: Home, end: true },
-  { to: '/work', label: 'Công việc', icon: CheckSquare, end: false },
-  { to: '/calendar', label: 'Lịch', icon: Calendar, end: false },
-  { to: '/messages', label: 'Tin nhắn', icon: MessageCircle, end: false },
-  { to: '/wardrobe', label: 'Tủ đồ Fox', icon: Sparkles, end: false },
-  { to: '/settings', label: 'Cài đặt', icon: Settings, end: false }
-]
 
 const ROUTE_TITLES: Record<string, string> = {
   '/': 'Trang chủ',
@@ -69,54 +57,6 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className={styles.shell}>
-      {/* Desktop Sidebar (>= 1024px) */}
-      <aside className={styles.sidebar} aria-label="Điều hướng chính">
-        <div className={styles.brand}>
-          <div className={styles.brandMark} aria-hidden="true">
-            LQ
-          </div>
-          <div className={styles.brandText}>
-            <span className={styles.brandName}>LifeQuest</span>
-            <span className={styles.brandSub}>Hành trình mỗi ngày</span>
-          </div>
-        </div>
-
-        <nav className={styles.sideNav}>
-          {DESKTOP_NAV.map((item) => {
-            const Icon = item.icon
-            return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) =>
-                  `${styles.sideLink} ${isActive ? styles.sideLinkActive : ''}`.trim()
-                }
-              >
-                <Icon size={18} aria-hidden="true" />
-                <span>{item.label}</span>
-              </NavLink>
-            )
-          })}
-        </nav>
-
-        <div className={styles.sideFooter}>
-          <Button variant="accent" onClick={() => openSheet('quick-create')}>
-            <Plus size={16} aria-hidden="true" />
-            <span>Tạo mới nhanh</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => openSheet('api-status')}
-            aria-label="Trạng thái kết nối Backend"
-          >
-            <Database size={14} aria-hidden="true" />
-            <span>{isAuthenticated ? 'Backend: LIVE' : 'Chế độ: Hybrid Preview'}</span>
-          </Button>
-        </div>
-      </aside>
-
       <div className={styles.mainWrap}>
         {/* Restored Claude Canvas Desktop Header (>= 1024px) */}
         <DesktopHeader onLogout={handleLogout} />

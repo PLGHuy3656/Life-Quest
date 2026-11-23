@@ -80,7 +80,7 @@ describe('DashboardPage & AppShell FE-01', () => {
     const user = userEvent.setup()
     renderApp()
 
-    const createBtn = await screen.findByRole('button', { name: /Tạo mới nhanh/i })
+    const createBtn = await screen.findByRole('button', { name: /\+ Thêm nhiệm vụ/i })
     await user.click(createBtn)
 
     const dialog = await screen.findByRole('dialog')
