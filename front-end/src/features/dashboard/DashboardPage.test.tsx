@@ -65,7 +65,8 @@ describe('DashboardPage & AppShell FE-01', () => {
     const user = userEvent.setup()
     renderApp()
 
-    const rmButton = await screen.findByRole('button', { name: /chế độ giảm chuyển động/i })
+    const rmButtons = await screen.findAllByRole('button', { name: /chế độ giảm chuyển động/i })
+    const rmButton = rmButtons[0]
     expect(document.documentElement.classList.contains('lq-rm')).toBe(false)
 
     await user.click(rmButton)

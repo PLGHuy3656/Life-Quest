@@ -100,11 +100,44 @@ test('route navigation (/ -> /wardrobe -> /) cleans up and maintains single acti
   await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 
-  await page.getByRole('link', { name: 'Tủ đồ Fox' }).click()
+  const sidebar = page.getByRole('complementary', { name: 'Điều hướng chính' })
+  await sidebar.getByRole('link', { name: 'Tủ đồ Fox' }).click()
   await expect(page.getByRole('heading', { name: /Tủ đồ Fox V2/i })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 
-  await page.getByRole('link', { name: 'Trang chủ' }).click()
+  await sidebar.getByRole('link', { name: 'Trang chủ' }).click()
   await expect(page.getByRole('heading', { name: 'Bảng ghim' })).toBeVisible()
   expect(await page.locator('canvas').count()).toBeLessThanOrEqual(1)
 })
+
+for (const width of [1024, 1280, 1440, 1920]) {
+  test(`restored Claude Canvas Desktop Header at ${width}x900 has 3 non-overlapping islands & zero overflow`, async ({
+    page
+  }) => {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto('/?nowebgl=1')
+
+    const header = page.getByTestId('desktop-canvas-header')
+    await expect(header).toBeVisible()
+
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth
+    )
+    expect(overflow).toBe(false)
+
+    // Verify 3 islands exist and do not overlap horizontally
+    const rects = await header.evaluate((el) => {
+      const grid = el.firstElementChild as HTMLElement
+      return Array.from(grid.children).map((c) => {
+        const r = c.getBoundingClientRect()
+        return { left: r.left, right: r.right, height: Math.round(r.height) }
+      })
+    })
+    expect(rects).toHaveLength(3)
+    expect(rects[0].height).toBe(64)
+    expect(rects[1].height).toBe(64)
+    expect(rects[2].height).toBe(64)
+    expect(rects[0].right).toBeLessThanOrEqual(rects[1].left + 1)
+    expect(rects[1].right).toBeLessThanOrEqual(rects[2].left + 1)
+  })
+}
