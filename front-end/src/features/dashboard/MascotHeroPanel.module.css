@@ -53,11 +53,11 @@
   line-height: 1.45;
 }
 
-/* Cozy botanical stage layered behind the alpha-transparent Fox V2 WebGL canvas */
+/* Cozy study room stage layered behind the alpha-transparent Fox V2 WebGL canvas */
 .mascotStageWrap {
   position: relative;
   flex: 1;
-  min-height: 276px;
+  min-height: 274px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(164, 128, 86, 0.18);
@@ -89,39 +89,23 @@
   border-radius: 0 !important;
 }
 
-/* "Hôm nay bạn muốn làm gì?" action box */
+/* Claude-style "Hôm nay bạn muốn làm gì?" pill bar + chips */
 .promptBox {
   position: relative;
   z-index: 1;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(22, 50, 74, 0.09);
-  border-radius: 18px;
-  padding: 14px;
+  border-radius: 20px;
+  padding: 14px 14px 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   box-shadow: 0 6px 20px rgba(22, 50, 74, 0.06);
 }
 
-.promptHeader {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.promptIcon {
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  background: #fff0e8;
-  color: var(--lq-accent);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-}
-
 .promptTitle {
-  font-size: 14px;
+  text-align: center;
+  font-size: 14.5px;
   font-weight: 800;
   color: var(--lq-primary);
 }
@@ -132,55 +116,142 @@
   gap: 8px;
 }
 
-.promptInput {
+.pillBar {
   flex: 1;
   min-width: 0;
-  height: 40px;
-  padding: 0 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(22, 50, 74, 0.14);
-  background: #faf8f4;
+  height: 44px;
+  padding: 4px 6px 4px 5px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid rgba(22, 50, 74, 0.13);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color var(--lq-dur-fast) var(--lq-ez), box-shadow var(--lq-dur-fast) var(--lq-ez);
+}
+
+.pillBar:focus-within {
+  border-color: rgba(242, 107, 58, 0.55);
+  box-shadow: 0 0 0 3px rgba(242, 107, 58, 0.12);
+}
+
+.typePill {
+  height: 32px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: var(--lq-radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: filter var(--lq-dur-fast) var(--lq-ez);
+}
+
+.typePill:hover {
+  filter: brightness(0.95);
+}
+
+.typeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.promptInput {
+  flex: 1;
+  min-width: 60px;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0 4px;
   font-size: 13.5px;
   color: var(--lq-primary);
-  transition:
-    border-color var(--lq-dur-fast) var(--lq-ez),
-    background-color var(--lq-dur-fast) var(--lq-ez);
 }
 
 .promptInput:focus {
   outline: none;
-  border-color: rgba(242, 107, 58, 0.55);
-  background: #ffffff;
 }
 
 .promptInput::placeholder {
   color: var(--lq-ink-muted);
 }
 
-.sendBtn {
-  height: 40px;
-  padding: 0 14px;
-  border-radius: 12px;
+.inlineTools {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.iconToolBtn {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--lq-ink-muted);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.iconToolBtn:hover {
+  background: var(--lq-primary-soft);
+  color: var(--lq-primary);
+}
+
+.iconToolBtnStarred {
+  color: #c28500;
+}
+
+.micToolBtn {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff0e8;
+  color: var(--lq-accent);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    color var(--lq-dur-fast) var(--lq-ez),
+    transform var(--lq-dur-fast) var(--lq-ez);
+}
+
+.micToolBtn:hover {
+  background: #ffe1d1;
+  color: #c84b1e;
+}
+
+.sendCircleBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
   border: 0;
   background: linear-gradient(135deg, #f26b3a 0%, #e45828 100%);
   color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: grid;
+  place-items: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(242, 107, 58, 0.28);
+  box-shadow: 0 5px 14px rgba(242, 107, 58, 0.34);
   transition:
     transform var(--lq-dur-fast) var(--lq-ez),
     filter var(--lq-dur-fast) var(--lq-ez);
 }
 
-.sendBtn:hover:not(:disabled) {
-  filter: brightness(0.96);
+.sendCircleBtn:hover:not(:disabled) {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
 }
 
-.sendBtn:disabled {
+.sendCircleBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -189,13 +260,14 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 6px;
 }
 
 .quickChip {
-  border: 1px solid rgba(22, 50, 74, 0.11);
-  background: #f8f5ef;
-  color: var(--lq-ink-secondary);
+  border: 1px solid rgba(22, 50, 74, 0.13);
+  background: #ffffff;
+  color: var(--lq-primary);
   border-radius: var(--lq-radius-pill);
   padding: 5px 11px;
   font-size: 12px;
@@ -210,15 +282,39 @@
 }
 
 .quickChip:hover {
-  background: var(--lq-accent-soft);
-  color: var(--lq-accent);
-  border-color: rgba(242, 107, 58, 0.35);
+  border-color: rgba(22, 50, 74, 0.3);
+  background: #f8f5ef;
 }
 
 .quickChipActive {
-  background: #fff0e8;
-  color: #c2461a;
-  border-color: rgba(242, 107, 58, 0.45);
+  background: var(--lq-primary);
+  color: #ffffff;
+  border-color: var(--lq-primary);
+}
+
+.quickChipActive:hover {
+  background: var(--lq-primary-hover);
+  color: #ffffff;
+}
+
+.moreChipBtn {
+  width: 30px;
+  height: 29px;
+  border: 1px solid rgba(22, 50, 74, 0.13);
+  background: #ffffff;
+  color: var(--lq-ink-secondary);
+  border-radius: var(--lq-radius-pill);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    border-color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.moreChipBtn:hover {
+  background: #f8f5ef;
+  border-color: rgba(22, 50, 74, 0.28);
+  color: var(--lq-primary);
 }
 
 .feedbackNote {

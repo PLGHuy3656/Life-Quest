@@ -39,6 +39,7 @@ describe('DashboardPage & AppShell FE-01', () => {
     expect(screen.queryByText(/Huy/)).not.toBeInTheDocument()
     expect(screen.getByTestId('mascot-greeting-block')).toBeInTheDocument()
     expect(screen.getByTestId('mascot-decorated-stage')).toBeInTheDocument()
+    expect(screen.getByTestId('mascot-prompt-mic-btn')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Hôm nay' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Ngày mai' })).toBeInTheDocument()

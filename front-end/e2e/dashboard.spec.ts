@@ -151,6 +151,7 @@ for (const width of [1024, 1280, 1440, 1920]) {
     await expect(page.getByTestId('mascot-greeting-block')).toBeVisible()
     await expect(page.getByTestId('mascot-decorated-stage')).toBeVisible()
     await expect(page.getByTestId('mascot-prompt-box')).toBeVisible()
+    await expect(page.getByTestId('mascot-prompt-mic-btn')).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeVisible()
 
     // Verify social mock illustrations loaded cleanly
@@ -158,8 +159,11 @@ for (const width of [1024, 1280, 1440, 1920]) {
     await expect(socialImgs).toHaveCount(2)
     for (let i = 0; i < 2; i++) {
       await expect(socialImgs.nth(i)).toBeVisible()
-      const loaded = await socialImgs.nth(i).evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
-      expect(loaded).toBe(true)
+      await expect
+        .poll(() =>
+          socialImgs.nth(i).evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)
+        )
+        .toBe(true)
     }
 
     const layout = await page.evaluate(() => {
