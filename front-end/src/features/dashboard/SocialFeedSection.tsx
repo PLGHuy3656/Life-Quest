@@ -1,13 +1,15 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import {
   Camera,
   Heart,
+  ImagePlus,
   Lock,
   MessageCircle,
   Send,
   Share2,
   Smile,
-  Sparkles
+  Sparkles,
+  Trash2
 } from 'lucide-react'
 import { SOCIAL_MOCK_ASSETS } from '@/assets/social'
 import { QUEST_TYPE_META } from '@/components/ui/questIconMeta'
@@ -15,7 +17,15 @@ import {
   SOCIAL_CAPABILITY_MATRIX,
   type SocialFeedPost
 } from '@/services/api/socialContracts'
+import { useUiStore } from '@/stores/uiStore'
 import type { PrivacyMode } from '@/types/domain'
+import { SocialMediaGrid } from './media/SocialMediaGrid'
+import {
+  ALLOWED_IMAGE_ACCEPT,
+  MAX_COMPOSER_IMAGES,
+  validateImageFiles,
+  type SocialMediaItem
+} from './media/mediaValidation'
 import styles from './SocialFeedSection.module.css'
 
 const SOCIAL_PREVIEW_POSTS: SocialFeedPost[] = [
@@ -116,14 +126,21 @@ export interface SocialFeedSectionProps {
 }
 
 /**
- * Approved Social-First Home Dashboard feed (FE-03.5I).
- * Clearly separates LIVE / PENDING / UNAVAILABLE capabilities — never fakes
- * real social posting, reactions, comments, or sharing while Backend Social API is PENDING.
+ * Approved Social-First Home Dashboard feed (FE-03.5I + FE-03.5J adaptive local media).
+ * - Compact composer before media selection; expands smoothly when editing local images.
+ * - Instant URL.createObjectURL previews with guaranteed URL.revokeObjectURL cleanup.
+ * - Reuses SocialMediaGrid + SocialMediaLightbox for both composer & demonstration posts.
+ * - Never fabricates Backend upload or post creation success.
  */
 export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSectionProps) {
-  const [composerText, setComposerText] = useState('')
+  const composerText = useUiStore((s) => s.socialComposerDraft)
+  const setComposerText = useUiStore((s) => s.setSocialComposerDraft)
+
   const [composerPrivacy, setComposerPrivacy] = useState<PrivacyMode>('FRIENDS')
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
+  const [selectedMedia, setSelectedMedia] = useState<SocialMediaItem[]>([])
+  const [mediaErrors, setMediaErrors] = useState<string[]>([])
+  const [replaceTargetId, setReplaceTargetId] = useState<string | null>(null)
   const [openComments, setOpenComments] = useState<Record<string, boolean>>({
     'social-feed-1': true
   })
@@ -132,8 +149,117 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
     text: string
   } | null>(null)
 
+  const addFileInputRef = useRef<HTMLInputElement>(null)
+  const replaceFileInputRef = useRef<HTMLInputElement>(null)
+  const activeObjectUrlsRef = useRef<Set<string>>(new Set())
+
+  // Revoke every remaining object URL on unmount to guarantee zero memory leaks
+  useEffect(() => {
+    const urls = activeObjectUrlsRef.current
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url))
+      urls.clear()
+    }
+  }, [])
+
+  const revokeObjectUrl = (url: string) => {
+    if (activeObjectUrlsRef.current.has(url)) {
+      URL.revokeObjectURL(url)
+      activeObjectUrlsRef.current.delete(url)
+    }
+  }
+
+  const handleAddFilesChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0) return
+
+    const { valid, errors } = validateImageFiles(files, selectedMedia.length)
+    setMediaErrors(errors)
+
+    if (valid.length > 0) {
+      const nextItems: SocialMediaItem[] = valid.map((file, idx) => {
+        const objectUrl = URL.createObjectURL(file)
+        activeObjectUrlsRef.current.add(objectUrl)
+        return {
+          id: `local-media-${Date.now()}-${idx}`,
+          src: objectUrl,
+          alt: composerText.trim() || `Ảnh xem trước: ${file.name}`,
+          isObjectUrl: true,
+          fileName: file.name,
+          fileSize: file.size
+        }
+      })
+      setSelectedMedia((prev) => [...prev, ...nextItems])
+    }
+
+    // Reset input value so selecting the same file again triggers onChange
+    e.target.value = ''
+  }
+
+  const handleRequestReplace = (id: string) => {
+    setReplaceTargetId(id)
+    replaceFileInputRef.current?.click()
+  }
+
+  const handleReplaceFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files || files.length === 0 || !replaceTargetId) return
+
+    const { valid, errors } = validateImageFiles([files[0]], 0)
+    setMediaErrors(errors)
+
+    if (valid.length > 0) {
+      const file = valid[0]
+      const newUrl = URL.createObjectURL(file)
+      activeObjectUrlsRef.current.add(newUrl)
+
+      setSelectedMedia((prev) =>
+        prev.map((item) => {
+          if (item.id !== replaceTargetId) return item
+          if (item.isObjectUrl) revokeObjectUrl(item.src)
+          return {
+            ...item,
+            src: newUrl,
+            alt: composerText.trim() || `Ảnh xem trước: ${file.name}`,
+            isObjectUrl: true,
+            fileName: file.name,
+            fileSize: file.size
+          }
+        })
+      )
+    }
+
+    setReplaceTargetId(null)
+    e.target.value = ''
+  }
+
+  const handleRemoveMedia = (id: string) => {
+    setSelectedMedia((prev) => {
+      const target = prev.find((item) => item.id === id)
+      if (target?.isObjectUrl) revokeObjectUrl(target.src)
+      return prev.filter((item) => item.id !== id)
+    })
+    setMediaErrors([])
+  }
+
+  const handleClearAllMedia = () => {
+    selectedMedia.forEach((item) => {
+      if (item.isObjectUrl) revokeObjectUrl(item.src)
+    })
+    setSelectedMedia([])
+    setMediaErrors([])
+  }
+
   const handleComposerSubmit = (e: FormEvent) => {
     e.preventDefault()
+    if (selectedMedia.length > 0) {
+      const uploadCap = SOCIAL_CAPABILITY_MATRIX.photoUpload
+      setStatusBanner({
+        status: 'UNAVAILABLE',
+        text: `${uploadCap.status}: Đã xem trước ${selectedMedia.length} ảnh cục bộ — ${uploadCap.note}`
+      })
+      return
+    }
     const cap = SOCIAL_CAPABILITY_MATRIX.createPost
     setStatusBanner({
       status: 'PENDING',
@@ -155,17 +281,43 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
     })
   }
 
+  const canSubmit = composerText.trim().length > 0 || selectedMedia.length > 0
+
   return (
     <section
       className={`${styles.column} ${expandedWide ? styles.columnWide : ''}`.trim()}
       data-testid="social-feed-section"
       aria-label="Bảng tin Bạn bè LifeQuest"
     >
-      {/* Approved Compact 2-Row Facebook-Style Composer */}
+      {/* Hidden accessible file inputs for Add & Replace */}
+      <input
+        ref={addFileInputRef}
+        type="file"
+        accept={ALLOWED_IMAGE_ACCEPT}
+        multiple
+        className="sr-only"
+        tabIndex={-1}
+        aria-label="Chọn ảnh minh chứng từ thiết bị"
+        data-testid="social-media-file-input"
+        onChange={handleAddFilesChange}
+      />
+      <input
+        ref={replaceFileInputRef}
+        type="file"
+        accept={ALLOWED_IMAGE_ACCEPT}
+        className="sr-only"
+        tabIndex={-1}
+        aria-label="Thay thế ảnh minh chứng"
+        data-testid="social-media-replace-input"
+        onChange={handleReplaceFileChange}
+      />
+
+      {/* Approved Compact 2-Row Facebook-Style Composer (expands only while editing media) */}
       <form
         className={styles.composerCard}
         onSubmit={handleComposerSubmit}
         data-testid="social-composer-card"
+        data-has-media={selectedMedia.length > 0 ? '1' : '0'}
       >
         <div className={styles.composerRow}>
           <span className={`${styles.composerAvatar} ${styles.avatar_teal}`} aria-hidden="true">
@@ -184,7 +336,7 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
           <button
             type="submit"
             className={styles.postBtn}
-            disabled={!composerText.trim()}
+            disabled={!canSubmit}
             aria-label="Đăng bài chia sẻ"
           >
             <Send size={13} aria-hidden="true" />
@@ -192,12 +344,59 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
           </button>
         </div>
 
+        {/* Expanded local media preview drawer (only shown when user selects image(s)) */}
+        {selectedMedia.length > 0 && (
+          <div className={styles.mediaDrawer} data-testid="composer-media-drawer">
+            <div className={styles.mediaDrawerHead}>
+              <span className={styles.mediaDrawerLabel}>
+                Xem trước cục bộ ({selectedMedia.length}/{MAX_COMPOSER_IMAGES} ảnh • chưa tải lên máy chủ)
+              </span>
+              <div className={styles.mediaDrawerTools}>
+                {selectedMedia.length < MAX_COMPOSER_IMAGES && (
+                  <button
+                    type="button"
+                    className={styles.drawerToolBtn}
+                    onClick={() => addFileInputRef.current?.click()}
+                  >
+                    <ImagePlus size={12} aria-hidden="true" />
+                    <span>Thêm ảnh</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={`${styles.drawerToolBtn} ${styles.drawerClearBtn}`.trim()}
+                  onClick={handleClearAllMedia}
+                >
+                  <Trash2 size={12} aria-hidden="true" />
+                  <span>Xóa tất cả</span>
+                </button>
+              </div>
+            </div>
+
+            <SocialMediaGrid
+              items={selectedMedia}
+              editable
+              onRemoveItem={handleRemoveMedia}
+              onReplaceItem={handleRequestReplace}
+            />
+          </div>
+        )}
+
+        {mediaErrors.length > 0 && (
+          <div className={styles.mediaErrorBox} role="alert" data-testid="social-media-error">
+            {mediaErrors.map((msg) => (
+              <div key={msg}>{msg}</div>
+            ))}
+          </div>
+        )}
+
         <div className={styles.composerToolbar}>
           <div className={styles.toolbarLeft}>
             <button
               type="button"
-              className={styles.toolChip}
-              onClick={() => showCapabilityStatus('photoUpload')}
+              className={`${styles.toolChip} ${selectedMedia.length > 0 ? styles.toolChipActive : ''}`.trim()}
+              onClick={() => addFileInputRef.current?.click()}
+              data-testid="composer-add-photo-btn"
             >
               <Camera size={13} color="#168C78" aria-hidden="true" />
               <span>Ảnh minh chứng</span>
@@ -225,10 +424,7 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
             </button>
           </div>
 
-          <span
-            className={styles.previewTag}
-            title={SOCIAL_CAPABILITY_MATRIX.friendsFeed.note}
-          >
+          <span className={styles.previewTag} title={SOCIAL_CAPABILITY_MATRIX.friendsFeed.note}>
             <Sparkles size={10} aria-hidden="true" />
             <span>Xem trước • PENDING</span>
           </span>
@@ -247,13 +443,23 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
         </div>
       )}
 
-      {/* Central Social Feed Cards */}
+      {/* Central Social Feed Cards reusing SocialMediaGrid + SocialMediaLightbox */}
       <div className={styles.feedList}>
         {SOCIAL_PREVIEW_POSTS.map((post) => {
           const asset = SOCIAL_MOCK_ASSETS[post.illustrationKey]
           const typeMeta = QUEST_TYPE_META[post.questType]
           const TypeIcon = typeMeta.Icon
           const commentsOpen = Boolean(openComments[post.id])
+
+          const postMedia: SocialMediaItem[] = [
+            {
+              id: `${post.id}-media-0`,
+              src: asset.src,
+              alt: post.illustrationAlt,
+              aspectRatio: 2, // 360x180 original SVG illustration
+              isPreviewFixture: true
+            }
+          ]
 
           return (
             <article key={post.id} className={styles.postCard} data-testid="social-feed-post">
@@ -292,10 +498,7 @@ export function SocialFeedSection({ expandedWide, userInitial }: SocialFeedSecti
 
               <p className={styles.caption}>{post.caption}</p>
 
-              <div className={styles.mediaWrap}>
-                <img src={asset.src} alt={post.illustrationAlt} className={styles.mediaImg} />
-                <span className={styles.previewWatermark}>Ảnh minh họa • Preview</span>
-              </div>
+              <SocialMediaGrid items={postMedia} />
 
               <div className={styles.actionRow}>
                 <button
