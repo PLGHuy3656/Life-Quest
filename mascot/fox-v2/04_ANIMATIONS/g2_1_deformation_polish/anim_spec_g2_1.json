@@ -1,0 +1,1041 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "G2.1",
+  "module": "g2_daily_life",
+  "module_version": "g2.1",
+  "fps": 24,
+  "supersedes": "04_ANIMATIONS/g2_daily_life/anim_spec_g2.json (G2, kept unchanged)",
+  "resolver": {
+    "study_focus": {
+      "violating_frames_before": 169,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.95,
+        "arm_R": 0.812
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R"
+      ]
+    },
+    "sports_active": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "alarm_ring": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "sleep_loop": {
+      "violating_frames_before": 193,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "scarf": 0.838,
+        "ears": 0.887
+      },
+      "unresolved": [],
+      "before_groups": [
+        "ears",
+        "scarf"
+      ]
+    },
+    "cooldown_wait": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "cooldown_wait_impatient": {
+      "violating_frames_before": 97,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.825,
+        "arm_R": 0.788,
+        "foot": 0.863
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R",
+        "foot"
+      ]
+    },
+    "study_start": {
+      "violating_frames_before": 27,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.95,
+        "arm_R": 0.925
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R"
+      ]
+    },
+    "study_complete": {
+      "violating_frames_before": 41,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.95,
+        "arm_R": 0.925
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R"
+      ]
+    },
+    "sports_start": {
+      "violating_frames_before": 9,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.962,
+        "arm_R": 0.8
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R"
+      ]
+    },
+    "sports_complete": {
+      "violating_frames_before": 28,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "scarf": 0.988,
+        "arm_R": 0.712
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_R",
+        "scarf"
+      ]
+    },
+    "wake_start": {
+      "violating_frames_before": 54,
+      "violating_frames_after": 2,
+      "min_factor": {
+        "scarf": 0.662,
+        "ears": 0.872,
+        "arm_R": 0.6
+      },
+      "unresolved": [
+        {
+          "frame": 8,
+          "t": 0.292,
+          "ratio_over_limit": {
+            "ears": 1.004
+          }
+        },
+        {
+          "frame": 90,
+          "t": 3.708,
+          "ratio_over_limit": {
+            "arm_R": 1.001
+          }
+        }
+      ],
+      "before_groups": [
+        "arm_R",
+        "ears",
+        "scarf"
+      ]
+    },
+    "wake_late": {
+      "violating_frames_before": 39,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.913,
+        "arm_R": 0.875,
+        "ears": 0.975
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R",
+        "ears"
+      ]
+    },
+    "alarm_success": {
+      "violating_frames_before": 40,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.9,
+        "arm_R": 0.975,
+        "ears": 0.975
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R",
+        "ears"
+      ]
+    },
+    "sleep_enter": {
+      "violating_frames_before": 17,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.95,
+        "scarf": 0.738,
+        "ears": 1.0
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "scarf"
+      ]
+    },
+    "sleep_wake": {
+      "violating_frames_before": 43,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "scarf": 0.762,
+        "arm_L": 0.925,
+        "arm_R": 0.925,
+        "ears": 1.0
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R",
+        "scarf"
+      ]
+    },
+    "cooldown_complete": {
+      "violating_frames_before": 17,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "ears": 0.938,
+        "arm_R": 0.7
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_R",
+        "ears"
+      ]
+    }
+  },
+  "resolver_limits": {
+    "arm_in_head_mm": 6.0,
+    "arm_new_in_head": 4,
+    "scarf_in_head_mm": 5.5,
+    "scarf_new_in_head": 12,
+    "scarf_new_in_body": 0,
+    "stretch.FOX_Arm": 0.655,
+    "stretch.FOX_Body": 0.39,
+    "stretch.FOX_Scarf_Roll": 0.55,
+    "stretch.FOX_Scarf_Flap": 0.735,
+    "stretch.FOX_Ear": 0.425,
+    "vis_stretch.FOX_Leg": 0.7
+  },
+  "loop_f1_factors": {
+    "study_focus": {
+      "arm_L": 0.95,
+      "arm_R": 0.925
+    },
+    "sports_active": {},
+    "alarm_ring": {},
+    "sleep_loop": {
+      "scarf": 0.8714285714285713,
+      "ears": 1.0
+    },
+    "cooldown_wait": {},
+    "cooldown_wait_impatient": {
+      "arm_L": 0.8250000000000001,
+      "arm_R": 0.7875000000000002,
+      "foot": 0.9125000000000002
+    }
+  },
+  "source_rig": "03_RIG/fox_rig_d1_1.blend",
+  "base_animation_set": "06_EXPORTS/glb/fox_v2_anim_e2.glb (E2 core clips, unchanged)",
+  "requires_modules": [
+    "g1_1 (optional \u2014 G2 does not depend on it)"
+  ],
+  "categories": {
+    "study": [
+      "study_start",
+      "study_focus",
+      "study_complete"
+    ],
+    "sports": [
+      "sports_start",
+      "sports_active",
+      "sports_complete"
+    ],
+    "wake_alarm": [
+      "wake_start",
+      "wake_late",
+      "alarm_ring",
+      "alarm_success"
+    ],
+    "sleep": [
+      "sleep_enter",
+      "sleep_loop",
+      "sleep_wake"
+    ],
+    "cooldown": [
+      "cooldown_wait",
+      "cooldown_wait_impatient",
+      "cooldown_complete"
+    ]
+  },
+  "clips": {
+    "study_start": {
+      "loop": false,
+      "frames": 59,
+      "duration_s": 2.4583,
+      "cues": [
+        {
+          "t": 0.1667,
+          "fx": "burst.exclaim",
+          "duration": 0.6
+        },
+        {
+          "t": 0.375,
+          "fx": "prop.show",
+          "prop": "notebook",
+          "mode": "pop"
+        },
+        {
+          "t": 1.625,
+          "fx": "prop.phase",
+          "prop": "notebook",
+          "phase": "open"
+        },
+        {
+          "t": 1.7083,
+          "fx": "prop.show",
+          "prop": "pencil",
+          "mode": "pop"
+        },
+        {
+          "t": 1.875,
+          "fx": "sparkle.soft",
+          "at": "notebook",
+          "count": 6
+        }
+      ],
+      "end_pose": "study_focus",
+      "props_end": [
+        "notebook",
+        "pencil"
+      ],
+      "start_pose": "rest",
+      "category": "study",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "study_focus": {
+      "loop": true,
+      "frames": 168,
+      "duration_s": 7.0,
+      "cues": [],
+      "state_fx": [
+        "focus.particles"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "study",
+      "role": "state loop: study (replaces idle as the base clip)",
+      "head_control": 0.8,
+      "face_control": 0.5,
+      "large_motion": false,
+      "state": "study"
+    },
+    "study_complete": {
+      "loop": false,
+      "frames": 87,
+      "duration_s": 3.625,
+      "cues": [
+        {
+          "t": 0.3333,
+          "fx": "sparkle.soft",
+          "at": "hand_r",
+          "count": 5
+        },
+        {
+          "t": 1.0,
+          "fx": "prop.phase",
+          "prop": "notebook",
+          "phase": "close"
+        },
+        {
+          "t": 1.0417,
+          "fx": "burst.stars",
+          "at": "notebook",
+          "count": 10
+        },
+        {
+          "t": 1.2083,
+          "fx": "prop.hide",
+          "prop": "pencil",
+          "mode": "poof"
+        },
+        {
+          "t": 2.375,
+          "fx": "prop.hide",
+          "prop": "notebook",
+          "mode": "poof"
+        },
+        {
+          "t": 2.8333,
+          "fx": "sparkle",
+          "at": "head",
+          "count": 10
+        }
+      ],
+      "start_pose": "study_focus",
+      "props_start": [
+        "notebook",
+        "pencil"
+      ],
+      "end_pose": "rest",
+      "category": "study",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "sports_start": {
+      "loop": false,
+      "frames": 63,
+      "duration_s": 2.625,
+      "cues": [
+        {
+          "t": 0.4583,
+          "fx": "sparkle.soft",
+          "at": "head_top",
+          "count": 6
+        },
+        {
+          "t": 1.375,
+          "fx": "energy.accent",
+          "at": "paws",
+          "count": 10
+        },
+        {
+          "t": 1.8333,
+          "fx": "dust.step",
+          "at": "feet",
+          "count": 6
+        },
+        {
+          "t": 2.0833,
+          "fx": "dust.step",
+          "at": "feet",
+          "count": 6
+        }
+      ],
+      "end_pose": "sports_active",
+      "start_pose": "rest",
+      "category": "sports",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "sports_active": {
+      "loop": true,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [],
+      "state_fx": [
+        "sweat.drops"
+      ],
+      "speed_mps": 0.0,
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "sports",
+      "role": "state loop: exercise (base clip)",
+      "head_control": 1.0,
+      "face_control": 0.9,
+      "large_motion": true,
+      "state": "sports"
+    },
+    "sports_complete": {
+      "loop": false,
+      "frames": 91,
+      "duration_s": 3.7917,
+      "cues": [
+        {
+          "t": 0.9583,
+          "fx": "sweat.burst",
+          "at": "head",
+          "count": 6
+        },
+        {
+          "t": 1.2083,
+          "fx": "puff.pant",
+          "at": "mouth",
+          "duration": 0.9
+        },
+        {
+          "t": 2.0417,
+          "fx": "sweat.flick",
+          "at": "hand_r",
+          "count": 5
+        },
+        {
+          "t": 2.5833,
+          "fx": "burst.stars",
+          "at": "hand_r",
+          "count": 8
+        },
+        {
+          "t": 2.625,
+          "fx": "sparkle",
+          "at": "head",
+          "count": 8
+        }
+      ],
+      "start_pose": "sports_active",
+      "end_pose": "rest",
+      "category": "sports",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "wake_start": {
+      "loop": false,
+      "frames": 99,
+      "duration_s": 4.125,
+      "cues": [
+        {
+          "t": 0.0,
+          "fx": "prop.show",
+          "prop": "alarm_clock",
+          "mode": "pop"
+        },
+        {
+          "t": 0.0417,
+          "fx": "alarm.ring",
+          "until": 0.5417
+        },
+        {
+          "t": 1.3333,
+          "fx": "alarm.ring",
+          "until": 1.7917
+        },
+        {
+          "t": 1.5417,
+          "fx": "burst.exclaim",
+          "duration": 0.5
+        },
+        {
+          "t": 1.875,
+          "fx": "light.morning",
+          "duration": 2.4
+        },
+        {
+          "t": 2.125,
+          "fx": "prop.hide",
+          "prop": "pillow",
+          "mode": "fade"
+        },
+        {
+          "t": 2.2083,
+          "fx": "prop.hide",
+          "prop": "sleep_mat",
+          "mode": "fade"
+        },
+        {
+          "t": 2.7083,
+          "fx": "puff.yawn",
+          "at": "mouth",
+          "duration": 0.5
+        },
+        {
+          "t": 3.4583,
+          "fx": "sparkle",
+          "at": "hand_r",
+          "count": 10
+        },
+        {
+          "t": 3.9583,
+          "fx": "prop.hide",
+          "prop": "alarm_clock",
+          "mode": "poof"
+        }
+      ],
+      "start_pose": "sleep_loop",
+      "props_start": [
+        "pillow",
+        "sleep_mat"
+      ],
+      "end_pose": "rest",
+      "category": "wake_alarm",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "wake_late": {
+      "loop": false,
+      "frames": 87,
+      "duration_s": 3.625,
+      "cues": [
+        {
+          "t": 0.0833,
+          "fx": "clock.late",
+          "until": 2.125,
+          "note": "floating clock with racing hands (no real time shown)"
+        },
+        {
+          "t": 0.625,
+          "fx": "burst.exclaim",
+          "duration": 0.6
+        },
+        {
+          "t": 0.6667,
+          "fx": "sweat.burst",
+          "at": "head",
+          "count": 3
+        },
+        {
+          "t": 1.5,
+          "fx": "note.giggle",
+          "at": "mouth",
+          "count": 3
+        },
+        {
+          "t": 3.0,
+          "fx": "sparkle",
+          "at": "hand_r",
+          "count": 8
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "wake_alarm",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "alarm_ring": {
+      "loop": true,
+      "frames": 48,
+      "duration_s": 2.0,
+      "cues": [],
+      "state_fx": [
+        "alarm.ring"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "wake_alarm",
+      "role": "state loop: alarm (base clip, persists until dismissed)",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "state": "alarm"
+    },
+    "alarm_success": {
+      "loop": false,
+      "frames": 87,
+      "duration_s": 3.625,
+      "cues": [
+        {
+          "t": 0.5417,
+          "fx": "alarm.stop",
+          "note": "clock button pressed: ringing stops, clock squashes"
+        },
+        {
+          "t": 0.5417,
+          "fx": "burst.radial",
+          "at": "alarm_clock",
+          "duration": 0.35
+        },
+        {
+          "t": 0.5833,
+          "fx": "sparkle",
+          "at": "alarm_clock",
+          "count": 10
+        },
+        {
+          "t": 1.2917,
+          "fx": "puff.sigh",
+          "at": "mouth"
+        },
+        {
+          "t": 2.3333,
+          "fx": "burst.stars",
+          "at": "hand_r",
+          "count": 8
+        },
+        {
+          "t": 3.2917,
+          "fx": "prop.hide",
+          "prop": "alarm_clock",
+          "mode": "poof"
+        }
+      ],
+      "start_pose": "alarm_ring",
+      "props_start": [
+        "alarm_clock"
+      ],
+      "hit_frame": 14,
+      "end_pose": "rest",
+      "category": "wake_alarm",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "sleep_enter": {
+      "loop": false,
+      "frames": 111,
+      "duration_s": 4.625,
+      "cues": [
+        {
+          "t": 1.2083,
+          "fx": "puff.yawn",
+          "at": "mouth",
+          "duration": 0.9
+        },
+        {
+          "t": 2.7083,
+          "fx": "prop.show",
+          "prop": "sleep_mat",
+          "mode": "fade"
+        },
+        {
+          "t": 2.875,
+          "fx": "prop.show",
+          "prop": "pillow",
+          "mode": "pop"
+        },
+        {
+          "t": 4.0,
+          "fx": "puff.soft",
+          "at": "pillow",
+          "count": 6
+        },
+        {
+          "t": 4.125,
+          "fx": "sleep.z",
+          "note": "first Z drifts up; sleep_loop keeps emitting"
+        }
+      ],
+      "end_pose": "sleep_loop",
+      "props_end": [
+        "pillow",
+        "sleep_mat"
+      ],
+      "start_pose": "rest",
+      "category": "sleep",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "sleep_loop": {
+      "loop": true,
+      "frames": 192,
+      "duration_s": 8.0,
+      "cues": [],
+      "state_fx": [
+        "sleep.z",
+        "sleep.glow"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "sleep",
+      "role": "state loop: sleep (base clip)",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "state": "sleep"
+    },
+    "sleep_wake": {
+      "loop": false,
+      "frames": 99,
+      "duration_s": 4.125,
+      "cues": [
+        {
+          "t": 0.4583,
+          "fx": "light.morning",
+          "duration": 3.6
+        },
+        {
+          "t": 2.4583,
+          "fx": "puff.yawn",
+          "at": "mouth",
+          "duration": 0.6
+        },
+        {
+          "t": 2.875,
+          "fx": "prop.hide",
+          "prop": "pillow",
+          "mode": "fade"
+        },
+        {
+          "t": 2.9583,
+          "fx": "prop.hide",
+          "prop": "sleep_mat",
+          "mode": "fade"
+        },
+        {
+          "t": 3.4583,
+          "fx": "shake.lines",
+          "at": "chest",
+          "duration": 0.4
+        },
+        {
+          "t": 3.7083,
+          "fx": "sparkle.soft",
+          "at": "head",
+          "count": 6
+        }
+      ],
+      "start_pose": "sleep_loop",
+      "props_start": [
+        "pillow",
+        "sleep_mat"
+      ],
+      "end_pose": "rest",
+      "category": "sleep",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    },
+    "cooldown_wait": {
+      "loop": true,
+      "frames": 120,
+      "duration_s": 5.0,
+      "cues": [],
+      "state_fx": [
+        "timer.watch"
+      ],
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "cooldown",
+      "role": "state loop: cooldown (base clip)",
+      "head_control": 0.5,
+      "face_control": 0.5,
+      "large_motion": false,
+      "state": "cooldown"
+    },
+    "cooldown_wait_impatient": {
+      "loop": true,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [],
+      "state_fx": [
+        "timer.watch"
+      ],
+      "variant_of": "cooldown_wait",
+      "start_pose": "loop",
+      "end_pose": "loop",
+      "category": "cooldown",
+      "role": "state loop variant: cooldown after the runtime impatience delay",
+      "head_control": 0.5,
+      "face_control": 0.6,
+      "large_motion": false,
+      "state": "cooldown"
+    },
+    "cooldown_complete": {
+      "loop": false,
+      "frames": 63,
+      "duration_s": 2.625,
+      "cues": [
+        {
+          "t": 0.0417,
+          "fx": "timer.ding",
+          "note": "timer prop flashes / rings visually (no sound)"
+        },
+        {
+          "t": 0.0833,
+          "fx": "ring.shockwave",
+          "at": "timer",
+          "duration": 0.5
+        },
+        {
+          "t": 0.75,
+          "fx": "prop.hide",
+          "prop": "timer",
+          "mode": "burst"
+        },
+        {
+          "t": 0.75,
+          "fx": "sparkle",
+          "at": "timer",
+          "count": 12
+        },
+        {
+          "t": 0.7917,
+          "fx": "burst.stars",
+          "at": "hand_r",
+          "count": 8
+        }
+      ],
+      "start_pose": "cooldown_wait",
+      "props_start": [
+        "timer"
+      ],
+      "end_pose": "rest",
+      "category": "cooldown",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "state": null
+    }
+  },
+  "prop_anchors": {
+    "notebook": {
+      "pos": [
+        -0.0022,
+        0.2059,
+        0.0653
+      ],
+      "frame": "fox root",
+      "from": "study_focus f1 paws midpoint",
+      "paw_l": [
+        0.2426,
+        0.2018,
+        0.066
+      ],
+      "paw_r": [
+        -0.2471,
+        0.2099,
+        0.0646
+      ]
+    },
+    "alarm_clock": {
+      "paw_at_hit": [
+        -0.3316,
+        0.283,
+        0.0395
+      ],
+      "frame": "fox root",
+      "from": "alarm_success hit frame, right paw tip"
+    },
+    "pillow": {
+      "head": [
+        0.0924,
+        0.3649,
+        -0.1269
+      ],
+      "head_top": [
+        -0.3299,
+        0.3246,
+        -0.1974
+      ],
+      "frame": "fox root",
+      "from": "sleep_loop f1 head bone"
+    },
+    "hips_seated": [
+      0.0,
+      0.0848,
+      -0.1185
+    ],
+    "hips_lying": [
+      0.3878,
+      0.4127,
+      -0.1185
+    ]
+  },
+  "ground_contact": {
+    "study_focus": {
+      "frames_corrected": 169,
+      "max_abs_dz_m": 0.0017
+    },
+    "sports_active": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "alarm_ring": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "sleep_loop": {
+      "frames_corrected": 193,
+      "max_abs_dz_m": 0.0223
+    },
+    "cooldown_wait": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "cooldown_wait_impatient": {
+      "frames_corrected": 40,
+      "max_abs_dz_m": 0.011
+    },
+    "study_start": {
+      "frames_corrected": 38,
+      "max_abs_dz_m": 0.0124
+    },
+    "study_complete": {
+      "frames_corrected": 63,
+      "max_abs_dz_m": 0.0102
+    },
+    "sports_start": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "sports_complete": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "wake_start": {
+      "frames_corrected": 76,
+      "max_abs_dz_m": 0.1084
+    },
+    "wake_late": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "alarm_success": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "sleep_enter": {
+      "frames_corrected": 58,
+      "max_abs_dz_m": 0.0949
+    },
+    "sleep_wake": {
+      "frames_corrected": 77,
+      "max_abs_dz_m": 0.0916
+    },
+    "cooldown_complete": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    }
+  },
+  "expressions_added": [
+    "asleep",
+    "yawn",
+    "peek_l",
+    "wink_r",
+    "drowsy",
+    "focus",
+    "determined",
+    "pant",
+    "talk_o"
+  ],
+  "cue_note": "cues are runtime VFX / prop timeline entries (seconds from clip start); props are FX_PROP_* objects owned by the effects manager, never part of the Fox mesh, skeleton or cosmetics.",
+  "pose_note": "start_pose / end_pose: rest = idle rest pose; <loop name> = frame 1 of that state loop",
+  "head_control_note": "1 = clip owns the head (look-at off); 0.5 = shared with look-at",
+  "face_control_note": "1 = clip drives the facial morphs; < 1 = moods blend in"
+}

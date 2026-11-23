@@ -1,0 +1,1409 @@
+{
+  "asset": "LifeQuest Fox V2",
+  "gate": "G3",
+  "module": "g3_challenge_social",
+  "module_version": "g3",
+  "fps": 24,
+  "source_rig": "03_RIG/fox_rig_d1_1.blend",
+  "base_animation_set": "06_EXPORTS/glb/fox_v2_anim_e2.glb (E2 core clips, unchanged)",
+  "pipeline": "anim_g2_1.py (imported, unchanged): pose envelope, sit drive, resolver vs approved E2 + G1 + G1.1 limits, ground solve; G3 adds the RAW leg stretch (hidden ring included) as a resolver limit",
+  "requires_modules": [
+    "g1_quest_reward_streak (optional: the group streak clips use its flame / streak_active loop when present)"
+  ],
+  "resolver": {
+    "challenge_invite": {
+      "violating_frames_before": 24,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.938
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L"
+      ]
+    },
+    "challenge_accept": {
+      "violating_frames_before": 31,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_R": 0.962,
+        "arm_L": 0.962
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "arm_R"
+      ]
+    },
+    "challenge_start": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "challenge_win": {
+      "violating_frames_before": 9,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "ears": 0.962
+      },
+      "unresolved": [],
+      "before_groups": [
+        "ears"
+      ]
+    },
+    "challenge_lose": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "challenge_draw": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "duo_celebrate": {
+      "violating_frames_before": 30,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.775,
+        "ears": 0.988
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L",
+        "ears"
+      ]
+    },
+    "duo_celebrate_mirror": {
+      "violating_frames_before": 30,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_R": 0.775,
+        "ears": 0.988
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_R",
+        "ears"
+      ]
+    },
+    "group_victory": {
+      "violating_frames_before": 7,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "ears": 0.95
+      },
+      "unresolved": [],
+      "before_groups": [
+        "ears"
+      ]
+    },
+    "team_encourage": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "group_streak_active": {
+      "violating_frames_before": 3,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "ears": 0.988
+      },
+      "unresolved": [],
+      "before_groups": [
+        "ears"
+      ]
+    },
+    "group_streak_lost": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "friend_greet": {
+      "violating_frames_before": 8,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "arm_L": 0.913
+      },
+      "unresolved": [],
+      "before_groups": [
+        "arm_L"
+      ]
+    },
+    "photo_reaction": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "receive_like": {
+      "violating_frames_before": 3,
+      "violating_frames_after": 0,
+      "min_factor": {
+        "ears": 0.938
+      },
+      "unresolved": [],
+      "before_groups": [
+        "ears"
+      ]
+    },
+    "receive_comment": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "friend_support": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    },
+    "friend_miss_you": {
+      "violating_frames_before": 0,
+      "violating_frames_after": 0,
+      "min_factor": {},
+      "unresolved": [],
+      "before_groups": []
+    }
+  },
+  "resolver_limits": {
+    "arm_in_head_mm": 6.0,
+    "arm_new_in_head": 4,
+    "scarf_in_head_mm": 5.5,
+    "scarf_new_in_head": 12,
+    "scarf_new_in_body": 0,
+    "stretch.FOX_Arm": 0.655,
+    "stretch.FOX_Body": 0.39,
+    "stretch.FOX_Scarf_Roll": 0.55,
+    "stretch.FOX_Scarf_Flap": 0.735,
+    "stretch.FOX_Ear": 0.425,
+    "vis_stretch.FOX_Leg": 0.7,
+    "vis_stretch.FOX_Arm": 0.7,
+    "stretch.FOX_Leg": 0.74
+  },
+  "categories": {
+    "challenge": [
+      "challenge_invite",
+      "challenge_accept",
+      "challenge_start",
+      "challenge_win",
+      "challenge_lose",
+      "challenge_draw"
+    ],
+    "duo_group": [
+      "duo_celebrate",
+      "duo_celebrate_mirror",
+      "group_victory",
+      "team_encourage",
+      "group_streak_active",
+      "group_streak_lost"
+    ],
+    "social": [
+      "friend_greet",
+      "photo_reaction",
+      "receive_like",
+      "receive_comment",
+      "friend_support",
+      "friend_miss_you"
+    ]
+  },
+  "clips": {
+    "challenge_invite": {
+      "loop": false,
+      "frames": 72,
+      "duration_s": 3.0,
+      "cues": [
+        {
+          "t": 0.1667,
+          "fx": "prop.show",
+          "prop": "challenge_token",
+          "mode": "pop",
+          "note": "challenge symbol arrives at the fox's left"
+        },
+        {
+          "t": 0.625,
+          "fx": "prop.phase",
+          "prop": "challenge_token",
+          "phase": "paw",
+          "note": "glides above the raised left paw"
+        },
+        {
+          "t": 0.7083,
+          "fx": "ring.paw",
+          "at": "hand_l",
+          "until": 1.7083
+        },
+        {
+          "t": 1.0417,
+          "fx": "sparkle.soft",
+          "at": "hand_l",
+          "count": 8
+        },
+        {
+          "t": 1.4583,
+          "fx": "prop.phase",
+          "prop": "challenge_token",
+          "phase": "present"
+        },
+        {
+          "t": 1.5833,
+          "fx": "pulse.out",
+          "at": "challenge_token",
+          "duration": 0.55,
+          "note": "presentation beat"
+        },
+        {
+          "t": 1.625,
+          "fx": "sparkle",
+          "at": "challenge_token",
+          "count": 10
+        },
+        {
+          "t": 2.625,
+          "fx": "prop.hide",
+          "prop": "challenge_token",
+          "mode": "fade"
+        }
+      ],
+      "props_end": [],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "challenge",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "CHALLENGE_INVITED"
+    },
+    "challenge_accept": {
+      "loop": false,
+      "frames": 60,
+      "duration_s": 2.5,
+      "cues": [
+        {
+          "t": 0.125,
+          "fx": "prop.show",
+          "prop": "challenge_token",
+          "mode": "pop"
+        },
+        {
+          "t": 0.1667,
+          "fx": "prop.phase",
+          "prop": "challenge_token",
+          "phase": "flash",
+          "note": "challenge symbol flashes"
+        },
+        {
+          "t": 0.375,
+          "fx": "streaks.converge",
+          "at": "paws",
+          "duration": 0.45,
+          "note": "two energy streaks converge into the clenched paws"
+        },
+        {
+          "t": 1.25,
+          "fx": "dust.small",
+          "at": "feet",
+          "count": 5
+        },
+        {
+          "t": 1.4583,
+          "fx": "aura.ready",
+          "until": 2.2083
+        },
+        {
+          "t": 1.9583,
+          "fx": "prop.hide",
+          "prop": "challenge_token",
+          "mode": "burst"
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "challenge",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "CHALLENGE_ACCEPTED"
+    },
+    "challenge_start": {
+      "loop": false,
+      "frames": 84,
+      "duration_s": 3.5,
+      "cues": [
+        {
+          "t": 0.625,
+          "fx": "countdown.begin",
+          "note": "countdown prop appears; the displayed value is application data (setChallengeCountdown) \u2014 without data it shows abstract pulses"
+        },
+        {
+          "t": 0.7917,
+          "fx": "countdown.pulse",
+          "step": 3
+        },
+        {
+          "t": 0.7917,
+          "fx": "ring.ground",
+          "duration": 0.6
+        },
+        {
+          "t": 1.2917,
+          "fx": "countdown.pulse",
+          "step": 2
+        },
+        {
+          "t": 1.2917,
+          "fx": "ring.ground",
+          "duration": 0.6
+        },
+        {
+          "t": 1.7917,
+          "fx": "countdown.pulse",
+          "step": 1
+        },
+        {
+          "t": 1.7917,
+          "fx": "ring.ground",
+          "duration": 0.6
+        },
+        {
+          "t": 1.9583,
+          "fx": "flash.start",
+          "duration": 0.4
+        },
+        {
+          "t": 1.9583,
+          "fx": "speed.lines",
+          "duration": 0.5
+        },
+        {
+          "t": 2.0,
+          "fx": "countdown.end"
+        },
+        {
+          "t": 2.2917,
+          "fx": "dust.small",
+          "at": "feet",
+          "count": 6
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "challenge",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "event": "CHALLENGE_STARTED"
+    },
+    "challenge_win": {
+      "loop": false,
+      "frames": 108,
+      "duration_s": 4.5,
+      "cues": [
+        {
+          "t": 0.0833,
+          "fx": "burst.exclaim",
+          "duration": 0.7
+        },
+        {
+          "t": 0.875,
+          "fx": "ring.shockwave",
+          "duration": 0.6
+        },
+        {
+          "t": 1.2083,
+          "fx": "confetti",
+          "count": 80,
+          "duration": 2.6
+        },
+        {
+          "t": 1.5417,
+          "fx": "dust.small",
+          "at": "feet",
+          "count": 6
+        },
+        {
+          "t": 1.875,
+          "fx": "prop.show",
+          "prop": "trophy",
+          "mode": "pop"
+        },
+        {
+          "t": 1.9583,
+          "fx": "starburst.gold",
+          "at": "trophy",
+          "duration": 0.9
+        },
+        {
+          "t": 1.9583,
+          "fx": "aura.victory",
+          "until": 4.125
+        },
+        {
+          "t": 2.125,
+          "fx": "confetti",
+          "count": 60,
+          "duration": 2.4
+        },
+        {
+          "t": 2.5417,
+          "fx": "prop.phase",
+          "prop": "trophy",
+          "phase": "shine"
+        },
+        {
+          "t": 3.4583,
+          "fx": "prop.phase",
+          "prop": "trophy",
+          "phase": "shine"
+        },
+        {
+          "t": 4.0417,
+          "fx": "prop.hide",
+          "prop": "trophy",
+          "mode": "fade"
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "challenge",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "event": "CHALLENGE_WON"
+    },
+    "challenge_lose": {
+      "loop": false,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [
+        {
+          "t": 0.0,
+          "fx": "prop.show",
+          "prop": "challenge_token",
+          "mode": "fade"
+        },
+        {
+          "t": 0.2083,
+          "fx": "prop.phase",
+          "prop": "challenge_token",
+          "phase": "fade_out",
+          "note": "the challenge emblem dims and fades"
+        },
+        {
+          "t": 1.0417,
+          "fx": "dust.small",
+          "at": "feet",
+          "count": 4
+        },
+        {
+          "t": 1.4583,
+          "fx": "prop.hide",
+          "prop": "challenge_token",
+          "mode": "fade"
+        },
+        {
+          "t": 2.7083,
+          "fx": "spark.motivation",
+          "at": "hand_r",
+          "duration": 0.8
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "challenge",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "CHALLENGE_LOST"
+    },
+    "challenge_draw": {
+      "loop": false,
+      "frames": 84,
+      "duration_s": 3.5,
+      "cues": [
+        {
+          "t": 0.0833,
+          "fx": "prop.show",
+          "prop": "equal_emblem",
+          "mode": "pop",
+          "note": "two equally bright emblems, left and right"
+        },
+        {
+          "t": 1.7917,
+          "fx": "prop.phase",
+          "prop": "equal_emblem",
+          "phase": "equal",
+          "note": "the equal sign appears between them"
+        },
+        {
+          "t": 1.875,
+          "fx": "sparks.symmetric",
+          "duration": 0.8
+        },
+        {
+          "t": 2.625,
+          "fx": "sparkle.soft",
+          "at": "hand_r",
+          "count": 6
+        },
+        {
+          "t": 3.125,
+          "fx": "prop.hide",
+          "prop": "equal_emblem",
+          "mode": "fade"
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "challenge",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "CHALLENGE_DRAW"
+    },
+    "duo_celebrate": {
+      "loop": false,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [
+        {
+          "t": 1.4583,
+          "fx": "duo.contact",
+          "at": "hand_l",
+          "note": "high-five contact (mid-air): the duo coordinator puts one shared sparkle at the midpoint of both paws; solo = at this fox's paw"
+        },
+        {
+          "t": 1.5,
+          "fx": "burst.stars",
+          "at": "hand_l",
+          "count": 8
+        },
+        {
+          "t": 1.875,
+          "fx": "burst.heart",
+          "at": "duo_center",
+          "note": "shared heart / starburst above the pair (solo: above the fox)"
+        },
+        {
+          "t": 1.875,
+          "fx": "confetti",
+          "count": 36,
+          "duration": 1.8
+        }
+      ],
+      "contact": {
+        "frame": 36,
+        "t": 1.4583,
+        "socket": "ATT_HAND_L",
+        "partner_side": "left",
+        "window": [
+          1.2917,
+          1.5833
+        ],
+        "note": "mid-air contact: root 0.12 m toward the partner + 12 deg outward roll at the apex (heads stay clear)",
+        "airborne": [
+          1.1667,
+          1.75
+        ],
+        "airborne_frames": [
+          29,
+          43
+        ]
+      },
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "duo_group",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "event": "DUO_CELEBRATION"
+    },
+    "duo_celebrate_mirror": {
+      "loop": false,
+      "frames": 96,
+      "duration_s": 4.0,
+      "cues": [
+        {
+          "t": 1.4583,
+          "fx": "duo.contact",
+          "at": "hand_r",
+          "note": "high-five contact (mid-air): the duo coordinator puts one shared sparkle at the midpoint of both paws; solo = at this fox's paw"
+        },
+        {
+          "t": 1.5,
+          "fx": "burst.stars",
+          "at": "hand_r",
+          "count": 8
+        },
+        {
+          "t": 1.875,
+          "fx": "burst.heart",
+          "at": "duo_center",
+          "note": "shared heart / starburst above the pair (solo: above the fox)"
+        },
+        {
+          "t": 1.875,
+          "fx": "confetti",
+          "count": 36,
+          "duration": 1.8
+        }
+      ],
+      "contact": {
+        "frame": 36,
+        "t": 1.4583,
+        "socket": "ATT_HAND_R",
+        "partner_side": "right",
+        "window": [
+          1.2917,
+          1.5833
+        ],
+        "note": "mid-air contact: root 0.12 m toward the partner + 12 deg outward roll at the apex (heads stay clear)",
+        "airborne": [
+          1.1667,
+          1.75
+        ],
+        "airborne_frames": [
+          29,
+          43
+        ]
+      },
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "duo_group",
+      "role": "variant of duo_celebrate",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "event": "DUO_CELEBRATION"
+    },
+    "group_victory": {
+      "loop": false,
+      "frames": 120,
+      "duration_s": 5.0,
+      "cues": [
+        {
+          "t": 0.2917,
+          "fx": "prop.show",
+          "prop": "team_markers",
+          "mode": "pop",
+          "note": "symbolic teammates (count / colours = application data, setGroup)"
+        },
+        {
+          "t": 0.7083,
+          "fx": "aura.team",
+          "until": 4.625
+        },
+        {
+          "t": 0.7917,
+          "fx": "team.orbit",
+          "until": 4.2917,
+          "note": "team emblems orbit the fox in time with the beat"
+        },
+        {
+          "t": 0.9583,
+          "fx": "confetti.multi",
+          "count": 60,
+          "duration": 2.4
+        },
+        {
+          "t": 0.9583,
+          "fx": "beat",
+          "note": "dance beat (synchronisation marker for group playback)"
+        },
+        {
+          "t": 1.4583,
+          "fx": "beat",
+          "note": "dance beat (synchronisation marker for group playback)"
+        },
+        {
+          "t": 1.9583,
+          "fx": "beat",
+          "note": "dance beat (synchronisation marker for group playback)"
+        },
+        {
+          "t": 2.4583,
+          "fx": "beat",
+          "note": "dance beat (synchronisation marker for group playback)"
+        },
+        {
+          "t": 2.9583,
+          "fx": "beat",
+          "note": "dance beat (synchronisation marker for group playback)"
+        },
+        {
+          "t": 3.4583,
+          "fx": "beat",
+          "note": "dance beat (synchronisation marker for group playback)"
+        },
+        {
+          "t": 4.125,
+          "fx": "burst.team",
+          "duration": 0.9,
+          "note": "collective burst at the climax"
+        },
+        {
+          "t": 4.125,
+          "fx": "confetti.multi",
+          "count": 90,
+          "duration": 2.6
+        },
+        {
+          "t": 4.625,
+          "fx": "prop.hide",
+          "prop": "team_markers",
+          "mode": "fade"
+        }
+      ],
+      "beat_s": 0.5,
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "duo_group",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "event": "GROUP_VICTORY"
+    },
+    "team_encourage": {
+      "loop": false,
+      "frames": 84,
+      "duration_s": 3.5,
+      "cues": [
+        {
+          "t": 1.125,
+          "fx": "glow.warm",
+          "at": "chest",
+          "until": 2.125
+        },
+        {
+          "t": 2.2083,
+          "fx": "link.line",
+          "at": "hand_r",
+          "to": "teammate",
+          "until": 3.2083,
+          "note": "gentle connection line toward the teammate (marker or second fox)"
+        },
+        {
+          "t": 2.2917,
+          "fx": "hearts.float",
+          "at": "hand_r",
+          "count": 5
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "duo_group",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "TEAM_ENCOURAGEMENT"
+    },
+    "group_streak_active": {
+      "loop": false,
+      "frames": 84,
+      "duration_s": 3.5,
+      "cues": [
+        {
+          "t": 0.0,
+          "fx": "flame.loop",
+          "note": "the existing G1.1 streak flame (one flame, held on ATT_HAND_L) \u2014 never duplicated"
+        },
+        {
+          "t": 0.4583,
+          "fx": "prop.show",
+          "prop": "team_markers",
+          "mode": "pop"
+        },
+        {
+          "t": 1.125,
+          "fx": "flame.flare",
+          "duration": 1.1,
+          "scale": 1.6
+        },
+        {
+          "t": 1.1667,
+          "fx": "group.link.on",
+          "note": "persistent team-linked ember arcs (state, owned by the group streak \u2014 not by this clip)"
+        },
+        {
+          "t": 1.2083,
+          "fx": "ring.tier",
+          "duration": 0.6
+        },
+        {
+          "t": 1.5417,
+          "fx": "sparkle.soft",
+          "at": "flame",
+          "count": 6
+        },
+        {
+          "t": 2.0417,
+          "fx": "sparkle.soft",
+          "at": "flame",
+          "count": 6
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "duo_group",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": true,
+      "event": "GROUP_STREAK_ACTIVE"
+    },
+    "group_streak_lost": {
+      "loop": false,
+      "frames": 108,
+      "duration_s": 4.5,
+      "cues": [
+        {
+          "t": 0.0,
+          "fx": "flame.flicker",
+          "until": 1.7917
+        },
+        {
+          "t": 0.125,
+          "fx": "prop.show",
+          "prop": "team_markers",
+          "mode": "fade"
+        },
+        {
+          "t": 0.9583,
+          "fx": "group.flames.fade",
+          "stagger": 0.25,
+          "note": "the small linked flames fade one by one"
+        },
+        {
+          "t": 1.7917,
+          "fx": "flame.extinguish",
+          "duration": 0.5
+        },
+        {
+          "t": 1.8333,
+          "fx": "smoke",
+          "at": "flame",
+          "count": 8,
+          "duration": 1.6
+        },
+        {
+          "t": 1.875,
+          "fx": "group.ring.break",
+          "duration": 0.9,
+          "note": "the group connection ring breaks apart"
+        },
+        {
+          "t": 1.875,
+          "fx": "group.link.off"
+        },
+        {
+          "t": 2.4583,
+          "fx": "embers.fade",
+          "at": "flame",
+          "count": 6,
+          "duration": 1.4
+        },
+        {
+          "t": 4.125,
+          "fx": "prop.hide",
+          "prop": "team_markers",
+          "mode": "fade"
+        },
+        {
+          "t": 4.4583,
+          "fx": "streak.end",
+          "note": "runtime marks the (group) streak inactive \u2014 the flame stays out"
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "duo_group",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "GROUP_STREAK_LOST"
+    },
+    "friend_greet": {
+      "loop": false,
+      "frames": 60,
+      "duration_s": 2.5,
+      "cues": [
+        {
+          "t": 0.125,
+          "fx": "sparkle.greet",
+          "at": "notify",
+          "count": 6,
+          "note": "small greeting sparkle at the notification side"
+        },
+        {
+          "t": 1.2083,
+          "fx": "pulse.heart",
+          "at": "notify",
+          "duration": 0.6
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "social",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "FRIEND_GREETING"
+    },
+    "photo_reaction": {
+      "loop": false,
+      "frames": 72,
+      "duration_s": 3.0,
+      "cues": [
+        {
+          "t": 0.0833,
+          "fx": "prop.show",
+          "prop": "photo_frame",
+          "mode": "pop",
+          "note": "blank reusable frame; the picture is application data"
+        },
+        {
+          "t": 1.625,
+          "fx": "prop.phase",
+          "prop": "photo_frame",
+          "phase": "shine"
+        },
+        {
+          "t": 1.7083,
+          "fx": "hearts.float",
+          "at": "photo_frame",
+          "count": 4
+        },
+        {
+          "t": 1.875,
+          "fx": "sparkle.soft",
+          "at": "photo_frame",
+          "count": 5
+        },
+        {
+          "t": 2.5417,
+          "fx": "prop.hide",
+          "prop": "photo_frame",
+          "mode": "fade"
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "social",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "PHOTO_REACTION"
+    },
+    "receive_like": {
+      "loop": false,
+      "frames": 48,
+      "duration_s": 2.0,
+      "cues": [
+        {
+          "t": 0.0417,
+          "fx": "prop.show",
+          "prop": "heart",
+          "mode": "pop"
+        },
+        {
+          "t": 0.375,
+          "fx": "prop.phase",
+          "prop": "heart",
+          "phase": "to_paw"
+        },
+        {
+          "t": 0.7917,
+          "fx": "prop.hide",
+          "prop": "heart",
+          "mode": "burst",
+          "note": "heart pop"
+        },
+        {
+          "t": 0.7917,
+          "fx": "hearts.float",
+          "at": "hand_r",
+          "count": 3
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "social",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "SOCIAL_LIKE_RECEIVED"
+    },
+    "receive_comment": {
+      "loop": false,
+      "frames": 60,
+      "duration_s": 2.5,
+      "cues": [
+        {
+          "t": 0.0417,
+          "fx": "prop.show",
+          "prop": "chat_bubble",
+          "mode": "pop",
+          "note": "no comment text in 3D; text stays in the application UI"
+        },
+        {
+          "t": 0.0833,
+          "fx": "prop.phase",
+          "prop": "chat_bubble",
+          "phase": "typing"
+        },
+        {
+          "t": 1.2083,
+          "fx": "prop.phase",
+          "prop": "chat_bubble",
+          "phase": "done"
+        },
+        {
+          "t": 1.2917,
+          "fx": "highlight",
+          "at": "chat_bubble",
+          "duration": 0.6
+        },
+        {
+          "t": 2.125,
+          "fx": "prop.hide",
+          "prop": "chat_bubble",
+          "mode": "fade"
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "social",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "SOCIAL_COMMENT_RECEIVED"
+    },
+    "friend_support": {
+      "loop": false,
+      "frames": 84,
+      "duration_s": 3.5,
+      "cues": [
+        {
+          "t": 0.875,
+          "fx": "glow.warm",
+          "at": "chest",
+          "until": 2.4583,
+          "note": "soft heart glow"
+        },
+        {
+          "t": 1.625,
+          "fx": "hearts.float",
+          "at": "hand_r",
+          "count": 3,
+          "note": "warm particles (fewer, slower than team_encourage)"
+        },
+        {
+          "t": 2.5417,
+          "fx": "pulse.gentle",
+          "at": "chest",
+          "duration": 0.9
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "social",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "FRIEND_SUPPORT"
+    },
+    "friend_miss_you": {
+      "loop": false,
+      "frames": 84,
+      "duration_s": 3.5,
+      "cues": [
+        {
+          "t": 0.9583,
+          "fx": "prop.show",
+          "prop": "friend_icon",
+          "mode": "fade",
+          "note": "generic friend symbol (never a user avatar)"
+        },
+        {
+          "t": 1.2083,
+          "fx": "prop.phase",
+          "prop": "friend_icon",
+          "phase": "hold"
+        },
+        {
+          "t": 1.5417,
+          "fx": "prop.phase",
+          "prop": "friend_icon",
+          "phase": "glow"
+        },
+        {
+          "t": 1.7917,
+          "fx": "hearts.float",
+          "at": "friend_icon",
+          "count": 2
+        },
+        {
+          "t": 2.2083,
+          "fx": "prop.hide",
+          "prop": "friend_icon",
+          "mode": "fade"
+        },
+        {
+          "t": 2.375,
+          "fx": "sparkle.return",
+          "at": "chest",
+          "count": 6
+        }
+      ],
+      "start_pose": "rest",
+      "end_pose": "rest",
+      "category": "social",
+      "role": "one-shot",
+      "head_control": 1.0,
+      "face_control": 1.0,
+      "large_motion": false,
+      "event": "FRIEND_MISS_YOU"
+    }
+  },
+  "prop_anchors": {
+    "challenge_token_paw": {
+      "pos": [
+        0.3017,
+        0.2891,
+        0.1252
+      ],
+      "from": "challenge_invite f30 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "challenge_token_present": {
+      "pos": [
+        0.2722,
+        0.2714,
+        0.1574
+      ],
+      "from": "challenge_invite f44 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "trophy_paw": {
+      "pos": [
+        0.3467,
+        0.2558,
+        0.0385
+      ],
+      "from": "challenge_win f64 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "photo_paw": {
+      "pos": [
+        0.308,
+        0.3193,
+        0.0923
+      ],
+      "from": "photo_reaction f48 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "heart_paw": {
+      "pos": [
+        -0.2786,
+        0.3449,
+        0.1174
+      ],
+      "from": "receive_like f19 ATT_HAND_R tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "chat_paw": {
+      "pos": [
+        0.3021,
+        0.3047,
+        0.1101
+      ],
+      "from": "receive_comment f46 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "friend_icon_l": {
+      "pos": [
+        0.3058,
+        0.2621,
+        0.1271
+      ],
+      "from": "friend_miss_you f42 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "friend_icon_r": {
+      "pos": [
+        -0.3058,
+        0.2621,
+        0.1271
+      ],
+      "from": "friend_miss_you f42 ATT_HAND_R tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "duo_contact_l": {
+      "pos": [
+        0.4145,
+        0.3429,
+        0.0005
+      ],
+      "from": "duo_celebrate f36 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "duo_contact_r": {
+      "pos": [
+        -0.4145,
+        0.3429,
+        0.0005
+      ],
+      "from": "duo_celebrate_mirror f36 ATT_HAND_R tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "streak_flame_raised": {
+      "pos": [
+        0.2775,
+        0.3522,
+        0.1491
+      ],
+      "from": "group_streak_active f30 ATT_HAND_L tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "encourage_reach": {
+      "pos": [
+        -0.3344,
+        0.223,
+        0.0746
+      ],
+      "from": "team_encourage f64 ATT_HAND_R tip",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "duo_contact_l_head": {
+      "pos": [
+        0.3804,
+        0.3792,
+        -0.0038
+      ],
+      "from": "duo_celebrate f36 ATT_HAND_L head (paw tip)",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    },
+    "duo_contact_r_head": {
+      "pos": [
+        -0.3804,
+        0.3792,
+        -0.0038
+      ],
+      "from": "duo_celebrate_mirror f36 ATT_HAND_R head (paw tip)",
+      "frame": "fox root (three.js: +x fox left, +z front)"
+    }
+  },
+  "ground_contact": {
+    "challenge_invite": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "challenge_accept": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "challenge_start": {
+      "frames_corrected": 62,
+      "max_abs_dz_m": 0.0081
+    },
+    "challenge_win": {
+      "frames_corrected": 13,
+      "max_abs_dz_m": 0.004
+    },
+    "challenge_lose": {
+      "frames_corrected": 35,
+      "max_abs_dz_m": 0.0071
+    },
+    "challenge_draw": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "duo_celebrate": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "duo_celebrate_mirror": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "group_victory": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "team_encourage": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "group_streak_active": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "group_streak_lost": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "friend_greet": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "photo_reaction": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "receive_like": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "receive_comment": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "friend_support": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    },
+    "friend_miss_you": {
+      "frames_corrected": 0,
+      "max_abs_dz_m": 0
+    }
+  },
+  "expressions_added": [
+    "worried",
+    "concerned",
+    "gentle",
+    "cheeky",
+    "hopeful",
+    "curious"
+  ],
+  "cue_note": "cues are runtime VFX / prop timeline entries (seconds from clip start); props are FX_PROP_* objects owned by the effects manager, never part of the Fox mesh, skeleton, materials or cosmetics. Countdown values, teammates, photos and comment text are application data.",
+  "duo_note": "duo_celebrate (partner on the fox's left) and duo_celebrate_mirror (partner on the fox's right) share timing and contact frame; FoxDuoCoordinator positions both foxes from prop_anchors.duo_contact_* so the paws meet."
+}

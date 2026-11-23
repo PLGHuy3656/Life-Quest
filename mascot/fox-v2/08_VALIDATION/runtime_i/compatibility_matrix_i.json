@@ -1,0 +1,5088 @@
+{
+ "metric": "penetration depth of posed item vertices into posed Fox meshes / the floor (runtime cage)",
+ "severity_mm": {
+  "OK": "< 2.0",
+  "MINOR": "2.0\u20138.0",
+  "SEVERE": "> 8.0"
+ },
+ "obstacles": {
+  "student_glasses": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all",
+   "FOX_Tuft": "all"
+  },
+  "student_cap": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all"
+  },
+  "sports_headband": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all",
+   "FOX_Tuft": "all"
+  },
+  "explorer_backpack": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Tail": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FOX_Scarf_Roll": "all",
+   "FLOOR": "all"
+  },
+  "simple_jacket": {
+   "FOX_Body": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Roll": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Flap": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Head": "all",
+   "FOX_Arm_L": [
+    "ARM_L",
+    "PAW_L"
+   ],
+   "FOX_Arm_R": [
+    "ARM_R",
+    "PAW_R"
+   ],
+   "FLOOR": "all"
+  },
+  "explorer_magnifier": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Leg_L": "all",
+   "FOX_Leg_R": "all",
+   "FOX_Tail": "all",
+   "FOX_Scarf_Flap": "all",
+   "FLOOR": "all"
+  },
+  "slot_test_sneakers": {
+   "FOX_Leg_L": [
+    "FOOT_L",
+    "LEG_L"
+   ],
+   "FOX_Leg_R": [
+    "FOOT_R",
+    "LEG_R"
+   ],
+   "FOX_Tail": "all",
+   "FLOOR": "all"
+  },
+  "slot_test_tail_ribbon": {
+   "FOX_Tail": "all",
+   "FOX_Body": "all",
+   "FOX_Leg_L": "all",
+   "FOX_Leg_R": "all",
+   "FLOOR": "all"
+  },
+  "TEST_magnifier_left": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Arm_R": "all",
+   "FOX_Leg_L": "all",
+   "FOX_Leg_R": "all",
+   "FOX_Tail": "all",
+   "FOX_Scarf_Flap": "all",
+   "FLOOR": "all"
+  },
+  "explorer_hat": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all"
+  },
+  "mage_hat": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all"
+  },
+  "tet_khan_dong": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all"
+  },
+  "ninja_headband": {
+   "FOX_Head": "all",
+   "FOX_Ear_L": "all",
+   "FOX_Ear_R": "all",
+   "FOX_EarInner_L": "all",
+   "FOX_EarInner_R": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all",
+   "FOX_Tuft": "all"
+  },
+  "sports_jersey": {
+   "FOX_Body": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Roll": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Flap": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Head": "all",
+   "FOX_Arm_L": [
+    "ARM_L",
+    "PAW_L"
+   ],
+   "FOX_Arm_R": [
+    "ARM_R",
+    "PAW_R"
+   ],
+   "FLOOR": "all"
+  },
+  "ninja_gi": {
+   "FOX_Body": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Roll": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Flap": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Head": "all",
+   "FOX_Arm_L": [
+    "ARM_L",
+    "PAW_L"
+   ],
+   "FOX_Arm_R": [
+    "ARM_R",
+    "PAW_R"
+   ],
+   "FLOOR": "all"
+  },
+  "tet_ao_dai": {
+   "FOX_Body": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Roll": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Flap": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Head": "all",
+   "FOX_Arm_L": [
+    "ARM_L",
+    "PAW_L"
+   ],
+   "FOX_Arm_R": [
+    "ARM_R",
+    "PAW_R"
+   ],
+   "FLOOR": "all"
+  },
+  "mage_capelet": {
+   "FOX_Body": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Roll": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Scarf_Flap": [
+    "HIPS",
+    "NECK",
+    "SPINE"
+   ],
+   "FOX_Head": "all",
+   "FLOOR": "all",
+   "FOX_Tail": "all"
+  },
+  "ninja_scroll": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Tail": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FOX_Scarf_Roll": "all",
+   "FLOOR": "all"
+  },
+  "mage_wand": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Leg_L": "all",
+   "FOX_Leg_R": "all",
+   "FOX_Tail": "all",
+   "FOX_Scarf_Flap": "all",
+   "FLOOR": "all"
+  },
+  "tet_lixi": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Leg_L": "all",
+   "FOX_Leg_R": "all",
+   "FOX_Tail": "all",
+   "FOX_Scarf_Flap": "all",
+   "FLOOR": "all"
+  },
+  "sports_sneakers": {
+   "FOX_Leg_L": [
+    "FOOT_L",
+    "LEG_L"
+   ],
+   "FOX_Leg_R": [
+    "FOOT_R",
+    "LEG_R"
+   ],
+   "FOX_Tail": "all",
+   "FLOOR": "all"
+  },
+  "DEFAULT_backpack": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Tail": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FOX_Scarf_Roll": "all",
+   "FLOOR": "all"
+  },
+  "DEFAULT_backpack_straps": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Tail": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FOX_Scarf_Roll": "all",
+   "FLOOR": "all"
+  },
+  "DEFAULT_scarf": {
+   "FOX_Body": "all",
+   "FOX_Head": "all",
+   "FOX_Arm_L": "all",
+   "FOX_Arm_R": "all",
+   "FLOOR": "all"
+  },
+  "DEFAULT_tail_on_floor": {
+   "FLOOR": "all"
+  },
+  "DEFAULT_fox_on_floor": {
+   "FLOOR": "all"
+  }
+ },
+ "baselines": {
+  "DEFAULT_backpack": [
+   "FOX_Backpack",
+   "FOX_Backpack_Flap",
+   "FOX_Backpack_Pocket_L",
+   "FOX_Backpack_Pocket_R",
+   "FOX_Backpack_Buckle",
+   "FOX_Backpack_Strap_L",
+   "FOX_Backpack_Strap_R"
+  ],
+  "DEFAULT_backpack_straps": [
+   "FOX_Backpack_Strap_L",
+   "FOX_Backpack_Strap_R"
+  ],
+  "DEFAULT_scarf": [
+   "FOX_Scarf_Roll",
+   "FOX_Scarf_Flap",
+   "FOX_Scarf_Emblem"
+  ],
+  "DEFAULT_tail_on_floor": [
+   "FOX_Tail"
+  ],
+  "DEFAULT_fox_on_floor": [
+   "FOX_Body",
+   "FOX_Head",
+   "FOX_Tail",
+   "FOX_Leg_L",
+   "FOX_Leg_R",
+   "FOX_Arm_L",
+   "FOX_Arm_R"
+  ]
+ },
+ "results": {
+  "student_glasses": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "student_cap": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "sports_headband": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "slot_test_tail_ribbon": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Tail": 0.0,
+     "FOX_Body": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "slot_test_sneakers": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.94,
+    "p99_depth_mm_worst_frame": 0.05,
+    "severity": "OK",
+    "worst": {
+     "frame": 23,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 578
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.94
+    },
+    "floor_raw_mm": 0.94,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.67,
+    "p99_depth_mm_worst_frame": 0.01,
+    "severity": "OK",
+    "worst": {
+     "frame": 43,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 578
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.67
+    },
+    "floor_raw_mm": 0.67,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "simple_jacket": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.55,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.55,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.62,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 61,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.62,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 4.63,
+    "p99_depth_mm_worst_frame": 1.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 33,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 9,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 2.05,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 4.63,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 7.29,
+    "p99_depth_mm_worst_frame": 4.51,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 35,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.42,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 7.29,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 3.17,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 37,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 6,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 3.17,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 2.86,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 2,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 2.86,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 3.11,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 4,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 3.11,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 1.1,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1612
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.1,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "explorer_magnifier": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "explorer_backpack": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 28.71,
+    "p99_depth_mm_worst_frame": 23.22,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 97,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 28.71,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 17.75,
+    "p99_depth_mm_worst_frame": 6.83,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 65,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 54,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 17.75,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 34.17,
+    "p99_depth_mm_worst_frame": 26.2,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 83,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 101,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.91,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 34.17,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 37.91,
+    "p99_depth_mm_worst_frame": 31.42,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 107,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 5.27,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 37.91,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 29.27,
+    "p99_depth_mm_worst_frame": 23.07,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 97,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 29.27,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 25.73,
+    "p99_depth_mm_worst_frame": 17.26,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 65,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 97,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 25.73,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 40.87,
+    "p99_depth_mm_worst_frame": 36.25,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 59,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 123,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.62,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 40.87,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 32.2,
+    "p99_depth_mm_worst_frame": 26.58,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 43,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 98,
+     "vertex_count": 2244
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 32.2,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   }
+  },
+  "tet_lixi": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "tet_khan_dong": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "tet_ao_dai": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.55,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.55,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.62,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 61,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.62,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 4.63,
+    "p99_depth_mm_worst_frame": 0.66,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 33,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 9,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 2.05,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 4.63,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 7.29,
+    "p99_depth_mm_worst_frame": 3.92,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 35,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.42,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 7.29,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 3.17,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 37,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 6,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 3.17,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 2.86,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 2,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 2.86,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 3.11,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 4,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 3.11,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 1.1,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1842
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.1,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "sports_sneakers": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 1.06,
+    "p99_depth_mm_worst_frame": 0.17,
+    "severity": "OK",
+    "worst": {
+     "frame": 23,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 578
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 1.06
+    },
+    "floor_raw_mm": 1.06,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.76,
+    "p99_depth_mm_worst_frame": 0.03,
+    "severity": "OK",
+    "worst": {
+     "frame": 43,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 578
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.76
+    },
+    "floor_raw_mm": 0.76,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "sports_jersey": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "ninja_scroll": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 2.19,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 1,
+     "vertex_count": 1676
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 2.19,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 8.11,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 59,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 3,
+     "vertex_count": 1676
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 8.11,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 1420
+   }
+  },
+  "ninja_headband": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tuft": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "ninja_gi": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.55,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.55,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.62,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 61,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.62,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 4.63,
+    "p99_depth_mm_worst_frame": 0.69,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 33,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 9,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 2.05,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 4.63,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 7.29,
+    "p99_depth_mm_worst_frame": 4.1,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 35,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.42,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 7.29,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 3.17,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 37,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 6,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 3.17,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 2.86,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 2,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 2.86,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 3.11,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 4,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 3.11,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 1.1,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 0,
+     "vertex_count": 1788
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 1.1,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "mage_wand": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "mage_hat": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "mage_capelet": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 2.2,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 1,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 2.2,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 3.33,
+    "p99_depth_mm_worst_frame": 0.17,
+    "severity": "MINOR",
+    "worst": {
+     "frame": 61,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 2,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 3.33,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 1.69,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 61,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 0,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 1.69,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.61,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 0,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.61,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.6,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 35,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 0,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.6,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.6,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 107,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 0,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.6,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.61,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 57,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 0,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.61,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.6,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 43,
+     "obstacle": "FOX_Scarf_Flap",
+     "vertices_over_2mm": 0,
+     "vertex_count": 582
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Scarf_Roll": 0.0,
+     "FOX_Scarf_Flap": 0.6,
+     "FOX_Head": 0.0,
+     "FLOOR": 0.0,
+     "FOX_Tail": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "explorer_hat": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Head": 0.0,
+     "FOX_Ear_L": 0.0,
+     "FOX_Ear_R": 0.0,
+     "FOX_EarInner_L": 0.0,
+     "FOX_EarInner_R": 0.0,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "TEST_magnifier_left": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FOX_Body": 0.0,
+     "FOX_Head": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Leg_L": 0.0,
+     "FOX_Leg_R": 0.0,
+     "FOX_Tail": 0.0,
+     "FOX_Scarf_Flap": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "DEFAULT_backpack": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 51.19,
+    "p99_depth_mm_worst_frame": 43.08,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 627,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 9.16,
+     "FOX_Head": 51.19,
+     "FOX_Tail": 45.69,
+     "FOX_Arm_L": 14.01,
+     "FOX_Arm_R": 14.01,
+     "FOX_Scarf_Roll": 35.29,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 51.42,
+    "p99_depth_mm_worst_frame": 45.41,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 19,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 592,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 12.89,
+     "FOX_Head": 51.42,
+     "FOX_Tail": 48.56,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 35.35,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 61.51,
+    "p99_depth_mm_worst_frame": 53.93,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 69,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 576,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 20.5,
+     "FOX_Head": 61.51,
+     "FOX_Tail": 47.21,
+     "FOX_Arm_L": 11.83,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 34.85,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 63.66,
+    "p99_depth_mm_worst_frame": 43.93,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Tail",
+     "vertices_over_2mm": 537,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 17.3,
+     "FOX_Head": 51.86,
+     "FOX_Tail": 63.66,
+     "FOX_Arm_L": 14.01,
+     "FOX_Arm_R": 14.01,
+     "FOX_Scarf_Roll": 35.55,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 99.62,
+    "p99_depth_mm_worst_frame": 96.21,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 1450,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 97.2,
+     "FOX_Head": 99.62,
+     "FOX_Tail": 44.15,
+     "FOX_Arm_L": 30.5,
+     "FOX_Arm_R": 28.66,
+     "FOX_Scarf_Roll": 35.47,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 102.83,
+    "p99_depth_mm_worst_frame": 95.22,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 85,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 1412,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 94.36,
+     "FOX_Head": 102.83,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 28.91,
+     "FOX_Arm_R": 34.04,
+     "FOX_Scarf_Roll": 35.31,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 94.21,
+    "p99_depth_mm_worst_frame": 90.75,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 41,
+     "obstacle": "FOX_Body",
+     "vertices_over_2mm": 1416,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 94.21,
+     "FOX_Head": 93.85,
+     "FOX_Tail": 71.4,
+     "FOX_Arm_L": 29.76,
+     "FOX_Arm_R": 28.62,
+     "FOX_Scarf_Roll": 35.2,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 55.07,
+    "p99_depth_mm_worst_frame": 46.84,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 588,
+     "vertex_count": 1972
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 10.09,
+     "FOX_Head": 55.07,
+     "FOX_Tail": 48.33,
+     "FOX_Arm_L": 14.01,
+     "FOX_Arm_R": 14.01,
+     "FOX_Scarf_Roll": 35.64,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "DEFAULT_backpack_straps": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 51.19,
+    "p99_depth_mm_worst_frame": 45.01,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 571,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 9.16,
+     "FOX_Head": 51.19,
+     "FOX_Tail": 17.84,
+     "FOX_Arm_L": 14.01,
+     "FOX_Arm_R": 14.01,
+     "FOX_Scarf_Roll": 35.29,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 51.42,
+    "p99_depth_mm_worst_frame": 45.62,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 19,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 537,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 12.89,
+     "FOX_Head": 51.42,
+     "FOX_Tail": 19.24,
+     "FOX_Arm_L": 0.0,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 35.35,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 61.51,
+    "p99_depth_mm_worst_frame": 55.32,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 69,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 514,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 20.5,
+     "FOX_Head": 61.51,
+     "FOX_Tail": 19.15,
+     "FOX_Arm_L": 11.83,
+     "FOX_Arm_R": 0.0,
+     "FOX_Scarf_Roll": 34.85,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 51.86,
+    "p99_depth_mm_worst_frame": 45.85,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 568,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 17.3,
+     "FOX_Head": 51.86,
+     "FOX_Tail": 28.05,
+     "FOX_Arm_L": 14.01,
+     "FOX_Arm_R": 14.01,
+     "FOX_Scarf_Roll": 35.55,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 99.62,
+    "p99_depth_mm_worst_frame": 97.23,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 983,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 89.07,
+     "FOX_Head": 99.62,
+     "FOX_Tail": 17.44,
+     "FOX_Arm_L": 30.5,
+     "FOX_Arm_R": 28.66,
+     "FOX_Scarf_Roll": 35.47,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 102.83,
+    "p99_depth_mm_worst_frame": 97.15,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 85,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 944,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 86.19,
+     "FOX_Head": 102.83,
+     "FOX_Tail": 0.0,
+     "FOX_Arm_L": 28.91,
+     "FOX_Arm_R": 34.04,
+     "FOX_Scarf_Roll": 0.0,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 93.85,
+    "p99_depth_mm_worst_frame": 90.76,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 41,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 966,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 86.27,
+     "FOX_Head": 93.85,
+     "FOX_Tail": 30.79,
+     "FOX_Arm_L": 29.76,
+     "FOX_Arm_R": 28.62,
+     "FOX_Scarf_Roll": 35.2,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 55.07,
+    "p99_depth_mm_worst_frame": 48.69,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 15,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 536,
+     "vertex_count": 1420
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 10.09,
+     "FOX_Head": 55.07,
+     "FOX_Tail": 19.04,
+     "FOX_Arm_L": 14.01,
+     "FOX_Arm_R": 14.01,
+     "FOX_Scarf_Roll": 35.64,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "DEFAULT_scarf": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 36.65,
+    "p99_depth_mm_worst_frame": 30.83,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 11,
+     "obstacle": "FOX_Arm_L",
+     "vertices_over_2mm": 878,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 30.85,
+     "FOX_Head": 35.13,
+     "FOX_Arm_L": 36.65,
+     "FOX_Arm_R": 36.01,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 36.18,
+    "p99_depth_mm_worst_frame": 31.51,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 17,
+     "obstacle": "FOX_Arm_L",
+     "vertices_over_2mm": 881,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 31.02,
+     "FOX_Head": 35.83,
+     "FOX_Arm_L": 36.18,
+     "FOX_Arm_R": 34.45,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 38.45,
+    "p99_depth_mm_worst_frame": 29.86,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 63,
+     "obstacle": "FOX_Arm_R",
+     "vertices_over_2mm": 872,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 31.03,
+     "FOX_Head": 33.29,
+     "FOX_Arm_L": 30.25,
+     "FOX_Arm_R": 38.45,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 36.47,
+    "p99_depth_mm_worst_frame": 31.58,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 21,
+     "obstacle": "FOX_Arm_L",
+     "vertices_over_2mm": 879,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 30.91,
+     "FOX_Head": 36.45,
+     "FOX_Arm_L": 36.47,
+     "FOX_Arm_R": 36.22,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 37.91,
+    "p99_depth_mm_worst_frame": 32.25,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 47,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 874,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 30.9,
+     "FOX_Head": 37.91,
+     "FOX_Arm_L": 35.34,
+     "FOX_Arm_R": 36.09,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 37.92,
+    "p99_depth_mm_worst_frame": 32.45,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 37,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 876,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 30.92,
+     "FOX_Head": 37.92,
+     "FOX_Arm_L": 35.62,
+     "FOX_Arm_R": 37.09,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 37.87,
+    "p99_depth_mm_worst_frame": 32.23,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 873,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 30.93,
+     "FOX_Head": 37.87,
+     "FOX_Arm_L": 35.7,
+     "FOX_Arm_R": 36.24,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 36.37,
+    "p99_depth_mm_worst_frame": 31.33,
+    "severity": "SEVERE",
+    "worst": {
+     "frame": 43,
+     "obstacle": "FOX_Head",
+     "vertices_over_2mm": 870,
+     "vertex_count": 2370
+    },
+    "max_by_obstacle_mm": {
+     "FOX_Body": 30.88,
+     "FOX_Head": 36.37,
+     "FOX_Arm_L": 35.71,
+     "FOX_Arm_R": 36.05,
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "DEFAULT_tail_on_floor": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.58,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 4140
+    },
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.58
+    },
+    "floor_raw_mm": 0.58,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.71,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 41,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 4140
+    },
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.71
+    },
+    "floor_raw_mm": 0.71,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  },
+  "DEFAULT_fox_on_floor": {
+   "voice_listen_start": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 19,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_listening_loop": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_processing": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 49,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_suggestion": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 34,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_open": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 28,
+    "step": 2,
+    "max_depth_mm": 0.58,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 25,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 16448
+    },
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.58
+    },
+    "floor_raw_mm": 0.58,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_write": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 61,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 5,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 16448
+    },
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   },
+   "task_notebook_confirm": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 40,
+    "step": 2,
+    "max_depth_mm": 0.71,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": {
+     "frame": 41,
+     "obstacle": "FLOOR",
+     "vertices_over_2mm": 0,
+     "vertex_count": 16448
+    },
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.71
+    },
+    "floor_raw_mm": 0.71,
+    "inherited_vertices_excluded": 0
+   },
+   "voice_retry": {
+    "blend": "i",
+    "required": true,
+    "frames_sampled": 31,
+    "step": 2,
+    "max_depth_mm": 0.0,
+    "p99_depth_mm_worst_frame": 0.0,
+    "severity": "OK",
+    "worst": null,
+    "max_by_obstacle_mm": {
+     "FLOOR": 0.0
+    },
+    "floor_raw_mm": 0.0,
+    "inherited_vertices_excluded": 0
+   }
+  }
+ }
+}
