@@ -47,6 +47,24 @@
   line-height: 1.35;
 }
 
+/* Subtle emotion-specific visual variants */
+.emotionWarm {
+  border-color: rgba(22, 140, 120, 0.36);
+}
+
+.emotionAlert {
+  background: rgba(255, 251, 240, 0.97);
+  border-color: rgba(212, 148, 0, 0.52);
+}
+
+.emotionPanic {
+  background: rgba(255, 245, 243, 0.98);
+  border-color: rgba(200, 64, 50, 0.58);
+  box-shadow:
+    0 6px 18px rgba(200, 64, 50, 0.16),
+    0 1px 4px rgba(200, 64, 50, 0.12);
+}
+
 .accentDot {
   width: 6px;
   height: 6px;
@@ -55,9 +73,40 @@
   flex-shrink: 0;
 }
 
-.text {
+.emotionWarm .accentDot {
+  background: var(--lq-success);
+}
+
+.emotionAlert .accentDot {
+  background: #d49400;
+}
+
+.emotionPanic .accentDot {
+  background: var(--lq-danger);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
   max-width: 224px;
+}
+
+.text {
   text-align: left;
+}
+
+.actionLink {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--lq-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.emotionPanic .actionLink {
+  color: var(--lq-danger);
 }
 
 .closeBtn {
@@ -84,7 +133,6 @@
   outline-offset: 1px;
 }
 
-/* Small downward speech tail pointing straight toward Fox V2 */
 .tail {
   position: relative;
   width: 10px;
@@ -95,6 +143,23 @@
   border-bottom: 1.5px solid rgba(242, 107, 58, 0.34);
   transform: rotate(45deg);
   border-bottom-right-radius: 2px;
+}
+
+.tail.emotionWarm {
+  border-right-color: rgba(22, 140, 120, 0.36);
+  border-bottom-color: rgba(22, 140, 120, 0.36);
+}
+
+.tail.emotionAlert {
+  background: rgba(255, 251, 240, 0.97);
+  border-right-color: rgba(212, 148, 0, 0.52);
+  border-bottom-color: rgba(212, 148, 0, 0.52);
+}
+
+.tail.emotionPanic {
+  background: rgba(255, 245, 243, 0.98);
+  border-right-color: rgba(200, 64, 50, 0.58);
+  border-bottom-color: rgba(200, 64, 50, 0.58);
 }
 
 :global(html.lq-rm) .anchor {

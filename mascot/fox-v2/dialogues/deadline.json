@@ -1,0 +1,28 @@
+{
+  "category": "deadline",
+  "version": "1.0.0",
+  "entries": [
+    { "id": "dl-60-01", "event": "DEADLINE_60M", "text": "Còn dưới 60 phút tới hạn \"{task}\" — mình bắt đầu dần nha!", "emotion": "alert", "weight": 1.2 },
+    { "id": "dl-60-02", "event": "DEADLINE_60M", "text": "Nhắc nhẹ: \"{task}\" sắp đến hạn trong chưa đầy 1 giờ nữa đó.", "emotion": "alert", "weight": 1 },
+    { "id": "dl-60-03", "event": "DEADLINE_60M", "text": "Còn khoảng một tiếng cho \"{task}\", bắt tay vào bây giờ là vừa kịp đẹp.", "emotion": "alert", "weight": 1 },
+    { "id": "dl-60-04", "event": "DEADLINE_60M", "text": "Tai Fox vừa báo hiệu: \"{task}\" còn chưa tới 60 phút đâu nhé!", "emotion": "alert", "weight": 1 },
+    { "id": "dl-60-05", "event": "DEADLINE_60M", "text": "Chuẩn bị tinh thần chốt \"{task}\" nha — còn dưới 1 giờ thôi.", "emotion": "alert", "weight": 1 },
+    { "id": "dl-60-06", "event": "DEADLINE_60M", "text": "Ưu tiên \"{task}\" ngay lúc này để khỏi phải chạy nước rút phút cuối nhé.", "emotion": "alert", "weight": 1 },
+    { "id": "dl-60-07", "event": "DEADLINE_60M", "text": "Đếm ngược 60 phút cho \"{task}\" bắt đầu rồi, Fox đồng hành cùng bạn!", "emotion": "alert", "weight": 1 },
+    { "id": "dl-15-01", "event": "DEADLINE_15M", "text": "Gấp lắm rồi! \"{task}\" chỉ còn dưới 15 phút nữa thôi!", "emotion": "panic", "weight": 1.3 },
+    { "id": "dl-15-02", "event": "DEADLINE_15M", "text": "Ái chà! Còn chưa đầy 15 phút tới hạn \"{task}\" — tập trung tối đa nha!", "emotion": "panic", "weight": 1.1 },
+    { "id": "dl-15-03", "event": "DEADLINE_15M", "text": "Báo động cam! \"{task}\" sắp hết giờ trong 15 phút tới!", "emotion": "panic", "weight": 1 },
+    { "id": "dl-15-04", "event": "DEADLINE_15M", "text": "Đừng chần chừ nữa — \"{task}\" còn dưới 15 phút, chốt gọn ngay nào!", "emotion": "panic", "weight": 1 },
+    { "id": "dl-15-05", "event": "DEADLINE_15M", "text": "Fox đang vẫy đuôi hết cỡ báo tin: \"{task}\" sắp tới hạn rồi!", "emotion": "panic", "weight": 1 },
+    { "id": "dl-15-06", "event": "DEADLINE_15M", "text": "15 phút cuối cho \"{task}\" — tắt hết xao nhãng và về đích nha!", "emotion": "panic", "weight": 1 },
+    { "id": "dl-15-07", "event": "DEADLINE_15M", "text": "Nhanh tay lên bạn ơi, \"{task}\" sắp chạm mốc hạn chót rồi!", "emotion": "panic", "weight": 1 },
+    { "id": "dl-15-08", "event": "DEADLINE_15M", "text": "Gần sát giờ G cho \"{task}\" rồi — cố thêm một nhịp cuối nhé!", "emotion": "panic", "weight": 1 },
+    { "id": "dl-ov-01", "event": "DEADLINE_OVERDUE", "text": "Ôi! \"{task}\" đã quá hạn rồi — mở lên kiểm tra hoặc dời lịch nhé.", "emotion": "panic", "weight": 1.3 },
+    { "id": "dl-ov-02", "event": "DEADLINE_OVERDUE", "text": "\"{task}\" vừa vượt quá hạn chót rồi đó, xử lý gọn hoặc cập nhật lại nha.", "emotion": "panic", "weight": 1 },
+    { "id": "dl-ov-03", "event": "DEADLINE_OVERDUE", "text": "Báo động nhỏ: \"{task}\" đã trễ hạn — bình tĩnh mở ra giải quyết nhé.", "emotion": "panic", "weight": 1 },
+    { "id": "dl-ov-04", "event": "DEADLINE_OVERDUE", "text": "Hạn của \"{task}\" đã qua rồi, đừng bỏ quên em nó trong danh sách nha.", "emotion": "panic", "weight": 1 },
+    { "id": "dl-ov-05", "event": "DEADLINE_OVERDUE", "text": "Fox thấy \"{task}\" đang quá hạn — mình chốt sớm hoặc hẹn lại giờ mới nhé.", "emotion": "panic", "weight": 1 },
+    { "id": "dl-ov-06", "event": "DEADLINE_OVERDUE", "text": "Trễ một chút vẫn sửa được! Mở \"{task}\" lên xem cần làm gì tiếp nào.", "emotion": "panic", "weight": 1 },
+    { "id": "dl-ov-07", "event": "DEADLINE_OVERDUE", "text": "\"{task}\" đang chờ bạn xử lý vì đã quá giờ hẹn rồi đó!", "emotion": "panic", "weight": 1 }
+  ]
+}

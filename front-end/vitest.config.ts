@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@dialogues': fileURLToPath(new URL('../mascot/fox-v2/dialogues', import.meta.url))
     }
   },
   test: {
