@@ -4,6 +4,7 @@ import { FoxDialogueEngine } from './FoxDialogueEngine'
 import { validateDialogueCatalog } from './catalogLoader'
 import { evaluateQuestDeadlines } from './deadlineMonitor'
 import { foxDialogueBus } from './dialogueBus'
+import { FoxTouchClassifier } from './touchClassifier'
 
 function makeQuest(overrides: Partial<Quest> = {}): Quest {
   return {
@@ -202,5 +203,92 @@ describe('FOX-D03 Contextual Dialogue & Personality Engine', () => {
 
     vi.advanceTimersByTime(active!.durationMs + 50)
     expect(foxDialogueBus.getActive()).toBeNull()
+  })
+})
+
+describe('FOX-D03.1 Touch Interaction Dialogue', () => {
+  it('validates the touch dialogue collection (>= 30 distinct Vietnamese lines across all 4 touch events)', () => {
+    const report = validateDialogueCatalog()
+    expect(report.valid).toBe(true)
+    expect(report.errors).toEqual([])
+    expect(report.countsByCategory.touch).toBeGreaterThanOrEqual(30)
+    expect(report.totalEntries).toBeGreaterThanOrEqual(175)
+  })
+
+  it('classifies single, debounced, repeat, return, and verified-sleep touches deterministically', () => {
+    let clock = 1_000_000
+    const classifier = new FoxTouchClassifier({
+      now: () => clock,
+      debounceMs: 250,
+      repeatWindowMs: 4000,
+      returnGapMs: 600_000
+    })
+
+    // First touch -> TOUCH_SINGLE
+    expect(classifier.classify({ isSleeping: false })).toBe('TOUCH_SINGLE')
+
+    // Rapid duplicate within 250ms debounce -> null (prevents mouse/touch double-fire)
+    clock += 120
+    expect(classifier.classify({ isSleeping: false })).toBeNull()
+
+    // Second touch within 4s repeat window -> TOUCH_REPEAT
+    clock += 600
+    expect(classifier.classify({ isSleeping: false })).toBe('TOUCH_REPEAT')
+
+    // Touch after repeat window (10s) -> TOUCH_SINGLE
+    clock += 10_000
+    expect(classifier.classify({ isSleeping: false })).toBe('TOUCH_SINGLE')
+
+    // Touch after long gap (>= 10m) -> TOUCH_RETURN
+    clock += 610_000
+    expect(classifier.classify({ isSleeping: false })).toBe('TOUCH_RETURN')
+
+    // Touch while real mascot sleep state is active -> TOUCH_SLEEP
+    clock += 2_000
+    expect(classifier.classify({ isSleeping: true })).toBe('TOUCH_SLEEP')
+
+    // Non-sleeping state never infers TOUCH_SLEEP
+    clock += 5_000
+    expect(classifier.classify({ isSleeping: false })).toBe('TOUCH_SINGLE')
+  })
+
+  it('allows touch to interrupt idle chatter, updates smoothly on repeat, and never interrupts urgent deadlines', () => {
+    let clock = 2_000_000
+    const engine = new FoxDialogueEngine({ now: () => clock, random: () => 0.05 })
+
+    // Idle chatter active
+    const idle = engine.emit({ event: 'IDLE_CHATTER' })
+    expect(idle.accepted).toBe(true)
+
+    // Touch interrupts idle immediately (even inside 4s global cooldown)
+    clock += 500
+    const firstTouch = engine.emit({ event: 'TOUCH_SINGLE' })
+    expect(firstTouch.accepted).toBe(true)
+    expect(firstTouch.active?.event).toBe('TOUCH_SINGLE')
+    expect(firstTouch.active?.gateIEvent).toBe('FRIEND_GREETING')
+
+    // Repeat touch after 1.3s replaces single touch smoothly
+    clock += 1_300
+    const repeatTouch = engine.emit({ event: 'TOUCH_REPEAT' })
+    expect(repeatTouch.accepted).toBe(true)
+    expect(repeatTouch.active?.event).toBe('TOUCH_REPEAT')
+    expect(repeatTouch.active?.entryId).not.toBe(firstTouch.active?.entryId)
+
+    // Urgent 15m deadline interrupts touch dialogue
+    clock += 1_000
+    const urgent = engine.emit({
+      event: 'DEADLINE_15M',
+      dedupeKey: 'deadline:touch-test:15m',
+      taskTitle: 'Hoàn thành sprint'
+    })
+    expect(urgent.accepted).toBe(true)
+    expect(urgent.active?.event).toBe('DEADLINE_15M')
+
+    // Touch MUST NOT interrupt active urgent deadline alert
+    clock += 2_000
+    const blockedTouch = engine.emit({ event: 'TOUCH_SINGLE' })
+    expect(blockedTouch.accepted).toBe(false)
+    expect(blockedTouch.reason).toBe('blocked_by_urgent_alert')
+    expect(engine.getActive()?.event).toBe('DEADLINE_15M')
   })
 })

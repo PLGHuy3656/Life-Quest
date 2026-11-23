@@ -264,3 +264,56 @@ test('FOX-D02 overhead FoxSpeechBubble: positioned above Fox, hides on collapse,
   await page.keyboard.press('Escape')
   await expect(bubble).toHaveCount(0)
 })
+
+test('FOX-D03.1 touch interaction: click and keyboard trigger touch dialogue without side effects', async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/?nowebgl=1')
+
+  const bubble = page.getByTestId('fox-speech-bubble')
+  const touchTarget = page.getByTestId('fox-touch-target')
+  await expect(touchTarget).toBeVisible()
+  await expect(touchTarget).toHaveAttribute('aria-label', 'Chạm vào Fox')
+
+  // Verify touch target is tightly bounded inside the Fox stage (not the full companion panel)
+  const bounds = await page.evaluate(() => {
+    const stage = document.querySelector('[data-testid="mascot-decorated-stage"]')!.getBoundingClientRect()
+    const target = document.querySelector('[data-testid="fox-touch-target"]')!.getBoundingClientRect()
+    return { stage, target }
+  })
+  expect(bounds.target.width).toBeLessThan(bounds.stage.width * 0.6)
+  expect(bounds.target.top).toBeGreaterThanOrEqual(bounds.stage.top)
+  expect(bounds.target.bottom).toBeLessThanOrEqual(bounds.stage.bottom)
+
+  // Dismiss initial greeting bubble
+  await page.keyboard.press('Escape')
+  await expect(bubble).toHaveCount(0)
+
+  // First click -> TOUCH_SINGLE
+  await touchTarget.click()
+  await expect(bubble).toBeVisible()
+  await expect(bubble).toHaveAttribute('data-trigger', 'TOUCH_SINGLE')
+
+  // Second click after cooldown -> TOUCH_REPEAT
+  await page.waitForTimeout(1300)
+  await touchTarget.click()
+  await expect(bubble).toBeVisible()
+  await expect(bubble).toHaveAttribute('data-trigger', 'TOUCH_REPEAT')
+
+  // Keyboard Enter activation works and does not focus Quick Create
+  await page.waitForTimeout(1300)
+  await touchTarget.focus()
+  await page.keyboard.press('Enter')
+  await expect(bubble).toBeVisible()
+  await expect(bubble).toHaveAttribute('data-trigger', 'TOUCH_REPEAT')
+
+  const quickCreateFocused = await page.evaluate(
+    () => document.activeElement?.getAttribute('placeholder') === 'Tôi muốn...'
+  )
+  expect(quickCreateFocused).toBe(false)
+
+  // Single WebGL canvas budget preserved
+  const canvasCount = await page.evaluate(() => document.querySelectorAll('canvas').length)
+  expect(canvasCount).toBeLessThanOrEqual(1)
+})
