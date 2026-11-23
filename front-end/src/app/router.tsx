@@ -6,6 +6,7 @@ import { RegisterPage } from '@/features/auth/RegisterPage'
 import { CalendarPage } from '@/features/calendar/CalendarPage'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
 import { PlaceholderPage } from '@/features/placeholders/PlaceholderPage'
+import { ProfileBoundaryPage } from '@/features/profile/ProfileBoundaryPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
 import { WardrobePage } from '@/features/wardrobe/WardrobePage'
 import { WorkPage } from '@/features/work/WorkPage'
@@ -39,6 +40,14 @@ export function AppRoutes() {
                 }
               />
               <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfileBoundaryPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/settings"
                 element={
                   <ProtectedRoute>
@@ -50,13 +59,14 @@ export function AppRoutes() {
                 path="/messages"
                 element={
                   <PlaceholderPage
-                    title="Tin nhắn & Cộng đồng"
-                    description="Chờ hợp nhất nhánh Backend feature/friends-and-social vào develop."
+                    title="Tin nhắn & Nhóm bạn bè"
+                    description="Bảng tin Social đã được tích hợp trực tiếp tại Trang chủ. Hộp thư tin nhắn riêng chờ hợp nhất nhánh Backend tương ứng."
                     plannedMilestone="FE-04"
                   />
                 }
               />
               <Route path="/wardrobe" element={<WardrobePage />} />
+              <Route path="/preview/social-first" element={<Navigate to="/" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AppShell>

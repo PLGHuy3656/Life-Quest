@@ -104,6 +104,19 @@
   padding: 12px var(--lq-page-gutter) 84px;
 }
 
+.desktopThreeRegion {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--lq-grid-gap);
+  width: 100%;
+  min-width: 0;
+}
+
+.centerRegion {
+  flex: 1;
+  min-width: 0;
+}
+
 @media (min-width: 1024px) and (max-width: 1180px) {
   .content {
     max-width: calc(var(--lq-container-max) + 32px);

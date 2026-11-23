@@ -14,11 +14,17 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
+import { DashboardSheets } from '@/features/dashboard/DashboardSheets'
 import { FloatingMascotDock } from '@/features/mascot/FloatingMascotDock'
+import { MascotEventAdapter } from '@/features/mascot/MascotEventAdapter'
+import { useQuestsQuery, useTodayQuery } from '@/hooks/useDashboardData'
+import { useIsDesktop } from '@/hooks/useIsDesktop'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import { DesktopHeader } from './DesktopHeader'
+import { FoxCompanionRail } from './FoxCompanionRail'
+import { PinnedTaskRail } from './PinnedTaskRail'
 import styles from './AppShell.module.css'
 
 const ROUTE_TITLES: Record<string, string> = {
@@ -27,20 +33,30 @@ const ROUTE_TITLES: Record<string, string> = {
   '/calendar': 'Lịch hành trình',
   '/messages': 'Tin nhắn & Nhóm',
   '/wardrobe': 'Tủ đồ Fox V2',
+  '/profile': 'Trang cá nhân',
   '/settings': 'Cài đặt'
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
   const location = useLocation()
   const navigate = useNavigate()
+  const isDesktop = useIsDesktop()
   const reducedMotion = useUiStore((s) => s.reducedMotion)
   const toggleReducedMotion = useUiStore((s) => s.toggleReducedMotion)
   const openSheet = useUiStore((s) => s.openSheet)
+  const searchQuery = useUiStore((s) => s.searchQuery)
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
   const refreshToken = useAuthStore((s) => s.refreshToken)
   const clearSession = useAuthStore((s) => s.clearSession)
 
+  const todayQuery = useTodayQuery()
+  const questsQuery = useQuestsQuery(searchQuery)
+  const quests = questsQuery.data?.data ?? []
+  const authoritativeLevel =
+    todayQuery.data?.source === 'LIVE' ? todayQuery.data.data.gamification.level : undefined
+
   const currentTitle = ROUTE_TITLES[location.pathname] ?? 'LifeQuest'
+  const isWardrobeRoute = location.pathname === '/wardrobe'
 
   const handleLogout = async () => {
     try {
@@ -130,8 +146,24 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <main className={styles.content}>{children}</main>
+        <MascotEventAdapter triggerGreetingOnMount authoritativeLevel={authoritativeLevel} />
+
+        <main className={styles.content}>
+          {isDesktop ? (
+            <div className={styles.desktopThreeRegion} data-testid="shared-desktop-three-region">
+              <PinnedTaskRail />
+              <div className={styles.centerRegion} data-testid="shared-center-region">
+                {children}
+              </div>
+              <FoxCompanionRail hideCanvas={isWardrobeRoute} />
+            </div>
+          ) : (
+            children
+          )}
+        </main>
       </div>
+
+      <DashboardSheets quests={quests} />
 
       {/* Tablet Floating Pill Navigation (700px - 1023px) */}
       <nav className={styles.tabletPillNav} aria-label="Điều hướng máy tính bảng">

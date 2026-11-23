@@ -10,14 +10,14 @@ import { MOCK_QUESTS } from '@/services/repositories/fixtures'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 
-function renderApp() {
+function renderApp(initialPath = '/') {
   const qc = new QueryClient({
     defaultOptions: { queries: { retry: false } }
   })
   return render(
     <QueryClientProvider client={qc}>
       <CompanionProvider>
-        <MemoryRouter initialEntries={['/']}>
+        <MemoryRouter initialEntries={[initialPath]}>
           <AppRoutes />
         </MemoryRouter>
       </CompanionProvider>
@@ -25,34 +25,62 @@ function renderApp() {
   )
 }
 
-describe('DashboardPage & AppShell FE-01', () => {
+describe('DashboardPage & Shared 3-Region AppShell (FE-03.5I)', () => {
   beforeEach(() => {
     useAuthStore.getState().clearSession()
     useUiStore.getState().setReducedMotion(false)
+    useUiStore.getState().setPinnedRailCollapsed(false)
+    useUiStore.getState().setFoxRailCollapsed(false)
+    useUiStore.getState().setQuickCreateDraft('')
     useUiStore.getState().closeSheet()
   })
 
-  it('renders Claude Canvas dashboard sections with greeting & prompt inside mascot panel', async () => {
+  it('renders approved Social-First Dashboard with shared PinnedTaskRail & FoxCompanionRail', async () => {
     renderApp()
 
     expect(await screen.findByText(/Bạn!/)).toBeInTheDocument()
     expect(screen.queryByText(/Huy/)).not.toBeInTheDocument()
+    expect(screen.getByTestId('shared-desktop-three-region')).toBeInTheDocument()
+    expect(await screen.findByTestId('shared-pinned-rail')).toBeInTheDocument()
+    expect(screen.getByTestId('shared-fox-rail')).toBeInTheDocument()
+    expect(screen.getByTestId('social-feed-section')).toBeInTheDocument()
+    expect(screen.getByTestId('social-composer-card')).toBeInTheDocument()
+    expect(screen.getAllByTestId('social-feed-post')).toHaveLength(4)
     expect(screen.getByTestId('mascot-greeting-block')).toBeInTheDocument()
     expect(screen.getByTestId('mascot-decorated-stage')).toBeInTheDocument()
     expect(screen.getByTestId('mascot-prompt-mic-btn')).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'Hôm nay bạn muốn làm gì?' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Hôm nay' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Ngày mai' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Tuần này' })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'Bảng ghim' })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'Nhiệm vụ hôm nay' })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'Mục tiêu & Cột mốc' })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { name: 'Social và nhật ký hành trình' })).toBeInTheDocument()
-    expect(await screen.findAllByTestId('social-preview-item')).toHaveLength(2)
-    expect((await screen.findAllByText('Tập trung')).length).toBeGreaterThanOrEqual(1)
-    expect(screen.getAllByText('Thời lượng').length).toBeGreaterThanOrEqual(1)
-    expect(screen.getAllByText('Số lượng').length).toBeGreaterThanOrEqual(1)
     expect(screen.getByTestId('fox-fallback')).toBeInTheDocument()
+  })
+
+  it('preserves Quick Create draft across Fox collapse/expand and persists rail collapse', async () => {
+    const user = userEvent.setup()
+    renderApp()
+
+    const promptInput = await screen.findByLabelText('Hôm nay bạn muốn làm gì?')
+    await user.type(promptInput, 'Đọc 15 trang sách kiến trúc')
+
+    await user.click(screen.getByRole('button', { name: 'Thu gọn Fox Companion' }))
+    expect(screen.getByTestId('shared-fox-rail')).toHaveAttribute('data-state', 'collapsed')
+
+    await user.click(screen.getByRole('button', { name: 'Mở rộng Fox Companion' }))
+    expect(screen.getByTestId('shared-fox-rail')).toHaveAttribute('data-state', 'expanded')
+    expect(screen.getByLabelText('Hôm nay bạn muốn làm gì?')).toHaveValue(
+      'Đọc 15 trang sách kiến trúc'
+    )
+  })
+
+  it('surfaces honest PENDING / UNAVAILABLE feedback for unmerged Social actions', async () => {
+    const user = userEvent.setup()
+    renderApp()
+
+    const composerInput = await screen.findByLabelText(
+      'Chia sẻ khoảnh khắc hoàn thành nhiệm vụ cùng bạn bè'
+    )
+    await user.type(composerInput, 'Hoàn thành nhiệm vụ đầu ngày!')
+    await user.click(screen.getByRole('button', { name: 'Đăng bài chia sẻ' }))
+
+    expect(await screen.findByTestId('social-capability-status')).toHaveTextContent(/PENDING:/)
   })
 
   it('enforces max 3 cards on PinnedBoard even when >3 quests are pinned', () => {
@@ -87,12 +115,12 @@ describe('DashboardPage & AppShell FE-01', () => {
     expect(document.documentElement.classList.contains('lq-rm')).toBe(false)
   })
 
-  it('opens QuickCreate Sheet with dialog semantics and closes on Escape', async () => {
+  it('opens QuickCreate Sheet from FoxCompanionRail and closes on Escape', async () => {
     const user = userEvent.setup()
     renderApp()
 
-    const createBtn = await screen.findByRole('button', { name: /\+ Thêm nhiệm vụ/i })
-    await user.click(createBtn)
+    const detailBtn = await screen.findByRole('button', { name: 'Mở chi tiết tạo nhiệm vụ' })
+    await user.click(detailBtn)
 
     const dialog = await screen.findByRole('dialog')
     expect(dialog).toHaveAttribute('aria-modal', 'true')
@@ -102,15 +130,5 @@ describe('DashboardPage & AppShell FE-01', () => {
     await waitFor(() => {
       expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     })
-  })
-
-  it('shows explicit UNAVAILABLE status when attempting unimplemented quest completion', async () => {
-    const user = userEvent.setup()
-    renderApp()
-
-    const completeButtons = await screen.findAllByRole('button', { name: /^Hoàn thành /i })
-    await user.click(completeButtons[0])
-
-    expect(await screen.findByText(/UNAVAILABLE:/)).toBeInTheDocument()
   })
 })

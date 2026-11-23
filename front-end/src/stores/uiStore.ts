@@ -19,6 +19,12 @@ function readReducedMotion(): boolean {
   }
 }
 
+function getDefaultPinnedRailCollapsed(): boolean {
+  if (typeof window === 'undefined') return false
+  // Compact desktop (1024px–1199px) defaults pinned rail collapsed so Center content stays spacious
+  return window.innerWidth >= 1024 && window.innerWidth < 1200
+}
+
 export function applyReducedMotionClass(enabled: boolean): void {
   if (typeof document === 'undefined') return
   document.documentElement.classList.toggle('lq-rm', enabled)
@@ -28,11 +34,19 @@ interface UiState {
   reducedMotion: boolean
   activeSheet: ActiveSheet
   searchQuery: string
+  pinnedRailCollapsed: boolean
+  foxRailCollapsed: boolean
+  quickCreateDraft: string
   setReducedMotion: (enabled: boolean) => void
   toggleReducedMotion: () => void
   openSheet: (sheet: Exclude<ActiveSheet, null>) => void
   closeSheet: () => void
   setSearchQuery: (query: string) => void
+  setPinnedRailCollapsed: (collapsed: boolean) => void
+  togglePinnedRail: () => void
+  setFoxRailCollapsed: (collapsed: boolean) => void
+  toggleFoxRail: () => void
+  setQuickCreateDraft: (draft: string) => void
 }
 
 const initialReducedMotion = readReducedMotion()
@@ -42,6 +56,9 @@ export const useUiStore = create<UiState>((set, get) => ({
   reducedMotion: initialReducedMotion,
   activeSheet: null,
   searchQuery: '',
+  pinnedRailCollapsed: getDefaultPinnedRailCollapsed(),
+  foxRailCollapsed: false,
+  quickCreateDraft: '',
   setReducedMotion: (enabled) => {
     applyReducedMotionClass(enabled)
     if (typeof window !== 'undefined') {
@@ -58,5 +75,10 @@ export const useUiStore = create<UiState>((set, get) => ({
   },
   openSheet: (sheet) => set({ activeSheet: sheet }),
   closeSheet: () => set({ activeSheet: null }),
-  setSearchQuery: (searchQuery) => set({ searchQuery })
+  setSearchQuery: (searchQuery) => set({ searchQuery }),
+  setPinnedRailCollapsed: (pinnedRailCollapsed) => set({ pinnedRailCollapsed }),
+  togglePinnedRail: () => set((s) => ({ pinnedRailCollapsed: !s.pinnedRailCollapsed })),
+  setFoxRailCollapsed: (foxRailCollapsed) => set({ foxRailCollapsed }),
+  toggleFoxRail: () => set((s) => ({ foxRailCollapsed: !s.foxRailCollapsed })),
+  setQuickCreateDraft: (quickCreateDraft) => set({ quickCreateDraft })
 }))
