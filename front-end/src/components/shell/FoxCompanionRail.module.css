@@ -120,7 +120,7 @@
 
 .stageWrap {
   position: relative;
-  height: 230px;
+  height: 248px;
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(164, 128, 86, 0.18);
@@ -140,7 +140,7 @@
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
-  min-height: 230px !important;
+  min-height: 248px !important;
 }
 
 .wardrobeNotice {

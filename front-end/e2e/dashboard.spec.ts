@@ -233,3 +233,34 @@ test('FE-03.5J adaptive social media preview: multi-image selection, +N overlay,
   await drawer.getByRole('button', { name: 'Xóa tất cả' }).click()
   await expect(page.getByTestId('social-composer-card')).toHaveAttribute('data-has-media', '0')
 })
+
+test('FOX-D02 overhead FoxSpeechBubble: positioned above Fox, hides on collapse, Escape dismissible', async ({
+  page
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/?nowebgl=1')
+
+  const bubble = page.getByTestId('fox-speech-bubble')
+  await expect(bubble).toBeVisible()
+
+  // Positioned cleanly in the upper zone of the Fox stage without clipping
+  const geom = await page.evaluate(() => {
+    const stage = document.querySelector('[data-testid="mascot-decorated-stage"]')!.getBoundingClientRect()
+    const b = document.querySelector('[data-testid="fox-speech-bubble"]')!.getBoundingClientRect()
+    return { stage, b }
+  })
+  expect(geom.b.top).toBeGreaterThanOrEqual(geom.stage.top)
+  expect(geom.b.left).toBeGreaterThanOrEqual(geom.stage.left)
+  expect(geom.b.right).toBeLessThanOrEqual(geom.stage.right)
+  expect(geom.b.bottom).toBeLessThanOrEqual(geom.stage.top + 92)
+
+  // Hides cleanly when Fox panel collapses, restores when expanded
+  await page.getByRole('button', { name: 'Thu gọn Fox Companion' }).click()
+  await expect(bubble).toHaveCount(0)
+  await page.getByRole('button', { name: 'Mở rộng Fox Companion' }).click()
+  await expect(bubble).toBeVisible()
+
+  // Dismisses cleanly via Escape key
+  await page.keyboard.press('Escape')
+  await expect(bubble).toHaveCount(0)
+})

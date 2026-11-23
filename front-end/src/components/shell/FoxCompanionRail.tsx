@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import {
   AlignLeft,
   ChevronDown,
@@ -10,9 +10,21 @@ import {
   Star
 } from 'lucide-react'
 import { MascotSceneBackdrop } from '@/features/dashboard/MascotSceneBackdrop'
+import { useOptionalCompanion } from '@/features/mascot/CompanionProvider'
 import { FoxCompanionView } from '@/features/mascot/FoxCompanionView'
+import { FoxSpeechBubble } from '@/features/mascot/FoxSpeechBubble'
+import {
+  getDialogueForTrigger,
+  type FoxDialogueEntry,
+  type FoxDialogueTrigger
+} from '@/features/mascot/foxDialogueCatalog'
 import { VoiceAssistantSheet } from '@/features/voice/VoiceAssistantSheet'
-import { useCreateQuestMutation, useTodayQuery, useUserMeQuery } from '@/hooks/useDashboardData'
+import {
+  useCreateQuestMutation,
+  useQuestsQuery,
+  useTodayQuery,
+  useUserMeQuery
+} from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import type { QuestType } from '@/types/domain'
@@ -66,8 +78,10 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const openSheet = useUiStore((s) => s.openSheet)
 
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
+  const companion = useOptionalCompanion()
   const userQuery = useUserMeQuery()
   const todayQuery = useTodayQuery()
+  const questsQuery = useQuestsQuery()
   const createQuest = useCreateQuestMutation()
 
   const [horizon, setHorizon] = useState<QuickHorizon>('today')
@@ -77,6 +91,84 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const [feedback, setFeedback] = useState<{ kind: 'info' | 'ok' | 'err'; text: string } | null>(
     null
   )
+  const [activeDialogue, setActiveDialogue] = useState<FoxDialogueEntry | null>(null)
+
+  const lastHandledEventIdRef = useRef<number>(0)
+  const lastEmptyShownRef = useRef<boolean>(false)
+  const lastErrorShownRef = useRef<string | null>(null)
+  const dismissTimerRef = useRef<number | null>(null)
+
+  const showDialogue = useCallback(
+    (trigger: FoxDialogueTrigger, options?: { taskTitle?: string }) => {
+      if (dismissTimerRef.current !== null) {
+        window.clearTimeout(dismissTimerRef.current)
+        dismissTimerRef.current = null
+      }
+      const entry = getDialogueForTrigger(trigger, options)
+      setActiveDialogue(entry)
+      dismissTimerRef.current = window.setTimeout(() => {
+        setActiveDialogue((curr) => (curr?.id === entry.id ? null : curr))
+        dismissTimerRef.current = null
+      }, entry.durationMs)
+    },
+    []
+  )
+
+  const dismissDialogue = useCallback(() => {
+    if (dismissTimerRef.current !== null) {
+      window.clearTimeout(dismissTimerRef.current)
+      dismissTimerRef.current = null
+    }
+    setActiveDialogue(null)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (dismissTimerRef.current !== null) {
+        window.clearTimeout(dismissTimerRef.current)
+      }
+    }
+  }, [])
+
+  // React to verified CompanionProvider events (APP_GREETING, TASK_CREATED) without duplicates
+  const latestEvent = companion?.eventLog[0]
+  useEffect(() => {
+    if (!latestEvent || latestEvent.id <= lastHandledEventIdRef.current) return
+    lastHandledEventIdRef.current = latestEvent.id
+
+    if (latestEvent.name === 'APP_GREETING') {
+      showDialogue('APP_GREETING')
+    } else if (latestEvent.name === 'TASK_CREATED') {
+      showDialogue('TASK_CREATED')
+    }
+  }, [latestEvent, showDialogue])
+
+  // React once when authenticated quests list is verified empty
+  const isEmptyQuests =
+    questsQuery.isSuccess && questsQuery.data.data.length === 0
+  useEffect(() => {
+    if (isEmptyQuests && !lastEmptyShownRef.current) {
+      lastEmptyShownRef.current = true
+      showDialogue('EMPTY_TASKS')
+    } else if (!isEmptyQuests) {
+      lastEmptyShownRef.current = false
+    }
+  }, [isEmptyQuests, showDialogue])
+
+  // React once per distinct verified Backend error
+  const backendErrorKey = questsQuery.error
+    ? questsQuery.error instanceof Error
+      ? questsQuery.error.message
+      : 'backend-error'
+    : null
+  useEffect(() => {
+    if (backendErrorKey && lastErrorShownRef.current !== backendErrorKey) {
+      lastErrorShownRef.current = backendErrorKey
+      showDialogue('BACKEND_ERROR')
+    } else if (!backendErrorKey) {
+      lastErrorShownRef.current = null
+    }
+  }, [backendErrorKey, showDialogue])
 
   const selectedType = TASK_TYPE_OPTIONS[typeIdx]
   const hasDraft = prompt.trim().length > 0
@@ -125,6 +217,7 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
       setPrompt('')
       setFeedback({ kind: 'ok', text: `Đã thêm "${title}" vào danh sách của bạn!` })
     } catch (err) {
+      showDialogue('BACKEND_ERROR')
       setFeedback({
         kind: 'err',
         text: err instanceof Error ? err.message : 'Không thể lưu nhiệm vụ lúc này.'
@@ -197,6 +290,11 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
         {!hideCanvas ? (
           <div className={styles.stageWrap} data-testid="mascot-decorated-stage">
             <MascotSceneBackdrop />
+            <FoxSpeechBubble
+              dialogue={activeDialogue}
+              visible={!collapsed}
+              onDismiss={dismissDialogue}
+            />
             <div className={styles.canvasLayer}>
               <FoxCompanionView
                 presentation="widget"
