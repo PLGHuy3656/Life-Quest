@@ -12,6 +12,15 @@ const getToday = Joi.object({
   })
 })
 
+const completeExecution = Joi.object({
+  body: Joi.any().optional(),
+  params: Joi.object({
+    executionId: Joi.string().uuid().required()
+  }),
+  query: Joi.any().optional()
+})
+
 export const todayValidation = {
-  getToday
+  getToday,
+  completeExecution
 }

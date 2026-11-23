@@ -10,4 +10,8 @@ const Router = express.Router()
 Router.route('/')
   .get(authenticate, validate(todayValidation.getToday), todayController.getToday)
 
+// /api/v1/today/executions/:executionId/complete
+Router.route('/executions/:executionId/complete')
+  .post(authenticate, validate(todayValidation.completeExecution), todayController.completeExecution)
+
 export const todayRoute = Router

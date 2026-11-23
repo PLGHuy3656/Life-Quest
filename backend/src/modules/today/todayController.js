@@ -18,6 +18,24 @@ const getToday = async (req, res, next) => {
   }
 }
 
+const completeExecution = async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const { executionId } = req.params
+
+    const result = await todayService.completeExecution(userId, executionId)
+
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: 'Quest execution completed successfully',
+      data: result
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const todayController = {
-  getToday
+  getToday,
+  completeExecution
 }

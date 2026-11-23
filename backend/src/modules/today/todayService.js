@@ -1,4 +1,8 @@
 import { todayRepository } from './todayRepository.js'
+import streaksService from '../streaks/streaksService.js'
+import eventBus from '../../common/events/eventBus.js'
+import { EVENT_TYPES } from '../../common/events/eventTypes.js'
+import ApiError from '../../common/errors/ApiError.js'
 
 // Lấy toàn bộ dữ liệu Today cho người dùng
 const getToday = async (userId, queryDate) => {
@@ -88,12 +92,28 @@ const getToday = async (userId, queryDate) => {
     coinBalance: gamification ? Number(gamification.coinBalance) : 0
   }
 
-  // 7. Định dạng streak
+  // 7. Định dạng streak từ UserStreak thật sự
+  let currentCount = 0
+  let longestCount = 0
+  let lastQualifiedDate = completedTasks > 0 ? targetDateStr : null
+  try {
+    const userStreak = await streaksService.getMyStreak(userId)
+    if (userStreak) {
+      currentCount = userStreak.currentStreak || 0
+      longestCount = userStreak.longestStreak || 0
+      if (userStreak.lastCompletedDate) {
+        lastQualifiedDate = new Date(userStreak.lastCompletedDate).toISOString().slice(0, 10)
+      }
+    }
+  } catch {
+    // Giữ fallback an toàn nếu chưa lấy được streak
+  }
+
   const streak = {
-    currentCount: 0,
-    longestCount: 0,
+    currentCount,
+    longestCount,
     isQualifiedToday: completedTasks > 0,
-    lastQualifiedDate: completedTasks > 0 ? targetDateStr : null
+    lastQualifiedDate
   }
 
   return {
@@ -112,6 +132,38 @@ const getToday = async (userId, queryDate) => {
   }
 }
 
+// Hoàn thành 1 execution và phát event QUEST_COMPLETED
+const completeExecution = async (userId, executionId) => {
+  const execution = await todayRepository.findExecutionById(executionId)
+  if (!execution) {
+    throw new ApiError(404, 'Quest execution not found', 'EXECUTION_NOT_FOUND')
+  }
+  if (execution.userId !== userId) {
+    throw new ApiError(403, 'You do not have permission to complete this execution', 'FORBIDDEN')
+  }
+  if (execution.status === 'COMPLETED') {
+    return execution
+  }
+
+  const completedAt = new Date()
+  const updatedExecution = await todayRepository.completeQuestExecution(executionId, completedAt)
+
+  // Phát event QUEST_COMPLETED với try/catch an toàn
+  try {
+    eventBus.emit(EVENT_TYPES.QUEST_COMPLETED, {
+      userId,
+      executionId: updatedExecution.id,
+      questId: updatedExecution.questId,
+      completedAt
+    })
+  } catch (eventErr) {
+    console.error('[TodayService] Failed to emit QUEST_COMPLETED event:', eventErr)
+  }
+
+  return updatedExecution
+}
+
 export const todayService = {
-  getToday
+  getToday,
+  completeExecution
 }

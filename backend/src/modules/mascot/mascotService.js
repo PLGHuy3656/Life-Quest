@@ -2,6 +2,7 @@ import { mascotRepository } from './mascotRepository.js'
 import { usersRepository } from '../users/usersRepository.js'
 import { resolveEntitlement, assertTierAccess } from '../../common/utils/entitlement.js'
 import ApiError from '../../common/errors/ApiError.js'
+import streaksService from '../streaks/streaksService.js'
 
 const getModels = async () => {
   return await mascotRepository.findAllModels()
@@ -73,6 +74,27 @@ const getMascotState = async (modelCode = 'FOX_V2', placement = 'DASHBOARD', use
       enableSleepMode: false
     }
 
+  // Lấy trạng thái streak để hiển thị hiệu ứng ngọn lửa visualState trên Fox V2
+  let streakVisual = {
+    active: false,
+    days: 0,
+    tier: null
+  }
+  if (userId) {
+    try {
+      const streak = await streaksService.getMyStreak(userId)
+      if (streak) {
+        streakVisual = {
+          active: (streak.currentStreak || 0) > 0,
+          days: streak.currentStreak || 0,
+          tier: streak.flameTier || null
+        }
+      }
+    } catch {
+      // Fallback nếu không truy vấn được streak
+    }
+  }
+
   return {
     model: {
       id: model.id,
@@ -83,6 +105,9 @@ const getMascotState = async (modelCode = 'FOX_V2', placement = 'DASHBOARD', use
     },
     placement,
     entitlement,
+    visualState: {
+      streak: streakVisual
+    },
     behaviorConfig,
     sleepWindow: {
       startHour: model.sleepStartHour,
