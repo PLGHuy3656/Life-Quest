@@ -195,4 +195,7 @@ export interface SocialPreviewItem {
   questBadge: string
   timeLabel: string
   cheerCount: number
+  illustrationKey?: 'study-corner' | 'milestone-moment' | 'morning-run' | 'hydration-habit'
+  illustrationAlt?: string
+  category?: 'focus' | 'milestone' | 'habit' | 'activity'
 }

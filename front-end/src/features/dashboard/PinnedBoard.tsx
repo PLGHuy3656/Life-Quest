@@ -2,6 +2,8 @@ import { Pin, SlidersHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Chip } from '@/components/ui/Chip'
+import { QuestTypeBadge, RewardCoinBadge, RewardXpBadge } from '@/components/ui/QuestIcons'
+import { QUEST_TYPE_META } from '@/components/ui/questIconMeta'
 import { EmptyState, ErrorBanner, LoadingSkeleton, SourceBadge } from '@/components/ui/StateViews'
 import type { DataSourceMode } from '@/types/api'
 import type { Quest } from '@/types/domain'
@@ -32,9 +34,11 @@ export function PinnedBoard({
     <Card compact data-testid="pinned-board-card">
       <div className={styles.header}>
         <div className={styles.titleGroup}>
-          <Pin size={18} color="#F26B3A" aria-hidden="true" />
+          <span className={styles.sectionIcon} aria-hidden="true">
+            <Pin size={16} />
+          </span>
           <h2 className={styles.heading}>Bảng ghim</h2>
-          <Chip tone="neutral">
+          <Chip tone="accent">
             {pinnedQuests.length}/{MAX_PINNED_CARDS}
           </Chip>
           <SourceBadge source={source} />
@@ -61,18 +65,32 @@ export function PinnedBoard({
         />
       ) : (
         <div className={styles.grid} data-testid="pinned-board-grid">
-          {pinnedQuests.map((quest) => (
-            <article key={quest.id} className={styles.pinCard} data-testid="pinned-quest-card">
-              <div>
-                <h3 className={styles.pinTitle}>{quest.title}</h3>
-                {quest.description && <p className={styles.pinDesc}>{quest.description}</p>}
-              </div>
-              <div className={styles.pinMeta}>
-                <Chip tone="accent">{quest.type}</Chip>
-                <Chip tone="reward">+{quest.xpReward} XP</Chip>
-              </div>
-            </article>
-          ))}
+          {pinnedQuests.map((quest) => {
+            const typeMeta = QUEST_TYPE_META[quest.type]
+            const TypeIcon = typeMeta.Icon
+            return (
+              <article key={quest.id} className={styles.pinCard} data-testid="pinned-quest-card">
+                <div className={styles.pinBody}>
+                  <div className={styles.pinTopRow}>
+                    <span
+                      className={styles.pinTypeIcon}
+                      style={{ background: typeMeta.softBg, color: typeMeta.color }}
+                      aria-hidden="true"
+                    >
+                      <TypeIcon size={15} strokeWidth={2.2} />
+                    </span>
+                    <QuestTypeBadge type={quest.type} />
+                  </div>
+                  <h3 className={styles.pinTitle}>{quest.title}</h3>
+                  {quest.description && <p className={styles.pinDesc}>{quest.description}</p>}
+                </div>
+                <div className={styles.pinMeta}>
+                  <RewardXpBadge xp={quest.xpReward} />
+                  <RewardCoinBadge coins={quest.coinReward} />
+                </div>
+              </article>
+            )
+          })}
         </div>
       )}
     </Card>
