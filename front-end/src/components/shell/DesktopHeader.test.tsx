@@ -51,7 +51,7 @@ describe('DesktopHeader (Claude Canvas 3-Island Restoration)', () => {
     expect(screen.getByRole('link', { name: /Đăng nhập/i })).toBeInTheDocument()
   })
 
-  it('renders LIVE streak/coin pills, initials avatar, profile dropdown, and logout when authenticated', async () => {
+  it('renders initials avatar, profile dropdown, and logout without duplicated streak/coin pills when authenticated', async () => {
     const user = userEvent.setup()
     useAuthStore.getState().setSession({
       accessToken: 'live-header-token',
@@ -93,17 +93,19 @@ describe('DesktopHeader (Claude Canvas 3-Island Restoration)', () => {
 
     const { onLogout } = renderHeader()
 
-    await waitFor(() => {
-      expect(screen.getByTestId('header-streak-pill')).toHaveTextContent('0')
-      expect(screen.getByTestId('header-coin-pill')).toHaveTextContent('320')
-    })
-
     const profileBtn = await screen.findByRole('button', { name: /Tài khoản của Minh Quân/i })
     expect(profileBtn).toHaveTextContent('MQ')
+
+    // FE-04A.3: Streak & Coin are deduplicated out of DesktopHeader into PlayerStatsRail
+    expect(screen.queryByTestId('header-streak-pill')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('header-coin-pill')).not.toBeInTheDocument()
+
     await user.click(profileBtn)
 
     const logoutItem = await screen.findByRole('menuitem', { name: 'Đăng xuất' })
     await user.click(logoutItem)
-    expect(onLogout).toHaveBeenCalledTimes(1)
+    await waitFor(() => {
+      expect(onLogout).toHaveBeenCalledTimes(1)
+    })
   })
 })

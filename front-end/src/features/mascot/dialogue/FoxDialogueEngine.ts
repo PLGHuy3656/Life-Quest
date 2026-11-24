@@ -103,6 +103,7 @@ export class FoxDialogueEngine {
     const priority = EVENT_PRIORITY[input.event]
     const isUrgent = priority >= 70
     const isTouch = input.event.startsWith('TOUCH_')
+    const isHover = input.event.startsWith('HOVER_')
     const isIdle = input.event === 'IDLE_CHATTER' || input.event === 'ENCOURAGEMENT' || input.event === 'TASK_SUGGESTION'
 
     // 1. Deduplication check
@@ -125,8 +126,8 @@ export class FoxDialogueEngine {
       return { accepted: false, reason: 'event_cooldown', active: this.active }
     }
 
-    // 4. Global cooldown check (urgent alerts, critical errors, and direct user touches bypass)
-    if (!isUrgent && !isTouch && priority < 60 && t - this.lastGlobalSpokeAt < this.globalCooldownMs) {
+    // 4. Global cooldown check (urgent alerts, critical errors, direct touches, and prop hovers bypass)
+    if (!isUrgent && !isTouch && !isHover && priority < 60 && t - this.lastGlobalSpokeAt < this.globalCooldownMs) {
       return { accepted: false, reason: 'global_cooldown', active: this.active }
     }
 
@@ -136,12 +137,12 @@ export class FoxDialogueEngine {
         // High-priority interrupts lower-priority / idle immediately
         return { accepted: true, active: this.activate(input, t) }
       }
-      if (isTouch && this.active.priority <= priority) {
-        // Direct touch updates an equal/lower touch bubble cleanly without interrupting deadlines
+      if ((isTouch || isHover) && this.active.priority <= priority) {
+        // Direct touch or prop hover updates an equal/lower bubble cleanly without interrupting deadlines
         return { accepted: true, active: this.activate(input, t) }
       }
-      if (isIdle) {
-        // Idle chatter NEVER interrupts or queues behind active speech
+      if (isIdle || isHover) {
+        // Idle chatter and prop hovers NEVER interrupt or queue behind higher-priority speech
         return { accepted: false, reason: 'lower_priority_than_active', active: this.active }
       }
       if (isTouch && this.active.priority >= 70) {

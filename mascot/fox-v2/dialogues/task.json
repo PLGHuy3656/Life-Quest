@@ -29,6 +29,26 @@
     { "id": "task-25", "event": "TASK_SUGGESTION", "text": "Nhớ dành khoảng trống thở giữa hai phiên tập trung để não nạp lại pin.", "emotion": "calm", "weight": 1 },
     { "id": "task-26", "event": "TASK_SUGGESTION", "text": "Một thói quen nhỏ như uống nước hay giãn cơ cũng rất xứng đáng được ghi lại.", "emotion": "playful", "weight": 1 },
     { "id": "task-27", "event": "TASK_SUGGESTION", "text": "Cuối ngày dành 2 phút chọn sẵn 1 việc cho sáng mai sẽ giúp bạn mở ngày rất êm.", "emotion": "encouraging", "weight": 1 },
-    { "id": "task-28", "event": "TASK_SUGGESTION", "text": "Gõ nhanh ý tưởng vào ô 'Hôm nay bạn muốn làm gì?' ngay dưới chân Fox nè!", "emotion": "playful", "weight": 1 }
+    { "id": "task-28", "event": "TASK_SUGGESTION", "text": "Gõ nhanh ý tưởng vào ô 'Hôm nay bạn muốn làm gì?' ngay dưới chân Fox nè!", "emotion": "playful", "weight": 1 },
+    { "id": "task-29", "event": "TASK_DETAIL_OPENED", "text": "Mình cùng xem kỹ giờ bắt đầu và hạn chót để giữ nhịp thật êm nha!", "emotion": "calm", "weight": 1 },
+    { "id": "task-30", "event": "TASK_DETAIL_OPENED", "text": "Nhiệm vụ này đã mở sẵn — bạn có thể bật phiên tập trung ngay bên dưới đó.", "emotion": "curious", "weight": 1 },
+    { "id": "task-31", "event": "FOCUS_STARTED", "text": "Bắt đầu phiên tập trung rồi! Fox giữ im lặng cổ vũ bạn hoàn thành thật gọn nhé.", "emotion": "encouraging", "weight": 1 },
+    { "id": "task-32", "event": "FOCUS_STARTED", "text": "Vào nhịp thôi nào! Từng phút tập trung đều rất đáng giá đó bạn.", "emotion": "happy", "weight": 1 },
+    { "id": "task-33", "event": "FOCUS_PAUSED", "text": "Tạm nghỉ một chút cho mắt và vai thư giãn rồi quay lại tiếp tục nha!", "emotion": "calm", "weight": 1 },
+    { "id": "task-34", "event": "FOCUS_PAUSED", "text": "Nghỉ ngắn đúng lúc giúp bạn giữ sự tỉnh táo lâu hơn đó.", "emotion": "encouraging", "weight": 1 },
+    { "id": "task-35", "event": "EVIDENCE_SELECTED", "text": "Ảnh xem trước cục bộ đã hiện rồi nè — tải lên máy chủ sẽ mở khi có Upload API!", "emotion": "curious", "weight": 1 },
+    { "id": "task-36", "event": "EVIDENCE_SELECTED", "text": "Bố cục ảnh minh chứng xem trước trông gọn ghẽ quá! (Chưa tải lên máy chủ)", "emotion": "happy", "weight": 1 },
+    { "id": "task-37", "event": "TASK_UPDATED", "text": "Đã cập nhật thông tin nhiệm vụ rõ ràng hơn rồi đó!", "emotion": "happy", "weight": 1 },
+    { "id": "task-38", "event": "TASK_UPDATED", "text": "Thay đổi đã được lưu lại gọn gàng — cứ bám sát nhịp mới này nhé!", "emotion": "encouraging", "weight": 1 },
+    { "id": "quest-01", "event": "QUEST_OPENED", "text": "Hành trình này trông rõ ràng lắm — mình chọn nhiệm vụ tiếp theo để bắt đầu nhé!", "emotion": "encouraging", "weight": 1 },
+    { "id": "quest-02", "event": "QUEST_OPENED", "text": "Cùng Fox rà soát tiến độ và các nhiệm vụ đang chờ trong hành trình này nha.", "emotion": "calm", "weight": 1 },
+    { "id": "quest-03", "event": "QUEST_TASK_VIEWED", "text": "Mở chi tiết nhiệm vụ trong hành trình rồi — giữ nhịp thật đều nhé!", "emotion": "curious", "weight": 1 },
+    { "id": "quest-04", "event": "QUEST_TASK_CREATED", "text": "Đã thêm nhiệm vụ mới gắn thẳng vào hành trình này rồi đó!", "emotion": "happy", "weight": 1 },
+    { "id": "quest-05", "event": "QUEST_INVITE_RECEIVED", "text": "Bạn có lời mời tham gia hành trình cộng tác mới cùng bạn bè nè!", "emotion": "curious", "weight": 1 },
+    { "id": "quest-06", "event": "QUEST_MEMBER_JOINED", "text": "Thêm đồng đội tham gia hành trình — cùng nhau đi sẽ vui hơn nhiều đó!", "emotion": "happy", "weight": 1 },
+    { "id": "quest-07", "event": "QUEST_TASK_ASSIGNED", "text": "Đã cập nhật phân công nhiệm vụ trong hành trình rồi nha!", "emotion": "encouraging", "weight": 1 },
+    { "id": "quest-08", "event": "QUEST_PROGRESS_UPDATED", "text": "Tiến độ hành trình vừa nhích lên một bước thật rõ ràng!", "emotion": "happy", "weight": 1 },
+    { "id": "quest-09", "event": "QUEST_DEADLINE_URGENT", "text": "Hành trình \"{task}\" sắp đến hạn rồi — mình ưu tiên chốt các việc còn lại nhé!", "emotion": "alert", "weight": 1.2 },
+    { "id": "quest-10", "event": "QUEST_COMPLETED", "text": "Chúc mừng bạn đã hoàn thành trọn vẹn hành trình! Fox tự hào về bạn lắm!", "emotion": "happy", "weight": 1.2 }
   ]
 }

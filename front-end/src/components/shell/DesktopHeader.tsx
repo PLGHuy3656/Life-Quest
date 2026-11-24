@@ -13,7 +13,7 @@ import {
   ShoppingBag,
   ZapOff
 } from 'lucide-react'
-import { useTodayQuery, useUserMeQuery } from '@/hooks/useDashboardData'
+import { useUserMeQuery } from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import styles from './DesktopHeader.module.css'
@@ -48,8 +48,7 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
   const authUser = useAuthStore((s) => s.user)
 
-  // Read live Backend stats only when authenticated (never invent values)
-  const todayQuery = useTodayQuery()
+  // Read live user identity only when authenticated (Streak/Coin/Level moved to PlayerStatsRail)
   const userMeQuery = useUserMeQuery()
 
   const [profileOpen, setProfileOpen] = useState(false)
@@ -73,8 +72,6 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
     }
   }, [profileOpen])
 
-  const liveToday =
-    isAuthenticated && todayQuery.data?.source === 'LIVE' ? todayQuery.data.data : null
   const liveUser =
     isAuthenticated && userMeQuery.data?.source === 'LIVE' ? userMeQuery.data.data : null
 
@@ -84,10 +81,6 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
     authUser?.username?.trim() ||
     'Bạn'
   const initials = getInitials(displayName)
-  const level = liveToday?.gamification.level ?? 1
-  const totalXp = liveToday?.gamification.totalXp ?? 0
-  const xpInLevel = totalXp % 500
-  const xpPct = Math.round((xpInLevel / 500) * 100)
 
   return (
     <header className={styles.desktopHeader} data-testid="desktop-canvas-header">
@@ -146,40 +139,6 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
             />
           </label>
 
-          {isAuthenticated && (
-            <>
-              <span
-                className={`${styles.statPill} ${styles.statStreak}`}
-                title="Chuỗi ngày từ GET /api/v1/today"
-                data-testid="header-streak-pill"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M12 2c1 3 5 5.5 5 10.5a5 5 0 0 1-10 0c0-2 .8-3.3 1.8-4.3.2 1.4 1 2.4 2 2.8C10.4 8 10.8 4.8 12 2z"
-                    fill="#F26B3A"
-                  />
-                  <path
-                    d="M12 13c1 1 2 2 2 3.4a2 2 0 0 1-4 0c0-1.2 1-2.2 2-3.4z"
-                    fill="#F6C85F"
-                  />
-                </svg>
-                {todayQuery.isLoading ? '—' : (liveToday?.streak.currentCount ?? 0)}
-              </span>
-
-              <span
-                className={`${styles.statPill} ${styles.statCoin}`}
-                title="Xu thưởng từ GET /api/v1/today"
-                data-testid="header-coin-pill"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" fill="#F6C85F" stroke="#C9962B" strokeWidth="1.6" />
-                  <circle cx="12" cy="12" r="5" fill="none" stroke="#C9962B" strokeWidth="1.4" />
-                </svg>
-                {todayQuery.isLoading ? '—' : (liveToday?.gamification.coinBalance ?? 0)}
-              </span>
-            </>
-          )}
-
           <button
             type="button"
             className={`${styles.circleBtn} ${reducedMotion ? styles.circleBtnActive : ''}`.trim()}
@@ -225,29 +184,9 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
                     </span>
                     <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                       <span className={styles.bubbleName}>{displayName}</span>
-                      <span className={styles.bubbleLevel}>
-                        {liveToday ? `Level ${level}` : 'Đã đăng nhập'}
-                      </span>
+                      <span className={styles.bubbleLevel}>Tài khoản đã đăng nhập</span>
                     </span>
                   </div>
-
-                  {liveToday && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                      <div
-                        className={styles.xpTrack}
-                        role="progressbar"
-                        aria-label={`Tiến độ lên Level ${level + 1}`}
-                        aria-valuemin={0}
-                        aria-valuemax={500}
-                        aria-valuenow={xpInLevel}
-                      >
-                        <div className={styles.xpFill} style={{ width: `${xpPct}%` }} />
-                      </div>
-                      <span className={styles.xpCaption}>
-                        {xpInLevel} / 500 XP tới Level {level + 1}
-                      </span>
-                    </div>
-                  )}
 
                   <nav className={styles.bubbleMenu} aria-label="Menu tài khoản">
                     <Link

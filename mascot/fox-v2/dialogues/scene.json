@@ -1,0 +1,198 @@
+{
+  "category": "scene",
+  "version": "1.0.0",
+  "entries": [
+    {
+      "id": "scene_bg_01",
+      "category": "scene",
+      "event": "HOVER_BACKGROUND",
+      "text": "Góc bàn nhỏ ấm áp này là nơi mình và bạn cùng gom góp tiến bộ mỗi ngày đó!",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_bg_02",
+      "category": "scene",
+      "event": "HOVER_BACKGROUND",
+      "text": "Phòng gọn gàng, ánh sáng dịu nhẹ — quá hợp để bắt đầu một phiên tập trung rồi.",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_bg_03",
+      "category": "scene",
+      "event": "HOVER_BACKGROUND",
+      "text": "Fox đã dọn sẵn góc học tập rồi nè, bạn cứ thoải mái làm việc theo nhịp của mình nha.",
+      "emotion": "happy",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_bg_04",
+      "category": "scene",
+      "event": "HOVER_BACKGROUND",
+      "text": "Không gian yên tĩnh ghê, chỉ cần thêm một đầu việc nhỏ nữa là tròn ngày đẹp luôn!",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_coffee_01",
+      "category": "scene",
+      "event": "HOVER_COFFEE",
+      "text": "Ly cà phê vẫn còn bốc khói nè — nhấp một ngụm cho tỉnh táo rồi chiến tiếp nha!",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_coffee_02",
+      "category": "scene",
+      "event": "HOVER_COFFEE",
+      "text": "Thơm mùi cà phê ấm quá! Nhớ uống thêm cả nước lọc nữa kẻo khát đó bạn.",
+      "emotion": "happy",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_coffee_03",
+      "category": "scene",
+      "event": "HOVER_COFFEE",
+      "text": "Fox pha sẵn ly nước ấm để bên góc bàn rồi, nghỉ tay 1 phút nạp năng lượng nhé!",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_coffee_04",
+      "category": "scene",
+      "event": "HOVER_COFFEE",
+      "text": "Cẩn thận kẻo nóng nha! Uống một ngụm nhỏ rồi mình xử lý nốt việc đang dở nào.",
+      "emotion": "playful",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_books_01",
+      "category": "scene",
+      "event": "HOVER_BOOKS",
+      "text": "Chồng sách nhìn gọn ghê — hôm nay bạn định đọc thêm mấy trang hay ôn lại phần nào?",
+      "emotion": "curious",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_books_02",
+      "category": "scene",
+      "event": "HOVER_BOOKS",
+      "text": "Mỗi ngày mở sách ra 15 phút thôi mà cuối tháng kiến thức tăng vù vù luôn đó!",
+      "emotion": "encouraging",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_books_03",
+      "category": "scene",
+      "event": "HOVER_BOOKS",
+      "text": "Fox đã xếp sẵn mấy cuốn hay đọc ở góc trái rồi, cần ghi chú gì cứ bảo Fox nhé.",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_books_04",
+      "category": "scene",
+      "event": "HOVER_BOOKS",
+      "text": "Đọc chậm nhưng hiểu sâu vẫn hơn đọc lướt nha — Fox ngồi nghe bạn tóm tắt cùng nè.",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_window_01",
+      "category": "scene",
+      "event": "HOVER_WINDOW",
+      "text": "Nhìn ra cửa sổ vài giây cho mắt thư giãn đi bạn, quy tắc 20-20-20 rất tốt đó!",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_window_02",
+      "category": "scene",
+      "event": "HOVER_WINDOW",
+      "text": "Ngoài kia trời thoáng đãng ghê — làm xong việc này mình tranh thủ hít thở khí trời nha.",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_window_03",
+      "category": "scene",
+      "event": "HOVER_WINDOW",
+      "text": "Nắng chiếu qua khung cửa sổ ấm quá, Fox chỉ muốn cuộn tròn ngắm mây một lát thôi!",
+      "emotion": "playful",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_window_04",
+      "category": "scene",
+      "event": "HOVER_WINDOW",
+      "text": "Mỗi lần bí ý tưởng, thử ngước nhìn ra ngoài cửa sổ hít sâu một hơi xem sao nhé.",
+      "emotion": "encouraging",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_chair_01",
+      "category": "scene",
+      "event": "HOVER_CHAIR",
+      "text": "Ngồi thẳng lưng một chút nha bạn — chiếc ghế êm nhưng đừng quên giãn vai định kỳ nhé!",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_chair_02",
+      "category": "scene",
+      "event": "HOVER_CHAIR",
+      "text": "Chiếc ghế gỗ này êm lắm, ngồi lâu quá nhớ đứng dậy vươn vai 2 phút cho đỡ mỏi lưng.",
+      "emotion": "calm",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_chair_03",
+      "category": "scene",
+      "event": "HOVER_CHAIR",
+      "text": "Ghế sẵn sàng rồi! Ngồi xuống bật nhịp tập trung 25 phút cùng Fox nào.",
+      "emotion": "encouraging",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_chair_04",
+      "category": "scene",
+      "event": "HOVER_CHAIR",
+      "text": "Fox chừa chỗ ngồi êm nhất cho bạn đó, chỉnh lại tư thế thoải mái rồi bắt đầu nha!",
+      "emotion": "happy",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_pinboard_01",
+      "category": "scene",
+      "event": "HOVER_PINBOARD",
+      "text": "Bảng ghi chú trên tường toàn những việc quan trọng — nhớ ghim việc cần làm gấp nhé!",
+      "emotion": "curious",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_pinboard_02",
+      "category": "scene",
+      "event": "HOVER_PINBOARD",
+      "text": "Mỗi tờ giấy note trên bảng là một bước nhỏ tới mục tiêu lớn của bạn đó!",
+      "emotion": "encouraging",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_pinboard_03",
+      "category": "scene",
+      "event": "HOVER_PINBOARD",
+      "text": "Nhìn mấy dấu tick xanh trên bảng ghim mà thấy vui lây luôn á!",
+      "emotion": "happy",
+      "durationMs": 4200
+    },
+    {
+      "id": "scene_pinboard_04",
+      "category": "scene",
+      "event": "HOVER_PINBOARD",
+      "text": "Có việc nào dễ quên không? Nhấn dấu chân Fox để ghim ngay lên thanh trái nhé!",
+      "emotion": "calm",
+      "durationMs": 4200
+    }
+  ]
+}

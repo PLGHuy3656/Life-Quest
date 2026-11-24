@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
   AlignLeft,
+  Check,
   ChevronDown,
   Clock,
   Mic,
@@ -21,14 +22,19 @@ import type { ActiveDialogueBubble, DialogueEventType } from '@/features/mascot/
 import { useDocumentVisible } from '@/features/mascot/environment'
 import { VoiceAssistantSheet } from '@/features/voice/VoiceAssistantSheet'
 import {
+  getEntityTypeMeta,
+  validateCreationTitle,
+  WORK_ENTITY_OPTIONS
+} from '@/features/work/creationContract'
+import {
   useCreateQuestMutation,
   useQuestsQuery,
   useTodayQuery,
   useUserMeQuery
 } from '@/hooks/useDashboardData'
+import { useGoalMutations } from '@/hooks/useWorkData'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
-import type { QuestType } from '@/types/domain'
 import { addDaysLocal, getTodayLocalDate } from '@/utils/date'
 import { FoxPawToggle } from './FoxPawToggle'
 import styles from './FoxCompanionRail.module.css'
@@ -39,19 +45,6 @@ const QUICK_CHIPS: { id: QuickHorizon; label: string }[] = [
   { id: 'today', label: 'Hôm nay' },
   { id: 'tomorrow', label: 'Ngày mai' },
   { id: 'week', label: 'Tuần này' }
-]
-
-const TASK_TYPE_OPTIONS: {
-  type: QuestType
-  label: string
-  dotColor: string
-  bg: string
-  color: string
-}[] = [
-  { type: 'SIMPLE', label: 'Task', dotColor: '#2563EB', bg: '#EAF2FE', color: '#1D4ED8' },
-  { type: 'FOCUS', label: 'Focus', dotColor: '#F26B3A', bg: '#FFF0E8', color: '#C84B1E' },
-  { type: 'DURATION', label: 'Thời lượng', dotColor: '#168C78', bg: '#E8F7F3', color: '#116F5F' },
-  { type: 'QUANTITY', label: 'Thói quen', dotColor: '#D49400', bg: '#FEF5DC', color: '#8C6200' }
 ]
 
 const IDLE_THRESHOLD_MS = 45_000
@@ -88,6 +81,8 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const toggleCollapsed = useUiStore((s) => s.toggleFoxRail)
   const prompt = useUiStore((s) => s.quickCreateDraft)
   const setPrompt = useUiStore((s) => s.setQuickCreateDraft)
+  const entityType = useUiStore((s) => s.quickCreateEntityType)
+  const setEntityType = useUiStore((s) => s.setQuickCreateEntityType)
   const activeSheet = useUiStore((s) => s.activeSheet)
   const openSheet = useUiStore((s) => s.openSheet)
 
@@ -97,11 +92,13 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const todayQuery = useTodayQuery()
   const questsQuery = useQuestsQuery()
   const createQuest = useCreateQuestMutation()
+  const { createGoal } = useGoalMutations()
 
   const [horizon, setHorizon] = useState<QuickHorizon>('today')
-  const [typeIdx, setTypeIdx] = useState(0)
   const [highPriority, setHighPriority] = useState(false)
+  const [entityMenuOpen, setEntityMenuOpen] = useState(false)
   const [voiceOpen, setVoiceOpen] = useState(false)
+  const entityMenuRef = useRef<HTMLDivElement>(null)
   const [feedback, setFeedback] = useState<{ kind: 'info' | 'ok' | 'err'; text: string } | null>(
     null
   )
@@ -117,6 +114,36 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const idleIdxRef = useRef<number>(0)
   const lastForwardedGateIIdRef = useRef<string | null>(null)
   const touchClassifierRef = useRef<FoxTouchClassifier>(new FoxTouchClassifier())
+  const hoverTimerRef = useRef<number | null>(null)
+
+  const cancelSceneHover = useCallback(() => {
+    if (hoverTimerRef.current !== null) {
+      window.clearTimeout(hoverTimerRef.current)
+      hoverTimerRef.current = null
+    }
+  }, [])
+
+  const scheduleSceneHover = useCallback(
+    (
+      event:
+        | 'HOVER_BACKGROUND'
+        | 'HOVER_COFFEE'
+        | 'HOVER_BOOKS'
+        | 'HOVER_WINDOW'
+        | 'HOVER_CHAIR'
+        | 'HOVER_PINBOARD'
+    ) => {
+      if (collapsed) return
+      cancelSceneHover()
+      hoverTimerRef.current = window.setTimeout(() => {
+        hoverTimerRef.current = null
+        foxDialogueBus.emit({ event })
+      }, 180)
+    },
+    [collapsed, cancelSceneHover]
+  )
+
+  useEffect(() => cancelSceneHover, [cancelSceneHover])
 
   // Subscribe to centralized dialogue bus
   useEffect(() => {
@@ -291,7 +318,30 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
     foxDialogueBus.emit({ event: touchEvent })
   }, [collapsed, companion?.settings.activity, companion?.settings.mood])
 
-  const selectedType = TASK_TYPE_OPTIONS[typeIdx]
+  const selectedEntity = getEntityTypeMeta(entityType)
+  useEffect(() => {
+    if (!entityMenuOpen) return
+    const onPointerDown = (e: MouseEvent) => {
+      if (entityMenuRef.current && !entityMenuRef.current.contains(e.target as Node)) {
+        setEntityMenuOpen(false)
+      }
+    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setEntityMenuOpen(false)
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [entityMenuOpen])
+
+  const selectEntityType = (nextType: typeof entityType) => {
+    setEntityType(nextType)
+    setEntityMenuOpen(false)
+    setFeedback(null)
+  }
   const hasDraft = prompt.trim().length > 0
   const user = userQuery.data?.data
   const today = todayQuery.data?.data
@@ -302,20 +352,32 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
     ? `Hôm nay đã hoàn thành ${today.summary.completedTasks}/${today.summary.totalTasks} nhiệm vụ — cùng Fox giữ nhịp thật nhẹ nhàng nhé.`
     : 'Fox luôn sẵn sàng đồng hành cùng những bước tiến nhỏ mỗi ngày của bạn.'
 
+  const isSubmitting = createQuest.isPending || createGoal.isPending
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (isSubmitting) return
     setFeedback(null)
 
     const title = prompt.trim()
-    if (title.length < 3) {
-      setFeedback({ kind: 'err', text: 'Nhập ít nhất 3 ký tự để thêm nhiệm vụ mới.' })
+    const validationErr = validateCreationTitle(title)
+    if (validationErr) {
+      setFeedback({ kind: 'err', text: validationErr })
+      return
+    }
+
+    if (entityType === 'HABIT') {
+      setFeedback({
+        kind: 'info',
+        text: 'Tạo Thói quen (Habit) đang chờ Backend Habit API (PENDING) — chưa lưu lên máy chủ.'
+      })
       return
     }
 
     if (!isAuthenticated) {
       setFeedback({
         kind: 'info',
-        text: 'Đăng nhập tài khoản để lưu nhiệm vụ này vào danh sách của bạn.'
+        text: 'Đăng nhập tài khoản để lưu mục mới này vào danh sách của bạn.'
       })
       return
     }
@@ -329,9 +391,21 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
           : addDaysLocal(baseDate, 7)
 
     try {
+      if (entityType === 'QUEST') {
+        await createGoal.mutateAsync({
+          title,
+          description: '',
+          startDate: `${baseDate}T00:00:00.000Z`,
+          dueDate: `${addDaysLocal(baseDate, 30)}T23:59:59.000Z`
+        })
+        setPrompt('')
+        setFeedback({ kind: 'ok', text: `Đã tạo hành trình "${title}"!` })
+        return
+      }
+
       await createQuest.mutateAsync({
         title,
-        type: selectedType.type,
+        type: 'SIMPLE',
         priority: highPriority ? 1 : 2,
         dueAt: `${targetDate}T23:59:00.000Z`
       })
@@ -341,7 +415,7 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
       foxDialogueBus.emit({ event: 'BACKEND_ERROR' })
       setFeedback({
         kind: 'err',
-        text: err instanceof Error ? err.message : 'Không thể lưu nhiệm vụ lúc này.'
+        text: err instanceof Error ? err.message : 'Không thể lưu lúc này.'
       })
     }
   }
@@ -409,8 +483,64 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
         </div>
 
         {!hideCanvas ? (
-          <div className={styles.stageWrap} data-testid="mascot-decorated-stage">
+          <div
+            className={styles.stageWrap}
+            data-testid="mascot-decorated-stage"
+            onMouseEnter={() => scheduleSceneHover('HOVER_BACKGROUND')}
+            onMouseLeave={cancelSceneHover}
+          >
             <MascotSceneBackdrop />
+            {/* Interactive cozy room prop hover zones (strictly below Fox touch target & SpeechBubble) */}
+            <div
+              className={`${styles.sceneHotspot} ${styles.hotspotPinboard}`}
+              data-testid="scene-hover-pinboard"
+              aria-hidden="true"
+              onMouseEnter={(e) => {
+                e.stopPropagation()
+                scheduleSceneHover('HOVER_PINBOARD')
+              }}
+              onMouseLeave={cancelSceneHover}
+            />
+            <div
+              className={`${styles.sceneHotspot} ${styles.hotspotWindow}`}
+              data-testid="scene-hover-window"
+              aria-hidden="true"
+              onMouseEnter={(e) => {
+                e.stopPropagation()
+                scheduleSceneHover('HOVER_WINDOW')
+              }}
+              onMouseLeave={cancelSceneHover}
+            />
+            <div
+              className={`${styles.sceneHotspot} ${styles.hotspotChair}`}
+              data-testid="scene-hover-chair"
+              aria-hidden="true"
+              onMouseEnter={(e) => {
+                e.stopPropagation()
+                scheduleSceneHover('HOVER_CHAIR')
+              }}
+              onMouseLeave={cancelSceneHover}
+            />
+            <div
+              className={`${styles.sceneHotspot} ${styles.hotspotBooks}`}
+              data-testid="scene-hover-books"
+              aria-hidden="true"
+              onMouseEnter={(e) => {
+                e.stopPropagation()
+                scheduleSceneHover('HOVER_BOOKS')
+              }}
+              onMouseLeave={cancelSceneHover}
+            />
+            <div
+              className={`${styles.sceneHotspot} ${styles.hotspotCoffee}`}
+              data-testid="scene-hover-coffee"
+              aria-hidden="true"
+              onMouseEnter={(e) => {
+                e.stopPropagation()
+                scheduleSceneHover('HOVER_COFFEE')
+              }}
+              onMouseLeave={cancelSceneHover}
+            />
             <FoxSpeechBubble
               dialogue={activeDialogue}
               visible={!collapsed}
@@ -420,6 +550,7 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
               type="button"
               className={styles.foxTouchTarget}
               onClick={handleFoxTouch}
+              onMouseEnter={cancelSceneHover}
               aria-label="Chạm vào Fox"
               title="Chạm vào Fox"
               data-testid="fox-touch-target"
@@ -444,22 +575,69 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
 
           <form className={styles.promptForm} onSubmit={handleSubmit}>
             <div className={styles.pillBar}>
-              <button
-                type="button"
-                className={styles.typePill}
-                style={{ background: selectedType.bg, color: selectedType.color }}
-                onClick={() => setTypeIdx((i) => (i + 1) % TASK_TYPE_OPTIONS.length)}
-                aria-label={`Chọn loại nhiệm vụ: ${selectedType.label}`}
-                title="Nhấn để đổi loại nhiệm vụ"
-              >
-                <span
-                  className={styles.typeDot}
-                  style={{ background: selectedType.dotColor }}
-                  aria-hidden="true"
-                />
-                <span>{selectedType.label}</span>
-                <ChevronDown size={11} aria-hidden="true" />
-              </button>
+              <div className={styles.typeMenuWrap} ref={entityMenuRef}>
+                <button
+                  type="button"
+                  className={styles.typePill}
+                  style={{ background: selectedEntity.bg, color: selectedEntity.color }}
+                  onClick={() => setEntityMenuOpen((o) => !o)}
+                  data-testid="fox-entity-type-pill"
+                  aria-haspopup="listbox"
+                  aria-expanded={entityMenuOpen}
+                  aria-label={`Loại mục: ${selectedEntity.label} (${selectedEntity.viLabel}) — nhấn để mở danh sách`}
+                  title="Chọn loại mục: Task / Habit / Quest"
+                >
+                  <span
+                    className={styles.typeDot}
+                    style={{ background: selectedEntity.dotColor }}
+                    aria-hidden="true"
+                  />
+                  <span>{selectedEntity.label}</span>
+                  <ChevronDown size={11} aria-hidden="true" />
+                </button>
+
+                {entityMenuOpen && (
+                  <div
+                    className={styles.entityDropdown}
+                    role="listbox"
+                    aria-label="Chọn loại mục muốn tạo"
+                    data-testid="fox-entity-type-menu"
+                  >
+                    {WORK_ENTITY_OPTIONS.map((opt) => {
+                      const active = opt.type === entityType
+                      return (
+                        <button
+                          key={opt.type}
+                          type="button"
+                          role="option"
+                          aria-selected={active}
+                          className={`${styles.entityOption} ${
+                            active ? styles.entityOptionActive : ''
+                          }`.trim()}
+                          onClick={() => selectEntityType(opt.type)}
+                        >
+                          <span
+                            className={styles.entityOptionDot}
+                            style={{ background: opt.dotColor }}
+                            aria-hidden="true"
+                          />
+                          <span className={styles.entityOptionBody}>
+                            <span className={styles.entityOptionTitle}>{opt.label}</span>
+                            <span className={styles.entityOptionSub}>{opt.subtitle}</span>
+                          </span>
+                          {active && (
+                            <Check
+                              size={15}
+                              className={styles.entityOptionCheck}
+                              aria-hidden="true"
+                            />
+                          )}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
 
               <label htmlFor="mascot-quick-prompt" className="sr-only">
                 Hôm nay bạn muốn làm gì?
@@ -507,8 +685,8 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
             <button
               type="submit"
               className={styles.sendCircleBtn}
-              disabled={createQuest.isPending}
-              aria-label="Gửi nhiệm vụ mới"
+              disabled={isSubmitting}
+              aria-label="Gửi mục mới"
             >
               <Send size={15} aria-hidden="true" />
             </button>

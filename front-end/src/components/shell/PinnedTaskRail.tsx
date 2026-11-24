@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Clock, Coins, Pin, SlidersHorizontal, Sparkles } from 'lucide-react'
 import { QUEST_TYPE_META } from '@/components/ui/questIconMeta'
 import { MAX_PINNED_CARDS } from '@/features/dashboard/PinnedBoard'
@@ -14,9 +15,14 @@ import styles from './PinnedTaskRail.module.css'
  * - Persists collapse/expand state across routes via uiStore.
  */
 export function PinnedTaskRail() {
+  const navigate = useNavigate()
   const collapsed = useUiStore((s) => s.pinnedRailCollapsed)
   const toggleCollapsedRaw = useUiStore((s) => s.togglePinnedRail)
   const openSheet = useUiStore((s) => s.openSheet)
+
+  const openPinnedDetail = (questId: string) => {
+    navigate(`/work/tasks/${encodeURIComponent(questId)}`)
+  }
 
   const toggleCollapsed = () => {
     toggleCollapsedRaw()
@@ -64,11 +70,13 @@ export function PinnedTaskRail() {
               <button
                 key={quest.id}
                 type="button"
+                data-testid="rail-pinned-snippet"
+                data-quest-id={quest.id}
                 className={styles.collapsedIconBtn}
                 style={{ background: meta.softBg, color: meta.color }}
-                onClick={toggleCollapsed}
+                onClick={() => openPinnedDetail(quest.id)}
                 title={quest.title}
-                aria-label={`Xem nhiệm vụ đã ghim: ${quest.title}`}
+                aria-label={`Mở chi tiết nhiệm vụ đã ghim: ${quest.title}`}
               >
                 <Icon size={14} strokeWidth={2.2} aria-hidden="true" />
               </button>
@@ -111,9 +119,13 @@ export function PinnedTaskRail() {
           const sched = schedules.find((s) => s.questId === quest.id)
 
           return (
-            <article
+            <button
               key={quest.id}
+              type="button"
               data-testid="rail-pinned-snippet"
+              data-quest-id={quest.id}
+              onClick={() => openPinnedDetail(quest.id)}
+              aria-label={`Mở chi tiết nhiệm vụ đã ghim: ${quest.title}`}
               className={`${styles.snippet} ${
                 idx === 1 ? styles.snippetMint : idx === 2 ? styles.snippetGold : styles.snippetPeach
               }`}
@@ -154,7 +166,7 @@ export function PinnedTaskRail() {
                   )}
                 </div>
               </div>
-            </article>
+            </button>
           )
         })}
       </div>

@@ -78,13 +78,13 @@ test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ pag
   await expect(dialog).toBeHidden()
 })
 
-test('protected routes (/work, /profile) redirect unauthenticated users to /login', async ({
+test('protected routes (/calendar, /profile) redirect unauthenticated users to /login', async ({
   page
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('/work')
+  await page.goto('/calendar')
 
-  await expect(page).toHaveURL(/\/login\?redirect=%2Fwork/)
+  await expect(page).toHaveURL(/\/login\?redirect=%2Fcalendar/)
   await expect(page.getByRole('heading', { name: /Đăng nhập LifeQuest/i })).toBeVisible()
 
   await page.getByRole('button', { name: 'Đăng nhập' }).click()
