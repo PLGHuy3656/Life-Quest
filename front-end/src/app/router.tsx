@@ -35,14 +35,7 @@ export function AppRoutes() {
               <Route path="/work/habits" element={<HabitsPage />} />
               <Route path="/work/quests" element={<QuestsPage />} />
               <Route path="/work/quests/:questId" element={<QuestDetailPage />} />
-              <Route
-                path="/calendar"
-                element={
-                  <ProtectedRoute>
-                    <CalendarPage />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/calendar" element={<CalendarPage />} />
               <Route
                 path="/profile"
                 element={
