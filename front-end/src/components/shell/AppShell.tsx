@@ -58,8 +58,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const currentTitle = ROUTE_TITLES[location.pathname] ?? 'LifeQuest'
   const isWardrobeRoute = location.pathname === '/wardrobe'
-  /** FE-04C.2 Special AppShell Exception: Quest Detail (/work/quests/:questId) is the ONLY Fox-free page. */
+  /** FE-04C.2 & FE-05A.2 Fox-free workspace routes: Quest Detail (/work/quests/:questId) and Journey Calendar (/calendar). */
   const isQuestDetailRoute = Boolean(matchPath('/work/quests/:questId', location.pathname))
+  /** FE-05A Viewport-Fit Policy: Journey Calendar fits inside one Desktop viewport without vertical page scrolling. */
+  const isCalendarRoute = location.pathname === '/calendar'
+  const isFoxHiddenRoute = isQuestDetailRoute || isCalendarRoute
 
   const handleLogout = async () => {
     try {
@@ -151,12 +154,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <MascotEventAdapter triggerGreetingOnMount authoritativeLevel={authoritativeLevel} />
 
-        <main className={styles.content}>
+        <main className={`${styles.content} ${isCalendarRoute ? styles.contentCalendarFit : ''}`.trim()}>
           {isDesktop ? (
             <div
               className={styles.desktopThreeRegion}
               data-testid="shared-desktop-three-region"
-              data-fox-hidden={isQuestDetailRoute ? '1' : '0'}
+              data-fox-hidden={isFoxHiddenRoute ? '1' : '0'}
             >
               <aside className={styles.leftRailStack} data-testid="shared-left-rail-stack" aria-label="Thanh tiện ích trái">
                 <PinnedTaskRail />
@@ -165,7 +168,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className={styles.centerRegion} data-testid="shared-center-region">
                 {children}
               </div>
-              {!isQuestDetailRoute && <FoxCompanionRail hideCanvas={isWardrobeRoute} />}
+              {!isFoxHiddenRoute && <FoxCompanionRail hideCanvas={isWardrobeRoute} />}
             </div>
           ) : (
             children
@@ -273,7 +276,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </NavLink>
       </nav>
 
-      {!isQuestDetailRoute && <FloatingMascotDock />}
+      {!isFoxHiddenRoute && <FloatingMascotDock />}
     </div>
   )
 }

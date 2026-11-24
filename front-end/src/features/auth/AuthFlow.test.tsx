@@ -32,8 +32,8 @@ describe('Auth flows & ProtectedRoute', () => {
     vi.restoreAllMocks()
   })
 
-  it('redirects unauthenticated users from /calendar to /login', async () => {
-    renderAt('/calendar')
+  it('redirects unauthenticated users from /profile to /login', async () => {
+    renderAt('/profile')
     expect(await screen.findByRole('heading', { name: /Đăng nhập LifeQuest/i })).toBeInTheDocument()
   })
 

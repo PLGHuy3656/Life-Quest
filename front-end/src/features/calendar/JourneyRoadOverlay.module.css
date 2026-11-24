@@ -1,0 +1,400 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(15, 29, 44, 0.48);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.dialog {
+  width: 100%;
+  max-width: 620px;
+  max-height: min(86dvh, 720px);
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 24px 56px rgba(15, 29, 44, 0.24);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid rgba(22, 50, 74, 0.08);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.headerMain {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.kindPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.kindQuest {
+  background: rgba(246, 200, 95, 0.3);
+  color: #8a5a08;
+}
+
+.kindTask {
+  background: rgba(242, 107, 58, 0.14);
+  color: #c94c1d;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.statusActive {
+  background: rgba(22, 140, 120, 0.12);
+  color: #126b5c;
+}
+
+.statusOverdue {
+  background: rgba(220, 38, 38, 0.12);
+  color: #b91c1c;
+}
+
+.statusCompleted {
+  background: rgba(21, 128, 61, 0.14);
+  color: #15803d;
+}
+
+.statusUnscheduled {
+  background: rgba(22, 50, 74, 0.08);
+  color: #4f6478;
+}
+
+.title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: #16324a;
+  line-height: 1.25;
+}
+
+.closeBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  background: #faf9f6;
+  color: #16324a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  background: #f0ede6;
+}
+
+.body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Route Meta Strip */
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.metaBox {
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.07);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.metaLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7f92;
+}
+
+.metaValue {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16324a;
+  font-variant-numeric: tabular-nums;
+}
+
+.metaDanger {
+  color: #dc2626;
+}
+
+/* Separated Time Progress vs Work Progress */
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fcfbf8;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 16px;
+  padding: 12px 14px;
+}
+
+.progressBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.progressHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #16324a;
+}
+
+.progressMeta {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5c6f82;
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  position: relative;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(22, 50, 74, 0.09);
+  overflow: hidden;
+}
+
+.fillTime {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #3b82f6, #f26b3a);
+}
+
+.fillWork {
+  height: 100%;
+  border-radius: 999px;
+  background: #168c78;
+}
+
+.roadEndpoints {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.flagEndpoint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #c94c1d;
+}
+
+/* Quest Epic Checkpoints */
+.checkpointsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionHeading {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.checkpointList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkpointItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #faf9f6;
+}
+
+.cpCompleted {
+  background: rgba(21, 128, 61, 0.07);
+  border-color: rgba(21, 128, 61, 0.25);
+}
+
+.cpActive {
+  background: rgba(242, 107, 58, 0.08);
+  border-color: rgba(242, 107, 58, 0.35);
+}
+
+.cpNode {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.cpNodeCompleted {
+  background: #15803d;
+  color: #ffffff;
+}
+
+.cpNodeActive {
+  background: #f26b3a;
+  color: #ffffff;
+}
+
+.cpNodeFuture {
+  background: rgba(22, 50, 74, 0.1);
+  color: #5c6f82;
+}
+
+.cpMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cpTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+}
+
+.cpMeta {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #5c6f82;
+}
+
+.emptyNote {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #faf9f6;
+  font-size: 12px;
+  color: #5c6f82;
+}
+
+/* Next Actionable Task Card */
+.nextTaskBtn {
+  width: 100%;
+  border: 1px solid rgba(242, 107, 58, 0.3);
+  background: rgba(242, 107, 58, 0.06);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.nextTaskBtn:hover {
+  background: rgba(242, 107, 58, 0.12);
+}
+
+.footer {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(22, 50, 74, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.secondaryBtn {
+  border: 1px solid rgba(22, 50, 74, 0.14);
+  background: #ffffff;
+  color: #16324a;
+  border-radius: 12px;
+  padding: 9px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primaryBtn {
+  border: none;
+  background: #16324a;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 9px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: #224766;
+}
+
+@media (max-width: 560px) {
+  .metaGrid {
+    grid-template-columns: 1fr;
+  }
+}
