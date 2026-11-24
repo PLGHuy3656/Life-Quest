@@ -9,6 +9,11 @@ import { PlaceholderPage } from '@/features/placeholders/PlaceholderPage'
 import { ProfileBoundaryPage } from '@/features/profile/ProfileBoundaryPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
 import { WardrobePage } from '@/features/wardrobe/WardrobePage'
+import { FocusModePage } from '@/features/work/FocusModePage'
+import { HabitsPage } from '@/features/work/HabitsPage'
+import { QuestDetailPage } from '@/features/work/QuestDetailPage'
+import { QuestsPage } from '@/features/work/QuestsPage'
+import { TaskDetailPage } from '@/features/work/TaskDetailPage'
 import { WorkPage } from '@/features/work/WorkPage'
 
 export function AppRoutes() {
@@ -16,6 +21,7 @@ export function AppRoutes() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/work/tasks/:taskId/focus" element={<FocusModePage />} />
 
       <Route
         path="/*"
@@ -23,14 +29,12 @@ export function AppRoutes() {
           <AppShell>
             <Routes>
               <Route path="/" element={<DashboardPage />} />
-              <Route
-                path="/work"
-                element={
-                  <ProtectedRoute>
-                    <WorkPage />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/work" element={<Navigate to="/work/tasks" replace />} />
+              <Route path="/work/tasks" element={<WorkPage />} />
+              <Route path="/work/tasks/:taskId" element={<TaskDetailPage />} />
+              <Route path="/work/habits" element={<HabitsPage />} />
+              <Route path="/work/quests" element={<QuestsPage />} />
+              <Route path="/work/quests/:questId" element={<QuestDetailPage />} />
               <Route
                 path="/calendar"
                 element={

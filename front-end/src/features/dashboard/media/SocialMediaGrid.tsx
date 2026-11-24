@@ -8,6 +8,7 @@ import styles from './SocialMediaGrid.module.css'
 export interface SocialMediaGridProps {
   items: SocialMediaItem[]
   editable?: boolean
+  suppressSocialDialogue?: boolean
   onRemoveItem?: (id: string) => void
   onReplaceItem?: (id: string) => void
 }
@@ -19,6 +20,7 @@ export interface SocialMediaGridProps {
 export function SocialMediaGrid({
   items,
   editable = false,
+  suppressSocialDialogue = false,
   onRemoveItem,
   onReplaceItem
 }: SocialMediaGridProps) {
@@ -49,7 +51,9 @@ export function SocialMediaGrid({
     returnFocusRef.current = triggerEl
     setLightboxIndex(index)
     foxDialogueBus.setPauseReason({ lightboxOpen: true })
-    foxDialogueBus.emit({ event: 'SOCIAL_MEDIA_VIEWED' })
+    if (!suppressSocialDialogue) {
+      foxDialogueBus.emit({ event: 'SOCIAL_MEDIA_VIEWED' })
+    }
   }
 
   const handleClose = () => {

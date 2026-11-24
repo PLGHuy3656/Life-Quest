@@ -1,52 +1,940 @@
 .stack {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
+  min-width: 0;
 }
 
-.topBar {
-  display: flex;
-  flex-wrap: wrap;
+/* ── Work Hub Sub-Navigation Switcher (Task / Habit / Quest) ── */
+.hubSwitcher {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 16px;
+  padding: 5px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+}
+
+.hubTab {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #53687c;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.hubTab:hover {
+  background: #f5f3ee;
+  color: #16324a;
+}
+
+.hubTabActive {
+  background: #16324a;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(22, 50, 74, 0.18);
+}
+
+.hubTabActive:hover {
+  background: #16324a;
+  color: #ffffff;
+}
+
+.hubTabSub {
+  font-weight: 600;
+  font-size: 12px;
+  opacity: 0.78;
+}
+
+.prototypeBadge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(246, 200, 95, 0.34);
+  color: #7a5400;
+}
+
+/* ── Habit Prototype Cards & Weekly Rhythm ── */
+.sectionHeading {
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #16324a;
+  margin: 0 0 2px;
+}
+
+.weekHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.weekDayCell {
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 12px;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.weekDayLabel {
+  font-size: 12px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.weekDayCount {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5c6f82;
+}
+
+.weekDayBar {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(22, 50, 74, 0.08);
+  overflow: hidden;
+}
+
+.weekDayBarFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #168c78;
+}
+
+.habitCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 18px;
+  padding: 13px 15px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.habitTop {
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
 }
 
-.heading {
-  font-size: 24px;
+.habitTop > button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.habitInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.habitWeekRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.habitDayPill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.habitDayPlanned {
+  background: rgba(22, 140, 120, 0.12);
+  color: #116b5b;
+}
+
+.habitDayOff {
+  background: #f5f3ee;
+  color: #8a99a8;
+}
+
+/* ── Quest Journey Cards & Milestone Progress ── */
+.questCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 18px;
+  padding: 14px 15px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.questCard:hover {
+  border-color: rgba(242, 107, 58, 0.35);
+  box-shadow: 0 6px 18px rgba(22, 50, 74, 0.07);
+}
+
+.questCardTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.questIconWrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: rgba(242, 107, 58, 0.12);
+  color: #d95224;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.questDesc {
+  font-size: 13px;
+  color: #556a7e;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.progressBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.progressLabelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4f6478;
+}
+
+.progressLabel {
+  color: #5c6f82;
+}
+
+.progressPct {
+  color: #16324a;
   font-weight: 800;
-  color: var(--lq-primary);
+}
+
+.progressTrack {
+  width: 100%;
+  height: 7px;
+  border-radius: 999px;
+  background: #edeae3;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #168c78, #f26b3a);
+  transition: width 0.25s ease;
+}
+
+.milestoneSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Compact Page Header ── */
+.heroBar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.headingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.heading {
+  font-size: 21px;
+  font-weight: 800;
+  color: #16324a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 12.5px;
+  color: #5c6f82;
+  margin: 0;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .tabs {
   display: inline-flex;
-  gap: 6px;
-  padding: 4px;
-  border-radius: var(--lq-radius-pill);
-  background: var(--lq-surface-subtle);
-  border: 1px solid var(--lq-border);
+  background: rgba(22, 50, 74, 0.06);
+  padding: 3px;
+  border-radius: 999px;
+  gap: 2px;
 }
 
 .tabBtn {
   border: none;
   background: transparent;
-  padding: 8px 16px;
-  border-radius: var(--lq-radius-pill);
-  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12.5px;
   font-weight: 700;
-  color: var(--lq-ink-secondary);
+  color: #4f6478;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  color: #16324a;
 }
 
 .tabBtnActive {
-  background: var(--lq-primary);
+  background: #ffffff;
+  color: #16324a;
+  box-shadow: 0 1px 4px rgba(22, 50, 74, 0.1);
+}
+
+/* ── Compact Summary Strip (Single sleek bar — never tall KPI cards) ── */
+.summaryStrip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 16px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+}
+
+.summaryPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #16324a;
+  background: #f5f3ee;
+}
+
+.summaryPillToday {
+  background: rgba(242, 107, 58, 0.11);
+  color: #b9441a;
+}
+
+.summaryPillOverdue {
+  background: rgba(217, 72, 72, 0.11);
+  color: #b42323;
+}
+
+.summaryPillPinned {
+  background: rgba(22, 140, 120, 0.11);
+  color: #116b5b;
+}
+
+.summaryDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.summarySpacer {
+  margin-left: auto;
+  font-size: 12px;
+  color: #6b7f92;
+  font-weight: 600;
+}
+
+/* ── Filter & Search Toolbar Card ── */
+.toolbarCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 18px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filterPills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.filterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  background: #faf9f6;
+  color: #465b6e;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.filterPill:hover {
+  border-color: rgba(22, 50, 74, 0.25);
+  color: #16324a;
+}
+
+.filterPillActive {
+  background: #16324a;
+  border-color: #16324a;
   color: #ffffff;
 }
 
+.filterPillDangerActive {
+  background: #c93b3b;
+  border-color: #c93b3b;
+  color: #ffffff;
+}
+
+.filterCount {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(22, 50, 74, 0.08);
+  color: inherit;
+}
+
+.filterPillActive .filterCount,
+.filterPillDangerActive .filterCount {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.searchRow {
+  display: grid;
+  grid-template-columns: minmax(160px, 1.4fr) minmax(130px, 1fr) minmax(130px, 0.9fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.searchWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 11px;
+  color: #7b8e9f;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  border-radius: 12px;
+  padding: 8px 12px 8px 32px;
+  background: #faf9f6;
+  color: #16324a;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #f26b3a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(242, 107, 58, 0.14);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  border-radius: 12px;
+  padding: 8px 11px;
+  background: #faf9f6;
+  color: #16324a;
+  font-size: 13px;
+  font-family: inherit;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 76px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #f26b3a;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(242, 107, 58, 0.14);
+}
+
+/* ── Task List & Cards ── */
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.taskCard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: flex-start;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 18px;
+  padding: 13px 14px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  min-width: 0;
+}
+
+.taskCard:hover {
+  border-color: rgba(242, 107, 58, 0.35);
+  box-shadow: 0 6px 18px rgba(22, 50, 74, 0.07);
+}
+
+.taskCardPinned {
+  border-left: 3.5px solid #f26b3a;
+}
+
+.taskCardOverdue {
+  border-left: 3.5px solid #d64545;
+}
+
+.taskLeftControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.checkPendingBtn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.8px dashed rgba(22, 50, 74, 0.28);
+  background: #faf9f6;
+  color: rgba(22, 50, 74, 0.32);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: not-allowed;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.typeIconWrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.taskMainBtn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.taskMainBtn:focus-visible {
+  outline: 2px solid #f26b3a;
+  outline-offset: 4px;
+}
+
+.taskTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.taskTitle {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #16324a;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.pinnedTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #c84b1e;
+  background: rgba(242, 107, 58, 0.12);
+  padding: 2px 7px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.taskMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dueChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.due_overdue {
+  background: rgba(214, 69, 69, 0.12);
+  color: #b42323;
+}
+
+.due_today {
+  background: rgba(242, 107, 58, 0.12);
+  color: #b9441a;
+}
+
+.due_upcoming {
+  background: rgba(22, 140, 120, 0.1);
+  color: #116b5b;
+}
+
+.due_none {
+  background: rgba(22, 50, 74, 0.06);
+  color: #5c6f82;
+}
+
+.priorityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.priority_high {
+  background: rgba(242, 107, 58, 0.13);
+  color: #b9441a;
+}
+
+.priority_medium {
+  background: rgba(246, 200, 95, 0.25);
+  color: #7c5600;
+}
+
+.priority_low {
+  background: rgba(22, 140, 120, 0.1);
+  color: #116b5b;
+}
+
+.goalTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #3a5268;
+  background: #f5f3ee;
+  padding: 2px 8px;
+  border-radius: 999px;
+  max-width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rewardTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #7a5400;
+  background: rgba(246, 200, 95, 0.22);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.proofTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #16324a;
+  background: rgba(22, 50, 74, 0.07);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.taskActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.iconActionBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  background: #faf9f6;
+  color: #4f6478;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.iconActionBtn:hover {
+  border-color: rgba(242, 107, 58, 0.4);
+  color: #16324a;
+  background: #ffffff;
+}
+
+.iconActionBtnPinned {
+  border-color: rgba(242, 107, 58, 0.35);
+  background: rgba(242, 107, 58, 0.12);
+  color: #c84b1e;
+}
+
+/* ── Task Detail Sheet ── */
+.detailStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailBadges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.typePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.detailTitle {
+  font-size: 18px;
+  font-weight: 800;
+  color: #16324a;
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.detailDescription {
+  font-size: 13.5px;
+  color: #4f6478;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.detailMetaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.detailMetaBox {
+  background: #f5f3ee;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detailMetaLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.detailMetaValue {
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+  word-break: break-word;
+}
+
+.textDanger {
+  color: #b42323;
+}
+
+.textAccent {
+  color: #b9441a;
+}
+
+.evidenceBox {
+  border: 1px dashed rgba(22, 50, 74, 0.2);
+  background: #faf9f6;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.evidenceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.evidenceTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+}
+
+.pendingPill {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(246, 200, 95, 0.3);
+  color: #7a5400;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.evidenceNote {
+  font-size: 12.5px;
+  color: #5c6f82;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.completionBoundary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(22, 50, 74, 0.04);
+}
+
+.completionHint {
+  font-size: 12px;
+  color: #5c6f82;
+}
+
+.detailActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid rgba(22, 50, 74, 0.08);
+}
+
+/* ── Secondary Tab: Goals & Milestones ── */
 .split {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr);
-  gap: 20px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
 }
 
 .list {
@@ -56,101 +944,2033 @@
 }
 
 .itemCard {
-  padding: 14px 16px;
-  border-radius: 16px;
-  border: 1px solid var(--lq-border);
-  background: var(--lq-bg-elevated);
+  border: 1px solid rgba(22, 50, 74, 0.09);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: #faf9f6;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .itemSelected {
-  border-color: var(--lq-primary);
-  box-shadow: 0 0 0 2px var(--lq-primary-soft);
+  border-color: #f26b3a;
+  background: #fff9f6;
 }
 
 .itemRow {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .itemTitle {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--lq-primary);
+  font-weight: 800;
+  font-size: 14.5px;
+  color: #16324a;
 }
 
 .itemMeta {
-  font-size: 12px;
-  color: var(--lq-ink-secondary);
+  font-size: 12.5px;
+  color: #5c6f82;
+  margin: 0;
 }
 
 .btnGroup {
   display: flex;
-  flex-wrap: wrap;
   gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.filters {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
+/* ── Forms & Error Box ── */
 .form {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
 .field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #16324a;
+}
+
+.errorBox {
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: rgba(214, 69, 69, 0.1);
+  color: #a61e1e;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pendingNotice {
+  font-size: 12.5px;
+  color: #5c6f82;
+  background: rgba(246, 200, 95, 0.16);
+  border: 1px solid rgba(246, 200, 95, 0.45);
+  border-radius: 12px;
+  padding: 9px 12px;
+}
+
+@media (max-width: 1180px) {
+  .searchRow {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .searchWrap {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .detailMetaGrid,
+  .formRow,
+  .searchRow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ── FE-04A.2 Action-First Sections, Low-Noise Cards & Fox-Paw Pin Stamp ── */
+.actionSections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.taskSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sectionTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16324a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.sectionTitleUrgent {
+  color: #b42323;
+}
+
+.sectionCount {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #5c6f82;
+  background: rgba(22, 50, 74, 0.07);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.quietCountText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7f92;
+}
+
+.resetFilterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  background: #ffffff;
+  color: #16324a;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.resetFilterBtn:hover {
+  border-color: rgba(242, 107, 58, 0.45);
+  color: #c84b1e;
+}
+
+.quietEmptyLine {
+  font-size: 13px;
+  color: #6b7f92;
+  margin: 0;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+  border: 1px dashed rgba(22, 50, 74, 0.12);
+}
+
+.taskTimeRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.timeCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #465b6e;
+}
+
+.timeCueDanger {
+  color: #b42323;
+  font-weight: 700;
+}
+
+.timeCueAccent {
+  color: #c84b1e;
+  font-weight: 700;
+}
+
+.timeDotSep {
+  color: #9aaab8;
+  font-weight: 700;
+}
+
+.taskQuietMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #6b7f92;
+}
+
+.quietHighPriority {
+  color: #b9441a;
+  font-weight: 700;
+}
+
+.quietGoalName {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Fox-Paw Stamp Pin Button */
+.pawPinBtn {
+  height: 32px;
+  min-width: 32px;
+  padding: 0 7px;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  background: #faf9f6;
+  color: #8b9cac;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  transition: transform 0.14s ease, background 0.14s ease, color 0.14s ease, border-color 0.14s ease;
+}
+
+.pawPinBtn:hover:not(:disabled) {
+  border-color: rgba(242, 107, 58, 0.45);
+  color: #f26b3a;
+  background: #fff7f3;
+}
+
+.pawPinBtn:focus-visible {
+  outline: 2px solid #f26b3a;
+  outline-offset: 2px;
+}
+
+.pawPinBtnActive {
+  border-color: rgba(242, 107, 58, 0.45);
+  background: #fff0e8;
+  color: #e25624;
+  box-shadow: 0 2px 6px rgba(242, 107, 58, 0.16);
+}
+
+.pawPinBtnActive .pawStampIcon {
+  transform: rotate(-12deg);
+}
+
+.pawPinBtnWithLabel {
+  padding: 0 11px;
+}
+
+.pawStampIcon {
+  transition: transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.advancedResults {
+  padding-top: 6px;
+  border-top: 1px solid rgba(22, 50, 74, 0.08);
+}
+
+/* ── Full Task Detail Page (/work/tasks/:taskId) ── */
+.breadcrumbBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #16324a;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.backLink:hover {
+  border-color: rgba(242, 107, 58, 0.45);
+  background: #fffaf7;
+}
+
+.breadcrumbSep {
+  color: #9aaab8;
+}
+
+.breadcrumbCurrent {
+  color: #5c6f82;
+}
+
+.detailPageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.detailTitleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.detailPageTitle {
+  font-size: 21px;
+  font-weight: 800;
+  color: #16324a;
+  line-height: 1.3;
+  margin: 0;
+  flex: 1;
+  word-break: break-word;
+}
+
+.inlineEditBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  background: #faf9f6;
+  color: #4f6478;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.inlineEditBtn:hover {
+  color: #16324a;
+  border-color: rgba(242, 107, 58, 0.4);
+}
+
+.inlineTitleForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.detailSection {
+  margin-bottom: 14px;
+}
+
+.detailSectionLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #5c6f82;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 6px;
+}
+
+.inlineLink {
+  color: #168c78;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.activityFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #6b7f92;
+  padding-top: 6px;
+  border-top: 1px solid rgba(22, 50, 74, 0.07);
+}
+
+/* ── Sticky Glassing Search & Filter Dock ── */
+.stickyGlassToolbar {
+  position: sticky;
+  bottom: 14px;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(22, 50, 74, 0.09);
+  box-shadow:
+    0 6px 20px rgba(22, 50, 74, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  transition:
+    background 0.22s ease,
+    backdrop-filter 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    transform 0.22s ease;
+}
+
+.stickyGlassScrolled,
+.stickyGlassToolbar:hover,
+.stickyGlassToolbar:focus-within {
+  background: rgba(255, 252, 247, 0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 12px 32px rgba(22, 50, 74, 0.14),
+    0 2px 10px rgba(242, 107, 58, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.stickyGlassToolbar:hover {
+  transform: translateY(-1px);
+}
+
+.stickyGlassToolbar .searchInput,
+.stickyGlassToolbar .select,
+.stickyGlassToolbar .filterPill:not(.filterPillActive):not(.filterPillDangerActive) {
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.stickyGlassToolbar .searchInput:focus,
+.stickyGlassToolbar .select:focus {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+:global(html.lq-rm) .stickyGlassToolbar,
+:global(html.lq-rm) .stickyGlassToolbar:hover {
+  transition: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stickyGlassToolbar,
+  .stickyGlassToolbar:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ── FE-04B.1 Task Detail Refined Hierarchy, Focus Session V1 & Evidence Preview ── */
+.detailTopControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.detailTopActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detailStatusIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.statusDanger {
+  background: rgba(214, 69, 69, 0.12);
+  color: #b42323;
+}
+
+.statusWarning {
+  background: rgba(242, 107, 58, 0.13);
+  color: #b9441a;
+}
+
+.statusNeutral {
+  background: #f5f3ee;
+  color: #465b6e;
+}
+
+.overflowWrap {
+  position: relative;
+}
+
+.overflowMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 186px;
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  border-radius: 14px;
+  padding: 5px;
+  box-shadow: 0 12px 28px rgba(22, 50, 74, 0.16);
+  z-index: 35;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.overflowItem {
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.overflowItem:hover {
+  background: #f5f3ee;
+}
+
+.overflowItemDanger {
+  color: #b42323;
+}
+
+.overflowItemDanger:hover {
+  background: rgba(214, 69, 69, 0.08);
+}
+
+.timingHeroStrip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1.25fr) 1px auto;
+  gap: 12px;
+  align-items: center;
+  background: #f8f6f1;
+  border: 1px solid rgba(22, 50, 74, 0.07);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+.timingActionCell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.focusGridBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 12px;
+  border: 1px solid rgba(242, 107, 58, 0.28);
+  background: #ffffff;
+  color: #16324a;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(22, 50, 74, 0.05);
+  transition: background 140ms ease, border-color 140ms ease, transform 140ms ease, color 140ms ease;
+}
+
+.focusGridBtn:hover {
+  background: #f26b3a;
+  border-color: #f26b3a;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.focusGridBtn:hover .focusGridClock {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.focusGridBtnRunning {
+  background: #16324a;
+  border-color: #16324a;
+  color: #ffffff;
+}
+
+.focusGridBtnRunning .focusGridClock {
+  background: rgba(242, 107, 58, 0.9);
+  color: #ffffff;
+}
+
+.focusGridBtnText {
+  line-height: 1;
+}
+
+.focusGridClock {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(242, 107, 58, 0.12);
+  color: #c94c1d;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.timingDivider {
+  width: 1px;
+  height: 30px;
+  background: rgba(22, 50, 74, 0.1);
+}
+
+.timingCell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.timingLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.timingValue {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.remainingTag {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.detailDescriptionBlock {
+  margin-bottom: 12px;
+}
+
+/* Focus Session V1 Card */
+.focusCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.focusTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.focusHeadingGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.focusIcon {
+  color: #168c78;
+  flex-shrink: 0;
+}
+
+.focusLocalTag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c6f82;
+  background: #f5f3ee;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.presetGroup {
+  display: inline-flex;
+  gap: 4px;
+  background: #f5f3ee;
+  padding: 3px;
+  border-radius: 999px;
+}
+
+.presetBtn {
+  border: none;
+  background: transparent;
+  color: #4f6478;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.presetBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.presetBtnActive {
+  background: #ffffff;
+  color: #16324a;
+  box-shadow: 0 1px 4px rgba(22, 50, 74, 0.12);
+}
+
+.focusMainRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.focusClockBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.focusClock {
+  font-size: 28px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #16324a;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.focusStatusText {
+  font-size: 12px;
+  color: #5c6f82;
+  font-weight: 600;
+}
+
+.focusControls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.focusProgressTrack {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: #edeae3;
+  overflow: hidden;
+}
+
+.focusProgressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #168c78, #f26b3a);
+  transition: width 0.3s ease;
+}
+
+:global(html.lq-rm) .focusProgressFill {
+  transition: none;
+}
+
+.focusNotice {
+  font-size: 12.5px;
+  color: #465b6e;
+  background: #f5f3ee;
+  border-radius: 10px;
+  padding: 8px 11px;
+}
+
+.focusConfirmBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: rgba(242, 107, 58, 0.08);
+  border: 1px solid rgba(242, 107, 58, 0.25);
+  border-radius: 12px;
+  padding: 9px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #16324a;
+  margin-bottom: 8px;
+}
+
+.focusDisclaimer {
+  font-size: 11.5px;
+  color: #6b7f92;
+  margin: 0;
+}
+
+/* Adaptive Evidence Preview */
+.evidenceSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.evidenceTitleGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.quietBadge {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #5c6f82;
+}
+
+.evidencePreviewWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.evidenceActionBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.evidenceActionNotice {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #16324a;
+  background: rgba(22, 140, 120, 0.08);
+  border: 1px solid rgba(22, 140, 120, 0.24);
+  border-radius: 12px;
+  padding: 9px 12px;
+  line-height: 1.45;
+}
+
+/* Neutral Relationships & Metadata List */
+.metaDefinitionList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin: 0;
+}
+
+.metaRow {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(22, 50, 74, 0.06);
+}
+
+.metaTerm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #6b7f92;
+}
+
+.metaVal {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+  word-break: break-word;
+}
+
+.quietInlineNote {
+  font-weight: 500;
+  font-size: 11.5px;
+  color: #6b7f92;
+}
+
+@media (max-width: 780px) {
+  .timingHeroStrip,
+  .metaDefinitionList {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .timingDivider {
+    display: none;
+  }
+
+  .timingActionCell {
+    justify-content: flex-start;
+  }
+}
+
+
+/* ── Habit Detail Page (/work/habits/:habitId) ── */
+.habitCardClickable {
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+.habitCardClickable:hover {
+  border-color: rgba(242, 107, 58, 0.35);
+  box-shadow: 0 4px 14px rgba(22, 50, 74, 0.06);
+  transform: translateY(-1px);
+}
+
+.habitDetailHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.habitDetailTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.habitDetailSubtitle {
+  margin: 0;
+  font-size: 13.5px;
+  color: #5c6f82;
+  font-weight: 500;
+}
+
+.habitStatGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.habitStatCard {
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.habitStatStreak {
+  background: #fff6ec;
+}
+
+.habitStatRecord {
+  background: #f6f4ef;
+}
+
+.habitStatWeek {
+  background: #effaf3;
+}
+
+.habitStatLabelStreak {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #b5471c;
+}
+
+.habitStatLabelRecord {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #4f6478;
+}
+
+.habitStatLabelWeek {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1c7c50;
+}
+
+.habitStatValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.habitStatNumber {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #16324a;
+  font-variant-numeric: tabular-nums;
+}
+
+.habitStatUnit {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.habitHeatmapSection {
+  margin-bottom: 18px;
+}
+
+.habitHeatmapGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.habitHeatmapCell {
+  aspect-ratio: 1.28 / 1;
+  border-radius: 12px;
+  display: block;
+  transition: transform 120ms ease;
+}
+
+.habitHeatmapCell:hover {
+  transform: scale(1.04);
+}
+
+.heatmapDone {
+  background: #2c9b63;
+}
+
+.heatmapMissed {
+  background: #efece6;
+}
+
+.heatmapToday {
+  background: #efece6;
+  border: 2px solid #f26b2e;
+}
+
+.heatmapFuture {
+  background: #f7f5f0;
+}
+
+.habitHeatmapCaption {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: #6b7f92;
+}
+
+.habitQuestBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  background: #fff6ec;
+  color: #b5471c;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.habitQuestBanner:hover {
+  background: #ffedd9;
+  transform: translateY(-1px);
+}
+
+.habitCheckinBtn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #1b6b46;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(27, 107, 70, 0.22);
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.habitCheckinBtn:hover {
+  background: #155738;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .habitStatGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* ── Floating Habit Detail Modal & Weekday+Date Calendar ── */
+@keyframes habitModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.habitModalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(22, 50, 74, 0.38);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.habitModalDialog {
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 24px 60px rgba(15, 29, 44, 0.24);
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  animation: habitModalIn 180ms ease-out both;
+}
+
+.habitModalTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.habitModalBadges {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.habitTypeBadge {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1c7c50;
+  background: #e6f6ee;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.habitCategoryBadge {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #9e6214;
+  background: #fdf3dc;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.habitModalTopActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.habitModalActionChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  background: #ffffff;
+  color: #16324a;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 130ms ease, border-color 130ms ease;
+}
+
+.habitModalActionChip:hover {
+  background: #f5f3ee;
+}
+
+.habitModalActionChipActive {
+  background: #fff4ec;
+  border-color: rgba(242, 107, 58, 0.45);
+  color: #c94c1d;
+}
+
+.habitModalCloseBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  background: #f6f4ef;
+  color: #16324a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.habitModalCloseBtn:hover {
+  background: #eae6dd;
+}
+
+.habitModalTitle {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  color: #16324a;
+  line-height: 1.25;
+}
+
+.habitHeatmapWeekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.habitHeatmapWeekdayLabel {
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.habitHeatmapCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heatmapCellDate {
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.heatmapDone .heatmapCellDate {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.heatmapMissed .heatmapCellDate {
+  color: #7c8a99;
+}
+
+.heatmapToday .heatmapCellDate {
+  color: #c94c1d;
+  font-weight: 800;
+}
+
+.heatmapFuture .heatmapCellDate {
+  color: #a6b0ba;
+}
+
+.habitStickyRhythm {
+  padding: 12px 16px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weekDayCellToday {
+  border-color: rgba(242, 107, 58, 0.55) !important;
+  background: #fff8f2 !important;
+}
+
+.habitDayToday {
+  box-shadow: inset 0 0 0 1.5px #f26b2e;
+}
+
+
+/* ── Minimal Single-Row Habit Cards with Weekly Dots & Fox-Paw Streak ── */
+.habitRowCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 18px;
+  padding: 13px 15px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(22, 50, 74, 0.03);
+}
+
+.habitCheckCircle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.8px solid #9fd4ba;
+  background: #ffffff;
+  color: #4aa377;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.habitRowInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.habitSubline {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.habitCatPill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.habitCatHealth {
+  background: #e5f5ec;
+  color: #1c7c50;
+}
+
+.habitCatMind {
+  background: #fdf3dc;
+  color: #9e6214;
+}
+
+.habitCatFocus {
+  background: #ede9fe;
+  color: #5b3cc4;
+}
+
+.habitCadenceText {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7f92;
+  white-space: nowrap;
+}
+
+.habitDotsGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.habitDotCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.habitDot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: block;
+}
+
+.habitDotDone {
+  background: #2c9b63;
+}
+
+.habitDotOff {
+  background: #efece6;
+}
+
+.habitDotToday {
+  background: #ffffff;
+  border: 2px solid #f26b2e;
+}
+
+.habitDotFuture {
+  background: transparent;
+  border: 1.5px dashed #d6d2c9;
+}
+
+.habitDotLabel {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #8b99a8;
+  line-height: 1;
+}
+
+.habitDotLabelToday {
+  color: #d9511f;
+}
+
+.habitStreakCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 74px;
+  gap: 1px;
+}
+
+.habitStreakTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.habitPawIcon {
+  color: #f26b2e;
+  flex-shrink: 0;
+}
+
+.habitStreakNum {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #d9511f;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.habitStreakSub {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #6b7f92;
+  white-space: nowrap;
+}
+
+.habitRowActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.habitSubtleIconBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #8b99a8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.habitSubtleIconBtn:hover {
+  background: #f5f3ee;
+  color: #16324a;
+}
+
+@media (max-width: 1120px) {
+  .habitRowCard {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    row-gap: 10px;
+  }
+
+  .habitDotsGroup {
+    grid-column: 2 / 3;
+  }
+
+  .habitStreakCol {
+    grid-column: 3 / 4;
+    align-items: flex-end;
+  }
+}
+
+
+/* ── FE-04C Quest List, Quest Detail & Collaborative UI Boundaries ── */
+.questPageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.questPageHeading {
+  margin: 0 0 3px;
+  font-size: 21px;
+  font-weight: 800;
+  color: #16324a;
+  letter-spacing: -0.02em;
+}
+
+.questModeTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #4f6478;
+  background: #f5f3ee;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.questQuietMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5c6f82;
+  margin-top: 6px;
+}
+
+.questCardRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.avatarStack {
+  display: inline-flex;
+  align-items: center;
+}
+
+.avatarStackItem {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  margin-left: -6px;
+}
+
+.avatarStackItem:first-child {
+  margin-left: 0;
+}
+
+.avatarStackMore {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eae6dd;
+  color: #16324a;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  margin-left: -6px;
+}
+
+.progressHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.questBigPct {
+  font-size: 24px;
+  font-weight: 800;
+  color: #16324a;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.nextTaskBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: #f8f6f1;
+  font-size: 12.5px;
+}
+
+.nextTaskLabel {
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.nextTaskTitle {
+  font-weight: 700;
+  color: #16324a;
+}
+
+.collapseHeaderBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  background: transparent;
+  color: #16324a;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.membersList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.memberRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.06);
+}
+
+.memberIdentity {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.memberAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.memberAvatarSm {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.memberText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 12.5px;
+  color: #16324a;
+}
+
+.memberText span {
+  font-size: 11.5px;
+  color: #6b7f92;
+}
+
+.memberStatusPill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.memberOwner {
+  background: rgba(22, 50, 74, 0.1);
+  color: #16324a;
+}
+
+.memberAccepted {
+  background: rgba(22, 140, 120, 0.12);
+  color: #126b5c;
+}
+
+.memberPending {
+  background: rgba(246, 200, 95, 0.28);
+  color: #8a5a08;
+}
+
+.linkedTaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linkedTaskRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.07);
+  transition: border-color 140ms ease, background 140ms ease;
+}
+
+.linkedTaskRow:hover {
+  border-color: rgba(242, 107, 58, 0.32);
+  background: #ffffff;
+}
+
+.taskTitleDone {
+  text-decoration: line-through;
+  color: #6b7f92;
+}
+
+.textSuccess {
+  color: #168c78;
+  font-weight: 700;
+}
+
+.assigneeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  background: #ffffff;
+  color: #16324a;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.assigneeBtn:hover {
+  border-color: #f26b3a;
+}
+
+.questRewardsFooter {
+  padding-top: 10px;
+  border-top: 1px solid rgba(22, 50, 74, 0.08);
+}
+
+.modeToggleRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.modeToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(22, 50, 74, 0.14);
+  background: #ffffff;
+  color: #4f6478;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modeToggleActive {
+  background: #16324a;
+  border-color: #16324a;
+  color: #ffffff;
+}
+
+.collabInviteBox {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #f8f6f1;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+}
+
+.friendPickerList {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--lq-primary);
-}
-
-.input,
-.select {
+.friendPickerRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--lq-border-strong);
-  background: var(--lq-bg-elevated);
-  font-size: 14px;
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #ffffff;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-.errorBox {
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: var(--lq-danger-soft);
-  color: var(--lq-danger);
-  font-size: 13px;
-  font-weight: 600;
+.friendPickerSelected {
+  border-color: #f26b3a;
+  background: #fff8f4;
 }
 
-@media (max-width: 960px) {
-  .split {
-    grid-template-columns: 1fr;
-  }
-
-  .filters {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.friendPickerInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 12.5px;
+  color: #16324a;
 }
 
-@media (max-width: 640px) {
-  .filters {
-    grid-template-columns: 1fr;
-  }
+.friendPickerInfo span {
+  font-size: 11px;
+  color: #6b7f92;
+}
+
+.friendCheckMark {
+  font-size: 12px;
+  font-weight: 700;
+  color: #c94c1d;
+}
+
+.permissionDeniedBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 26px 18px;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.permissionIconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(214, 69, 69, 0.1);
+  color: #c93b3b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ── Grand Illustrated Quest Journey Cards (/work/quests) ── */
+.questHeroCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(22, 50, 74, 0.05);
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.questHeroCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(242, 107, 58, 0.35);
+  box-shadow: 0 12px 28px rgba(22, 50, 74, 0.1);
+}
+
+.questHeroBanner {
+  position: relative;
+  width: 100%;
+  height: 152px;
+  overflow: hidden;
+  background: #16324a;
+}
+
+.questHeroScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(22, 50, 74, 0.24) 0%,
+    rgba(22, 50, 74, 0.04) 48%,
+    rgba(22, 50, 74, 0.42) 100%
+  );
+  pointer-events: none;
+}
+
+.questHeroOverlayTop {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.questHeroOverlayBottom {
+  position: absolute;
+  bottom: 10px;
+  left: 14px;
+}
+
+.questHeroModePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  color: #16324a;
+  font-size: 11.5px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(15, 29, 44, 0.14);
+}
+
+.questHeroStatusPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(22, 50, 74, 0.72);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.questHeroBody {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.questHeroTitleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.questHeroTitleBtn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  color: #16324a;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.questHeroOpenPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c94c1d;
+  background: rgba(242, 107, 58, 0.1);
+  padding: 5px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.questHeroCard:hover .questHeroOpenPill {
+  background: #f26b3a;
+  color: #ffffff;
+}
+
+.questHeroDesc {
+  margin: 0;
+  font-size: 13.5px;
+  color: #4f6478;
+  line-height: 1.5;
 }

@@ -6,7 +6,7 @@
   "properties": {
     "category": {
       "type": "string",
-      "enum": ["idle", "encouragement", "dashboard", "social", "task", "deadline", "system", "touch"]
+      "enum": ["idle", "encouragement", "dashboard", "social", "task", "deadline", "system", "touch", "scene"]
     },
     "version": { "type": "string" },
     "entries": {

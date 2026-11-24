@@ -260,3 +260,16 @@
     box-shadow: 0 8px 18px rgba(242, 107, 58, 0.35);
   }
 }
+
+/* FE-04A.3 Unified sticky left stack holding PinnedTaskRail + PlayerStatsRail */
+.leftRailStack {
+  position: sticky;
+  top: 92px;
+  align-self: start;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  z-index: 12;
+}

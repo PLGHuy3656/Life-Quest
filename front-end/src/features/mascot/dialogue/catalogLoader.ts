@@ -2,6 +2,7 @@ import dashboardJson from '@dialogues/dashboard.json'
 import deadlineJson from '@dialogues/deadline.json'
 import encouragementJson from '@dialogues/encouragement.json'
 import idleJson from '@dialogues/idle.json'
+import sceneJson from '@dialogues/scene.json'
 import socialJson from '@dialogues/social.json'
 import systemJson from '@dialogues/system.json'
 import taskJson from '@dialogues/task.json'
@@ -34,7 +35,8 @@ const MIN_CATEGORY_COUNTS: Record<DialogueCategory, number> = {
   task: 25,
   deadline: 20,
   system: 10,
-  touch: 30
+  touch: 30,
+  scene: 18
 }
 
 export const ALL_DIALOGUE_COLLECTIONS: DialogueCollectionFile[] = [
@@ -45,7 +47,8 @@ export const ALL_DIALOGUE_COLLECTIONS: DialogueCollectionFile[] = [
   taskJson as DialogueCollectionFile,
   deadlineJson as DialogueCollectionFile,
   systemJson as DialogueCollectionFile,
-  touchJson as DialogueCollectionFile
+  touchJson as DialogueCollectionFile,
+  sceneJson as DialogueCollectionFile
 ]
 
 export interface CatalogValidationReport {
@@ -69,7 +72,8 @@ export function validateDialogueCatalog(
     task: 0,
     deadline: 0,
     system: 0,
-    touch: 0
+    touch: 0,
+    scene: 0
   }
 
   let totalEntries = 0

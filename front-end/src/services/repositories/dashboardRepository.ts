@@ -18,11 +18,11 @@ import type {
 import {
   MOCK_GOALS,
   MOCK_MILESTONES,
-  MOCK_QUESTS,
   MOCK_SOCIAL_PREVIEW,
   MOCK_TODAY_DATA,
   MOCK_USER_ME
 } from './fixtures'
+import { getPreviewQuests } from './previewWorkState'
 
 export interface GoalWithMilestones {
   goal: Goal
@@ -64,9 +64,10 @@ export const dashboardRepository = {
   async getQuests(search?: string): Promise<RepositoryResult<Quest[]>> {
     if (!shouldUseLive()) {
       const normalized = search?.trim().toLowerCase()
+      const allPreview = getPreviewQuests()
       const filtered = normalized
-        ? MOCK_QUESTS.filter((q) => q.title.toLowerCase().includes(normalized))
-        : MOCK_QUESTS
+        ? allPreview.filter((q) => q.title.toLowerCase().includes(normalized))
+        : allPreview
       return {
         data: filtered,
         source: 'MOCK',

@@ -2,12 +2,20 @@ import { useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { Sheet } from '@/components/ui/Sheet'
+import {
+  TASK_CATEGORY_OPTIONS,
+  validateCreationTitle,
+  WORK_ENTITY_OPTIONS,
+  type WorkEntityType
+} from '@/features/work/creationContract'
 import { useCreateQuestMutation, usePinQuestMutation } from '@/hooks/useDashboardData'
+import { useGoalMutations } from '@/hooks/useWorkData'
 import { authApi } from '@/services/api/authApi'
 import { API_CONFIG } from '@/services/api/config'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/uiStore'
 import type { Quest, QuestType } from '@/types/domain'
+import { addDaysLocal, getTodayLocalDate } from '@/utils/date'
 import { MAX_PINNED_CARDS } from './PinnedBoard'
 import styles from './DashboardSheets.module.css'
 
@@ -24,8 +32,10 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
   const isAuthenticated = Boolean(accessToken.trim())
 
   const createQuest = useCreateQuestMutation()
+  const { createGoal } = useGoalMutations()
   const pinQuest = usePinQuestMutation()
 
+  const [entityType, setEntityType] = useState<WorkEntityType>('TASK')
   const [title, setTitle] = useState('')
   const [questType, setQuestType] = useState<QuestType>('SIMPLE')
   const [formError, setFormError] = useState<string | null>(null)
@@ -39,17 +49,33 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
 
   const handleCreateSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (createQuest.isPending || createGoal.isPending) return
     setFormError(null)
-    if (title.trim().length < 3) {
-      setFormError('Tên nhiệm vụ phải có ít nhất 3 ký tự (theo Joi schema Backend).')
+    const err = validateCreationTitle(title)
+    if (err) {
+      setFormError(err)
+      return
+    }
+    if (entityType === 'HABIT') {
+      setFormError('Tạo Thói quen (Habit) đang chờ Backend Habit API (PENDING).')
       return
     }
     try {
-      await createQuest.mutateAsync({ title: title.trim(), type: questType })
+      if (entityType === 'QUEST') {
+        const today = getTodayLocalDate()
+        await createGoal.mutateAsync({
+          title: title.trim(),
+          description: '',
+          startDate: `${today}T00:00:00.000Z`,
+          dueDate: `${addDaysLocal(today, 30)}T23:59:59.000Z`
+        })
+      } else {
+        await createQuest.mutateAsync({ title: title.trim(), type: questType })
+      }
       setTitle('')
       closeSheet()
-    } catch (err) {
-      setFormError(err instanceof Error ? err.message : 'Không thể tạo nhiệm vụ.')
+    } catch (submitErr) {
+      setFormError(submitErr instanceof Error ? submitErr.message : 'Không thể tạo mục mới.')
     }
   }
 
@@ -95,8 +121,29 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
       >
         <form className={styles.form} onSubmit={handleCreateSubmit}>
           <div className={styles.field}>
+            <label htmlFor="lq-entity-type" className={styles.label}>
+              Loại mục (Entity)
+            </label>
+            <select
+              id="lq-entity-type"
+              className={styles.select}
+              value={entityType}
+              onChange={(e) => {
+                setEntityType(e.target.value as WorkEntityType)
+                setFormError(null)
+              }}
+            >
+              {WORK_ENTITY_OPTIONS.map((opt) => (
+                <option key={opt.type} value={opt.type}>
+                  {opt.label} · {opt.viLabel} ({opt.capability})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.field}>
             <label htmlFor="lq-quest-title" className={styles.label}>
-              Tên nhiệm vụ
+              Tiêu đề
             </label>
             <input
               id="lq-quest-title"
@@ -108,23 +155,25 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
             />
           </div>
 
-          <div className={styles.field}>
-            <label htmlFor="lq-quest-type" className={styles.label}>
-              Loại nhiệm vụ (QuestType)
-            </label>
-            <select
-              id="lq-quest-type"
-              className={styles.select}
-              value={questType}
-              onChange={(e) => setQuestType(e.target.value as QuestType)}
-            >
-              <option value="SIMPLE">SIMPLE — Nhiệm vụ đơn giản</option>
-              <option value="FOCUS">FOCUS — Tập trung</option>
-              <option value="DURATION">DURATION — Theo thời lượng</option>
-              <option value="QUANTITY">QUANTITY — Theo số lượng</option>
-              <option value="PROGRESS">PROGRESS — Theo tiến độ</option>
-            </select>
-          </div>
+          {entityType === 'TASK' && (
+            <div className={styles.field}>
+              <label htmlFor="lq-quest-type" className={styles.label}>
+                Phân loại nhiệm vụ (Category)
+              </label>
+              <select
+                id="lq-quest-type"
+                className={styles.select}
+                value={questType}
+                onChange={(e) => setQuestType(e.target.value as QuestType)}
+              >
+                {TASK_CATEGORY_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {!isAuthenticated && (
             <div className={styles.infoBox}>
