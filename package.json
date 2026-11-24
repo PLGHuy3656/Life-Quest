@@ -1,0 +1,13 @@
+{
+  "name": "life-quest-root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root workspace runner for Life-Quest",
+  "scripts": {
+    "dev:frontend": "npm --prefix front-end run dev",
+    "dev:mobile": "npm --prefix mobile run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build:frontend": "npm --prefix front-end run build",
+    "build:mobile": "npm --prefix mobile run build"
+  }
+}
