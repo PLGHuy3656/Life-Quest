@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import { CheckSquare, Compass, Flame } from 'lucide-react'
+import { CheckSquare, Compass, PawPrint } from 'lucide-react'
 import styles from './WorkPage.module.css'
 
 const WORK_SUB_NAV = [
   { to: '/work/tasks', label: 'Task', sub: 'Nhiệm vụ', icon: CheckSquare },
-  { to: '/work/habits', label: 'Habit', sub: 'Thói quen', icon: Flame },
+  { to: '/work/habits', label: 'Habit', sub: 'Thói quen', icon: PawPrint },
   { to: '/work/quests', label: 'Quest', sub: 'Hành trình', icon: Compass }
 ] as const
 

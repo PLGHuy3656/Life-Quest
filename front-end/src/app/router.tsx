@@ -62,7 +62,7 @@ export function AppRoutes() {
                   />
                 }
               />
-              <Route path="/wardrobe" element={<WardrobePage />} />
+              <Route path="/wardrobe/*" element={<WardrobePage />} />
               <Route path="/preview/social-first" element={<Navigate to="/" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

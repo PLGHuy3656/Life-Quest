@@ -65,6 +65,10 @@ export type DialogueEventType =
   | 'DEADLINE_60M'
   | 'DEADLINE_15M'
   | 'DEADLINE_OVERDUE'
+  | 'WARDROBE_OPENED'
+  | 'COSMETIC_PREVIEWED'
+  | 'COSMETIC_REMOVED'
+  | 'OUTFIT_RESET'
 
 export interface RawDialogueEntry {
   id: string
@@ -158,7 +162,11 @@ export const EVENT_PRIORITY: Record<DialogueEventType, number> = {
   DEADLINE_60M: 70,
   QUEST_DEADLINE_URGENT: 78,
   DEADLINE_15M: 85,
-  DEADLINE_OVERDUE: 95
+  DEADLINE_OVERDUE: 95,
+  WARDROBE_OPENED: 32,
+  COSMETIC_PREVIEWED: 38,
+  COSMETIC_REMOVED: 36,
+  OUTFIT_RESET: 38
 }
 
 export const EVENT_COOLDOWN_MS: Record<DialogueEventType, number> = {
@@ -202,7 +210,11 @@ export const EVENT_COOLDOWN_MS: Record<DialogueEventType, number> = {
   DEADLINE_60M: 2_000,
   QUEST_DEADLINE_URGENT: 2_000,
   DEADLINE_15M: 2_000,
-  DEADLINE_OVERDUE: 2_000
+  DEADLINE_OVERDUE: 2_000,
+  WARDROBE_OPENED: 4_000,
+  COSMETIC_PREVIEWED: 1_200,
+  COSMETIC_REMOVED: 1_200,
+  OUTFIT_RESET: 1_500
 }
 
 /** Verified Gate I event mappings only (from src/mascot/FoxEventMap.ts) */
