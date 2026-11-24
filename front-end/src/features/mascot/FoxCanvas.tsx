@@ -28,11 +28,17 @@ const RUNTIME_MODULES = ANIMATION_MODULES.map((m) => ({
   clips: m.clips
 }))
 
+export interface FoxCameraCommand {
+  type: 'front' | 'back' | 'zoomIn' | 'zoomOut' | 'reset'
+  seq: number
+}
+
 export interface FoxCanvasProps {
   presentation: FoxPresentation
   label: string
   orbit?: boolean
   suspended?: boolean
+  cameraCommand?: FoxCameraCommand | null
   className?: string
   style?: CSSProperties
 }
@@ -48,6 +54,7 @@ export function FoxCanvas({
   label,
   orbit = false,
   suspended = false,
+  cameraCommand = null,
   className = '',
   style
 }: FoxCanvasProps) {
@@ -116,6 +123,7 @@ export function FoxCanvas({
             label={label}
             orbit={orbit}
             active={active}
+            cameraCommand={cameraCommand}
             onStatus={setStatus}
           />
         </Canvas>
@@ -173,12 +181,14 @@ function FoxRig({
   label,
   orbit,
   active,
+  cameraCommand,
   onStatus
 }: {
   presentation: FoxPresentation
   label: string
   orbit: boolean
   active: boolean
+  cameraCommand: FoxCameraCommand | null
   onStatus: (s: LoadStatus) => void
 }) {
   const companion = useCompanion()
@@ -273,11 +283,53 @@ function FoxRig({
     const cam = camera as PerspectiveCamera
     cam.aspect = size.width / Math.max(1, size.height)
     frameFoxCamera(cam, presentation, targetRef.current)
+    if (orbit && presentation === 'full') {
+      // Hero dressing-room framing: pull camera closer so Fox fills the stage comfortably
+      targetRef.current.y = 0.5
+      const offset = cam.position.clone().sub(targetRef.current).multiplyScalar(0.68)
+      cam.position.copy(targetRef.current).add(offset)
+      cam.lookAt(targetRef.current)
+    }
     if (controlsRef.current) {
       controlsRef.current.target.copy(targetRef.current)
       controlsRef.current.update()
     }
-  }, [camera, size.width, size.height, presentation])
+  }, [camera, size.width, size.height, presentation, orbit])
+
+  // Apply explicit dressing-room camera commands (front, back, zoomIn, zoomOut, reset)
+  useEffect(() => {
+    if (!cameraCommand || !orbit) return
+    const cam = camera as PerspectiveCamera
+    const target = targetRef.current
+    const oc = controlsRef.current
+
+    if (cameraCommand.type === 'reset' || cameraCommand.type === 'front') {
+      frameFoxCamera(cam, presentation, target)
+      target.y = 0.5
+      const baseDist = cam.position.distanceTo(target) * 0.68
+      if (cameraCommand.type === 'front') {
+        cam.position.set(target.x, target.y + 0.12, target.z + baseDist)
+      } else {
+        const offset = cam.position.clone().sub(target).setLength(baseDist)
+        cam.position.copy(target).add(offset)
+      }
+    } else if (cameraCommand.type === 'back') {
+      const dist = Math.max(1.4, Math.min(3.8, cam.position.distanceTo(target)))
+      cam.position.set(target.x, target.y + 0.16, target.z - dist)
+    } else if (cameraCommand.type === 'zoomIn' || cameraCommand.type === 'zoomOut') {
+      const offset = cam.position.clone().sub(target)
+      const factor = cameraCommand.type === 'zoomIn' ? 0.82 : 1.22
+      const nextDist = Math.max(1.2, Math.min(4.6, offset.length() * factor))
+      offset.setLength(nextDist)
+      cam.position.copy(target).add(offset)
+    }
+
+    cam.lookAt(target)
+    if (oc) {
+      oc.target.copy(target)
+      oc.update()
+    }
+  }, [cameraCommand, orbit, camera, presentation])
 
   // Sync settings to FoxController without recreating it
   useEffect(() => {

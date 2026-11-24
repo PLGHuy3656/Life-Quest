@@ -34,6 +34,7 @@ const ROUTE_TITLES: Record<string, string> = {
   '/calendar': 'Lịch hành trình',
   '/messages': 'Tin nhắn & Nhóm',
   '/wardrobe': 'Tủ đồ Fox V2',
+  '/wardrobe/shop': 'Cửa hàng Trang phục',
   '/profile': 'Trang cá nhân',
   '/settings': 'Cài đặt'
 }
@@ -57,11 +58,13 @@ export function AppShell({ children }: { children: ReactNode }) {
     todayQuery.data?.source === 'LIVE' ? todayQuery.data.data.gamification.level : undefined
 
   const currentTitle = ROUTE_TITLES[location.pathname] ?? 'LifeQuest'
-  const isWardrobeRoute = location.pathname === '/wardrobe'
+  const isWardrobeRoute =
+    location.pathname === '/wardrobe' || location.pathname.startsWith('/wardrobe/')
   /** FE-04C.2 & FE-05A.2 Fox-free workspace routes: Quest Detail (/work/quests/:questId) and Journey Calendar (/calendar). */
   const isQuestDetailRoute = Boolean(matchPath('/work/quests/:questId', location.pathname))
-  /** FE-05A Viewport-Fit Policy: Journey Calendar fits inside one Desktop viewport without vertical page scrolling. */
+  /** FE-05A & FE-W01 Viewport-Fit Policy: Calendar and Wardrobe fit inside one Desktop viewport without document scrolling. */
   const isCalendarRoute = location.pathname === '/calendar'
+  const isViewportFitRoute = isCalendarRoute || isWardrobeRoute
   const isFoxHiddenRoute = isQuestDetailRoute || isCalendarRoute
 
   const handleLogout = async () => {
@@ -154,7 +157,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <MascotEventAdapter triggerGreetingOnMount authoritativeLevel={authoritativeLevel} />
 
-        <main className={`${styles.content} ${isCalendarRoute ? styles.contentCalendarFit : ''}`.trim()}>
+        <main className={`${styles.content} ${isViewportFitRoute ? styles.contentCalendarFit : ''}`.trim()}>
           {isDesktop ? (
             <div
               className={styles.desktopThreeRegion}
@@ -168,7 +171,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className={styles.centerRegion} data-testid="shared-center-region">
                 {children}
               </div>
-              {!isFoxHiddenRoute && <FoxCompanionRail hideCanvas={isWardrobeRoute} />}
+              {!isFoxHiddenRoute && !isWardrobeRoute && <FoxCompanionRail />}
             </div>
           ) : (
             children

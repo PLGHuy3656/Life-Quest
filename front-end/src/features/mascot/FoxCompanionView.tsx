@@ -2,6 +2,7 @@ import { lazy, Suspense, type CSSProperties } from 'react'
 import { LoadingSkeleton } from '@/components/ui/StateViews'
 import type { FoxPresentation } from '@/mascot/FoxLevelScale'
 import { hasWebGL } from './environment'
+import type { FoxCameraCommand } from './FoxCanvas'
 import { FoxFallback } from './FoxFallback'
 
 const LazyFoxCanvas = lazy(() =>
@@ -13,6 +14,7 @@ export interface FoxCompanionViewProps {
   label: string
   orbit?: boolean
   suspended?: boolean
+  cameraCommand?: FoxCameraCommand | null
   className?: string
   style?: CSSProperties
 }

@@ -7,6 +7,7 @@ import socialJson from '@dialogues/social.json'
 import systemJson from '@dialogues/system.json'
 import taskJson from '@dialogues/task.json'
 import touchJson from '@dialogues/touch.json'
+import { WARDROBE_DIALOGUE_COLLECTION } from './wardrobeDialogues'
 import type {
   DialogueCategory,
   DialogueCollectionFile,
@@ -48,7 +49,8 @@ export const ALL_DIALOGUE_COLLECTIONS: DialogueCollectionFile[] = [
   deadlineJson as DialogueCollectionFile,
   systemJson as DialogueCollectionFile,
   touchJson as DialogueCollectionFile,
-  sceneJson as DialogueCollectionFile
+  sceneJson as DialogueCollectionFile,
+  WARDROBE_DIALOGUE_COLLECTION
 ]
 
 export interface CatalogValidationReport {

@@ -61,11 +61,21 @@ interface CompanionContextValue {
   update: (patch: Partial<CompanionSettings>) => void
   effectiveReducedMotion: boolean
   modelUrl: string
+  /** Effective appearance currently rendered on Fox V2 (persisted + local preview overlay) */
   equippedCosmetics: EquippedCosmeticMap
+  /** Confirmed server-persisted outfit (empty while Equipment Persistence API is pending) */
+  persistedCosmetics: EquippedCosmeticMap
+  /** Temporary local-only visual try-on selections */
+  previewCosmetics: EquippedCosmeticMap
+  /** True when local preview differs from confirmed persisted equipment */
+  hasUnsavedPreview: boolean
+  /** Backend equipment persistence capability status */
+  equipmentPersistenceStatus: 'PENDING_API' | 'LIVE'
   equipCosmetic: (itemId: CosmeticItemId) => void
   unequipSlot: (slot: CosmeticSlot) => void
   applyOutfit: (presetId: OutfitPresetId) => void
   resetCosmetics: () => void
+  restoreEquippedOutfit: () => void
   voicePhase: VoiceUiPhase
   dispatchVoiceEvent: (
     event:
@@ -130,8 +140,21 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     idleVariation: true
   })
 
-  // Preview-only cosmetic state (Backend wardrobe persistence pending feature/friends-and-social)
-  const [equippedCosmetics, setEquippedCosmetics] = useState<EquippedCosmeticMap>({})
+  // Confirmed server-persisted outfit (empty while Backend equipment persistence API is pending)
+  const [persistedCosmetics] = useState<EquippedCosmeticMap>({})
+  // Temporary local-only preview state (PREVIEW_STATE)
+  const [previewCosmetics, setPreviewCosmetics] = useState<EquippedCosmeticMap>({})
+  const equipmentPersistenceStatus = 'PENDING_API' as const
+
+  const equippedCosmetics = useMemo<EquippedCosmeticMap>(
+    () => ({ ...persistedCosmetics, ...previewCosmetics }),
+    [persistedCosmetics, previewCosmetics]
+  )
+
+  const hasUnsavedPreview = useMemo(() => {
+    const previewKeys = Object.keys(previewCosmetics) as CosmeticSlot[]
+    return previewKeys.some((slot) => previewCosmetics[slot] !== persistedCosmetics[slot])
+  }, [previewCosmetics, persistedCosmetics])
   const [voicePhase, setVoicePhase] = useState<VoiceUiPhase>('idle')
   const [eventLog, setEventLog] = useState<CompanionEventLog[]>([])
   const [activeInstanceCount, setActiveInstanceCount] = useState(0)
@@ -183,11 +206,11 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
   const equipCosmetic = useCallback((itemId: CosmeticItemId) => {
     const def = COSMETIC_CATALOG[itemId]
     if (!def) return
-    setEquippedCosmetics((prev) => ({ ...prev, [def.slot]: itemId }))
+    setPreviewCosmetics((prev) => ({ ...prev, [def.slot]: itemId }))
   }, [])
 
   const unequipSlot = useCallback((slot: CosmeticSlot) => {
-    setEquippedCosmetics((prev) => {
+    setPreviewCosmetics((prev) => {
       const next = { ...prev }
       delete next[slot]
       return next
@@ -196,11 +219,15 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
 
   const applyOutfit = useCallback((presetId: OutfitPresetId) => {
     const preset = OUTFIT_PRESETS[presetId]
-    setEquippedCosmetics({ ...(preset as EquippedCosmeticMap) })
+    setPreviewCosmetics({ ...(preset as EquippedCosmeticMap) })
   }, [])
 
   const resetCosmetics = useCallback(() => {
-    setEquippedCosmetics({})
+    setPreviewCosmetics({})
+  }, [])
+
+  const restoreEquippedOutfit = useCallback(() => {
+    setPreviewCosmetics({})
   }, [])
 
   const register = useCallback((controller: FoxController, meta: CompanionInstanceMeta) => {
@@ -231,10 +258,15 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       effectiveReducedMotion,
       modelUrl: MODEL_URL,
       equippedCosmetics,
+      persistedCosmetics,
+      previewCosmetics,
+      hasUnsavedPreview,
+      equipmentPersistenceStatus,
       equipCosmetic,
       unequipSlot,
       applyOutfit,
       resetCosmetics,
+      restoreEquippedOutfit,
       voicePhase,
       dispatchVoiceEvent,
       publish,
@@ -247,10 +279,15 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       update,
       effectiveReducedMotion,
       equippedCosmetics,
+      persistedCosmetics,
+      previewCosmetics,
+      hasUnsavedPreview,
+      equipmentPersistenceStatus,
       equipCosmetic,
       unequipSlot,
       applyOutfit,
       resetCosmetics,
+      restoreEquippedOutfit,
       voicePhase,
       dispatchVoiceEvent,
       publish,
