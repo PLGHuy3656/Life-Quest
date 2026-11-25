@@ -12,6 +12,11 @@ import { proofsRoute, executionProofsRoute } from '../modules/proofs/proofsRoute
 import { gamificationRoute } from '../modules/gamification/gamificationRoute.js'
 import { achievementsRoute, userAchievementsRoute } from '../modules/achievements/achievementsRoute.js'
 import { rewardsRoute, inventoryRoute } from '../modules/rewards/rewardsRoute.js'
+import { streakRulesRoute, streaksRoute } from '../modules/streaks/streaksRoute.js'
+import { friendsRoute, friendRequestsRoute, pokesRoute } from '../modules/friends/friendsRoute.js'
+import { feedRoute, postsRoute, commentsRoute } from '../modules/social/socialRoute.js'
+import { duosRoute } from '../modules/duos/duosRoute.js'
+import { challengesRoute } from '../modules/challenges/challengesRoute.js'
 
 const Router = express.Router()
 
@@ -59,5 +64,25 @@ Router.use('/achievements', achievementsRoute)
 // Rewards & Inventory Module
 Router.use('/rewards', rewardsRoute)
 Router.use('/inventory', inventoryRoute)
+
+// Streaks Module
+Router.use('/streak-rules', streakRulesRoute)
+Router.use('/streaks', streaksRoute)
+
+// Friends & Pokes Module
+Router.use('/friends', friendsRoute)
+Router.use('/friend-requests', friendRequestsRoute)
+Router.use('/pokes', pokesRoute)
+
+// Social Module
+Router.use('/feed', feedRoute)
+Router.use('/posts', postsRoute)
+Router.use('/comments', commentsRoute)
+
+// Duos Module
+Router.use('/duos', duosRoute)
+
+// Challenges Module
+Router.use('/challenges', challengesRoute)
 
 export const routes = Router
