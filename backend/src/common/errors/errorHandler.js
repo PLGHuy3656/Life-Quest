@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 
-const errorHandler = (error, req, res, next) => {
+const errorHandler = (error, req, res, _next) => {
   // Nếu không có statusCode thì mặc định dùng 500
   const statusCode = error.statusCode ? error.statusCode : StatusCodes.INTERNAL_SERVER_ERROR
 

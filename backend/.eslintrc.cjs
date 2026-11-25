@@ -3,12 +3,9 @@ module.exports = {
   extends: [
     'eslint:recommended'
   ],
-  parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module',
-    requireConfigFile: false,
-    allowImportExportEverywhere: true
+    sourceType: 'module'
   },
   plugins: [],
   rules: {
@@ -17,7 +14,7 @@ module.exports = {
     'no-useless-catch': 0,
     'no-extra-boolean-cast': 0,
     'no-lonely-if': 1,
-    'no-unused-vars': 1,
+    'no-unused-vars': [1, { argsIgnorePattern: '^_' }],
     'no-trailing-spaces': 1,
     'no-multi-spaces': 1,
     'no-multiple-empty-lines': 1,

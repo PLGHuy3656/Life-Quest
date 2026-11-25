@@ -2,7 +2,11 @@ import jwt from 'jsonwebtoken'
 import ApiError from '../errors/ApiError.js'
 
 
-const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'access_secret_default'
+const IS_PRODUCTION = process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'production'
+const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || (IS_PRODUCTION ? null : 'access_secret_default')
+if (!ACCESS_SECRET) {
+  throw new Error('JWT_ACCESS_SECRET must be configured in production')
+}
 
 
 // Middleware xác thực JWT từ Authorization header
