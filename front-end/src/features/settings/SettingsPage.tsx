@@ -9,7 +9,9 @@ import {
   useUserSettingsQuery
 } from '@/hooks/useSettingsData'
 import { authApi } from '@/services/api/authApi'
+import { ChatBubbleSettings } from '@/features/messages/floating/ChatBubbleSettings'
 import { useAuthStore } from '@/stores/authStore'
+import { useMessengerStore } from '@/stores/messengerStore'
 import { useUiStore } from '@/stores/uiStore'
 import type { PrivacyMode } from '@/types/domain'
 import styles from './SettingsPage.module.css'
@@ -95,6 +97,7 @@ export function SettingsPage() {
       // Clear local session regardless of remote revoke status
     } finally {
       clearSession()
+      useMessengerStore.getState().clearPrivateSession()
       navigate('/login', { replace: true })
     }
   }
@@ -256,6 +259,10 @@ export function SettingsPage() {
           )}
         </Card>
       </div>
+
+      <Card>
+        <ChatBubbleSettings />
+      </Card>
 
       <Card>
         <div

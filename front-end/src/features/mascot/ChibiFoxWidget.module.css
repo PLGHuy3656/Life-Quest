@@ -1,0 +1,329 @@
+/* Chibi Fox Mascot — Transparent floating companion with cursor-tracking & smooth speech bubble (zero WebGL) */
+
+.chibiRoot {
+  position: fixed;
+  z-index: 41;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  perspective: 420px;
+  transition: left 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chibiDragging {
+  transition: none !important;
+  cursor: grabbing;
+}
+
+/* Hover / Focus-within control bar */
+.controlBar {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: rgba(255, 250, 242, 0.96);
+  border: 1px solid rgba(200, 69, 26, 0.24);
+  box-shadow: 0 8px 20px rgba(112, 46, 18, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 180ms ease, transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 5;
+}
+
+.chibiRoot:hover .controlBar,
+.chibiRoot:focus-within .controlBar,
+.chibiDragging .controlBar {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.ctrlBtn {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: #7c381b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.ctrlBtn:hover:not(:disabled) {
+  background: #ffead2;
+  color: #c8431b;
+}
+
+.ctrlBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ctrlBtn:focus-visible {
+  outline: 2px solid #e55a28;
+  outline-offset: 1px;
+}
+
+.sizeLabel {
+  font-size: 10px;
+  font-weight: 800;
+  color: #8f4728;
+  padding: 0 3px;
+  min-width: 32px;
+  text-align: center;
+}
+
+/* Transparent Chibi Fox Body (no background, no circular border) */
+.chibiBody {
+  position: relative;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  cursor: grab;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  transform-style: preserve-3d;
+  animation: chibiBreathe 3.4s ease-in-out infinite;
+}
+
+.chibiBody:active {
+  cursor: grabbing;
+}
+
+.chibiBody:focus-visible {
+  outline: 2px dashed #e55a28;
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
+.chibiDragging .chibiBody {
+  animation: none;
+}
+
+.chibiHop {
+  animation: chibiHopAnim 480ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* Smooth cursor-following layer */
+.chibiLookLayer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chibiImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(92, 42, 18, 0.24));
+  transition: filter 160ms ease;
+}
+
+.chibiBody:hover .chibiImg {
+  filter: drop-shadow(0 9px 14px rgba(180, 68, 22, 0.32));
+}
+
+/* Subtle grounded shadow underneath the transparent fox */
+.chibiShadow {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 58%;
+  height: 8px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, rgba(110, 48, 20, 0.26) 0%, rgba(110, 48, 20, 0) 72%);
+  pointer-events: none;
+  animation: chibiShadowPulse 3.4s ease-in-out infinite;
+}
+
+/* Corner Resize Handle (visible on hover / focus-within) */
+.resizeHandle {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1.5px solid #fff7ec;
+  background: #e55a28;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: nwse-resize;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 160ms ease, transform 160ms ease, background 120ms ease;
+  box-shadow: 0 3px 8px rgba(145, 58, 22, 0.28);
+  z-index: 3;
+}
+
+.chibiRoot:hover .resizeHandle,
+.chibiRoot:focus-within .resizeHandle,
+.chibiDragging .resizeHandle {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.resizeHandle:hover {
+  background: #c8431b;
+}
+
+.resizeHandle:focus-visible {
+  outline: 2px solid #16324a;
+  outline-offset: 2px;
+}
+
+/* Silky-smooth animated Speech Bubble */
+.chibiQuote {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  max-width: 210px;
+  min-width: 132px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: rgba(255, 250, 243, 0.97);
+  border: 1px solid rgba(206, 86, 36, 0.24);
+  color: #16324a;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow:
+    0 12px 26px rgba(112, 46, 18, 0.16),
+    0 2px 6px rgba(68, 30, 12, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0;
+  transform: translateY(8px) scale(0.92);
+  transform-origin: bottom center;
+  transition:
+    opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 280ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.chibiQuote::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  background: #fffaf3;
+  border-right: 1px solid rgba(206, 86, 36, 0.24);
+  border-bottom: 1px solid rgba(206, 86, 36, 0.24);
+  transform: rotate(45deg);
+}
+
+.chibiQuoteRight {
+  right: 0;
+}
+
+.chibiQuoteRight::after {
+  right: 22px;
+}
+
+.chibiQuoteLeft {
+  left: 0;
+}
+
+.chibiQuoteLeft::after {
+  left: 22px;
+}
+
+.chibiQuoteVisible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes chibiBreathe {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  50% {
+    transform: translateY(-5px) scale(0.985, 1.02);
+  }
+}
+
+@keyframes chibiShadowPulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(0.84);
+    opacity: 0.55;
+  }
+}
+
+@keyframes chibiHopAnim {
+  0% {
+    transform: translateY(0) scale(1, 1);
+  }
+  25% {
+    transform: translateY(2px) scale(1.08, 0.9);
+  }
+  55% {
+    transform: translateY(-13px) scale(0.95, 1.07);
+  }
+  80% {
+    transform: translateY(1px) scale(1.03, 0.97);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+/* Reduced motion */
+:global(html.lq-rm) .chibiBody,
+:global(html.lq-rm) .chibiShadow,
+:global(html.lq-rm) .chibiLookLayer,
+:global(html.lq-rm) .chibiRoot,
+:global(html.lq-rm) .controlBar,
+:global(html.lq-rm) .resizeHandle,
+:global(html.lq-rm) .chibiQuote {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chibiBody,
+  .chibiShadow,
+  .chibiLookLayer,
+  .chibiRoot,
+  .controlBar,
+  .resizeHandle,
+  .chibiQuote {
+    animation: none !important;
+    transition: none !important;
+  }
+}

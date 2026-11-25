@@ -16,12 +16,14 @@ import {
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { DashboardSheets } from '@/features/dashboard/DashboardSheets'
-import { FloatingMascotDock } from '@/features/mascot/FloatingMascotDock'
+import { ChibiFoxWidget } from '@/features/mascot/ChibiFoxWidget'
 import { MascotEventAdapter } from '@/features/mascot/MascotEventAdapter'
+import { FloatingChatHost } from '@/features/messages/floating/FloatingChatHost'
 import { useQuestsQuery, useTodayQuery } from '@/hooks/useDashboardData'
 import { useIsDesktop } from '@/hooks/useIsDesktop'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
+import { useMessengerStore } from '@/stores/messengerStore'
 import { useUiStore } from '@/stores/uiStore'
 import { DesktopHeader } from './DesktopHeader'
 import { FoxCompanionRail } from './FoxCompanionRail'
@@ -61,11 +63,13 @@ export function AppShell({ children }: { children: ReactNode }) {
   const currentTitle = ROUTE_TITLES[location.pathname] ?? 'LifeQuest'
   const isWardrobeRoute =
     location.pathname === '/wardrobe' || location.pathname.startsWith('/wardrobe/')
+  const isMessagesRoute =
+    location.pathname === '/messages' || location.pathname.startsWith('/messages/')
   /** FE-04C.2 & FE-05A.2 Fox-free workspace routes: Quest Detail (/work/quests/:questId) and Journey Calendar (/calendar). */
   const isQuestDetailRoute = Boolean(matchPath('/work/quests/:questId', location.pathname))
-  /** FE-05A & FE-W01 Viewport-Fit Policy: Calendar and Wardrobe fit inside one Desktop viewport without document scrolling. */
+  /** FE-05A, FE-W01 & FE-06A Viewport-Fit Policy: Calendar, Wardrobe and Messenger fit inside one Desktop viewport without document scrolling. */
   const isCalendarRoute = location.pathname === '/calendar'
-  const isViewportFitRoute = isCalendarRoute || isWardrobeRoute
+  const isViewportFitRoute = isCalendarRoute || isWardrobeRoute || isMessagesRoute
   const isFoxHiddenRoute = isQuestDetailRoute || isCalendarRoute
 
   const handleLogout = async () => {
@@ -77,6 +81,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       // Always clear local in-memory session
     } finally {
       clearSession()
+      useMessengerStore.getState().clearPrivateSession()
       navigate('/login')
     }
   }
@@ -185,7 +190,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className={styles.centerRegion} data-testid="shared-center-region">
                 {children}
               </div>
-              {!isFoxHiddenRoute && !isWardrobeRoute && <FoxCompanionRail />}
+              {!isFoxHiddenRoute && !isWardrobeRoute && !isMessagesRoute && <FoxCompanionRail />}
             </div>
           ) : (
             children
@@ -194,6 +199,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       <DashboardSheets quests={quests} />
+      <ChibiFoxWidget visible={isCalendarRoute || isMessagesRoute || isQuestDetailRoute} />
+      <FloatingChatHost
+        isFoxVisible={isDesktop && !isFoxHiddenRoute && !isWardrobeRoute && !isMessagesRoute}
+      />
 
       {/* Tablet Floating Pill Navigation (700px - 1023px) */}
       <nav className={styles.tabletPillNav} aria-label="Điều hướng máy tính bảng">
@@ -292,8 +301,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span>Công việc</span>
         </NavLink>
       </nav>
-
-      {!isFoxHiddenRoute && <FloatingMascotDock />}
     </div>
   )
 }

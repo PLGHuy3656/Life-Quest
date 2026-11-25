@@ -43,7 +43,7 @@ test('nowebgl=1 renders accessible FoxFallback cleanly', async ({ page }) => {
   await expect(page.getByTestId('fox-fallback')).toHaveAttribute('data-reason', 'webgl')
 })
 
-test('wardrobe H1/H2 cosmetic switching, reset & Voice Assistant Gate I sheet', async ({ page }) => {
+test('wardrobe H1/H2 cosmetic switching & preview badge', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/wardrobe?nowebgl=1')
 
@@ -51,15 +51,6 @@ test('wardrobe H1/H2 cosmetic switching, reset & Voice Assistant Gate I sheet', 
   await page.getByTestId('closet-tab-hanging').click()
   await page.getByRole('button', { name: 'Tết' }).click()
   await expect(page.getByText('Đang xem trước (3)')).toBeVisible()
-
-  // Open Voice Assistant dock sheet & test state transitions + Escape dismissal
-  await page.getByRole('button', { name: /Mở Trợ lý Giọng nói Fox V2/i }).first().click()
-  const dialog = page.getByRole('dialog')
-  await expect(dialog).toBeVisible()
-  await page.getByRole('button', { name: 'Lắng nghe' }).click()
-  await expect(page.getByText(/voice_listening_loop/i)).toBeVisible()
-  await page.keyboard.press('Escape')
-  await expect(dialog).toBeHidden()
 })
 
 test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ page }) => {
@@ -106,11 +97,11 @@ test('shared AppShell route navigation (/ -> /messages -> /wardrobe -> /) preser
   await page.getByRole('button', { name: 'Thu gọn Fox Companion' }).click()
   await expect(page.getByTestId('shared-fox-rail')).toHaveAttribute('data-state', 'collapsed')
 
-  // Navigate to /messages and verify collapsed state persists
+  // Navigate to /messages -> Messenger hides right FoxCompanionRail without breaking collapsed state
   const headerNav = page.getByLabel('Điều hướng nhanh')
   await headerNav.getByRole('link', { name: 'Tin nhắn' }).click()
-  await expect(page.getByRole('heading', { name: /Tin nhắn & Nhóm bạn bè/i })).toBeVisible()
-  await expect(page.getByTestId('shared-fox-rail')).toHaveAttribute('data-state', 'collapsed')
+  await expect(page.getByTestId('messenger-workspace')).toBeVisible()
+  await expect(page.getByTestId('shared-fox-rail')).toHaveCount(0)
 
   // Navigate to /wardrobe and verify single active WebGL renderer
   await headerNav.getByRole('link', { name: 'Tủ đồ Fox' }).click()
@@ -173,7 +164,8 @@ for (const width of [1024, 1280, 1440, 1920]) {
       const feed = document.querySelector('[data-testid="social-feed-section"]')!.getBoundingClientRect()
       const fox = document.querySelector('[data-testid="shared-fox-rail"]')!.getBoundingClientRect()
       const prompt = document.querySelector('[data-testid="mascot-prompt-box"]')!.getBoundingClientRect()
-      const dock = document.querySelector('[data-testid="floating-mascot-dock"]')!.getBoundingClientRect()
+      const dockEl = document.querySelector('[data-testid="floating-mascot-dock"]')
+      const dock = dockEl ? dockEl.getBoundingClientRect() : null
       return { headerRect, shell, feed, fox, prompt, dock }
     })
 
@@ -181,12 +173,14 @@ for (const width of [1024, 1280, 1440, 1920]) {
     expect(Math.abs(layout.shell.right - layout.headerRect!.right)).toBeLessThanOrEqual(4)
     expect(layout.feed.right).toBeLessThanOrEqual(layout.fox.left + 1)
 
-    const dockOverlapsPrompt =
-      layout.dock.left < layout.prompt.right &&
-      layout.dock.right > layout.prompt.left &&
-      layout.dock.top < layout.prompt.bottom &&
-      layout.dock.bottom > layout.prompt.top
-    expect(dockOverlapsPrompt).toBe(false)
+    if (layout.dock) {
+      const dockOverlapsPrompt =
+        layout.dock.left < layout.prompt.right &&
+        layout.dock.right > layout.prompt.left &&
+        layout.dock.top < layout.prompt.bottom &&
+        layout.dock.bottom > layout.prompt.top
+      expect(dockOverlapsPrompt).toBe(false)
+    }
   })
 }
 

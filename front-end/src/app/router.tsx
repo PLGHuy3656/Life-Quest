@@ -5,7 +5,7 @@ import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
 import { RegisterPage } from '@/features/auth/RegisterPage'
 import { CalendarPage } from '@/features/calendar/CalendarPage'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
-import { PlaceholderPage } from '@/features/placeholders/PlaceholderPage'
+import { MessagesPage } from '@/features/messages/MessagesPage'
 import { ProfileBoundaryPage } from '@/features/profile/ProfileBoundaryPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
 import { WardrobePage } from '@/features/wardrobe/WardrobePage'
@@ -52,16 +52,8 @@ export function AppRoutes() {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/messages"
-                element={
-                  <PlaceholderPage
-                    title="Tin nhắn & Nhóm bạn bè"
-                    description="Bảng tin Social đã được tích hợp trực tiếp tại Trang chủ. Hộp thư tin nhắn riêng chờ hợp nhất nhánh Backend tương ứng."
-                    plannedMilestone="FE-04"
-                  />
-                }
-              />
+              <Route path="/messages" element={<MessagesPage />} />
+              <Route path="/messages/*" element={<MessagesPage />} />
               <Route path="/wardrobe/*" element={<WardrobePage />} />
               <Route path="/preview/social-first" element={<Navigate to="/" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
