@@ -7,6 +7,7 @@ import { RegisterPage } from '@/features/auth/RegisterPage'
 import { ResetPasswordPage } from '@/features/auth/ResetPasswordPage'
 import { CalendarPage } from '@/features/calendar/CalendarPage'
 import { DashboardPage } from '@/features/dashboard/DashboardPage'
+import { LandingPage } from '@/features/landing/LandingPage'
 import { LoadingPage } from '@/features/loading/LoadingPage'
 import { MessagesPage } from '@/features/messages/MessagesPage'
 import { ProfileBoundaryPage } from '@/features/profile/ProfileBoundaryPage'
@@ -28,6 +29,8 @@ export function AppRoutes() {
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/loading" element={<LoadingPage />} />
+      <Route path="/welcome" element={<LandingPage />} />
+      <Route path="/index" element={<LandingPage />} />
 
       <Route
         path="/work/tasks/:taskId/focus"

@@ -16,7 +16,9 @@ const UNAUTHENTICATED_PATHS = [
   '/register',
   '/forgot-password',
   '/reset-password',
-  '/loading'
+  '/loading',
+  '/welcome',
+  '/index'
 ]
 
 export function FloatingChatHost({ isFoxVisible }: FloatingChatHostProps) {
