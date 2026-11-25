@@ -7,8 +7,12 @@ import ApiError from '../../common/errors/ApiError.js'
 
 
 // Lấy config JWT từ env
-const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'access_secret_default'
-const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'refresh_secret_default'
+const IS_PRODUCTION = process.env.NODE_ENV === 'production' || process.env.BUILD_MODE === 'production'
+const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || (IS_PRODUCTION ? null : 'access_secret_default')
+const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || (IS_PRODUCTION ? null : 'refresh_secret_default')
+if (!ACCESS_SECRET || !REFRESH_SECRET) {
+  throw new Error('JWT_ACCESS_SECRET and JWT_REFRESH_SECRET must be configured in production')
+}
 const ACCESS_EXPIRES_IN = process.env.JWT_ACCESS_EXPIRES_IN || '15m'
 const REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '7d'
 
@@ -208,14 +212,14 @@ const logout = async (refreshTokenRaw) => {
 
 
 // Quên mật khẩu - placeholder (chỉ return success, chưa implement gửi email)
-const forgotPassword = async (email) => {
+const forgotPassword = async (_email) => {
   // TODO: Implement gửi email reset password
   return { message: 'If this email exists, a reset link has been sent' }
 }
 
 
 // Đặt lại mật khẩu - placeholder
-const resetPassword = async (token, newPassword) => {
+const resetPassword = async (_token, _newPassword) => {
   // TODO: Implement logic reset password bằng token
   return { message: 'Password reset successfully' }
 }
