@@ -48,7 +48,7 @@ export function LandingPage() {
 
   return (
     <div className={styles.page} data-testid="landing-page">
-      {/* Top Navbar */}
+      {/* Warm Companion Top Navbar — synced with AppShell Header */}
       <header className={styles.navbar}>
         <div className={styles.navInner}>
           <Link to="/welcome" className={styles.brandLink} aria-label="LifeQuest">
@@ -69,16 +69,16 @@ export function LandingPage() {
           <nav className={styles.navLinks} aria-label="Điều hướng giới thiệu">
             <a href="#features" className={styles.navLink}>Tính năng</a>
             <a href="#mobile-preview" className={styles.navLink}>Cách hoạt động</a>
-            <a href="#fox-companion" className={styles.navLink}>Cáo đồng hành</a>
+            <a href="#fox-companion" className={styles.navLink}>Fox V2</a>
             <a href="#community" className={styles.navLink}>Cộng đồng</a>
           </nav>
 
           <div className={styles.navActions}>
-            <Link to="/login" className={styles.navLoginLink} data-testid="landing-login-btn">
+            <Link to="/login" className={styles.navLoginBtn} data-testid="landing-login-btn">
               Đăng nhập
             </Link>
-            <Link to="/register" className={styles.btnTeal} data-testid="landing-start-btn">
-              Bắt đầu miễn phí
+            <Link to="/register" className={styles.btnPrimary} data-testid="landing-start-btn">
+              Bắt đầu ngay
             </Link>
           </div>
         </div>
@@ -89,27 +89,31 @@ export function LandingPage() {
         <div className={styles.container}>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
+              <span className={styles.heroPill}>
+                <Sparkles size={13} aria-hidden="true" />
+                <span>Web App &amp; Mobile Preview · Fox V2 3D</span>
+              </span>
               <h1 className={styles.heroTitle}>Biến từng việc nhỏ thành một hành trình.</h1>
               <p className={styles.heroDesc}>
                 Quản lý nhiệm vụ, thói quen và mục tiêu dài hạn trên cả Web &amp; Mobile cùng người
-                bạn đồng hành 3D <strong>Fox V2</strong> — nhẹ nhàng, rõ ràng và đầy cảm hứng.
+                bạn đồng hành 3D <strong>Fox V2</strong> — nhẹ nhàng, ấm áp và đầy cảm hứng.
               </p>
               <div className={styles.heroCtas}>
-                <Link to="/register" className={styles.btnTeal} style={{ minHeight: 46, padding: '0 22px' }}>
+                <Link to="/register" className={`${styles.btnPrimary} ${styles.btnPrimaryLg}`}>
                   Bắt đầu miễn phí
                 </Link>
-                <Link to="/" className={styles.btnOutline}>
+                <Link to="/" className={styles.btnSecondary}>
                   Mở ứng dụng Web
                 </Link>
               </div>
               <span className={styles.heroMockNote}>
-                * Giao diện điện thoại minh họa bằng dữ liệu mẫu (Mock Preview) trước khi hoàn thiện bản Mobile.
+                * Màn hình điện thoại dùng dữ liệu mẫu (Mock Preview) và sẽ đồng bộ ngay khi hoàn thiện bản Mobile.
               </span>
             </div>
 
             <div className={styles.heroStage}>
               <span className={`${styles.floatChip} ${styles.floatChipTop}`}>
-                <CheckCircle2 size={14} color="#147A68" aria-hidden="true" />
+                <CheckCircle2 size={14} color="#168C78" aria-hidden="true" />
                 <span>Hoàn thành +35 XP</span>
               </span>
               <span className={`${styles.floatChip} ${styles.floatChipMid}`}>
@@ -133,7 +137,7 @@ export function LandingPage() {
                     <div key={task.id} className={styles.phoneTaskCard}>
                       <div className={styles.phoneTaskTop}>
                         <span>{task.done ? '✓ ' : ''}{task.title}</span>
-                        <span style={{ color: '#147A68' }}>{task.xp}</span>
+                        <span style={{ color: '#F26733' }}>{task.xp}</span>
                       </div>
                       <div className={styles.phoneMiniTrack}>
                         <div className={styles.phoneMiniFill} style={{ width: `${task.progress}%` }} />
@@ -210,7 +214,7 @@ export function LandingPage() {
                   ))}
                 </div>
                 <div className={styles.samplePreviewBox}>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#162C42' }}>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: '#182640' }}>
                     {card.sampleTitle}
                   </span>
                   <span style={{ fontSize: 12, color: '#667085', fontWeight: 600 }}>
@@ -230,10 +234,7 @@ export function LandingPage() {
                   )}
                   {card.id === 'quest' && (
                     <div className={styles.phoneMiniTrack} style={{ height: 8 }}>
-                      <div
-                        className={styles.phoneMiniFill}
-                        style={{ width: '64%', background: '#F26733' }}
-                      />
+                      <div className={styles.phoneMiniFill} style={{ width: '64%' }} />
                     </div>
                   )}
                 </div>
@@ -243,12 +244,12 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* SECTION 3: DEEP NAVY MOBILE GESTURE & EVIDENCE PREVIEW (MOCK DATA) */}
+      {/* SECTION 3: WARM PEACH-CREAM MOBILE GESTURE & EVIDENCE SHOWCASE (Synced with Warm Companion UI) */}
       <div id="mobile-preview" className={styles.container}>
-        <section className={styles.navyBlock}>
-          <div className={styles.navyCenterHead}>
-            <span className={styles.navyEyebrow}>Bản xem trước Mobile (Mock Data)</span>
-            <h2 className={styles.navyTitle}>Một cử chỉ cho mỗi phần của hành trình.</h2>
+        <section className={styles.warmShowcaseBlock}>
+          <div className={styles.showcaseCenterHead}>
+            <span className={styles.heroPill}>Bản xem trước Mobile (Mock Data)</span>
+            <h2 className={styles.sectionTitle}>Một cử chỉ cho mỗi phần của hành trình.</h2>
           </div>
 
           <div className={styles.gestureRow}>
@@ -288,7 +289,7 @@ export function LandingPage() {
 
           <div className={styles.evidenceGrid}>
             <div>
-              <h3 className={styles.navyTitle} style={{ fontSize: 26 }}>
+              <h3 className={styles.sectionTitle} style={{ fontSize: 26 }}>
                 Khi Task cần minh chứng, camera mở ra trực tiếp.
               </h3>
               <ul className={styles.evidenceList}>
@@ -302,20 +303,20 @@ export function LandingPage() {
             </div>
 
             <div className={styles.cameraMockPair} aria-hidden="true">
-              <div className={`${styles.cameraCard} ${styles.cameraCardDesk}`}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#CBD5E1' }}>
+              <div className={`${styles.cameraCard} ${styles.cameraCardWarm}`}>
+                <span style={{ fontSize: 11.5, fontWeight: 800, color: '#9A4A1C' }}>
                   Góc học tập · Mock
                 </span>
-                <Camera size={32} color="#FFD166" style={{ alignSelf: 'center' }} />
+                <Camera size={32} color="#F26733" style={{ alignSelf: 'center' }} />
                 <div className={styles.shutterRow}>
                   <span className={styles.shutterCircle} />
                 </div>
               </div>
-              <div className={`${styles.cameraCard} ${styles.cameraCardWindow}`}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#CBD5E1' }}>
+              <div className={`${styles.cameraCard} ${styles.cameraCardMint}`}>
+                <span style={{ fontSize: 11.5, fontWeight: 800, color: '#168C78' }}>
                   Hoàn thành 20 phút · Mock
                 </span>
-                <CheckCircle2 size={32} color="#5EEAD4" style={{ alignSelf: 'center' }} />
+                <CheckCircle2 size={32} color="#168C78" style={{ alignSelf: 'center' }} />
                 <div className={styles.shutterRow}>
                   <span className={styles.shutterCircle} />
                 </div>
@@ -325,8 +326,8 @@ export function LandingPage() {
 
           <div className={styles.privacyBar}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <ShieldCheck size={20} color="#FFD166" aria-hidden="true" />
-              <span style={{ fontSize: 14, fontWeight: 700 }}>
+              <ShieldCheck size={20} color="#F26733" aria-hidden="true" />
+              <span style={{ fontSize: 13.5, fontWeight: 700, color: '#182640' }}>
                 Minh chứng của bạn không tự động đăng công khai — bạn luôn toàn quyền chọn chế độ.
               </span>
             </div>
@@ -366,7 +367,7 @@ export function LandingPage() {
       </section>
 
       {/* SECTION 5: CALENDAR & PROGRESS */}
-      <section className={styles.sectionPad} style={{ paddingTop: 12 }}>
+      <section className={styles.sectionPad} style={{ paddingTop: 10 }}>
         <div className={styles.container}>
           <div className={styles.sectionCenterHead}>
             <h2 className={styles.sectionTitle}>
@@ -378,7 +379,7 @@ export function LandingPage() {
             <div className={styles.whiteCard}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <strong style={{ fontSize: 15 }}>Tháng 11, 2026 (Mock)</strong>
-                <span style={{ fontSize: 12, color: '#147A68', fontWeight: 700 }}>5 cột mốc</span>
+                <span style={{ fontSize: 12, color: '#F26733', fontWeight: 800 }}>5 cột mốc</span>
               </div>
               <div className={styles.calGrid}>
                 {Array.from({ length: 28 }, (_, i) => {
@@ -407,7 +408,7 @@ export function LandingPage() {
                       {item.num}
                     </span>
                     <div>
-                      <div style={{ fontSize: 14, fontWeight: 800, color: '#162C42' }}>
+                      <div style={{ fontSize: 14, fontWeight: 800, color: '#182640' }}>
                         {item.title}
                       </div>
                       <div style={{ fontSize: 12.5, color: '#667085' }}>{item.sub}</div>
@@ -421,11 +422,11 @@ export function LandingPage() {
       </section>
 
       {/* SECTION 6: FOX V2 COMPANION */}
-      <section id="fox-companion" className={styles.sectionPad} style={{ paddingTop: 12 }}>
+      <section id="fox-companion" className={styles.sectionPad} style={{ paddingTop: 10 }}>
         <div className={styles.container}>
           <div className={styles.foxShowcaseBanner}>
             <div className={styles.heroCopy}>
-              <span className={`${styles.typeBadge} ${styles.tone_teal}`}>FOX V2 COMPANION</span>
+              <span className={`${styles.typeBadge} ${styles.tone_orange}`}>FOX V2 COMPANION</span>
               <h2 className={styles.sectionTitle}>
                 Một người bạn nhỏ, không phải một popup phiền phức.
               </h2>
@@ -445,7 +446,7 @@ export function LandingPage() {
                     draggable={false}
                   />
                   <span className={styles.foxModeTag}>{m.tag}</span>
-                  <span style={{ fontSize: 12, color: '#5b6a7c', lineHeight: 1.45 }}>{m.desc}</span>
+                  <span style={{ fontSize: 12, color: '#5b687c', lineHeight: 1.45 }}>{m.desc}</span>
                 </div>
               ))}
             </div>
@@ -454,9 +455,9 @@ export function LandingPage() {
       </section>
 
       {/* SECTION 7: REWARDS & 3 SIMPLE STEPS */}
-      <section className={styles.sectionPad} style={{ paddingTop: 12 }}>
+      <section className={styles.sectionPad} style={{ paddingTop: 10 }}>
         <div className={styles.container}>
-          <div className={styles.twoColSplit} style={{ marginBottom: 56 }}>
+          <div className={styles.twoColSplit} style={{ marginBottom: 52 }}>
             <div className={styles.heroCopy}>
               <span className={`${styles.typeBadge} ${styles.tone_orange}`}>PHẦN THƯỞNG CÂN BẰNG</span>
               <h2 className={styles.sectionTitle}>
@@ -477,7 +478,7 @@ export function LandingPage() {
             <div className={styles.whiteCard}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <strong style={{ fontSize: 14.5 }}>Tủ đồ &amp; Cấp độ Fox V2</strong>
-                <Link to="/wardrobe" style={{ fontSize: 12.5, fontWeight: 800, color: '#147A68', textDecoration: 'none' }}>
+                <Link to="/wardrobe" style={{ fontSize: 12.5, fontWeight: 800, color: '#F26733', textDecoration: 'none' }}>
                   Mở Tủ đồ →
                 </Link>
               </div>
@@ -488,7 +489,7 @@ export function LandingPage() {
                 {['Cấp 1', 'Cấp 5', 'Cấp 10', 'Cấp 20'].map((lv) => (
                   <div key={lv} className={styles.foxModeCard} style={{ padding: '10px 6px' }}>
                     <img src="/fox_poster.png" alt="" style={{ width: 52, height: 'auto' }} draggable={false} />
-                    <span style={{ fontSize: 11, fontWeight: 800, color: '#162C42' }}>{lv}</span>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: '#182640' }}>{lv}</span>
                   </div>
                 ))}
               </div>
@@ -510,21 +511,21 @@ export function LandingPage() {
             ))}
           </div>
 
-          {/* Final Deep Navy CTA */}
+          {/* Warm Companion Final CTA */}
           <div className={styles.finalCtaBanner}>
             <div className={styles.heroCopy}>
-              <h2 className={styles.navyTitle} style={{ fontSize: 34 }}>
+              <h2 className={styles.sectionTitle} style={{ fontSize: 34 }}>
                 Hôm nay bạn muốn bắt đầu điều gì?
               </h2>
-              <p style={{ margin: 0, fontSize: 15, color: '#B7CADB', maxWidth: 480 }}>
+              <p className={styles.sectionSubtitle} style={{ maxWidth: 480 }}>
                 Tạo tài khoản miễn phí trong 30 giây cùng bài khảo sát nhanh của Fox V2, hoặc vào
                 thẳng không gian làm việc Web ngay bây giờ.
               </p>
               <div className={styles.heroCtas}>
-                <Link to="/register" className={styles.btnOrange}>
+                <Link to="/register" className={`${styles.btnPrimary} ${styles.btnPrimaryLg}`}>
                   Bắt đầu miễn phí
                 </Link>
-                <Link to="/login" className={styles.btnGhostDark}>
+                <Link to="/login" className={styles.btnSecondary}>
                   Tôi đã có tài khoản
                 </Link>
               </div>
@@ -533,7 +534,7 @@ export function LandingPage() {
             <img
               src="/fox_poster.png"
               alt="Cáo đồng hành LifeQuest V2"
-              style={{ width: 156, height: 'auto', flexShrink: 0 }}
+              style={{ width: 152, height: 'auto', flexShrink: 0 }}
               draggable={false}
             />
           </div>
