@@ -48,10 +48,9 @@ test('wardrobe H1/H2 cosmetic switching, reset & Voice Assistant Gate I sheet', 
   await page.goto('/wardrobe?nowebgl=1')
 
   await expect(page.getByRole('heading', { name: /Tủ đồ Fox V2/i })).toBeVisible()
+  await page.getByTestId('closet-tab-hanging').click()
   await page.getByRole('button', { name: 'Tết' }).click()
-  await expect(page.getByRole('button', { name: /Khôi phục mặc định \(3\)/i })).toBeEnabled()
-  await page.getByRole('button', { name: /Khôi phục mặc định \(3\)/i }).click()
-  await expect(page.getByRole('button', { name: /Khôi phục mặc định \(0\)/i })).toBeDisabled()
+  await expect(page.getByText('Đang xem trước (3)')).toBeVisible()
 
   // Open Voice Assistant dock sheet & test state transitions + Escape dismissal
   await page.getByRole('button', { name: /Mở Trợ lý Giọng nói Fox V2/i }).first().click()

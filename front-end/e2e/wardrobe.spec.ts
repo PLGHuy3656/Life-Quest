@@ -24,12 +24,12 @@ test.describe('FE-W01 Fox V2 Wardrobe & Cosmetic Shop', () => {
     const firstShopCard = page.getByTestId('shop-item-card').first()
     await expect(firstShopCard.getByRole('button', { name: /Mua \(Chờ API\)/i })).toBeDisabled()
     await firstShopCard.getByRole('button', { name: /Thử trên Fox/i }).click()
-    await expect(page.getByRole('button', { name: /Khôi phục mặc định \(1\)/i })).toBeEnabled()
+    await expect(page.getByText('Đang xem trước (1)')).toBeVisible()
 
     // Browser back returns to /wardrobe with preview still intact
     await page.goBack()
     await expect(page.getByTestId('wardrobe-workspace')).toHaveAttribute('data-mode', 'wardrobe')
-    await expect(page.getByRole('button', { name: /Khôi phục mặc định \(1\)/i })).toBeEnabled()
+    await expect(page.getByText('Đang xem trước (1)')).toBeVisible()
 
     // Navigate back to Dashboard -> FoxCompanionRail restored, still <=1 canvas
     const headerNav = page.getByLabel('Điều hướng nhanh')

@@ -1,9 +1,15 @@
-import { Bone, BufferGeometry, Material, Matrix4, Object3D, Skeleton, SkinnedMesh, Texture, type Mesh } from 'three';
+import { Bone, BufferGeometry, Material, Matrix4, Object3D, Skeleton, SkinnedMesh, Texture, Vector3, type Mesh } from 'three';
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {
   COSMETIC_CATALOG, COSMETIC_SLOTS, HAND_BUSY_CLIPS, OUTFIT_PRESETS, SLOT_ATTACH, SLOT_DEFAULTS, isCosmeticSlot,
   type CosmeticItemDef, type CosmeticResult, type CosmeticSlot, type EquippedItem, type OutfitPresetId, type OutfitSpec,
 } from './cosmeticContract';
+import {
+  DEFAULT_ACCESSORY_LAYERING,
+  getCosmeticCalibrationMatrix,
+  getDefaultScarfOverBodyMatrix,
+} from './cosmeticCalibration';
+import { buildTailoredBodyShell, isTailoredBodyCosmetic } from './tailoredBodyShell';
 
 // Gate H1 — persistent cosmetic runtime for one Fox instance.
 //
@@ -74,7 +80,7 @@ function disposeGltf(gltf: GLTF) {
   geos.forEach(g => g.dispose()); mats.forEach(m => m.dispose()); texs.forEach(t => t.dispose());
 }
 
-interface Equipped { def: CosmeticItemDef; url: string; root: Object3D; meshes: SkinnedMesh[]; skeleton: Skeleton; busy: string | null }
+interface Equipped { def: CosmeticItemDef; url: string; root: Object3D; meshes: SkinnedMesh[]; templateBindMatrices: Matrix4[]; skeleton: Skeleton | null; customDispose?: () => void; busy: string | null }
 export interface CosmeticHost {
   fox: Object3D;
   bones: Record<string, Bone>;
@@ -98,10 +104,15 @@ export class FoxCosmeticManager {
   private disposed = false;
   private hidden = new Map<string, Set<string>>();     // approved mesh name → reasons it is hidden (item ids / slot defaults)
   private registry: Record<string, CosmeticItemDef> = { ...COSMETIC_CATALOG };
+  /** Cached rest transforms of built-in default Fox scarf & backpack/straps for reversible layer calibration. */
+  private defaultScarfBindCache = new Map<string, Matrix4>();
+  private defaultRigidCache = new Map<string, { pos: Vector3; scale: Vector3 }>();
   /** Statistics for validation. */
   readonly stats = { equips: 0, unequips: 0, failures: 0, skeletonsCreated: 0, skeletonsDisposed: 0 };
 
-  constructor(private host: CosmeticHost) {}
+  constructor(private host: CosmeticHost) {
+    this.captureDefaultAccessoryRestTransforms();
+  }
 
   // ------------------------------------------------------------------ catalogue
   /** Register an extra item definition (e.g. tests, future library items). */
@@ -119,6 +130,42 @@ export class FoxCosmeticManager {
     const mySeq = ++this.seq;
     this.pending.set(slot, { id, seq: mySeq });
     const url = this.host.baseUrl + def.path;
+
+    // MASCOT-C02: Use smooth, zero-pixelation tailored 3D shell for BODY garments
+    // (eliminates baked stair-step quad cutouts in Gate I BODY GLBs without altering GLB files)
+    if (slot === 'BODY' && isTailoredBodyCosmetic(id)) {
+      const tailored = buildTailoredBodyShell(id, this.host.objs);
+      if (tailored) {
+        this.pending.delete(slot);
+        const removed: string[] = [];
+        for (const [s, e] of [...this.slots]) {
+          if (s === slot) continue;
+          if (def.excludes?.includes(e.def.id) || def.excludes?.includes(s) || e.def.excludes?.includes(id) || e.def.excludes?.includes(slot)) { this.remove(s); removed.push(e.def.id); }
+        }
+        const replaced = this.slots.get(slot)?.def.id ?? null;
+        if (replaced) this.remove(slot, true);
+        this.host.fox.add(tailored.root);
+        const eq: Equipped = {
+          def,
+          url: '',
+          root: tailored.root,
+          meshes: tailored.meshes,
+          templateBindMatrices: tailored.meshes.map((m) => m.bindMatrix.clone()),
+          skeleton: null,
+          customDispose: tailored.dispose,
+          busy: null
+        };
+        this.slots.set(slot, eq);
+        this.applyHides();
+        this.applyLayeringCalibration();
+        this.stats.equips++;
+        this.updateHandBusy(true);
+        this.host.resourcesChanged();
+        this.host.emit({ type: 'cosmetic', op: 'equip', slot, id, replaced });
+        return { ok: true, slot, id, replaced, removed: removed.length ? removed : undefined };
+      }
+    }
+
     let tpl: Template;
     try { tpl = await acquireTemplate(url); } catch (e) {
       if (this.pending.get(slot)?.seq === mySeq) this.pending.delete(slot);
@@ -135,11 +182,17 @@ export class FoxCosmeticManager {
     this.stats.skeletonsCreated++;
     const root = new Object3D(); root.name = `COSMETIC_${slot}_${id}`;
     const meshes: SkinnedMesh[] = [];
+    const templateBindMatrices: Matrix4[] = [];
+    const hasBodyClothing = slot === 'BODY' || this.slots.has('BODY');
+    const calMatrix = getCosmeticCalibrationMatrix(id, { hasBodyClothing });
     tpl.gltf.scene.traverse(o => {
       const t = o as SkinnedMesh; if (!t.isSkinnedMesh) return;
       const m = new SkinnedMesh(t.geometry, t.material);          // shared geometry / material (no CPU copy)
       m.name = t.name; m.frustumCulled = false; m.renderOrder = t.renderOrder;
-      m.bind(skeleton, t.bindMatrix.clone());
+      const tplBind = t.bindMatrix.clone();
+      templateBindMatrices.push(tplBind);
+      const bindMat = calMatrix ? calMatrix.clone().multiply(tplBind) : tplBind.clone();
+      m.bind(skeleton, bindMat);
       m.userData.cosmetic = { id, slot };
       root.add(m); meshes.push(m);
     });
@@ -153,9 +206,10 @@ export class FoxCosmeticManager {
     if (replaced) this.remove(slot, true);
     // the skin is attached at the Fox root (same space as the Fox's own skinned meshes)
     this.host.fox.add(root);
-    const eq: Equipped = { def, url, root, meshes, skeleton, busy: null };
+    const eq: Equipped = { def, url, root, meshes, templateBindMatrices, skeleton, busy: null };
     this.slots.set(slot, eq);
     this.applyHides();
+    this.applyLayeringCalibration();
     this.stats.equips++;
     this.updateHandBusy(true);
     this.host.resourcesChanged();
@@ -208,16 +262,97 @@ export class FoxCosmeticManager {
     this.pending.clear();
     this.disposed = true;
     this.applyHides();
+    this.applyLayeringCalibration();
   }
 
   // ------------------------------------------------------------------ internals
+  private captureDefaultAccessoryRestTransforms() {
+    for (const name of SLOT_DEFAULTS.NECK?.meshes ?? []) {
+      const o = this.host.objs[name] as SkinnedMesh | undefined;
+      if (o?.isSkinnedMesh) {
+        this.defaultScarfBindCache.set(name, o.bindMatrix.clone());
+      }
+    }
+    for (const name of ['FOX_Backpack', 'FOX_Backpack_Strap_L', 'FOX_Backpack_Strap_R']) {
+      const o = this.host.objs[name];
+      if (o) {
+        this.defaultRigidCache.set(name, { pos: o.position.clone(), scale: o.scale.clone() });
+      }
+    }
+  }
+
+  /**
+   * MASCOT-C02 Layer-aware outfit spacing:
+   *  - Re-binds BACK cosmetics with overBodyDelta when BODY clothing is worn.
+   *  - Elevates built-in FOX_Scarf_* (Layer 3) cleanly above BODY garments / capelet.
+   *  - Expands built-in FOX_Backpack & independent Strap_L/R (Layer 4) outside BODY garments.
+   *  - Restores exact original Gate I rest transforms when BODY is unequipped.
+   */
+  private applyLayeringCalibration() {
+    const hasBody = !this.disposed && this.slots.has('BODY');
+    const hasCapelet = !this.disposed && this.slots.get('BACK')?.def.id === 'mage_capelet';
+
+    // 1. Re-evaluate equipped BACK cosmetic bindMatrix against current BODY state
+    const backEq = this.slots.get('BACK');
+    if (backEq) {
+      const cal = getCosmeticCalibrationMatrix(backEq.def.id, { hasBodyClothing: hasBody });
+      backEq.meshes.forEach((m, i) => {
+        const tplBind = backEq.templateBindMatrices[i];
+        if (!tplBind) return;
+        const nextBind = cal ? cal.clone().multiply(tplBind) : tplBind.clone();
+        m.bindMatrix.copy(nextBind);
+        if (m.bindMode === 'detached') m.bindMatrixInverse.copy(nextBind).invert();
+      });
+    }
+
+    // 2. Layer 3: Built-in FOX_Scarf_* over BODY clothing / capelet
+    const elevateScarf = hasBody || hasCapelet;
+    const scarfMat = elevateScarf ? getDefaultScarfOverBodyMatrix() : null;
+    for (const [name, origBind] of this.defaultScarfBindCache) {
+      const o = this.host.objs[name] as SkinnedMesh | undefined;
+      if (!o?.isSkinnedMesh) continue;
+      if (scarfMat) o.bindMatrix.copy(scarfMat).multiply(origBind);
+      else o.bindMatrix.copy(origBind);
+    }
+
+    // 3. Layer 4: Built-in FOX_Backpack & independent Left/Right straps over BODY clothing
+    const cfg = DEFAULT_ACCESSORY_LAYERING.defaultBackpackOverBody;
+    const applyRigid = (
+      name: string,
+      active: boolean,
+      posDelta: readonly [number, number, number],
+      scaleMult: readonly [number, number, number]
+    ) => {
+      const o = this.host.objs[name];
+      const base = this.defaultRigidCache.get(name);
+      if (!o || !base) return;
+      if (active) {
+        o.position.set(base.pos.x + posDelta[0], base.pos.y + posDelta[1], base.pos.z + posDelta[2]);
+        o.scale.set(base.scale.x * scaleMult[0], base.scale.y * scaleMult[1], base.scale.z * scaleMult[2]);
+      } else {
+        o.position.copy(base.pos);
+        o.scale.copy(base.scale);
+      }
+    };
+
+    const elevateDefaultPack = hasBody && !this.slots.has('BACK');
+    applyRigid('FOX_Backpack', elevateDefaultPack, cfg.packPositionDelta, cfg.packScaleMultiplier);
+    applyRigid('FOX_Backpack_Strap_L', elevateDefaultPack, cfg.strapLeftPositionDelta, cfg.strapLeftScaleMultiplier);
+    applyRigid('FOX_Backpack_Strap_R', elevateDefaultPack, cfg.strapRightPositionDelta, cfg.strapRightScaleMultiplier);
+  }
+
   private remove(slot: CosmeticSlot, silent = false) {
     const e = this.slots.get(slot); if (!e) return;
     this.slots.delete(slot);
     e.root.removeFromParent();
-    e.skeleton.dispose(); this.stats.skeletonsDisposed++;          // per-instance bone texture (if any)
-    releaseTemplate(e.url);                                          // shared geometry is disposed with the template
+    if (e.customDispose) {
+      e.customDispose();
+    } else {
+      if (e.skeleton) { e.skeleton.dispose(); this.stats.skeletonsDisposed++; }
+      if (e.url) releaseTemplate(e.url);
+    }
     this.applyHides();
+    this.applyLayeringCalibration();
     this.stats.unequips++;
     if (!silent) this.host.emit({ type: 'cosmetic', op: 'unequip', slot, id: e.def.id });
   }

@@ -29,7 +29,7 @@ const RUNTIME_MODULES = ANIMATION_MODULES.map((m) => ({
 }))
 
 export interface FoxCameraCommand {
-  type: 'front' | 'back' | 'zoomIn' | 'zoomOut' | 'reset'
+  type: 'front' | 'side' | 'back' | 'zoomIn' | 'zoomOut' | 'reset'
   seq: number
 }
 
@@ -313,6 +313,9 @@ function FoxRig({
         const offset = cam.position.clone().sub(target).setLength(baseDist)
         cam.position.copy(target).add(offset)
       }
+    } else if (cameraCommand.type === 'side') {
+      const dist = Math.max(1.4, Math.min(3.8, cam.position.distanceTo(target)))
+      cam.position.set(target.x + dist, target.y + 0.14, target.z)
     } else if (cameraCommand.type === 'back') {
       const dist = Math.max(1.4, Math.min(3.8, cam.position.distanceTo(target)))
       cam.position.set(target.x, target.y + 0.16, target.z - dist)

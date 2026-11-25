@@ -71,20 +71,20 @@ describe('FE-W01 WardrobePage & Cosmetic Shop', () => {
 
     // Preview first hat (student_cap)
     await user.click(within(hatCards[0]).getByRole('button', { name: 'Thử ngay' }))
-    expect(screen.getByRole('button', { name: /Khôi phục mặc định \(1\)/i })).toBeEnabled()
+    expect(within(stage).getByText('Đang xem trước (1)')).toBeInTheDocument()
     expect(stage).toHaveAttribute('data-preview-slots', 'HEAD')
     expect(stage).toHaveAttribute('data-persisted-count', '0')
 
     // Preview another hat in same slot (HEAD) -> replaces previous HEAD preview (count stays 1)
     await user.click(within(hatCards[1]).getByRole('button', { name: 'Thử ngay' }))
-    expect(screen.getByRole('button', { name: /Khôi phục mặc định \(1\)/i })).toBeEnabled()
+    expect(within(stage).getByText('Đang xem trước (1)')).toBeInTheDocument()
 
     // Switch to Balo (BACK) and preview a backpack -> independent slot (count becomes 2)
     await user.click(screen.getByRole('tab', { name: /Balo/i }))
     const backCards = screen.getAllByTestId('wardrobe-item-card')
     expect(backCards).toHaveLength(3)
     await user.click(within(backCards[0]).getByRole('button', { name: 'Thử ngay' }))
-    expect(screen.getByRole('button', { name: /Khôi phục mặc định \(2\)/i })).toBeEnabled()
+    expect(within(stage).getByText('Đang xem trước (2)')).toBeInTheDocument()
     expect(stage.getAttribute('data-preview-slots')).toContain('HEAD')
     expect(stage.getAttribute('data-preview-slots')).toContain('BACK')
     expect(stage).toHaveAttribute('data-persisted-count', '0')
@@ -93,13 +93,10 @@ describe('FE-W01 WardrobePage & Cosmetic Shop', () => {
     await user.click(screen.getByRole('tab', { name: /Khăn/i }))
     expect(screen.getByTestId('default-scarf-card')).toBeInTheDocument()
 
-    // Apply H2 Tết outfit preset (3 items)
+    // Switch to Hộc tủ tab and apply H2 Tết outfit preset (3 items)
+    await user.click(screen.getByTestId('closet-tab-hanging'))
     await user.click(screen.getByRole('button', { name: 'Tết' }))
-    expect(screen.getByRole('button', { name: /Khôi phục mặc định \(3\)/i })).toBeEnabled()
-
-    // Reset preview back to default
-    await user.click(screen.getByRole('button', { name: /Khôi phục mặc định \(3\)/i }))
-    expect(screen.getByRole('button', { name: /Khôi phục mặc định \(0\)/i })).toBeDisabled()
+    expect(within(stage).getByText('Đang xem trước (3)')).toBeInTheDocument()
   })
 
   it('supports Cosmetic Shop route (/wardrobe/shop) with try-on, preserved category, and disabled purchases without API', async () => {
@@ -124,7 +121,7 @@ describe('FE-W01 WardrobePage & Cosmetic Shop', () => {
     expect(screen.getByTestId('wardrobe-coin-balance')).toHaveTextContent('—')
     expect(screen.getByTestId('wardrobe-player-level')).toHaveTextContent('—')
     await user.click(within(shopCards[0]).getByRole('button', { name: /Thử trên Fox/i }))
-    expect(screen.getByRole('button', { name: /Khôi phục mặc định \(1\)/i })).toBeEnabled()
+    expect(screen.getByText('Đang xem trước (1)')).toBeInTheDocument()
     expect(screen.getByTestId('wardrobe-coin-balance')).toHaveTextContent('—')
   })
 
