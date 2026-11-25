@@ -68,11 +68,11 @@ test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ pag
   await expect(dialog).toBeHidden()
 })
 
-test('protected routes (/settings, /profile) redirect unauthenticated users to /login', async ({
+test('protected routes (/settings, /profile) redirect unauthenticated users to /login when strict guard is enabled', async ({
   page
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
-  await page.goto('/settings')
+  await page.goto('/settings?authGuard=strict')
 
   await expect(page).toHaveURL(/\/login\?redirect=%2Fsettings/)
   await expect(page.getByRole('heading', { name: /^Đăng nhập$/i })).toBeVisible()
@@ -80,7 +80,7 @@ test('protected routes (/settings, /profile) redirect unauthenticated users to /
   await page.getByRole('button', { name: 'Đăng nhập' }).click()
   await expect(page.getByText('Vui lòng nhập email.')).toBeVisible()
 
-  await page.goto('/profile')
+  await page.goto('/profile?authGuard=strict')
   await expect(page).toHaveURL(/\/login\?redirect=%2Fprofile/)
 })
 

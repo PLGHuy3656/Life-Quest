@@ -52,8 +52,8 @@ describe('FE-07 Authentication Experience, ProtectedRoute & Security Boundaries'
     expect(validateSafeRedirect(null, '/work')).toBe('/work')
   })
 
-  it('redirects unauthenticated users from /profile and strict /calendar to /login with safe redirect', async () => {
-    const { unmount } = renderAt('/profile')
+  it('redirects unauthenticated users from strict /profile and strict /calendar to /login with safe redirect', async () => {
+    const { unmount } = renderAt('/profile?authGuard=strict')
     expect(await screen.findByRole('heading', { name: /^Đăng nhập$/i })).toBeInTheDocument()
     unmount()
 

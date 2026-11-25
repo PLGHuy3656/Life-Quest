@@ -103,7 +103,7 @@ export function AppRoutes() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute mode="strict">
+                  <ProtectedRoute mode="workspace">
                     <ProfileBoundaryPage />
                   </ProtectedRoute>
                 }
@@ -111,7 +111,7 @@ export function AppRoutes() {
               <Route
                 path="/settings"
                 element={
-                  <ProtectedRoute mode="strict">
+                  <ProtectedRoute mode="workspace">
                     <SettingsPage />
                   </ProtectedRoute>
                 }
