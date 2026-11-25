@@ -6,6 +6,8 @@ import { milestonesRoute } from '../modules/milestones/milestonesRoute.js'
 import { questsRoute } from '../modules/quests/questsRoute.js'
 import { schedulesRoute } from '../modules/schedules/schedulesRoute.js'
 import { todayRoute } from '../modules/today/todayRoute.js'
+import { executionsRoute } from '../modules/executions/executionsRoute.js'
+import { focusRoute } from '../modules/focus/focusRoute.js'
 
 const Router = express.Router()
 
@@ -31,5 +33,12 @@ Router.use('/schedules', schedulesRoute)
 
 // Today Module
 Router.use('/today', todayRoute)
+
+// Execution Module
+Router.use('/executions', executionsRoute)
+
+// Focus Module
+Router.use('/executions', focusRoute)
+Router.use('/focus-sessions', focusRoute)
 
 export const routes = Router
