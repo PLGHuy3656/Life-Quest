@@ -34,6 +34,13 @@ enum ExecutionStatus {
   ABANDONED
 }
 
+enum FocusStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ABANDONED
+}
+
 model User {
   id              String    @id @default(uuid())
   email           String    @unique
@@ -200,7 +207,34 @@ model QuestExecution {
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
-  quest    Quest          @relation(fields: [questId], references: [id], onDelete: Restrict)
-  user     User           @relation(fields: [userId], references: [id], onDelete: Restrict)
-  schedule QuestSchedule? @relation(fields: [scheduleId], references: [id], onDelete: Restrict)
+  quest         Quest            @relation(fields: [questId], references: [id], onDelete: Restrict)
+  user          User             @relation(fields: [userId], references: [id], onDelete: Restrict)
+  schedule      QuestSchedule?   @relation(fields: [scheduleId], references: [id], onDelete: Restrict)
+  focusSessions FocusSession[]
+}
+
+model FocusSession {
+  id              String              @id @default(uuid())
+  executionId     String
+  startedAt       DateTime            @default(now())
+  endedAt         DateTime?
+  durationSeconds Int                 @default(0)
+  status          FocusStatus         @default(ACTIVE)
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  execution       QuestExecution      @relation(fields: [executionId], references: [id], onDelete: Restrict)
+  interruptions   FocusInterruption[]
+}
+
+model FocusInterruption {
+  id             String       @id @default(uuid())
+  focusSessionId String
+  startedAt      DateTime     @default(now())
+  endedAt        DateTime?
+  reason         String?
+  source         String?      @db.VarChar(30)
+  createdAt      DateTime     @default(now())
+
+  focusSession   FocusSession @relation(fields: [focusSessionId], references: [id], onDelete: Cascade)
 }
