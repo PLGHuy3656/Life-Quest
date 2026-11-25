@@ -1,5 +1,6 @@
 import { executionsRepository } from './executionsRepository.js'
 import { questsRepository } from '../quests/questsRepository.js'
+import { proofsRepository } from '../proofs/proofsRepository.js'
 import prisma from '../../config/database.js'
 import ApiError from '../../common/errors/ApiError.js'
 
@@ -151,7 +152,15 @@ const completeExecution = async (userId, executionId) => {
     throw new ApiError(400, 'Target condition for this quest has not been met yet', 'TARGET_NOT_MET')
   }
 
-  // 2. Transaction hoàn thành và cộng thưởng
+  // 2. Kiểm tra điều kiện bằng chứng bắt buộc (nếu có)
+  if (quest.proofRequirement === 'REQUIRED') {
+    const hasProof = await proofsRepository.hasValidProof(executionId)
+    if (!hasProof) {
+      throw new ApiError(400, 'This quest requires at least one proof before completion', 'PROOF_REQUIRED')
+    }
+  }
+
+  // 3. Transaction hoàn thành và cộng thưởng
   return await prisma.$transaction(async (tx) => {
     // Cập nhật trạng thái Execution sang COMPLETED
     const completedExecution = await executionsRepository.updateExecution(

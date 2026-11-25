@@ -8,6 +8,10 @@ import { schedulesRoute } from '../modules/schedules/schedulesRoute.js'
 import { todayRoute } from '../modules/today/todayRoute.js'
 import { executionsRoute } from '../modules/executions/executionsRoute.js'
 import { focusRoute } from '../modules/focus/focusRoute.js'
+import { proofsRoute, executionProofsRoute } from '../modules/proofs/proofsRoute.js'
+import { gamificationRoute } from '../modules/gamification/gamificationRoute.js'
+import { achievementsRoute, userAchievementsRoute } from '../modules/achievements/achievementsRoute.js'
+import { rewardsRoute, inventoryRoute } from '../modules/rewards/rewardsRoute.js'
 
 const Router = express.Router()
 
@@ -16,6 +20,7 @@ Router.use('/auth', authRoute)
 
 // Users Module
 Router.use('/users', usersRoute)
+Router.use('/users', userAchievementsRoute)
 
 // Goals Module
 Router.use('/goals', goalsRoute)
@@ -40,5 +45,19 @@ Router.use('/executions', executionsRoute)
 // Focus Module
 Router.use('/executions', focusRoute)
 Router.use('/focus-sessions', focusRoute)
+
+// Proof Module
+Router.use('/executions', executionProofsRoute)
+Router.use('/proofs', proofsRoute)
+
+// Gamification Module
+Router.use('/gamification', gamificationRoute)
+
+// Achievements Module
+Router.use('/achievements', achievementsRoute)
+
+// Rewards & Inventory Module
+Router.use('/rewards', rewardsRoute)
+Router.use('/inventory', inventoryRoute)
 
 export const routes = Router

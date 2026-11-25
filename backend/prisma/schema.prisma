@@ -41,6 +41,24 @@ enum FocusStatus {
   ABANDONED
 }
 
+enum Visibility {
+  PRIVATE
+  FRIENDS
+  PUBLIC
+}
+
+enum MediaStatus {
+  READY
+  PROCESSING
+  DELETED
+}
+
+enum CoinTransactionType {
+  EARNED
+  SPENT
+  REFUNDED
+}
+
 model User {
   id              String    @id @default(uuid())
   email           String    @unique
@@ -57,9 +75,14 @@ model User {
   quests       Quest[]
   profile      UserProfile?
   settings     UserSettings?
-  gamification UserGamification?
-  sessions     Session[]
-  executions   QuestExecution[]
+  gamification     UserGamification?
+  sessions         Session[]
+  executions       QuestExecution[]
+  media            Media[]
+  xpTransactions   XpTransaction[]
+  coinTransactions CoinTransaction[]
+  achievements     UserAchievement[]
+  inventory        UserInventory[]
 }
 
 model UserProfile {
@@ -211,6 +234,7 @@ model QuestExecution {
   user          User             @relation(fields: [userId], references: [id], onDelete: Restrict)
   schedule      QuestSchedule?   @relation(fields: [scheduleId], references: [id], onDelete: Restrict)
   focusSessions FocusSession[]
+  proofs        QuestProof[]
 }
 
 model FocusSession {
@@ -237,4 +261,128 @@ model FocusInterruption {
   createdAt      DateTime     @default(now())
 
   focusSession   FocusSession @relation(fields: [focusSessionId], references: [id], onDelete: Cascade)
+}
+
+model Media {
+  id              String       @id @default(uuid())
+  ownerUserId     String
+  storageProvider String       @db.VarChar(30)
+  storageKey      String       @unique
+  originalName    String?      @db.VarChar(255)
+  mimeType        String       @db.VarChar(100)
+  sizeBytes       BigInt
+  width           Int?
+  height          Int?
+  status          MediaStatus  @default(READY)
+  createdAt       DateTime     @default(now())
+  deletedAt       DateTime?
+
+  owner           User         @relation(fields: [ownerUserId], references: [id], onDelete: Restrict)
+  proofs          QuestProof[]
+  achievements    Achievement[]
+  rewardItems     RewardItem[]
+}
+
+model QuestProof {
+  id          String     @id @default(uuid())
+  executionId String
+  mediaId     String
+  visibility  Visibility @default(PRIVATE)
+  createdAt   DateTime   @default(now())
+  deletedAt   DateTime?
+
+  execution   QuestExecution @relation(fields: [executionId], references: [id], onDelete: Restrict)
+  media       Media          @relation(fields: [mediaId], references: [id], onDelete: Restrict)
+}
+
+model XpTransaction {
+  id             String   @id @default(uuid())
+  userId         String
+  amount         Int
+  sourceType     String   @db.VarChar(50)
+  sourceId       String?
+  idempotencyKey String   @unique @db.VarChar(150)
+  description    String?
+  createdAt      DateTime @default(now())
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+}
+
+model CoinTransaction {
+  id              String              @id @default(uuid())
+  userId          String
+  amount          BigInt
+  transactionType CoinTransactionType
+  sourceType      String              @db.VarChar(50)
+  sourceId        String?
+  idempotencyKey  String              @unique @db.VarChar(150)
+  description     String?
+  createdAt       DateTime            @default(now())
+
+  user            User                @relation(fields: [userId], references: [id], onDelete: Restrict)
+}
+
+model Achievement {
+  id               String            @id @default(uuid())
+  code             String            @unique @db.VarChar(80)
+  name             String            @db.VarChar(150)
+  description      String?
+  iconMediaId      String?
+  type             String            @db.VarChar(50)
+  isHidden         Boolean           @default(false)
+  conditionConfig  Json
+  rewardXp         Int               @default(0)
+  rewardCoin       Int               @default(0)
+  isActive         Boolean           @default(true)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  iconMedia        Media?            @relation(fields: [iconMediaId], references: [id], onDelete: SetNull)
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(uuid())
+  userId        String
+  achievementId String
+  progress      Decimal     @default(0) @db.Decimal(12, 2)
+  unlockedAt    DateTime?
+  createdAt     DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Restrict)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, achievementId])
+}
+
+model RewardItem {
+  id            String          @id @default(uuid())
+  code          String          @unique @db.VarChar(80)
+  name          String          @db.VarChar(150)
+  description   String?
+  category      String          @db.VarChar(50)
+  priceCoin     BigInt          @default(0)
+  requiredLevel Int             @default(1)
+  mediaId       String?
+  metadata      Json?
+  isActive      Boolean         @default(true)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  media         Media?          @relation(fields: [mediaId], references: [id], onDelete: SetNull)
+  inventory     UserInventory[]
+}
+
+model UserInventory {
+  id           String     @id @default(uuid())
+  userId       String
+  rewardItemId String
+  purchasedAt  DateTime   @default(now())
+  equippedAt   DateTime?
+  quantity     Int        @default(1)
+
+  user         User       @relation(fields: [userId], references: [id], onDelete: Restrict)
+  rewardItem   RewardItem @relation(fields: [rewardItemId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, rewardItemId])
 }
