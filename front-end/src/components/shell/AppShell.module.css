@@ -310,6 +310,20 @@
   z-index: 12;
 }
 
+.leftRailFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.leftRailFooterHorizontal {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 .shopRailBtn {
   width: 52px;
   height: 52px;

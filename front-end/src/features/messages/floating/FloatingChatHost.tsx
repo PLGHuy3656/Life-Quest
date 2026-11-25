@@ -11,7 +11,13 @@ export interface FloatingChatHostProps {
   isFoxVisible: boolean
 }
 
-const UNAUTHENTICATED_PATHS = ['/login', '/register']
+const UNAUTHENTICATED_PATHS = [
+  '/login',
+  '/register',
+  '/forgot-password',
+  '/reset-password',
+  '/loading'
+]
 
 export function FloatingChatHost({ isFoxVisible }: FloatingChatHostProps) {
   const location = useLocation()

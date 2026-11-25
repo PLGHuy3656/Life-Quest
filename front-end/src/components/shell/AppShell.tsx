@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 import { Link, matchPath, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   Bell,
@@ -43,11 +44,13 @@ const ROUTE_TITLES: Record<string, string> = {
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const queryClient = useQueryClient()
   const location = useLocation()
   const navigate = useNavigate()
   const isDesktop = useIsDesktop()
   const reducedMotion = useUiStore((s) => s.reducedMotion)
   const toggleReducedMotion = useUiStore((s) => s.toggleReducedMotion)
+  const pinnedRailCollapsed = useUiStore((s) => s.pinnedRailCollapsed)
   const openSheet = useUiStore((s) => s.openSheet)
   const searchQuery = useUiStore((s) => s.searchQuery)
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
@@ -81,6 +84,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       // Always clear local in-memory session
     } finally {
       clearSession()
+      queryClient.clear()
       useMessengerStore.getState().clearPrivateSession()
       navigate('/login')
     }
@@ -172,20 +176,25 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <aside className={styles.leftRailStack} data-testid="shared-left-rail-stack" aria-label="Thanh tiện ích trái">
                 <PinnedTaskRail />
-                <PlayerStatsRail />
-                <NavLink
-                  to="/wardrobe/shop"
-                  className={({ isActive }) =>
-                    `${styles.shopRailBtn} ${isActive ? styles.shopRailBtnActive : ''}`.trim()
-                  }
-                  aria-label="Cửa hàng trang phục"
-                  title="Cửa hàng trang phục"
-                  data-testid="left-rail-shop-btn"
+                <div
+                  className={`${styles.leftRailFooter} ${!pinnedRailCollapsed ? styles.leftRailFooterHorizontal : ''}`.trim()}
+                  data-testid="left-rail-footer"
                 >
-                  <span className={styles.shopRailIcon} aria-hidden="true">
-                    <Store size={15} strokeWidth={2.2} />
-                  </span>
-                </NavLink>
+                  <PlayerStatsRail horizontal={!pinnedRailCollapsed} />
+                  <NavLink
+                    to="/wardrobe/shop"
+                    className={({ isActive }) =>
+                      `${styles.shopRailBtn} ${isActive ? styles.shopRailBtnActive : ''}`.trim()
+                    }
+                    aria-label="Cửa hàng trang phục"
+                    title="Cửa hàng trang phục"
+                    data-testid="left-rail-shop-btn"
+                  >
+                    <span className={styles.shopRailIcon} aria-hidden="true">
+                      <Store size={15} strokeWidth={2.2} />
+                    </span>
+                  </NavLink>
+                </div>
               </aside>
               <div className={styles.centerRegion} data-testid="shared-center-region">
                 {children}

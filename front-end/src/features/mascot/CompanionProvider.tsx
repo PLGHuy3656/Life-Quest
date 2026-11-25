@@ -16,8 +16,9 @@ import {
   type OutfitPresetId
 } from '@/mascot/cosmetics/cosmeticContract'
 import type { FoxController, FoxEventResult } from '@/mascot/FoxController'
+import type { FoxPoseMode } from '@/mascot/FoxExpressivePose'
 import type { FoxEventName, FoxEventPayloads } from '@/mascot/FoxEventMap'
-import type { FoxActivity, FoxMood } from '@/mascot/foxContract'
+import type { FoxActivity, FoxMood, FoxOneShotClip } from '@/mascot/foxContract'
 import { useUiStore } from '@/stores/uiStore'
 import { usePrefersReducedMotion } from './environment'
 
@@ -92,6 +93,9 @@ interface CompanionContextValue {
     payload?: Record<string, unknown>
   ) => void
   publish: <E extends FoxEventName>(name: E, payload?: FoxEventPayloads[E]) => void
+  setPoseMode: (mode: FoxPoseMode) => void
+  playClip: (clip: FoxOneShotClip) => void
+  setActivityTempo: (scale: number) => void
   register: (controller: FoxController, meta: CompanionInstanceMeta) => () => void
   activeInstanceCount: number
   eventLog: CompanionEventLog[]
@@ -230,6 +234,24 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
     setPreviewCosmetics({})
   }, [])
 
+  const setPoseMode = useCallback((mode: FoxPoseMode) => {
+    for (const { c } of instancesRef.current.values()) {
+      c.setPoseMode(mode)
+    }
+  }, [])
+
+  const playClip = useCallback((clip: FoxOneShotClip) => {
+    for (const { c } of instancesRef.current.values()) {
+      c.playClip(clip)
+    }
+  }, [])
+
+  const setActivityTempo = useCallback((scale: number) => {
+    for (const { c } of instancesRef.current.values()) {
+      c.setActivityTempo(scale)
+    }
+  }, [])
+
   const register = useCallback((controller: FoxController, meta: CompanionInstanceMeta) => {
     instancesRef.current.set(controller.id, { c: controller, meta })
     setActiveInstanceCount(instancesRef.current.size)
@@ -270,6 +292,9 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       voicePhase,
       dispatchVoiceEvent,
       publish,
+      setPoseMode,
+      playClip,
+      setActivityTempo,
       register,
       activeInstanceCount,
       eventLog
@@ -291,6 +316,9 @@ export function CompanionProvider({ children }: { children: ReactNode }) {
       voicePhase,
       dispatchVoiceEvent,
       publish,
+      setPoseMode,
+      playClip,
+      setActivityTempo,
       register,
       activeInstanceCount,
       eventLog

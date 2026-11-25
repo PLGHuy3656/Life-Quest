@@ -1,9 +1,11 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
+import { AlertCircle, CheckCircle2, Eye, EyeOff, Info, Loader2, WifiOff } from 'lucide-react'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
+import { ApiClientError } from '@/types/api'
+import { AuthLayout, type AuthFoxReaction } from './AuthLayout'
+import { validateSafeRedirect } from './authRedirect'
 import styles from './AuthPages.module.css'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -21,37 +23,60 @@ export function LoginPage() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({})
-  const [submitError, setSubmitError] = useState<string | null>(null)
-  const [forgotNotice, setForgotNotice] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<{ message: string; isNetwork?: boolean } | null>(
+    null
+  )
   const [submitting, setSubmitting] = useState(false)
+  const [foxReaction, setFoxReaction] = useState<AuthFoxReaction>('LOGIN_IDLE')
 
-  const redirectTarget = searchParams.get('redirect') || '/work'
-  const safeRedirect = redirectTarget.startsWith('/') ? redirectTarget : '/'
+  const submitLockRef = useRef(false)
+  const emailInputRef = useRef<HTMLInputElement>(null)
+  const passwordInputRef = useRef<HTMLInputElement>(null)
+
+  const safeRedirect = validateSafeRedirect(searchParams.get('redirect'), '/work')
 
   const validate = () => {
     const next: { email?: string; password?: string } = {}
-    if (!email.trim()) {
+    const normalizedEmail = email.trim()
+    if (!normalizedEmail) {
       next.email = 'Vui lòng nhập email.'
-    } else if (!EMAIL_RE.test(email.trim())) {
+    } else if (!EMAIL_RE.test(normalizedEmail)) {
       next.email = 'Định dạng email không hợp lệ.'
     }
     if (!password) {
       next.password = 'Vui lòng nhập mật khẩu.'
     }
     setFieldErrors(next)
+
+    if (next.email) {
+      emailInputRef.current?.focus()
+    } else if (next.password) {
+      passwordInputRef.current?.focus()
+    }
     return Object.keys(next).length === 0
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (submitLockRef.current) return
     setSubmitError(null)
     clearExpiredMessage()
-    if (!validate()) return
+    if (!validate()) {
+      setFoxReaction('LOGIN_ERROR')
+      return
+    }
 
+    submitLockRef.current = true
     setSubmitting(true)
+    setFoxReaction('LOGIN_LOADING')
     try {
-      const result = await authApi.login({ email: email.trim(), password })
+      const result = await authApi.login({
+        email: email.trim().toLowerCase(),
+        password
+      })
+      setFoxReaction('LOGIN_SUCCESS')
       setSession({
         accessToken: result.accessToken,
         refreshToken: result.refreshToken,
@@ -59,144 +84,199 @@ export function LoginPage() {
       })
       navigate(safeRedirect, { replace: true })
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : 'Đăng nhập thất bại.')
+      setFoxReaction('LOGIN_ERROR')
+      if (err instanceof ApiClientError) {
+        if (err.isNetworkError || err.status === 0) {
+          setSubmitError({
+            message: 'Không thể kết nối máy chủ LifeQuest Backend. Vui lòng kiểm tra kết nối mạng.',
+            isNetwork: true
+          })
+        } else if (err.status === 403) {
+          setSubmitError({
+            message: 'Tài khoản hiện không có quyền truy cập. Vui lòng liên hệ quản trị viên.'
+          })
+        } else {
+          setSubmitError({
+            message: err.message || 'Email hoặc mật khẩu không đúng.'
+          })
+        }
+      } else {
+        setSubmitError({
+          message: err instanceof Error ? err.message : 'Đăng nhập thất bại.'
+        })
+      }
     } finally {
+      submitLockRef.current = false
       setSubmitting(false)
     }
   }
 
-  const handleForgotPassword = async () => {
-    try {
-      await authApi.forgotPassword()
-    } catch (err) {
-      setForgotNotice(
-        err instanceof Error
-          ? err.message
-          : 'Tính năng đặt lại mật khẩu chưa khả dụng trên Backend.'
-      )
-    }
-  }
-
   return (
-    <div className={styles.wrap}>
-      <Card variant="elevated" className={styles.card}>
-        <div className={styles.header}>
-          <div className={styles.brandRow}>
-            <div className={styles.brandMark} aria-hidden="true">
-              LQ
-            </div>
-            <h1 className={styles.title}>Đăng nhập LifeQuest</h1>
-          </div>
-          <p className={styles.subtitle}>
-            Kết nối trực tiếp tới Backend <code>POST /api/v1/auth/login</code>.
-          </p>
+    <AuthLayout
+      foxReaction={foxReaction}
+      topActionLabel="ĐĂNG KÝ"
+      topActionTo="/register"
+    >
+      <div className={styles.header}>
+        <h1 className={styles.title}>Đăng nhập</h1>
+      </div>
+
+      {registeredMessage && (
+        <div
+          className={`${styles.alert} ${styles.alertSuccess}`}
+          role="status"
+          data-testid="login-registered-alert"
+        >
+          <CheckCircle2 size={16} className={styles.alertIcon} aria-hidden="true" />
+          <span>{registeredMessage}</span>
         </div>
+      )}
 
-        {registeredMessage && (
-          <div className={`${styles.alert} ${styles.alertSuccess}`} role="status">
-            {registeredMessage}
-          </div>
-        )}
+      {sessionExpiredMessage && (
+        <div
+          className={`${styles.alert} ${styles.alertInfo}`}
+          role="alert"
+          data-testid="login-expired-alert"
+        >
+          <Info size={16} className={styles.alertIcon} aria-hidden="true" />
+          <span>{sessionExpiredMessage}</span>
+        </div>
+      )}
 
-        {sessionExpiredMessage && (
-          <div className={`${styles.alert} ${styles.alertInfo}`} role="alert">
-            {sessionExpiredMessage}
-          </div>
-        )}
+      {submitError && (
+        <div
+          className={`${styles.alert} ${styles.alertError}`}
+          role="alert"
+          data-testid={submitError.isNetwork ? 'login-network-error' : 'login-submit-error'}
+        >
+          {submitError.isNetwork ? (
+            <WifiOff size={16} className={styles.alertIcon} aria-hidden="true" />
+          ) : (
+            <AlertCircle size={16} className={styles.alertIcon} aria-hidden="true" />
+          )}
+          <span>{submitError.message}</span>
+        </div>
+      )}
 
-        {submitError && (
-          <div className={`${styles.alert} ${styles.alertError}`} role="alert">
-            {submitError}
-          </div>
-        )}
-
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          <div className={styles.field}>
-            <label htmlFor="login-email" className={styles.label}>
-              Email
-            </label>
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+        <div className={styles.field}>
+          <label htmlFor="login-email" className={styles.srOnly}>
+            Email
+          </label>
+          <div className={styles.inputWrap}>
             <input
+              ref={emailInputRef}
               id="login-email"
               type="email"
               autoComplete="email"
-              className={styles.input}
+              inputMode="email"
+              className={`${styles.input} ${fieldErrors.email ? styles.inputInvalid : ''}`.trim()}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                if (fieldErrors.email) setFieldErrors((prev) => ({ ...prev, email: undefined }))
+              }}
+              onFocus={() => setFoxReaction('EMAIL_FOCUS')}
+              onBlur={() => setFoxReaction((prev) => (prev === 'EMAIL_FOCUS' ? 'LOGIN_IDLE' : prev))}
               aria-invalid={Boolean(fieldErrors.email)}
               aria-describedby={fieldErrors.email ? 'login-email-err' : undefined}
-              placeholder="name@example.com"
+              placeholder="Email"
             />
-            {fieldErrors.email && (
-              <span id="login-email-err" className={styles.fieldError} role="alert">
-                {fieldErrors.email}
-              </span>
-            )}
           </div>
+          {fieldErrors.email && (
+            <span id="login-email-err" className={styles.fieldError} role="alert">
+              <AlertCircle size={13} aria-hidden="true" />
+              <span>{fieldErrors.email}</span>
+            </span>
+          )}
+        </div>
 
-          <div className={styles.field}>
-            <label htmlFor="login-password" className={styles.label}>
-              Mật khẩu
-            </label>
+        <div className={styles.field}>
+          <label htmlFor="login-password" className={styles.srOnly}>
+            Mật khẩu
+          </label>
+          <div className={styles.inputWrap}>
             <input
+              ref={passwordInputRef}
               id="login-password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               autoComplete="current-password"
-              className={styles.input}
+              className={`${styles.input} ${styles.inputWithInlineActions} ${fieldErrors.password ? styles.inputInvalid : ''}`.trim()}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value)
+                if (fieldErrors.password) {
+                  setFieldErrors((prev) => ({ ...prev, password: undefined }))
+                }
+              }}
+              onFocus={() => setFoxReaction(showPassword ? 'PASSWORD_PEEK' : 'PASSWORD_FOCUS')}
+              onBlur={() =>
+                setFoxReaction((prev) =>
+                  prev === 'PASSWORD_FOCUS' || prev === 'PASSWORD_PEEK' ? 'LOGIN_IDLE' : prev
+                )
+              }
               aria-invalid={Boolean(fieldErrors.password)}
               aria-describedby={fieldErrors.password ? 'login-password-err' : undefined}
-              placeholder="Nhập mật khẩu"
+              placeholder="Mật khẩu"
             />
-            {fieldErrors.password && (
-              <span id="login-password-err" className={styles.fieldError} role="alert">
-                {fieldErrors.password}
-              </span>
-            )}
-          </div>
-
-          <Button type="submit" variant="primary" disabled={submitting}>
-            {submitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
-          </Button>
-        </form>
-
-        <div className={styles.footer}>
-          <div>
-            Chưa có tài khoản?{' '}
-            <Link to="/register" className={styles.link}>
-              Đăng ký ngay
-            </Link>
-          </div>
-          <div>
-            <button
-              type="button"
-              onClick={handleForgotPassword}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                color: 'var(--lq-ink-secondary)',
-                textDecoration: 'underline',
-                fontSize: 13
-              }}
-            >
-              Quên mật khẩu?
-            </button>
-          </div>
-          {forgotNotice && (
-            <div className={`${styles.alert} ${styles.alertInfo}`} role="status">
-              <strong>UNAVAILABLE:</strong> {forgotNotice}
+            <div className={styles.inputTrailingGroup}>
+              <Link
+                to="/forgot-password"
+                className={styles.inlineForgotLink}
+                data-testid="login-forgot-link"
+              >
+                QUÊN?
+              </Link>
+              <button
+                type="button"
+                className={styles.passwordToggleBtn}
+                onClick={() => {
+                  setShowPassword((v) => {
+                    const next = !v
+                    setFoxReaction((prev) =>
+                      prev === 'PASSWORD_FOCUS' || prev === 'PASSWORD_PEEK'
+                        ? next
+                          ? 'PASSWORD_PEEK'
+                          : 'PASSWORD_FOCUS'
+                        : prev
+                    )
+                    return next
+                  })
+                }}
+                aria-label={showPassword ? 'Ẩn ký tự bí mật' : 'Hiện ký tự bí mật'}
+                title={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                aria-pressed={showPassword}
+                data-testid="login-toggle-password"
+              >
+                {showPassword ? <EyeOff size={17} aria-hidden="true" /> : <Eye size={17} aria-hidden="true" />}
+              </button>
             </div>
+          </div>
+          {fieldErrors.password && (
+            <span id="login-password-err" className={styles.fieldError} role="alert">
+              <AlertCircle size={13} aria-hidden="true" />
+              <span>{fieldErrors.password}</span>
+            </span>
           )}
-          <p className={styles.securityNote}>
-            Bảo mật phiên: Access &amp; Refresh token chỉ được giữ trong bộ nhớ (RAM), không ghi vào
-            localStorage/sessionStorage do Backend chưa hỗ trợ HttpOnly cookie.
-          </p>
-          <Link to="/" className={styles.link}>
-            ← Quay lại Trang chủ
-          </Link>
         </div>
-      </Card>
-    </div>
+
+        <button
+          type="submit"
+          className={styles.primaryCtaBtn}
+          disabled={submitting}
+          data-testid="login-submit-btn"
+        >
+          {submitting && <Loader2 size={17} className={styles.spinIcon} aria-hidden="true" />}
+          <span>{submitting ? 'Đang đăng nhập...' : 'Đăng nhập'}</span>
+        </button>
+      </form>
+
+      <footer className={styles.legalFooter}>
+        <p className={styles.legalText}>
+          Phiên đăng nhập LifeQuest chỉ được lưu tạm trong bộ nhớ trình duyệt (RAM), không ghi token
+          vào localStorage.
+        </p>
+      </footer>
+    </AuthLayout>
   )
 }

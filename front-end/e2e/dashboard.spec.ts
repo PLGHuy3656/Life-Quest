@@ -75,7 +75,7 @@ test('protected routes (/settings, /profile) redirect unauthenticated users to /
   await page.goto('/settings')
 
   await expect(page).toHaveURL(/\/login\?redirect=%2Fsettings/)
-  await expect(page.getByRole('heading', { name: /Đăng nhập LifeQuest/i })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /^Đăng nhập$/i })).toBeVisible()
 
   await page.getByRole('button', { name: 'Đăng nhập' }).click()
   await expect(page.getByText('Vui lòng nhập email.')).toBeVisible()

@@ -2,6 +2,7 @@ import { Bone, CanvasTexture, Camera, Group, Mesh, MeshBasicMaterial, Object3D, 
 import { FoxAnimationManager, PRIORITY, type FoxShotResult } from './FoxAnimationManager';
 import { FoxEventRegistry, foxEventRegistry, stepsFor, type FoxEventCoverage, type FoxEventName, type FoxEventPayloads, type FoxReactionStep } from './FoxEventMap';
 import { FoxFaceController } from './FoxFaceController';
+import { FoxExpressivePose, type FoxPoseMode } from './FoxExpressivePose';
 import { FoxHoverLayer, FoxIdleVariation } from './FoxIdleVariation';
 import { FoxInteractionManager, type FoxHitTarget } from './FoxInteractionManager';
 import { FoxLevelScale } from './FoxLevelScale';
@@ -124,6 +125,7 @@ export class FoxController {
   private look: FoxLookAtController;
   private idle: FoxIdleVariation;
   private hoverLayer: FoxHoverLayer;
+  private expressivePose: FoxExpressivePose;
   private face: FoxFaceController;
   private interaction: FoxInteractionManager;
   private level: FoxLevelScale;
@@ -188,6 +190,7 @@ export class FoxController {
     this.look = new FoxLookAtController(this.fox, { NECK: this.bones.NECK, HEAD: this.bones.HEAD, SPINE: this.bones.SPINE }, eyes, ops);
     this.idle = new FoxIdleVariation(ops, this.bones, eyes, opts.seed);
     this.hoverLayer = new FoxHoverLayer(ops, this.bones);
+    this.expressivePose = new FoxExpressivePose(ops, this.bones, eyes);
     this.face = new FoxFaceController(faceMeshes);
     // proxies are built at scale 1 (before the level scale is applied) and then follow the bones
     this.interaction = new FoxInteractionManager(this.fox, this.bones, this.objs.FOX_Body ?? null, meshList('FOX_Tail'), this.objs.FOX_Head ?? this.bones.HEAD, {
@@ -481,6 +484,21 @@ export class FoxController {
 
   on(fn: Listener) { this.listeners.add(fn); return () => { this.listeners.delete(fn); }; }
 
+  /** Set runtime procedural pose overlay (cover_eyes, peek, curious, nod, none). */
+  setPoseMode(mode: FoxPoseMode) {
+    this.expressivePose.setMode(mode);
+  }
+
+  /** Play any validated Gate I one-shot clip directly for rich UI feedback. */
+  playClip(clip: FoxOneShotClip): FoxPlayResult {
+    return this.playOneShot(clip, PRIORITY.important, 'api', false);
+  }
+
+  /** Adjust runtime locomotion/activity playback speed (e.g., accelerating run on loading screen). */
+  setActivityTempo(scale: number) {
+    this.anim.setActivityTempo(Math.max(0.4, Math.min(3, scale)));
+  }
+
   /** Advance one frame. Call from the host render loop (dt in seconds). */
   update(dt: number) {
     if (this.disposed || this.paused) return;
@@ -500,8 +518,10 @@ export class FoxController {
     });
     if (this.camera) this.look.update(dt, { camera: this.camera, pointerInside: this.interaction.pointerInside, pointerNdc: this.interaction.pointerNdc, headControl: this.anim.control('headControl'), levelScale: this.level.getScale() });
     this.hoverLayer.update(dt, this.interaction.hover, shotW, this.reducedMotion ? 0.5 : 1);
+    this.expressivePose.update(dt, shotW, this.reducedMotion);
     this.face.update(dt, this.anim.control('faceControl'));
     this.idle.applyBlink(this.face.override);
+    this.expressivePose.applyEyes();
     this.interaction.update();
   }
 

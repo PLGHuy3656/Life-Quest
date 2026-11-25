@@ -99,6 +99,7 @@ describe('SettingsPage (Profile & UserSettings)', () => {
 
     renderSettings()
 
+    await user.click(screen.getByTestId('settings-tab-profile'))
     const nameInput = await screen.findByLabelText(/Tên hiển thị/i)
     await user.clear(nameInput)
     await user.type(nameInput, 'Minh Quân')
@@ -108,7 +109,8 @@ describe('SettingsPage (Profile & UserSettings)', () => {
       expect(patchedProfile).toMatchObject({ displayName: 'Minh Quân' })
     })
 
-    await user.selectOptions(screen.getByLabelText(/Quyền riêng tư/i), 'PRIVATE')
+    await user.click(screen.getByTestId('settings-tab-privacy'))
+    await user.selectOptions(await screen.findByLabelText(/Quyền riêng tư/i), 'PRIVATE')
     await user.click(screen.getByRole('button', { name: 'Lưu cài đặt' }))
 
     await waitFor(() => {

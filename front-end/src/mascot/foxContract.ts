@@ -266,7 +266,10 @@ export type FoxBoneName = (typeof REQUIRED_BONES)[number];
 /** Attachment sockets reserved for Gate H cosmetics (not used yet). */
 export const ATTACHMENT_SOCKETS = ['ATT_HAT', 'ATT_GLASSES', 'ATT_SCARF', 'ATT_BACKPACK', 'ATT_HAND_L', 'ATT_HAND_R'] as const;
 /** Bones that procedural layers write after the mixer (restored before every mixer update). */
-export const PROCEDURAL_BONES: readonly FoxBoneName[] = ['NECK', 'HEAD', 'EAR_L_01', 'EAR_R_01', 'TAIL_01', 'TAIL_02', 'TAIL_03', 'TAIL_04'];
+export const PROCEDURAL_BONES: readonly FoxBoneName[] = [
+  'NECK', 'HEAD', 'EAR_L_01', 'EAR_R_01', 'ARM_L', 'PAW_L', 'ARM_R', 'PAW_R',
+  'TAIL_01', 'TAIL_02', 'TAIL_03', 'TAIL_04',
+];
 
 // ------------------------------------------------------------------ tuning (from the approved E2 viewer)
 export const LOOK_TUNING = {

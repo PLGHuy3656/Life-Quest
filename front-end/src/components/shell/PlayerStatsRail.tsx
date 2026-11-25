@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Award, Coins, Flame } from 'lucide-react'
+import { Coins, Flame, Heart } from 'lucide-react'
 import { useTodayQuery } from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
 import styles from './PlayerStatsRail.module.css'
@@ -21,7 +21,12 @@ interface StatRow {
  * - Displays neutral "—" placeholders when unauthenticated, loading, or unavailable
  *   (never fabricates or hardcodes demo stats).
  */
-export function PlayerStatsRail() {
+export interface PlayerStatsRailProps {
+  /** Lay out horizontally across the left rail when PinnedTaskRail is expanded */
+  horizontal?: boolean
+}
+
+export function PlayerStatsRail({ horizontal = false }: PlayerStatsRailProps) {
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
   const todayQuery = useTodayQuery()
   const [openStat, setOpenStat] = useState<StatId | null>(null)
@@ -65,15 +70,16 @@ export function PlayerStatsRail() {
 
   return (
     <section
-      className={styles.rail}
+      className={`${styles.rail} ${horizontal ? styles.railHorizontal : ''}`.trim()}
       aria-label="Chỉ số người chơi"
       data-testid="player-stats-rail"
+      data-orientation={horizontal ? 'horizontal' : 'vertical'}
       data-source={liveToday ? 'LIVE' : 'UNAVAILABLE'}
       onMouseLeave={() => setOpenStat(null)}
     >
       {rows.map((row) => {
         const isOpen = openStat === row.id
-        const Icon = row.id === 'streak' ? Flame : row.id === 'coin' ? Coins : Award
+        const Icon = row.id === 'streak' ? Flame : row.id === 'coin' ? Coins : Heart
         return (
           <div key={row.id} className={styles.itemWrap}>
             <button

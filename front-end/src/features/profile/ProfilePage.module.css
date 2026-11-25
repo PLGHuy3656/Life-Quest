@@ -1,0 +1,501 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 286px;
+  gap: 24px;
+  align-items: start;
+  padding-bottom: 28px;
+  min-width: 0;
+}
+
+.mainCol {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+/* Profile Hero Card (Duolingo-inspired banner + identity in Warm Companion palette) */
+.heroCard {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1.5px solid #f0e4d8;
+  padding: 18px 20px 20px;
+  box-shadow: 0 4px 16px rgba(24, 38, 64, 0.035);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.coverBanner {
+  position: relative;
+  height: 176px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #fff2e4 0%, #ffe6cf 100%);
+  border: 1.5px dashed #efcaa8;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatarFigure {
+  width: 112px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 10px 16px rgba(154, 74, 28, 0.16));
+  user-select: none;
+}
+
+.editBannerBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1.5px solid #edd9c6;
+  background: rgba(255, 255, 255, 0.92);
+  color: #182640;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 3px 0 #e6d5c4;
+  transition: background-color 140ms ease, transform 120ms ease;
+}
+
+.editBannerBtn:hover {
+  background: #ffffff;
+  color: #f26733;
+}
+
+.editBannerBtn:active {
+  transform: translateY(1px);
+}
+
+.identityBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 4px;
+}
+
+.displayName {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #182640;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.handleText {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7c6d5f;
+}
+
+.joinedText {
+  margin: 4px 0 0;
+  font-size: 13.5px;
+  color: #667085;
+}
+
+.followStatsRow {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1.5px solid #f4eae0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.followLinks {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #d84f1c;
+}
+
+.titleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #fff5ec;
+  border: 1px solid #f3dcc6;
+  color: #9a4a1c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Section Heading */
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #182640;
+  letter-spacing: -0.015em;
+}
+
+.seeAllBtn {
+  border: none;
+  background: transparent;
+  color: #f26733;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.seeAllBtn:hover {
+  background: #fff1e6;
+}
+
+/* 2x2 Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1.5px solid #f0e4d8;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  box-shadow: 0 2px 10px rgba(24, 38, 64, 0.03);
+}
+
+.statIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.iconStreak {
+  background: #fff0e8;
+  color: #f26733;
+}
+
+.iconXp {
+  background: #fef5dc;
+  color: #c9962b;
+}
+
+.iconCoins {
+  background: #e6f5f1;
+  color: #168c78;
+}
+
+.iconHeart {
+  background: #feecef;
+  color: #e54868;
+}
+
+.statText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.statValue {
+  font-size: 18px;
+  font-weight: 800;
+  color: #182640;
+  line-height: 1.15;
+}
+
+.statLabel {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #667085;
+}
+
+/* Achievements Card (Duolingo tiered badge + progress bars) */
+.achievementsCard {
+  background: #ffffff;
+  border-radius: 22px;
+  border: 1.5px solid #f0e4d8;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(24, 38, 64, 0.03);
+}
+
+.achievementRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1.5px solid #f4eae0;
+}
+
+.achievementRow:last-child {
+  border-bottom: none;
+}
+
+.achBadge {
+  width: 62px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 0 rgba(24, 38, 64, 0.14);
+}
+
+.badgeFire {
+  background: linear-gradient(180deg, #ff6d4d 0%, #e84b2c 100%);
+}
+
+.badgeSage {
+  background: linear-gradient(180deg, #27b194 0%, #168c78 100%);
+}
+
+.badgeCrown {
+  background: linear-gradient(180deg, #b86bff 0%, #8e44e8 100%);
+}
+
+.badgeGold {
+  background: linear-gradient(180deg, #f5b93b 0%, #d49217 100%);
+}
+
+.achTier {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  opacity: 0.94;
+}
+
+.achBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.achTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.achTitle {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #182640;
+}
+
+.achCount {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8c7b6b;
+}
+
+.achTrack {
+  width: 100%;
+  height: 11px;
+  border-radius: 999px;
+  background: #efe3d6;
+  overflow: hidden;
+}
+
+.achFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f26733 0%, #ff8552 100%);
+  transition: width 240ms ease;
+}
+
+.achDesc {
+  margin: 0;
+  font-size: 13px;
+  color: #667085;
+  line-height: 1.4;
+}
+
+/* Right Sidebar (Followers/Following + Add Friends) */
+.sideCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sideCard {
+  background: #ffffff;
+  border-radius: 22px;
+  border: 1.5px solid #f0e4d8;
+  box-shadow: 0 4px 14px rgba(24, 38, 64, 0.03);
+  overflow: hidden;
+}
+
+.followTabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-bottom: 1.5px solid #f0e4d8;
+}
+
+.followTab {
+  border: none;
+  background: transparent;
+  padding: 13px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #7c6d5f;
+  cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.followTab:hover {
+  color: #182640;
+}
+
+.followTabActive {
+  color: #f26733;
+  border-bottom-color: #f26733;
+}
+
+.followEmpty {
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.followEmptyIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: #fff5ec;
+  color: #f26733;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.followEmptyText {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #475467;
+  line-height: 1.5;
+}
+
+.pendingChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff8eb;
+  border: 1px solid #f4dcad;
+  color: #9a5b13;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.friendsCardInner {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.friendsHeading {
+  margin: 0 0 2px 4px;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #182640;
+}
+
+.friendActionBtn {
+  width: 100%;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: #fffdf9;
+  color: #182640;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.friendActionBtn:hover {
+  background: #fff4ea;
+  border-color: #f3d7bf;
+}
+
+.friendActionLeft {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.friendNotice {
+  margin: 2px 4px 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #fff6ec;
+  color: #9a4a1c;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

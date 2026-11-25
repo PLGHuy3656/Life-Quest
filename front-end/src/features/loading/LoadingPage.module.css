@@ -1,0 +1,339 @@
+.pageShell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 20px;
+  background:
+    radial-gradient(640px 420px at 50% 34%, rgba(255, 222, 190, 0.42), transparent 72%),
+    var(--lq-bg, #fff8f0);
+  color: #182640;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.brandTop {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+.brandWordmark {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #182640;
+}
+
+.brandAccent {
+  color: #f26733;
+}
+
+.centerStack {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Running Fox Stage (Transparent, borderless + dynamic speed lines & track) */
+.runStage {
+  position: relative;
+  width: 280px;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speedLines {
+  position: absolute;
+  inset: 24px 0 36px 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: var(--speed-opacity, 0.25);
+  transition: opacity 260ms ease;
+}
+
+.speedLine {
+  position: absolute;
+  right: -60px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(242, 103, 51, 0) 0%, rgba(242, 103, 51, 0.48) 100%);
+  animation: lqSpeedStreak var(--streak-dur, 900ms) linear infinite;
+}
+
+.speedLine1 {
+  top: 24%;
+  width: 68px;
+  animation-delay: 0ms;
+}
+
+.speedLine2 {
+  top: 48%;
+  width: 96px;
+  animation-delay: -260ms;
+}
+
+.speedLine3 {
+  top: 72%;
+  width: 58px;
+  animation-delay: -520ms;
+}
+
+.speedLine4 {
+  top: 36%;
+  width: 48px;
+  animation-delay: -680ms;
+}
+
+@keyframes lqSpeedStreak {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-340px);
+    opacity: 0;
+  }
+}
+
+.foxRunnerWrap {
+  position: relative;
+  z-index: 2;
+  width: 196px;
+  height: 196px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 220ms ease;
+}
+
+.foxSprinting {
+  transform: translateY(-3px) rotate(2deg);
+}
+
+.foxCanvasClean {
+  width: 196px !important;
+  height: 196px !important;
+  min-height: 196px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+.foxCanvasClean :global(canvas) {
+  background: transparent !important;
+}
+
+/* Scrolling Running Track */
+.groundTrack {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  right: 20px;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(232, 212, 192, 0.48);
+}
+
+.groundDashes {
+  width: 200%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(242, 103, 51, 0.36) 0px,
+    rgba(242, 103, 51, 0.36) 18px,
+    transparent 18px,
+    transparent 44px
+  );
+  animation: lqTrackScroll var(--track-dur, 1100ms) linear infinite;
+}
+
+@keyframes lqTrackScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Speed Pill & Status Copy */
+.speedPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: #fff1e6;
+  border: 1.5px solid #f5cdb2;
+  color: #c84b1d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.statusTitle {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  color: #182640;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.statusHint {
+  margin: -10px 0 0;
+  font-size: 13.5px;
+  color: #667085;
+  text-align: center;
+  line-height: 1.48;
+  min-height: 22px;
+}
+
+/* Progress Bar */
+.progressWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: #ede1d4;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f26733 0%, #ff8552 100%);
+  transition: width 120ms linear;
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 8px;
+  right: 8px;
+  height: 3.5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.36);
+}
+
+.progressMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #7c6d5f;
+}
+
+/* Actions when 100% complete in standalone preview */
+.completeActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.primaryBtn {
+  min-height: 46px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 14px;
+  background: #f26733;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #c84b1d;
+  transition: background-color 140ms ease, transform 120ms ease, box-shadow 120ms ease;
+}
+
+.primaryBtn:hover {
+  background: #f57342;
+}
+
+.primaryBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #c84b1d;
+}
+
+.secondaryBtn {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 14px;
+  border: 2px solid #e6d8c9;
+  background: #ffffff;
+  color: #182640;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #e6d8c9;
+}
+
+.secondaryBtn:hover {
+  background: #fff6ec;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speedLines,
+  .groundDashes {
+    animation: none;
+    display: none;
+  }
+
+  .foxSprinting {
+    transform: none;
+  }
+}
+
+:global(html.lq-rm) .speedLines,
+:global(html.lq-rm) .groundDashes {
+  animation: none;
+  display: none;
+}
+
+:global(html.lq-rm) .foxSprinting {
+  transform: none;
+}
