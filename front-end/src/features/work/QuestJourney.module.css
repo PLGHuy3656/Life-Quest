@@ -1,0 +1,713 @@
+/* FE-04C.2 Full-Width Quest Journey Experience Styles */
+
+.journeyWorkspace {
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.journeyHeroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(320px, 0.98fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.panelHeading {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #16324a;
+  letter-spacing: -0.01em;
+}
+
+.mutedSub {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #5c6f82;
+  line-height: 1.45;
+}
+
+.tealIcon {
+  color: #168c78;
+  flex-shrink: 0;
+}
+
+.textDanger {
+  color: #c93b3b;
+}
+
+.textAccent {
+  color: #c94c1d;
+}
+
+.previewBadge {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #9e6214;
+  background: #fdf3dc;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ── QuestNextActionPanel ── */
+.nextActionCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: 0 3px 12px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nextActionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nextActionTitleGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nextActionDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f26b3a;
+  box-shadow: 0 0 0 4px rgba(242, 107, 58, 0.16);
+}
+
+.quietCountPill {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5c6f82;
+  background: #f5f3ee;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.scopeSwitch {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 999px;
+  background: #f5f3ee;
+}
+
+.scopeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: #5c6f82;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.scopeBtnActive {
+  background: #16324a;
+  color: #ffffff;
+}
+
+.nextActionList {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.nextActionItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.07);
+}
+
+.nextActionPrimary {
+  background: #fff9f5;
+  border-color: rgba(242, 107, 58, 0.34);
+  box-shadow: 0 3px 10px rgba(242, 107, 58, 0.08);
+}
+
+.nextActionItemBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1;
+}
+
+.nextActionTopLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.urgencyTag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.urgencyDanger {
+  background: rgba(214, 69, 69, 0.12);
+  color: #c93b3b;
+}
+
+.urgencyWarn {
+  background: rgba(242, 107, 58, 0.14);
+  color: #c94c1d;
+}
+
+.urgencyNeutral {
+  background: rgba(22, 50, 74, 0.08);
+  color: #365066;
+}
+
+.miniAssignee {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #365066;
+}
+
+.miniAvatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nextActionTaskTitle {
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  color: #16324a;
+  cursor: pointer;
+  line-height: 1.3;
+}
+
+.nextActionTaskTitle:hover {
+  color: #f26b3a;
+}
+
+.nextActionTimingRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: #5c6f82;
+}
+
+.nextActionTimingRow span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nextActionEmpty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px;
+  border-radius: 14px;
+  background: #f8f6f1;
+  color: #16324a;
+  font-size: 13px;
+}
+
+.urgentTeamCallout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(214, 69, 69, 0.08);
+  border: 1px solid rgba(214, 69, 69, 0.22);
+  color: #9e2a2a;
+  font-size: 12px;
+}
+
+.inlineActionLink {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #c93b3b;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── QuestCheckpointMap ── */
+.mapCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: 0 3px 12px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mapHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mapHeadingRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.mapProgressStat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.mapBigPct {
+  font-size: 24px;
+  font-weight: 800;
+  color: #16324a;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.mapStatCaption {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.mapScrollViewport {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #faf8f2 0%, #f3efe4 100%);
+  border: 1px solid rgba(22, 50, 74, 0.07);
+}
+
+.mapCanvasInner {
+  position: relative;
+  min-width: 100%;
+}
+
+.mapSvg {
+  display: block;
+  pointer-events: none;
+}
+
+.checkpointNode {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 132px;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.nodeCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.checkpointNode:hover .nodeCircle {
+  transform: scale(1.08);
+}
+
+.nodeCompleted .nodeCircle {
+  background: #168c78;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(22, 140, 120, 0.3);
+}
+
+.nodeActive .nodeCircle {
+  background: #f26b3a;
+  color: #ffffff;
+  box-shadow: 0 0 0 5px rgba(242, 107, 58, 0.24), 0 6px 16px rgba(242, 107, 58, 0.35);
+}
+
+.nodeUpcoming .nodeCircle {
+  background: #ffffff;
+  color: #4f6478;
+  border: 2px solid rgba(22, 50, 74, 0.2);
+}
+
+.nodeSelected .nodeCircle {
+  outline: 2.5px solid #16324a;
+  outline-offset: 2px;
+}
+
+.nodeCaption {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #16324a;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px 7px;
+  border-radius: 8px;
+  max-width: 126px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 1px 4px rgba(22, 50, 74, 0.08);
+}
+
+.mapEmptyCanvas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 26px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #faf8f2 0%, #f3efe4 100%);
+  border: 1px dashed rgba(22, 50, 74, 0.16);
+}
+
+.mapStartBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(242, 107, 58, 0.14);
+  color: #f26b3a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkpointInspector {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f8f6f1;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inspectorTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.inspectorBadge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #168c78;
+}
+
+.inspectorTitle {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.inspectorMeta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.inspectorMeta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inspectorTasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.inspectorTaskChip {
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  background: #ffffff;
+  color: #16324a;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.inspectorTaskChip:hover {
+  border-color: #f26b3a;
+  color: #c94c1d;
+}
+
+/* ── QuestMomentsGallery ── */
+.momentsCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: 0 3px 12px rgba(22, 50, 74, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.momentsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.momentsHeaderActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.momentsComposerRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.momentsInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(22, 50, 74, 0.14);
+  background: #faf9f6;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #16324a;
+}
+
+.momentsSelect {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(22, 50, 74, 0.14);
+  background: #faf9f6;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: #16324a;
+}
+
+.momentsError {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(214, 69, 69, 0.08);
+  color: #c93b3b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.momentsEmpty {
+  padding: 14px;
+  border-radius: 14px;
+  background: #f8f6f1;
+}
+
+.momentsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.momentTile {
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #faf9f6;
+  display: flex;
+  flex-direction: column;
+}
+
+.momentThumbWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #eae6dd;
+}
+
+.momentThumbBtn {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+
+.momentImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.momentRemoveBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(22, 50, 74, 0.72);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.momentCaptionBox {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.momentCaptionText {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #16324a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.momentMeta {
+  font-size: 11px;
+  color: #5c6f82;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1160px) {
+  .journeyHeroGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* ── FE-04C.3 Tasks Grouped by Epic Workspace ── */
+.epicGroupsStack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.epicGroupCard {
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 16px;
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.epicGroupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.epicGroupTitleBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.epicGroupIndex {
+  font-size: 11px;
+  font-weight: 800;
+  color: #168c78;
+  background: rgba(22, 140, 120, 0.12);
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.epicGroupTitle {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.epicGroupStat {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5c6f82;
+  font-variant-numeric: tabular-nums;
+}

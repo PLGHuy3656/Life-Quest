@@ -1,0 +1,109 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.sectionIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: #fef5dc;
+  color: #9a6b00;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.heading {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.goalCard {
+  padding: 13px 15px;
+  border-radius: 16px;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: linear-gradient(160deg, #ffffff 0%, #faf8f2 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.goalHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.goalTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.milestoneIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: #fef5dc;
+  color: #9a6b00;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.goalTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.barTrack {
+  width: 100%;
+  height: 8px;
+  border-radius: var(--lq-radius-pill);
+  background: rgba(22, 140, 120, 0.12);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--lq-radius-pill);
+  background: linear-gradient(90deg, #168c78 0%, #2ab59c 100%);
+  transition: width var(--lq-dur-med) var(--lq-ez);
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--lq-ink-secondary);
+}

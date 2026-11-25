@@ -6,18 +6,9 @@ const GOAL_CREATE_SCHEMA = Joi.object({
   title: Joi.string().trim().min(3).max(100).required(),
   description: Joi.string().trim().max(500).allow('').optional(),
   startDate: Joi.date().iso().required(),
-  dueDate: Joi.date().iso().required()
+  dueDate: Joi.date().iso().greater(Joi.ref('startDate')).required()
 }).unknown(false)
 
-
-// Chỉ định ra những fields mà chúng ta không muốn cho phép cập nhật trong hàm update()
-const INVALID_UPDATE_FIELDS = [
-  'id',
-  'userId',
-  'status',
-  'createdAt',
-  'updatedAt'
-]
 
 const validateGoalBeforeCreate = async (goalData) => {
   return await GOAL_CREATE_SCHEMA.validateAsync(goalData, {
@@ -39,8 +30,10 @@ const findGoalsByUserId = async (userId) => {
 }
 
 // Tìm kiếm chi tiết một mục tiêu (Goal) theo ID.
-const findGoalById = async (goalId) => {
-  return await prisma.goal.findUnique({
+const findGoalById = async (goalId, tx) => {
+  const db = tx ? tx : prisma
+
+  return await db.goal.findUnique({
     where: {
       id: goalId
     }
@@ -87,6 +80,41 @@ const updateGoal = async (goalId, updateData) => {
 }
 
 
+const pauseGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'PAUSED'
+    }
+  })
+}
+
+
+const resumeGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'ACTIVE'
+    }
+  })
+}
+
+
+const completeGoal = async (goalId) => {
+  return await prisma.goal.update({
+    where: {
+      id: goalId
+    },
+    data: {
+      status: 'COMPLETED'
+    }
+  })
+}
+
 const archiveGoal = async (goalId) => {
   return await prisma.goal.update({
     where: {
@@ -98,16 +126,14 @@ const archiveGoal = async (goalId) => {
   })
 }
 
-
-const pauseGoal = async (goalId) => {
-  return await prisma.goal.update({
-    where: {
-      id: goalId
-    },
-    data: {
-      status: 'PAUSE'
-    }
-  })
+// Khóa Goal trong transaction để tránh xử lý đồng thời
+const lockGoalForUpdate = async (goalId, tx) => {
+  return await tx.$queryRaw`
+    SELECT "id"
+    FROM "Goal"
+    WHERE "id" = ${goalId}
+    FOR UPDATE
+  `
 }
 
 export const goalsRepository = {
@@ -115,11 +141,13 @@ export const goalsRepository = {
   findGoalById,
   createGoal,
   updateGoal,
+  pauseGoal,
+  resumeGoal,
+  completeGoal,
   archiveGoal,
-  pauseGoal
+  lockGoalForUpdate
 }
 
 export {
-  GOAL_CREATE_SCHEMA,
-  INVALID_UPDATE_FIELDS
+  GOAL_CREATE_SCHEMA
 }

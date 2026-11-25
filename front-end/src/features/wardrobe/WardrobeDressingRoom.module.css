@@ -1,0 +1,224 @@
+.stageCard {
+  background: var(--lq-surface, #ffffff);
+  border: 1px solid var(--lq-border);
+  border-radius: 24px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--lq-shadow-sm, 0 4px 18px rgba(22, 50, 74, 0.05));
+  position: sticky;
+  top: 92px;
+}
+
+.stageHeader {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.stageTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.stageBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: var(--lq-radius-pill);
+  background: #fff3ea;
+  color: #c85020;
+  font-size: 11.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.modeSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border-radius: var(--lq-radius-pill);
+  background: #f5f0e6;
+  border: 1px solid #e9e0d1;
+  flex-shrink: 0;
+}
+
+.modeBtn {
+  border: none;
+  background: transparent;
+  color: var(--lq-ink-secondary);
+  border-radius: var(--lq-radius-pill);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.modeBtn:hover {
+  color: var(--lq-primary);
+}
+
+.modeBtnActive {
+  background: var(--lq-primary);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(22, 50, 74, 0.18);
+}
+
+.modeBtnActive:hover {
+  color: #ffffff;
+}
+
+.canvasStage {
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fbf7ee 0%, #f4ead9 100%);
+  border: 1px solid #ede2cf;
+  overflow: hidden;
+  height: 520px;
+  min-height: 440px;
+}
+
+.stageBackdropGlow {
+  position: absolute;
+  inset: 14% 14% auto;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(255, 245, 230, 0) 72%);
+  pointer-events: none;
+}
+
+.stagePedestal {
+  position: absolute;
+  left: 50%;
+  bottom: 66px;
+  transform: translateX(-50%);
+  width: 62%;
+  max-width: 280px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(22, 50, 74, 0.14) 0%, rgba(22, 50, 74, 0) 74%);
+  pointer-events: none;
+}
+
+.bubbleAnchor {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.bubbleAnchor > * {
+  pointer-events: auto;
+}
+
+.foxCanvasFrame {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.cameraToolbar {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 7;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 7px;
+  border-radius: var(--lq-radius-pill);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  box-shadow: 0 6px 18px rgba(22, 50, 74, 0.08);
+}
+
+.camBtn,
+.camIconBtn {
+  border: none;
+  background: transparent;
+  color: var(--lq-primary);
+  border-radius: var(--lq-radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.camBtn {
+  padding: 5px 10px;
+}
+
+.camIconBtn {
+  width: 28px;
+  height: 28px;
+}
+
+.camBtn:hover,
+.camIconBtn:hover {
+  background: rgba(22, 50, 74, 0.07);
+}
+
+.camBtnActive {
+  background: var(--lq-primary);
+  color: #ffffff;
+}
+
+.camBtnActive:hover {
+  background: var(--lq-primary);
+  color: #ffffff;
+}
+
+@media (min-width: 1024px) {
+  .stageCard {
+    position: static;
+    top: auto;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .canvasStage {
+    flex: 1;
+    height: auto;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .stageCard {
+    position: static;
+  }
+
+  .canvasStage {
+    height: 380px;
+    min-height: 380px;
+  }
+}

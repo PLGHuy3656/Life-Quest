@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" fill="none">
+  <defs>
+    <linearGradient id="hh-bg" x1="0" y1="0" x2="360" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E8F7F5"/>
+      <stop offset="60%" stop-color="#F2FAF8"/>
+      <stop offset="100%" stop-color="#E4F2F7"/>
+    </linearGradient>
+    <linearGradient id="hh-water" x1="0" y1="60" x2="0" y2="148" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6DD0C4"/>
+      <stop offset="100%" stop-color="#168C78"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="360" height="180" rx="14" fill="url(#hh-bg)"/>
+  <circle cx="290" cy="40" r="46" fill="#C4ECE6" opacity="0.5"/>
+  <circle cx="62" cy="148" r="38" fill="#F6C85F" opacity="0.22"/>
+
+  <!-- Water tumbler -->
+  <g transform="translate(142, 42)">
+    <ellipse cx="38" cy="108" rx="34" ry="7" fill="#168C78" opacity="0.16"/>
+    <path d="M12 14H64L57 104C56.6 108 53.3 111 49.3 111H26.7C22.7 111 19.4 108 19 104L12 14Z" fill="#FFFFFF" opacity="0.88" stroke="#9BD6CE" stroke-width="2"/>
+    <path d="M16 48C26 42 50 54 60 48L55 101C54.7 104.5 51.8 107 48.3 107H27.7C24.2 107 21.3 104.5 21 101L16 48Z" fill="url(#hh-water)" opacity="0.86"/>
+    <circle cx="32" cy="72" r="4" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="46" cy="86" r="3" fill="#FFFFFF" opacity="0.55"/>
+    <!-- Mint sprig -->
+    <ellipse cx="54" cy="28" rx="11" ry="5.5" transform="rotate(-32 54 28)" fill="#168C78"/>
+    <ellipse cx="42" cy="24" rx="9" ry="4.5" transform="rotate(20 42 24)" fill="#3CA791"/>
+  </g>
+
+  <!-- 4 daily hydration droplets -->
+  <g transform="translate(46, 74)">
+    <rect width="68" height="32" rx="16" fill="#FFFFFF" opacity="0.92"/>
+    <circle cx="18" cy="16" r="5" fill="#168C78"/>
+    <circle cx="34" cy="16" r="5" fill="#168C78"/>
+    <circle cx="50" cy="16" r="5" fill="#6DD0C4"/>
+  </g>
+
+  <g transform="translate(244, 96)">
+    <rect width="74" height="30" rx="15" fill="#FFFFFF" opacity="0.92"/>
+    <text x="16" y="19.5" fill="#16324A" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="800">2.0 Lít</text>
+  </g>
+</svg>

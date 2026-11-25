@@ -1,0 +1,874 @@
+.workspace {
+  container-type: inline-size;
+  container-name: calendar-workspace;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ── Main Viewport-Fit Split Workspace (~67% Calendar Grid / ~33% Spacious Daily Agenda) ── */
+.mainGrid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 6.7fr) minmax(320px, 3.3fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 14px;
+  overflow: hidden;
+}
+
+.calendarCard {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 20px;
+  padding: 9px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(22, 50, 74, 0.04);
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.navLeft {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.periodTitle {
+  margin: 0 2px;
+  font-size: 15px;
+  font-weight: 800;
+  color: #16324a;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.navRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.categoryFilters {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: nowrap;
+}
+
+.catToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(22, 50, 74, 0.11);
+  background: #faf9f6;
+  color: #6b7f92;
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.catToggleTaskActive {
+  background: rgba(242, 107, 58, 0.1);
+  border-color: rgba(242, 107, 58, 0.4);
+  color: #b5471c;
+}
+
+.catToggleHabitActive {
+  background: rgba(22, 140, 120, 0.1);
+  border-color: rgba(22, 140, 120, 0.4);
+  color: #126b5c;
+}
+
+.catToggleQuestActive {
+  background: rgba(246, 200, 95, 0.24);
+  border-color: rgba(217, 155, 30, 0.5);
+  color: #8a5a08;
+}
+
+.catToggleMomentActive {
+  background: rgba(111, 92, 224, 0.1);
+  border-color: rgba(111, 92, 224, 0.38);
+  color: #5340c2;
+}
+
+.viewSwitch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.09);
+  flex-shrink: 0;
+}
+
+.viewBtn {
+  border: none;
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #5c6f82;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.viewBtn:hover {
+  color: #16324a;
+}
+
+.viewBtnActive,
+.viewBtnActive:hover {
+  background: #16324a;
+  color: #ffffff;
+}
+
+.mobileDrawerTrigger {
+  display: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Weekday headers */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.weekday {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #5c6f82;
+  padding: 0;
+}
+
+.weekdayWeekend {
+  color: #d9511f;
+}
+
+/* Scrollable Month Grid wrapper so cells keep generous Claude-style square proportions */
+.monthGridScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px 3px 2px 1px;
+  scrollbar-width: thin;
+}
+
+/* Generous tall date cells grouped by week rows so Journey Road range bars align cleanly */
+.monthWeeksStack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weekBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Thin 2.5px Journey Road overlay drawn across the bottom of cells ONLY when user clicks a Quest/Road icon */
+.thinRoadOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  height: 24px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.thinRoadSegment {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 24px;
+  pointer-events: none;
+}
+
+.thinRoadTrack {
+  width: 100%;
+  height: 2.5px;
+  background: #f26b3a;
+  border-radius: 999px;
+}
+
+.thinRoadTrackQuest {
+  background: #f26b3a;
+}
+
+.thinRoadTrackTask {
+  background: #dc2626;
+}
+
+.thinRoadNodeBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 2px solid #f26b3a;
+  background: #ffffff;
+  color: #f26b3a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(242, 107, 58, 0.24);
+  z-index: 2;
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+.thinRoadNodeBtn:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: #fff7f4;
+}
+
+.thinRoadNodeStart {
+  left: 12px;
+}
+
+.thinRoadNodeEnd {
+  right: 12px;
+}
+
+/* Clickable Quest / Road symbol button inside day cell footer */
+.roadIconBtn {
+  border: none;
+  background: transparent;
+  padding: 2px;
+  margin: -2px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #f26b3a;
+  transition: transform 120ms ease, background 120ms ease;
+}
+
+.roadIconBtn:hover {
+  background: rgba(242, 107, 58, 0.14);
+  transform: scale(1.15);
+}
+
+.roadIconBtnActive {
+  background: #f26b3a;
+  color: #ffffff;
+}
+
+/* Compact floating bar shown only when a thin Journey Road line is active */
+.activeRoadBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: rgba(242, 107, 58, 0.09);
+  border: 1px solid rgba(242, 107, 58, 0.3);
+  font-size: 12px;
+  font-weight: 700;
+  color: #16324a;
+  flex-shrink: 0;
+}
+
+.activeRoadBarLeft {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.activeRoadBarTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activeRoadBarActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.activeRoadDetailBtn {
+  border: none;
+  background: #f26b3a;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.activeRoadDetailBtn:hover {
+  background: #d9511f;
+}
+
+.activeRoadCloseBtn {
+  border: 1px solid rgba(22, 50, 74, 0.16);
+  background: #ffffff;
+  color: #4f6478;
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.monthGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: minmax(112px, 1fr);
+  gap: 6px;
+}
+
+.cellMomentBtn {
+  border: none;
+  padding: 0;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  display: block;
+}
+
+.cellMomentBtn:focus-visible {
+  outline: 2px solid #6f5ce0;
+  outline-offset: 1px;
+}
+
+.dayCell {
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #ffffff;
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 4px;
+  min-height: 120px;
+  min-width: 0;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 120ms ease, background 120ms ease, box-shadow 120ms ease;
+}
+
+.dayCell:hover {
+  border-color: rgba(242, 107, 58, 0.45);
+  background: #ffffff;
+}
+
+.dayCell:focus-visible {
+  outline: 2px solid #f26b3a;
+  outline-offset: 1px;
+}
+
+/* Red highlight for days with overdue or due-soon Tasks */
+.dayCellUrgent {
+  background: rgba(220, 38, 38, 0.08);
+  border-color: rgba(220, 38, 38, 0.35);
+}
+
+.dayCellUrgent:hover {
+  background: rgba(220, 38, 38, 0.12);
+  border-color: rgba(220, 38, 38, 0.55);
+}
+
+/* Green (safe) highlight for days with >= 70% verified Task/Habit completion */
+.dayCellSafe {
+  background: rgba(22, 163, 74, 0.11);
+  border-color: rgba(22, 163, 74, 0.34);
+}
+
+.dayCellSafe:hover {
+  background: rgba(22, 163, 74, 0.16);
+  border-color: rgba(22, 163, 74, 0.55);
+}
+
+/* Other-month days: distinct soft gray background */
+.dayMuted {
+  background: #edf0f3;
+  border-color: rgba(22, 50, 74, 0.06);
+}
+
+.dayMuted .dayNum {
+  color: #8c9baa;
+}
+
+.dayMuted:hover {
+  background: #e5e9ee;
+}
+
+/* Dim days outside the active Journey Road range so the active route stands out clearly */
+.dayOutsideRoad {
+  opacity: 0.3;
+  filter: grayscale(0.35);
+}
+
+.roadMonthDivider {
+  font-size: 11px;
+  font-weight: 800;
+  color: #5c6f82;
+  padding: 2px 4px 1px;
+}
+
+.roadGapDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #faf9f6;
+  border: 1px dashed rgba(242, 107, 58, 0.35);
+  color: #c94c1d;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.daySelected {
+  border: 2px solid #16324a;
+  box-shadow: 0 3px 10px rgba(22, 50, 74, 0.1);
+}
+
+.dayTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+  min-width: 0;
+}
+
+.dayNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16324a;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.dayNumToday {
+  background: #f26b3a;
+  color: #ffffff;
+}
+
+/* Compact icon+number Task Deadline Count Badge (no bulky text) */
+.dueBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.dueBadgeOverdue {
+  background: rgba(214, 69, 69, 0.14);
+  color: #b72b2b;
+  border: 1px solid rgba(214, 69, 69, 0.28);
+}
+
+.dueBadgeSoon {
+  background: rgba(220, 38, 38, 0.14);
+  color: #b91c1c;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.dueBadgeNeutral {
+  background: rgba(22, 50, 74, 0.08);
+  color: #314b63;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+}
+
+.dueBadgeDone {
+  background: rgba(21, 128, 61, 0.12);
+  color: #15803d;
+  border: 1px solid rgba(21, 128, 61, 0.25);
+}
+
+.dayDenseCount {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #4f6478;
+  background: rgba(22, 50, 74, 0.07);
+  padding: 1px 5px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Distinct Month Cell Representations: Task chip, Completed check chip, Quest gold banner, Habit fox-paw badge */
+.dayEventsPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cellEventChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 6px;
+  border: none;
+  line-height: 1.28;
+  min-width: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: filter 120ms ease;
+}
+
+.cellEventChip:hover {
+  filter: brightness(0.95);
+}
+
+.cellEventChip:focus-visible {
+  outline: 2px solid #16324a;
+  outline-offset: 0;
+}
+
+.cellEventChipText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pillTask {
+  background: rgba(220, 38, 38, 0.13);
+  border-left: 2.5px solid #dc2626;
+  color: #b91c1c;
+}
+
+.pillTaskNeutral {
+  background: rgba(22, 50, 74, 0.07);
+  border-left: 2.5px solid #4f6478;
+  color: #16324a;
+}
+
+.pillCompleted {
+  background: rgba(21, 128, 61, 0.1);
+  border-left: 2.5px solid #15803d;
+  color: #166534;
+}
+
+.pillCompleted .cellEventChipText {
+  text-decoration: line-through;
+  text-decoration-color: rgba(21, 128, 61, 0.5);
+}
+
+.pillOverdue {
+  background: rgba(214, 69, 69, 0.13);
+  border-left: 2.5px solid #d64545;
+  color: #b72b2b;
+}
+
+.pillQuest {
+  background: linear-gradient(90deg, rgba(246, 200, 95, 0.34), rgba(246, 200, 95, 0.14));
+  border: 1px solid rgba(217, 155, 30, 0.45);
+  color: #8a5a08;
+}
+
+.pillHabit {
+  background: rgba(22, 140, 120, 0.11);
+  border: 1px dashed rgba(22, 140, 120, 0.35);
+  color: #126b5c;
+}
+
+.dayFooterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: auto;
+  flex-shrink: 0;
+  min-height: 16px;
+}
+
+.daySymbolsRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  flex-wrap: nowrap;
+}
+
+/* Minimalist clean inline symbols (no heavy cluttered boxes) */
+.symbolInline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.symbolTask {
+  color: #dc2626;
+}
+
+.symbolCompleted {
+  color: #16a34a;
+}
+
+.symbolHabit {
+  color: #168c78;
+}
+
+.symbolQuest {
+  color: #d97706;
+}
+
+.symbolMoment {
+  color: #b49a6c;
+}
+
+.cellMomentThumb {
+  width: 100%;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  border: 1px solid rgba(22, 50, 74, 0.07);
+}
+
+.dayTypeIcons {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+/* Week View */
+.weekGrid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.weekCol {
+  border-radius: 14px;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #fcfbf8;
+  padding: 8px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.weekColSelected {
+  border: 2px solid #16324a;
+  background: #ffffff;
+}
+
+.weekColHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.weekColList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Day View */
+.dayAgendaView {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 2px;
+}
+
+.dayViewRow {
+  width: 100%;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #faf9f6;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 130ms ease, background 130ms ease;
+}
+
+.dayViewRow:hover {
+  border-color: rgba(242, 107, 58, 0.45);
+  background: #ffffff;
+}
+
+.dayViewRowLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.dayViewTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+}
+
+.dayViewSub {
+  font-size: 11.5px;
+  color: #5c6f82;
+  font-weight: 600;
+}
+
+.emptyInline {
+  font-size: 12px;
+  color: #6b7f92;
+  margin: 6px 0;
+  line-height: 1.45;
+}
+
+/* Right Daily Agenda Panel wrapper */
+.sidePanel {
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Container-width responsive adaptation (uses actual center workspace width!) ── */
+@container calendar-workspace (max-width: 1020px) {
+  .navBar {
+    flex-wrap: wrap;
+  }
+}
+
+@container calendar-workspace (max-width: 960px) {
+  .cellEventChip:nth-child(n + 2) {
+    display: none;
+  }
+}
+
+@media (max-height: 820px) {
+  .monthGrid {
+    grid-auto-rows: minmax(114px, 1fr);
+  }
+
+  .dayCell {
+    min-height: 114px;
+  }
+}
+
+@container calendar-workspace (max-width: 919px) {
+  .mainGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidePanel {
+    display: none;
+  }
+
+  .mobileDrawerTrigger {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 1023px) {
+  .workspace {
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .mainGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidePanel {
+    display: none;
+  }
+
+  .mobileDrawerTrigger {
+    display: inline-flex;
+  }
+
+  .monthGrid {
+    min-height: 420px;
+  }
+}

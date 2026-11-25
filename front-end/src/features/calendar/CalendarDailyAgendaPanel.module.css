@@ -1,0 +1,448 @@
+/* Two spacious white cards matching Claude's Journey Calendar right rail */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.stackSheet {
+  height: auto;
+  overflow: visible;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  border-radius: 22px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(22, 50, 74, 0.04);
+}
+
+.stackSheet .card {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.dayInfoCard {
+  flex: 0 0 auto;
+}
+
+.deadlinesCard {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.daySummaryLine {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #5c6f82;
+}
+
+.daySummaryDue {
+  color: #dc2626;
+}
+
+.stackSheet .deadlinesCard {
+  max-height: none;
+  padding-top: 12px;
+  border-top: 1px solid rgba(22, 50, 74, 0.08);
+}
+
+/* A. Featured Moment */
+.momentMediaWrap {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(22, 50, 74, 0.08);
+  background: #f5f2eb;
+  flex-shrink: 0;
+}
+
+.momentImg {
+  display: block;
+  width: 100%;
+  max-height: 118px;
+  object-fit: cover;
+}
+
+.momentCaption {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  right: 76px;
+  padding: 5px 9px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #16324a;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.momentCountBadge {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(22, 50, 74, 0.82);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.momentEmptyStrip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 14px;
+  background: #faf9f6;
+  border: 1px dashed rgba(22, 50, 74, 0.14);
+  color: #5c6f82;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  flex-shrink: 0;
+}
+
+/* B. Bold Spacious Date Heading ("24 tháng 11, 2026" / "Thứ Ba · Hôm nay") */
+.dateHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.dateHeading {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #16324a;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.dateSubline {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #5c6f82;
+}
+
+/* C. Clean Minimalist Chronological Timeline (no cramped nested boxes) */
+.timelineList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 4px;
+}
+
+.timelineRow {
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.moreCountBtn {
+  border: none;
+  background: transparent;
+  padding: 4px 8px;
+  text-align: left;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7b8c9e;
+  cursor: pointer;
+}
+
+.moreCountBtn:hover {
+  color: #16324a;
+}
+
+.timelineRow:hover {
+  background: #f7f5f0;
+}
+
+.timelineRowUrgent {
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.timelineRowUrgent:hover {
+  background: rgba(220, 38, 38, 0.11);
+}
+
+.timelineTime {
+  width: 44px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #7b8c9e;
+}
+
+.timelineTimeUrgent {
+  color: #dc2626;
+}
+
+.timelineIconWrap {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timelineMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.timelineTitle {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #16324a;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timelineTitleDone {
+  color: #7b8c9e;
+  text-decoration: line-through;
+}
+
+.timelineTitleUrgent {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.timelineSub {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7b8c9e;
+}
+
+.emptyState {
+  padding: 14px 12px;
+  border-radius: 14px;
+  background: #faf9f6;
+  border: 1px solid rgba(22, 50, 74, 0.06);
+  color: #5c6f82;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+/* Action Row at bottom of Day Info Card ("Xem lịch ngày này >" + "+ Tạo") */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.primaryActionBtn {
+  flex: 1;
+  border: none;
+  border-radius: 14px;
+  background: #16324a;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.primaryActionBtn:hover {
+  background: #214563;
+}
+
+.secondaryActionBtn {
+  border: 1px solid rgba(22, 140, 120, 0.25);
+  border-radius: 14px;
+  background: rgba(22, 140, 120, 0.1);
+  color: #126b5c;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.secondaryActionBtn:hover {
+  background: rgba(22, 140, 120, 0.18);
+}
+
+/* D. Bottom Card: Deadline gần nhất */
+.deadlinesHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.deadlinesTitle {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.deadlinesList {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-right: 2px;
+}
+
+.deadlineRow {
+  width: 100%;
+  border: 1px solid rgba(22, 50, 74, 0.06);
+  background: #faf9f6;
+  border-radius: 14px;
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.deadlineRow:hover {
+  border-color: rgba(242, 107, 58, 0.35);
+  background: #ffffff;
+}
+
+.deadlineRowUrgent {
+  background: rgba(220, 38, 38, 0.06);
+  border-color: rgba(220, 38, 38, 0.22);
+}
+
+.deadlineRowQuest {
+  background: rgba(246, 200, 95, 0.12);
+  border-color: rgba(217, 155, 30, 0.28);
+}
+
+.deadlineMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.deadlineName {
+  font-size: 13px;
+  font-weight: 700;
+  color: #16324a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deadlineMeta {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #6b7f92;
+}
+
+.deadlineMetaUrgent {
+  color: #dc2626;
+}
+
+.deadlineKindTag {
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.kindQuest {
+  color: #c96a12;
+}
+
+.kindTask {
+  color: #365a80;
+}
+
+.kindUrgent {
+  color: #dc2626;
+}
+
+/* E. Compact Monthly Summary */
+.summaryFooter {
+  border-top: 1px solid rgba(22, 50, 74, 0.07);
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c6f82;
+  flex-shrink: 0;
+}
+
+.summaryStat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}

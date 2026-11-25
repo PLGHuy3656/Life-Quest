@@ -1,0 +1,30 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.svg {
+  transform: rotate(-90deg);
+}
+
+.track {
+  fill: none;
+  stroke: var(--lq-primary-soft);
+}
+
+.bar {
+  fill: none;
+  stroke: var(--lq-success);
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--lq-dur-med) var(--lq-ez);
+}
+
+.label {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}

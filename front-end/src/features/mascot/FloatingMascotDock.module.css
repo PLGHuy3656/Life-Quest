@@ -1,0 +1,46 @@
+.dock {
+  position: fixed;
+  right: 12px;
+  bottom: 16px;
+  z-index: var(--lq-z-nav);
+  pointer-events: auto;
+}
+
+.dockBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 13px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid var(--lq-border);
+  background: var(--lq-primary);
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: var(--lq-shadow-float);
+  white-space: nowrap;
+}
+
+.dockBtn:hover {
+  background: var(--lq-primary-hover);
+}
+
+@media (min-width: 1520px) {
+  .dock {
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .dockBtn {
+    padding: 10px 16px;
+    font-size: 13px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .dock {
+    bottom: 88px;
+    right: 14px;
+  }
+}

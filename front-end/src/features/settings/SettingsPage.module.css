@@ -1,0 +1,82 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--lq-primary);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lq-border-strong);
+  background: var(--lq-bg-elevated);
+  font-size: 14px;
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--lq-border);
+  background: var(--lq-bg-elevated);
+}
+
+.statusOk {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lq-success-soft);
+  color: var(--lq-success);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.statusErr {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--lq-danger-soft);
+  color: var(--lq-danger);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

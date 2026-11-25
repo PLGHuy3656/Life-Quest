@@ -1,0 +1,322 @@
+@keyframes focusFadeIn {
+  from {
+    opacity: 0;
+    background: #f8f5ef;
+  }
+  to {
+    opacity: 1;
+    background: #0e1219;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px 28px;
+  background: radial-gradient(circle at 50% 34%, #1d2433 0%, #111620 52%, #0b0e14 100%);
+  color: #f4f1ea;
+  overflow-x: hidden;
+  animation: focusFadeIn 280ms ease-out both;
+}
+
+.topBar {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 2;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f1ea;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.backBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.topTitleWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.taskName {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(244, 241, 234, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 420px;
+}
+
+.localPill {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(244, 241, 234, 0.65);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.centerStage {
+  flex: 1;
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 12px 0;
+  z-index: 2;
+}
+
+.foxStageWrap {
+  position: relative;
+  width: 300px;
+  height: 290px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foxHalo {
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 107, 46, 0.26) 0%, rgba(242, 107, 46, 0.04) 62%, transparent 74%);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.foxHaloRunning {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.foxCanvas {
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.timerBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.clock {
+  font-size: clamp(54px, 8vw, 76px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: #ffffff;
+  text-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+}
+
+.statusLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(244, 241, 234, 0.72);
+}
+
+.progressTrack {
+  width: min(360px, 82vw);
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f26b2e, #ff9d5c);
+  transition: width 320ms linear;
+}
+
+.presetRow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.presetBtn {
+  border: none;
+  background: transparent;
+  color: rgba(244, 241, 234, 0.7);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.presetBtn:hover:not(:disabled) {
+  color: #ffffff;
+}
+
+.presetBtnActive {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.presetBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.controlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: none;
+  background: #f26b2e;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(242, 107, 46, 0.34);
+  transition: transform 140ms ease, background 140ms ease;
+}
+
+.primaryBtn:hover {
+  background: #e15c20;
+  transform: translateY(-1px);
+}
+
+.pauseBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 140ms ease;
+}
+
+.pauseBtn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.ghostBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(244, 241, 234, 0.85);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.ghostBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.confirmBox {
+  width: 100%;
+  max-width: 460px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(242, 107, 46, 0.4);
+  background: rgba(242, 107, 46, 0.12);
+  color: #fde8db;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.confirmActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footerNote {
+  font-size: 12px;
+  color: rgba(244, 241, 234, 0.48);
+  text-align: center;
+  max-width: 520px;
+  margin: 0;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page,
+  .foxHaloRunning {
+    animation: none;
+  }
+}

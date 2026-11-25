@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" fill="none">
+  <defs>
+    <linearGradient id="mr-sky" x1="0" y1="0" x2="360" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF2E2"/>
+      <stop offset="55%" stop-color="#FDE5CF"/>
+      <stop offset="100%" stop-color="#F6D7BA"/>
+    </linearGradient>
+    <linearGradient id="mr-park" x1="0" y1="100" x2="360" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9BD3BE"/>
+      <stop offset="100%" stop-color="#58A88D"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="360" height="180" rx="14" fill="url(#mr-sky)"/>
+  <circle cx="86" cy="54" r="32" fill="#F6C85F" opacity="0.32"/>
+  <circle cx="86" cy="54" r="19" fill="#F6C85F" opacity="0.9"/>
+
+  <!-- Soft park hills -->
+  <path d="M0 118C74 92 146 98 220 116C276 130 322 122 360 108V180H0V118Z" fill="url(#mr-park)"/>
+  <!-- Curving jogging path -->
+  <path d="M24 180C82 148 164 152 224 134C270 120 312 126 352 146" stroke="#F8E7D2" stroke-width="18" stroke-linecap="round"/>
+  <path d="M24 180C82 148 164 152 224 134C270 120 312 126 352 146" stroke="#F26B3A" stroke-width="2.5" stroke-dasharray="8 8" stroke-linecap="round"/>
+
+  <!-- Stylized park trees -->
+  <g transform="translate(264, 52)">
+    <rect x="16" y="42" width="6" height="22" rx="3" fill="#9E7354"/>
+    <circle cx="19" cy="30" r="18" fill="#168C78"/>
+    <circle cx="30" cy="36" r="13" fill="#3CA791"/>
+  </g>
+  <g transform="translate(210, 68)">
+    <rect x="12" y="30" width="5" height="16" rx="2.5" fill="#9E7354"/>
+    <circle cx="14.5" cy="22" r="13" fill="#3CA791"/>
+  </g>
+
+  <!-- Breeze badge -->
+  <g transform="translate(132, 34)">
+    <rect width="98" height="30" rx="15" fill="#FFFFFF" opacity="0.92"/>
+    <circle cx="16" cy="15" r="5" fill="#F26B3A"/>
+    <text x="27" y="19.5" fill="#16324A" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="800">20 phút</text>
+  </g>
+</svg>

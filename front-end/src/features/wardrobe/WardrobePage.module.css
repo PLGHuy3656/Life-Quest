@@ -1,0 +1,1449 @@
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panelHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0e8db;
+}
+
+.panelHeaderRight {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleCluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--lq-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.modeSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--lq-radius-pill);
+  background: #f5f0e6;
+  border: 1px solid #e9e0d1;
+}
+
+.modeBtn {
+  border: none;
+  background: transparent;
+  color: var(--lq-ink-secondary);
+  border-radius: var(--lq-radius-pill);
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.modeBtn:hover {
+  color: var(--lq-primary);
+}
+
+.modeBtnActive {
+  background: var(--lq-primary);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(22, 50, 74, 0.18);
+}
+
+.modeBtnActive:hover {
+  color: #ffffff;
+}
+
+.statsPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: var(--lq-radius-pill);
+  background: #faf6ee;
+  border: 1px solid #ebe2d2;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.statItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.statDivider {
+  width: 1px;
+  height: 14px;
+  background: #dfd5c4;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.94fr) minmax(0, 1.26fr);
+  gap: 18px;
+  align-items: start;
+  min-width: 0;
+}
+
+.catalogPanel {
+  background: var(--lq-surface, #ffffff);
+  border: 1px solid var(--lq-border);
+  border-radius: 24px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  box-shadow: var(--lq-shadow-sm, 0 4px 18px rgba(22, 50, 74, 0.05));
+}
+
+.noticeStrip {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 13px;
+  border-radius: 14px;
+  background: #fff8eb;
+  border: 1px solid rgba(212, 154, 0, 0.25);
+  color: #7a5600;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.noticeIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.shopBanner {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff6ea 0%, #fef2e4 100%);
+  border: 1px solid rgba(242, 107, 58, 0.24);
+  color: var(--lq-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.shopBannerHead {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #b84a1e;
+}
+
+.shopBannerText {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--lq-ink-secondary);
+  line-height: 1.45;
+}
+
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.sectionSub {
+  font-size: 12px;
+  color: var(--lq-ink-muted);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.presetBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid var(--lq-border-strong);
+  background: #faf7f0;
+  color: var(--lq-primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
+}
+
+.presetBtn:hover {
+  border-color: var(--lq-accent);
+  background: #fff5ee;
+}
+
+.presetBtnActive {
+  border-color: var(--lq-accent);
+  background: #fff1e6;
+  box-shadow: 0 0 0 2px rgba(242, 107, 58, 0.18);
+}
+
+.presetDots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.presetDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(22, 50, 74, 0.15);
+}
+
+.categoryBarWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.slotBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.slotBtn {
+  border: 1px solid var(--lq-border-strong);
+  background: #faf8f4;
+  border-radius: var(--lq-radius-pill);
+  padding: 6px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--lq-ink-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.slotBtn:hover {
+  border-color: var(--lq-primary);
+  color: var(--lq-primary);
+}
+
+.slotBtnActive {
+  background: var(--lq-primary);
+  border-color: var(--lq-primary);
+  color: #ffffff;
+}
+
+.slotBtnActive:hover {
+  color: #ffffff;
+}
+
+.tabCount {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--lq-radius-pill);
+  background: rgba(22, 50, 74, 0.08);
+}
+
+.slotBtnActive .tabCount {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.subFilterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.subFilterPill {
+  border: 1px solid var(--lq-border);
+  background: #ffffff;
+  border-radius: var(--lq-radius-pill);
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--lq-ink-muted);
+  cursor: pointer;
+}
+
+.subFilterPillActive {
+  border-color: #f26b3a;
+  background: #fff3ea;
+  color: #c85020;
+}
+
+.defaultNoticeCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #f5fbf8;
+  border: 1px solid #cce9dc;
+}
+
+.defaultCardBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.catalogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 12px;
+}
+
+.itemCard {
+  padding: 12px 13px;
+  border-radius: 18px;
+  border: 1px solid var(--lq-border);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.14s ease;
+}
+
+.itemCard:hover {
+  border-color: #d6cbb8;
+  box-shadow: 0 6px 16px rgba(22, 50, 74, 0.06);
+}
+
+.itemPreviewing {
+  border-color: #f26b3a;
+  background: #fffaf6;
+  box-shadow: 0 0 0 2px rgba(242, 107, 58, 0.18);
+}
+
+.itemHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemName {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--lq-primary);
+  line-height: 1.25;
+}
+
+.itemTagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.slotBadge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #f2ede3;
+  color: #5b5346;
+}
+
+.themeBadge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #edf5f8;
+  color: #1e5f74;
+}
+
+.itemMeta {
+  margin: 0;
+  font-size: 12px;
+  color: var(--lq-ink-secondary);
+  line-height: 1.38;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.shopCard {
+  gap: 9px;
+}
+
+.shopRequirementRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reqBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #f8f5ef;
+  border: 1px solid #ebe3d5;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--lq-ink-secondary);
+}
+
+.shopActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.emptyShopState {
+  padding: 24px 16px;
+  text-align: center;
+  border-radius: 16px;
+  background: #faf7f0;
+  border: 1px dashed #dfd5c4;
+  color: var(--lq-ink-secondary);
+  font-size: 13px;
+}
+
+.catalogScrollArea {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   Authentic Oak/Walnut Wooden Closet (mode === 'wardrobe')
+   ========================================================================== */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.closetCabinet {
+  position: relative;
+  /* Crisp white modern Scandinavian wardrobe cabinet matching LifeQuest cards */
+  background: #ffffff;
+  border: 1.5px solid #e7dfd1;
+  box-shadow: 0 8px 24px rgba(22, 50, 74, 0.06);
+}
+
+.closetCabinet .heading {
+  color: var(--lq-primary);
+  text-shadow: none;
+}
+
+.closetCrown {
+  border-bottom: 1px solid #f0e8db;
+  box-shadow: none;
+  padding-bottom: 6px;
+}
+
+.closetCabinet .modeSwitch {
+  background: #f5f0e6;
+  border-color: #e9e0d1;
+}
+
+.closetCabinet .modeBtn {
+  color: var(--lq-ink-secondary);
+}
+
+.closetCabinet .modeBtn:hover {
+  color: var(--lq-primary);
+}
+
+.closetCabinet .modeBtnActive {
+  background: var(--lq-primary);
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(22, 50, 74, 0.18);
+}
+
+.closetCabinet .modeBtnActive:hover {
+  color: #ffffff;
+}
+
+.closetBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  flex: 1;
+}
+
+.hangingTabBody,
+.drawersTabBody {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  flex: 1;
+}
+
+.outfitShelfGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 10px;
+}
+
+/* Upper Compartment: Bright Scandinavian Recessed Wardrobe Niche + Champagne Rod */
+.closetRackSection {
+  position: relative;
+  z-index: 20;
+  background: linear-gradient(180deg, #efe8dc 0%, #faf6ee 32%, #f5efe4 100%);
+  border: 1.5px solid #e5dccb;
+  border-radius: 18px;
+  padding: 12px 14px 10px;
+  box-shadow:
+    inset 0 8px 18px rgba(120, 86, 46, 0.09),
+    inset 0 -3px 8px rgba(120, 86, 46, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.rackInterior {
+  position: relative;
+  padding-top: 6px;
+}
+
+.closetRod {
+  position: relative;
+  height: 7px;
+  margin: 0 2px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f5e2bd 0%, #cca060 55%, #9a7038 100%);
+  box-shadow: 0 3px 6px rgba(96, 62, 22, 0.22);
+}
+
+.rodBracketLeft,
+.rodBracketRight {
+  position: absolute;
+  top: -3px;
+  width: 8px;
+  height: 13px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #c99d62 0%, #8f6632 100%);
+  box-shadow: 0 2px 4px rgba(84, 52, 18, 0.24);
+}
+
+.rodBracketLeft {
+  left: -3px;
+}
+
+.rodBracketRight {
+  right: -3px;
+}
+
+.hangerRow {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: -6px;
+  padding: 0 4px;
+}
+
+.hangerItem {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.hangerItem:hover,
+.hangerItem:focus-visible {
+  z-index: 40;
+  outline: none;
+}
+
+.garmentStage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  perspective: 520px;
+}
+
+.hangingGarmentSvg {
+  width: 84px;
+  height: 98px;
+  display: block;
+  transform-origin: center top;
+  /* Resting sideways on the rod like real hung clothes */
+  transform: rotateY(-38deg) rotateZ(-1.2deg);
+  filter: drop-shadow(4px 7px 6px rgba(62, 42, 20, 0.22));
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), filter 0.24s ease;
+}
+
+/* Rotate straight forward when hovered, focused, or actively worn */
+.hangerItem:hover .hangingGarmentSvg,
+.hangerItem:focus-visible .hangingGarmentSvg {
+  transform: rotateY(0deg) rotateZ(0deg) scale(1.1) translateY(2px);
+  filter: drop-shadow(0 12px 16px rgba(42, 28, 14, 0.28));
+}
+
+.hangerItemActive .hangingGarmentSvg {
+  transform: rotateY(-6deg) scale(1.04);
+  filter: drop-shadow(0 0 8px rgba(242, 107, 58, 0.45)) drop-shadow(0 7px 10px rgba(42, 28, 14, 0.22));
+}
+
+/* Floating wooden info popover revealed on hover/focus */
+.hangerInfoPopover {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px) scale(0.96);
+  width: 178px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #fffaf2;
+  border: 1.5px solid #b47e45;
+  box-shadow: 0 12px 24px rgba(42, 22, 8, 0.32);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.2s ease;
+  z-index: 50;
+}
+
+.hangerItem:first-child .hangerInfoPopover {
+  left: 0;
+  transform: translateX(0) translateY(-4px) scale(0.96);
+}
+
+.hangerItem:last-child .hangerInfoPopover {
+  left: auto;
+  right: 0;
+  transform: translateX(0) translateY(-4px) scale(0.96);
+}
+
+.hangerItem:hover .hangerInfoPopover,
+.hangerItem:focus-visible .hangerInfoPopover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.hangerItem:first-child:hover .hangerInfoPopover,
+.hangerItem:first-child:focus-visible .hangerInfoPopover,
+.hangerItem:last-child:hover .hangerInfoPopover,
+.hangerItem:last-child:focus-visible .hangerInfoPopover {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.popoverHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.popoverTitle {
+  font-size: 12px;
+  font-weight: 800;
+  color: #3d210a;
+}
+
+.popoverBadge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #f5e2c8;
+  color: #7c4d24;
+}
+
+.popoverPieces {
+  font-size: 11px;
+  line-height: 1.32;
+  color: #5f452d;
+}
+
+.popoverCta {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #d95524;
+  margin-top: 2px;
+}
+
+/* Middle Compartment: Pull-Out Wooden Drawer Bank */
+.drawerSection {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.drawerSectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 2px;
+}
+
+.drawerSectionTitle {
+  font-size: 12px;
+  font-weight: 800;
+  color: #3d210a;
+  text-shadow: 0 1px 0 rgba(255, 236, 208, 0.4);
+}
+
+.drawerSectionHint {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c3715;
+}
+
+.drawerGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.drawerBtn {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Dark recessed hollow drawer cavity sitting behind the white drawer front */
+.drawerCavity {
+  position: relative;
+  height: 14px;
+  margin: 0 5px -7px;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, #e7dfd2 0%, #f1eadf 100%);
+  border: 1px solid #ddd3c3;
+  border-bottom: none;
+  box-shadow: inset 0 3px 6px rgba(22, 50, 74, 0.08);
+  overflow: visible;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.drawerPeekItems {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transform: translateY(12px) scale(0.76);
+  opacity: 0;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.peekThumbWrap {
+  display: inline-flex;
+  border-radius: 7px;
+  background: #ffffff;
+  border: 1px solid #e3dacb;
+  box-shadow: 0 3px 6px rgba(22, 50, 74, 0.14);
+  overflow: hidden;
+}
+
+/* Clean white Scandinavian drawer front panel */
+.drawerFront {
+  position: relative;
+  z-index: 2;
+  border: 1.5px solid #e2d9ca;
+  border-radius: 12px;
+  padding: 8px 6px 7px;
+  background: linear-gradient(180deg, #ffffff 0%, #faf7f1 100%);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 2px 6px rgba(22, 50, 74, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  color: var(--lq-primary);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+/* Minimal brass-gold drawer pull */
+.drawerBrassPull {
+  width: 26px;
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #e2c595 0%, #c1975b 100%);
+  border: 1px solid #b88c4f;
+  box-shadow: 0 1px 2px rgba(22, 50, 74, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* Hover: drawer pulls forward & contents pop up out of the cavity! */
+.drawerBtn:hover .drawerFront,
+.drawerBtn:focus-visible .drawerFront {
+  transform: translateY(3px);
+  border-color: #c8bca8;
+  box-shadow: 0 6px 14px rgba(22, 50, 74, 0.1);
+}
+
+.drawerBtn:hover .drawerPeekItems,
+.drawerBtn:focus-visible .drawerPeekItems {
+  transform: translateY(-10px) scale(1);
+  opacity: 1;
+}
+
+/* Open/Active drawer state */
+.drawerBtnOpen .drawerFront {
+  transform: translateY(3px);
+  background: #fffaf5;
+  border-color: #f26b3a;
+  box-shadow:
+    0 0 0 2px rgba(242, 107, 58, 0.18),
+    0 6px 14px rgba(242, 107, 58, 0.12);
+}
+
+.drawerBtnOpen .drawerBrassPull {
+  background: linear-gradient(180deg, #ff8f61 0%, #f26b3a 100%);
+  border-color: #d95224;
+}
+
+.drawerBtnOpen .drawerPeekItems {
+  transform: translateY(-8px) scale(0.95);
+  opacity: 1;
+}
+
+.drawerFaceRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.drawerLabel {
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.drawerCount {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: #f2ece1;
+  color: var(--lq-ink-secondary);
+}
+
+.drawerBtnOpen .drawerCount {
+  background: #f26b3a;
+  color: #ffffff;
+}
+
+/* Lower Compartment: Airy Soft-Ivory Open Drawer Tray */
+.openDrawerTray {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: #faf8f4;
+  border: 1px solid #ece5d8;
+  animation: drawerSlideOpen 0.2s ease-out;
+}
+
+@keyframes drawerSlideOpen {
+  from {
+    opacity: 0.72;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.openDrawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  border-bottom: 1.5px dashed #d7bb96;
+}
+
+.openDrawerBadge {
+  font-size: 12px;
+  color: #5c3715;
+}
+
+.openDrawerDesc {
+  font-size: 11.5px;
+  color: #825d3b;
+}
+
+.drawerItemSlot {
+  position: relative;
+  border: 1px solid #e6d6c0;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 13px 14px;
+  box-shadow: 0 2px 8px rgba(84, 48, 16, 0.05);
+}
+
+.drawerItemSlot:hover {
+  border-color: #cda072;
+  box-shadow: 0 6px 16px rgba(84, 48, 16, 0.1);
+}
+
+.drawerItemSlot.itemPreviewing {
+  border-color: #f26b3a;
+  background: #fffaf5;
+  box-shadow: 0 0 0 2px rgba(242, 107, 58, 0.2);
+}
+
+.closetCabinet .itemName {
+  color: var(--lq-primary);
+  font-size: 14px;
+}
+
+.closetCabinet .itemMeta {
+  color: var(--lq-ink-secondary);
+  font-size: 12px;
+}
+
+.closetCabinet .slotBadge {
+  background: #f2ede3;
+  color: #5b5346;
+}
+
+.closetCabinet .themeBadge {
+  background: #edf5f8;
+  color: #1e5f74;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.closetCabinet .cardFooter button {
+  border-color: var(--lq-border-strong);
+}
+
+.closetCabinet .cardFooter button[class*='primary'] {
+  background: var(--lq-primary);
+  border-color: var(--lq-primary);
+  color: #ffffff;
+}
+
+.closetCabinet .cardFooter button[class*='primary']:hover {
+  background: #234969;
+  border-color: #234969;
+}
+
+/* Botanical forest vines & drifting autumn maple leaves (decorative, non-blocking) */
+.closetVineLeft,
+.closetVineRight {
+  position: absolute;
+  top: -2px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.92;
+  filter: drop-shadow(0 2px 3px rgba(74, 42, 14, 0.2));
+  transform-origin: top center;
+  animation: vineBreezeSway 6.5s ease-in-out infinite;
+}
+
+.closetVineLeft {
+  left: -2px;
+  width: 128px;
+  height: 82px;
+}
+
+.closetVineRight {
+  right: -2px;
+  width: 112px;
+  height: 78px;
+  animation-delay: -2.4s;
+  animation-duration: 7.4s;
+}
+
+@keyframes vineBreezeSway {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(1.6deg) translateY(1.5px);
+  }
+}
+
+.floatingMapleLeaf {
+  position: absolute;
+  top: -12px;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  filter: drop-shadow(0 2px 2px rgba(96, 46, 12, 0.22));
+  animation: mapleLeafDrift 12s linear infinite;
+}
+
+@keyframes mapleLeafDrift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.85);
+  }
+  10% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 0.55;
+    transform: translate3d(22px, 145px, 0) rotate(130deg) scale(1);
+  }
+  88% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-14px, 310px, 0) rotate(280deg) scale(0.8);
+  }
+}
+
+:global(html.lq-rm) .closetVineLeft,
+:global(html.lq-rm) .closetVineRight,
+:global(html.lq-rm) .floatingMapleLeaf {
+  animation: none;
+}
+
+:global(html.lq-rm) .floatingMapleLeaf {
+  display: none;
+}
+
+/* ==========================================================================
+   Cozy Fox Boutique Storefront (mode === 'shop')
+   ========================================================================== */
+
+.shopBoutique {
+  position: relative;
+  overflow: hidden;
+  padding-top: 22px !important;
+  border: 1.5px solid #eadfd0;
+}
+
+/* Charming subtle striped terracotta-and-cream boutique awning at top rim */
+.shopAwning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f26b3a 0px,
+    #f26b3a 22px,
+    #fff3e6 22px,
+    #fff3e6 44px
+  );
+  border-bottom: 1.5px solid rgba(242, 107, 58, 0.25);
+  pointer-events: none;
+}
+
+.shopToolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shopToolbarTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.shopSearchWrap {
+  position: relative;
+  flex: 1;
+  min-width: 190px;
+  display: flex;
+  align-items: center;
+}
+
+.shopSearchIcon {
+  position: absolute;
+  left: 11px;
+  color: var(--lq-ink-muted);
+  pointer-events: none;
+}
+
+.shopSearchInput {
+  width: 100%;
+  height: 34px;
+  padding: 0 30px 0 32px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid #e6ddd0;
+  background: #faf7f2;
+  color: var(--lq-primary);
+  font-size: 12.5px;
+  font-family: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.shopSearchInput:focus {
+  outline: none;
+  border-color: #f26b3a;
+  background: #ffffff;
+}
+
+.shopSearchClear {
+  position: absolute;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: #ebe3d5;
+  color: var(--lq-ink-secondary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.shopQuickToggles {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quickToggleBtn {
+  height: 34px;
+  padding: 0 11px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid #e6ddd0;
+  background: #ffffff;
+  color: var(--lq-ink-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.quickToggleBtn:hover {
+  border-color: #f26b3a;
+  color: var(--lq-primary);
+}
+
+.quickToggleActive {
+  border-color: #f26b3a;
+  background: #fff3ea;
+  color: #c85020;
+}
+
+.shopApiPill {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--lq-radius-pill);
+  background: #fff7ef;
+  border: 1px solid rgba(242, 107, 58, 0.22);
+  color: #9e4b1e;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.shopDisplayGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.boutiqueCard {
+  border-radius: 16px;
+  border: 1px solid #ebe3d5;
+  background: #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.15s ease;
+}
+
+.boutiqueCard:hover {
+  border-color: #d6c8b2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(22, 50, 74, 0.08);
+}
+
+.shopDisplayStage {
+  position: relative;
+  height: 86px;
+  background: radial-gradient(circle at 50% 42%, #ffffff 0%, #f8f3ea 76%, #f2ebe0 100%);
+  border-bottom: 1px solid #f0e8db;
+}
+
+.stageTryClick {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.wearingBadge {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #f26b3a;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.wishlistBtn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #e8dfd0;
+  background: rgba(255, 255, 255, 0.94);
+  color: #9e8f7c;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.14s ease, background 0.15s ease;
+}
+
+.wishlistBtn:hover {
+  color: #e0533a;
+  border-color: rgba(224, 83, 58, 0.35);
+  transform: scale(1.08);
+}
+
+.wishlistBtnActive {
+  color: #e0533a;
+  background: #fff2ef;
+  border-color: rgba(224, 83, 58, 0.4);
+}
+
+.boutiqueBody {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.boutiqueMetaBlock {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.boutiqueCard .shopActions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+}
+
+.boutiqueCard .shopActions button {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 1280px) {
+  .shopDisplayGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.miniHanger {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 14px;
+  pointer-events: none;
+}
+
+:global(html.lq-rm) .hangingGarmentSvg,
+:global(html.lq-rm) .hangerInfoPopover,
+:global(html.lq-rm) .drawerFront,
+:global(html.lq-rm) .drawerPeekItems,
+:global(html.lq-rm) .openDrawerTray {
+  transition: none;
+  animation: none;
+}
+
+@media (max-width: 1240px) {
+  .hangingGarmentSvg {
+    width: 60px;
+    height: 70px;
+  }
+
+  .drawerGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .hangerRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .workspace {
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .splitGrid {
+    flex: 1;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .catalogPanel {
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .catalogScrollArea {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-top: 6px;
+    padding-right: 4px;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+}
+
+@media (max-width: 1100px) {
+  .splitGrid {
+    grid-template-columns: minmax(290px, 0.9fr) minmax(0, 1.15fr);
+    gap: 14px;
+  }
+
+  .catalogGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+  }
+}

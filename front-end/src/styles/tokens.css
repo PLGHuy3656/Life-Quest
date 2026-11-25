@@ -1,0 +1,64 @@
+/* LifeQuest Design Tokens — Recovered from Claude Canvas Dashboard (Main.dc.html & App.dc.html) */
+:root {
+  /* Palette */
+  --lq-bg: #F5F3EE;
+  --lq-bg-elevated: #FAF9F6;
+  --lq-surface: #FFFFFF;
+  --lq-surface-glass: rgba(245, 243, 238, 0.82);
+  --lq-surface-subtle: #EFECE5;
+
+  --lq-primary: #16324A;
+  --lq-primary-soft: rgba(22, 50, 74, 0.08);
+  --lq-primary-hover: #1E4261;
+
+  --lq-accent: #F26B3A;
+  --lq-accent-soft: rgba(242, 107, 58, 0.12);
+  --lq-accent-hover: #DE5A2A;
+
+  --lq-success: #168C78;
+  --lq-success-soft: rgba(22, 140, 120, 0.12);
+
+  --lq-reward: #F6C85F;
+  --lq-reward-soft: rgba(246, 200, 95, 0.22);
+  --lq-reward-ink: #7A5400;
+
+  --lq-danger: #C84032;
+  --lq-danger-soft: rgba(200, 64, 50, 0.12);
+
+  /* Ink & Borders */
+  --lq-ink: #16324A;
+  --lq-ink-secondary: #4D6274;
+  --lq-ink-muted: #768796;
+  --lq-border: rgba(22, 50, 74, 0.1);
+  --lq-border-strong: rgba(22, 50, 74, 0.18);
+
+  /* Typography */
+  --lq-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Geometry */
+  --lq-radius-card: 22px;
+  --lq-radius-md: 16px;
+  --lq-radius-sm: 12px;
+  --lq-radius-pill: 999px;
+
+  /* Elevation */
+  --lq-shadow-card: 0 2px 10px rgba(22, 50, 74, 0.05), 0 1px 2px rgba(22, 50, 74, 0.04);
+  --lq-shadow-float: 0 12px 32px rgba(22, 50, 74, 0.12), 0 2px 6px rgba(22, 50, 74, 0.06);
+  --lq-shadow-sheet: 0 20px 56px rgba(22, 50, 74, 0.22);
+
+  /* Layout & Motion */
+  --lq-container-max: 1200px;
+  --lq-page-gutter: 24px;
+  --lq-grid-gap: 16px;
+  --lq-hdh: 76px;
+  --lq-sidebar-w: 248px;
+  --lq-bnav-h: 72px;
+  --lq-ez: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --lq-dur-fast: 160ms;
+  --lq-dur-med: 260ms;
+
+  /* Z-Index */
+  --lq-z-header: 30;
+  --lq-z-nav: 40;
+  --lq-z-sheet: 60;
+}

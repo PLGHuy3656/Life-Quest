@@ -5,12 +5,22 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
+# Dependencies & Build
 node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
+
+# Generated Mascot Gate I runtime assets (synced deterministically via `npm run assets`)
+public/models
+public/fox_poster.png
+
+# Test artifacts
+playwright-report
+test-results
+coverage
 
 # Editor directories and files
 .vscode/*

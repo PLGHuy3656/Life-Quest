@@ -1,0 +1,367 @@
+.panel {
+  position: relative;
+  background: linear-gradient(168deg, #fffdf9 0%, #fcf4e7 54%, #f6ead6 100%);
+  border: 1px solid rgba(242, 107, 58, 0.14);
+  border-radius: var(--lq-radius-card);
+  box-shadow:
+    0 8px 28px rgba(176, 121, 70, 0.08),
+    0 2px 8px rgba(22, 50, 74, 0.04);
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.greetingBlock {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+}
+
+.companionPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: var(--lq-radius-pill);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(242, 107, 58, 0.22);
+  color: #c84b1e;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.greetingTitle {
+  font-size: clamp(21px, 1.9vw, 25px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--lq-primary);
+  line-height: 1.2;
+}
+
+.greetingSub {
+  font-size: 13px;
+  color: var(--lq-ink-secondary);
+  max-width: 340px;
+  line-height: 1.45;
+}
+
+/* Cozy study room stage layered behind the alpha-transparent Fox V2 WebGL canvas */
+.mascotStageWrap {
+  position: relative;
+  flex: 1;
+  min-height: 274px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(164, 128, 86, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+}
+
+.sceneBackdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.foxCanvasLayer {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.foxCanvasTransparent {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Claude-style "Hôm nay bạn muốn làm gì?" pill bar + chips */
+.promptBox {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(22, 50, 74, 0.09);
+  border-radius: 20px;
+  padding: 14px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(22, 50, 74, 0.06);
+}
+
+.promptTitle {
+  text-align: center;
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--lq-primary);
+}
+
+.promptForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pillBar {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 4px 6px 4px 5px;
+  border-radius: var(--lq-radius-pill);
+  border: 1px solid rgba(22, 50, 74, 0.13);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color var(--lq-dur-fast) var(--lq-ez), box-shadow var(--lq-dur-fast) var(--lq-ez);
+}
+
+.pillBar:focus-within {
+  border-color: rgba(242, 107, 58, 0.55);
+  box-shadow: 0 0 0 3px rgba(242, 107, 58, 0.12);
+}
+
+.typePill {
+  height: 32px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: var(--lq-radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: filter var(--lq-dur-fast) var(--lq-ez);
+}
+
+.typePill:hover {
+  filter: brightness(0.95);
+}
+
+.typeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.promptInput {
+  flex: 1;
+  min-width: 60px;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0 4px;
+  font-size: 13.5px;
+  color: var(--lq-primary);
+}
+
+.promptInput:focus {
+  outline: none;
+}
+
+.promptInput::placeholder {
+  color: var(--lq-ink-muted);
+}
+
+.inlineTools {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.iconToolBtn {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--lq-ink-muted);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.iconToolBtn:hover {
+  background: var(--lq-primary-soft);
+  color: var(--lq-primary);
+}
+
+.iconToolBtnStarred {
+  color: #c28500;
+}
+
+.micToolBtn {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff0e8;
+  color: var(--lq-accent);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    color var(--lq-dur-fast) var(--lq-ez),
+    transform var(--lq-dur-fast) var(--lq-ez);
+}
+
+.micToolBtn:hover {
+  background: #ffe1d1;
+  color: #c84b1e;
+}
+
+.sendCircleBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 0;
+  background: linear-gradient(135deg, #f26b3a 0%, #e45828 100%);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 5px 14px rgba(242, 107, 58, 0.34);
+  transition:
+    transform var(--lq-dur-fast) var(--lq-ez),
+    filter var(--lq-dur-fast) var(--lq-ez);
+}
+
+.sendCircleBtn:hover:not(:disabled) {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.sendCircleBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.quickChip {
+  border: 1px solid rgba(22, 50, 74, 0.13);
+  background: #ffffff;
+  color: var(--lq-primary);
+  border-radius: var(--lq-radius-pill);
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    color var(--lq-dur-fast) var(--lq-ez),
+    border-color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.quickChip:hover {
+  border-color: rgba(22, 50, 74, 0.3);
+  background: #f8f5ef;
+}
+
+.quickChipActive {
+  background: var(--lq-primary);
+  color: #ffffff;
+  border-color: var(--lq-primary);
+}
+
+.quickChipActive:hover {
+  background: var(--lq-primary-hover);
+  color: #ffffff;
+}
+
+.moreChipBtn {
+  width: 30px;
+  height: 29px;
+  border: 1px solid rgba(22, 50, 74, 0.13);
+  background: #ffffff;
+  color: var(--lq-ink-secondary);
+  border-radius: var(--lq-radius-pill);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color var(--lq-dur-fast) var(--lq-ez),
+    border-color var(--lq-dur-fast) var(--lq-ez);
+}
+
+.moreChipBtn:hover {
+  background: #f8f5ef;
+  border-color: rgba(22, 50, 74, 0.28);
+  color: var(--lq-primary);
+}
+
+.feedbackNote {
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--lq-bg-elevated);
+  color: var(--lq-ink-secondary);
+}
+
+.feedbackError {
+  background: var(--lq-danger-soft);
+  color: var(--lq-danger);
+  font-weight: 600;
+}
+
+.feedbackSuccess {
+  background: var(--lq-success-soft);
+  color: var(--lq-success);
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .panel {
+    padding: 16px;
+  }
+
+  .quickChip {
+    padding: 4px 8px;
+    font-size: 11.5px;
+    gap: 4px;
+  }
+
+  .moreChipBtn {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .greetingBlock,
+  .promptBox {
+    display: none;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+}

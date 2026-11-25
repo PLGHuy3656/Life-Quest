@@ -1,0 +1,355 @@
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--lq-bg);
+}
+
+.brandMark {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--lq-primary) 0%, #244c6e 100%);
+  color: var(--lq-reward);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(22, 50, 74, 0.2);
+}
+
+.brandName {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--lq-primary);
+  line-height: 1.15;
+}
+
+/* Main Column */
+.mainWrap {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: var(--lq-z-header);
+    height: var(--lq-hdh);
+    background: var(--lq-surface-glass);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--lq-border);
+    display: flex;
+    align-items: center;
+  }
+}
+
+.headerInner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mobileBrand {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerContext {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.headerTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--lq-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.headerSub {
+  font-size: 12px;
+  color: var(--lq-ink-muted);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+  max-width: calc(var(--lq-container-max) + 2 * var(--lq-page-gutter));
+  margin: 0 auto;
+  padding: 12px var(--lq-page-gutter) 84px;
+}
+
+.desktopThreeRegion {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--lq-grid-gap);
+  width: 100%;
+  min-width: 0;
+}
+
+.centerRegion {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .contentCalendarFit {
+    flex: 0 0 calc(100dvh - 84px);
+    padding-bottom: 12px;
+    height: calc(100dvh - 84px);
+    max-height: calc(100dvh - 84px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contentCalendarFit .desktopThreeRegion {
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+    max-height: 100%;
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .contentCalendarFit .leftRailStack {
+    position: static;
+    top: auto;
+    align-self: flex-start;
+  }
+
+  .contentCalendarFit .centerRegion {
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .content {
+    max-width: calc(var(--lq-container-max) + 32px);
+    padding: 12px 16px 84px;
+  }
+}
+
+/* Tablet Floating Pill (700px - 1023px) */
+.tabletPillNav {
+  display: none;
+}
+
+/* Mobile 5-slot Bottom Nav (< 700px) */
+.mobileBottomNav {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none;
+  }
+
+  .mobileBrand {
+    display: flex;
+  }
+
+  .headerContext {
+    display: none;
+  }
+
+  .content {
+    padding: 20px 18px 110px;
+  }
+
+  .headerInner {
+    padding: 0 18px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1023px) {
+  .tabletPillNav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    z-index: var(--lq-z-nav);
+    padding: 8px 10px;
+    border-radius: var(--lq-radius-pill);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--lq-border);
+    box-shadow: var(--lq-shadow-float);
+  }
+
+  .pillLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: var(--lq-radius-pill);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--lq-ink-secondary);
+  }
+
+  .pillLinkActive {
+    background: var(--lq-primary);
+    color: #ffffff;
+  }
+
+  .pillFab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: var(--lq-radius-pill);
+    border: none;
+    background: var(--lq-accent);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 699px) {
+  .headerInner {
+    padding: 0 14px;
+  }
+
+  .content {
+    padding: 16px 14px calc(var(--lq-bnav-h) + 28px);
+  }
+
+  .mobileBottomNav {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--lq-z-nav);
+    min-height: var(--lq-bnav-h);
+    padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--lq-border);
+  }
+
+  .bnavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--lq-ink-muted);
+    padding: 4px 2px;
+    min-height: 48px;
+  }
+
+  .bnavItemActive {
+    color: var(--lq-primary);
+    font-weight: 800;
+  }
+
+  .bnavFab {
+    width: 48px;
+    height: 48px;
+    margin: -14px auto 0;
+    border-radius: 50%;
+    border: 4px solid var(--lq-bg);
+    background: var(--lq-accent);
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 8px 18px rgba(242, 107, 58, 0.35);
+  }
+}
+
+/* FE-04A.3 Unified sticky left stack holding PinnedTaskRail + PlayerStatsRail + Global Shop Icon */
+.leftRailStack {
+  position: sticky;
+  top: 92px;
+  align-self: start;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  z-index: 12;
+}
+
+.shopRailBtn {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(22, 50, 74, 0.07);
+  box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  display: grid;
+  place-items: center;
+  transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+}
+
+.shopRailBtn:hover,
+.shopRailBtn:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(242, 107, 58, 0.35);
+  box-shadow: 0 5px 14px rgba(242, 107, 58, 0.14);
+  outline: none;
+}
+
+.shopRailIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: #fff1e6;
+  color: #e05a28;
+  display: grid;
+  place-items: center;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.shopRailBtnActive {
+  border-color: rgba(242, 107, 58, 0.45);
+  background: #fffaf5;
+  box-shadow: 0 0 0 2px rgba(242, 107, 58, 0.16), 0 4px 12px rgba(242, 107, 58, 0.14);
+}
+
+.shopRailBtnActive .shopRailIcon {
+  background: #f26b3a;
+  color: #ffffff;
+}

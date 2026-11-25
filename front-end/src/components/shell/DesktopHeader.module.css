@@ -1,0 +1,436 @@
+/* Claude Canvas Desktop Header Restoration (>= 1024px only; hidden below 1024px) */
+.desktopHeader {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: var(--lq-z-header);
+  height: 80px;
+  background: rgba(245, 243, 238, 0.84);
+  backdrop-filter: blur(14px);
+  padding: 0 var(--lq-page-gutter);
+}
+
+@media (max-width: 1023px) {
+  .desktopHeader {
+    display: none;
+  }
+}
+
+.grid {
+    width: 100%;
+    max-width: var(--lq-container-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--lq-grid-gap);
+    min-width: 0;
+  }
+
+  /* Island 1: Brand */
+  .brandIsland {
+    height: 64px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(22, 50, 74, 0.06);
+    box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+    flex-shrink: 0;
+  }
+
+  .brandText {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #16324a;
+    white-space: nowrap;
+  }
+
+  .brandQuest {
+    color: #c2461a;
+  }
+
+  /* Island 2: Center Icon Navigation */
+  .navIsland {
+    min-width: 0;
+    height: 64px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 8px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(22, 50, 74, 0.06);
+    box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  }
+
+  .navItem {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    color: #3b4658;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition:
+      background-color 160ms var(--lq-ez),
+      color 160ms var(--lq-ez);
+  }
+
+  .navItem:hover {
+    background: #f5f3ee;
+    color: #16324a;
+  }
+
+  .navItemActive {
+    background: #fff1ea;
+    color: #c2461a;
+  }
+
+  .navItemActive:hover {
+    background: #ffe6d9;
+    color: #c2461a;
+  }
+
+  .tip {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-2px);
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: #16324a;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 140ms var(--lq-ez),
+      transform 140ms var(--lq-ez);
+    z-index: 45;
+  }
+
+  .navItem:hover .tip,
+  .navItem:focus-visible .tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Island 3: Utility */
+  .utilityIsland {
+    min-width: 0;
+    height: 64px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(22, 50, 74, 0.06);
+    box-shadow: 0 2px 10px rgba(22, 50, 74, 0.04);
+  }
+
+  .searchBox {
+    flex: 0 1 220px;
+    width: 220px;
+    min-width: 140px;
+    height: 42px;
+    padding: 0 14px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f3ee;
+    border-radius: 14px;
+    color: #667085;
+    cursor: text;
+  }
+
+  .searchInput {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+    color: #122033;
+  }
+
+  .searchInput::placeholder {
+    color: #667085;
+  }
+
+  .statPill {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 36px;
+    padding: 0 11px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #122033;
+    white-space: nowrap;
+  }
+
+  .statStreak {
+    background: #fff1ea;
+  }
+
+  .statCoin {
+    background: #fdf6e3;
+  }
+
+  .circleBtn {
+    position: relative;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid #ece8e0;
+    background: #ffffff;
+    color: #122033;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition:
+      background-color 140ms var(--lq-ez),
+      border-color 140ms var(--lq-ez);
+  }
+
+  .circleBtn:hover {
+    background: #f5f3ee;
+  }
+
+  .circleBtnActive {
+    background: #16324a;
+    border-color: #16324a;
+    color: #ffffff;
+  }
+
+  .circleBtnActive:hover {
+    background: #1e4261;
+  }
+
+  .loginBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #16324a;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background-color 140ms var(--lq-ez);
+  }
+
+  .loginBtn:hover {
+    background: #1e4261;
+  }
+
+  /* Profile Pill & Dropdown Bubble */
+  .profileWrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .profileBtn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 46px;
+    padding: 0 6px 0 3px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: #122033;
+  }
+
+  .profileBtn:hover {
+    background: #f5f3ee;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: #168c78;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .uname {
+    font-size: 13px;
+    font-weight: 700;
+    color: #122033;
+    max-width: 96px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bubble {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 14px);
+    width: 236px;
+    background: #ffffff;
+    border: 1px solid #efebe3;
+    border-radius: 18px;
+    padding: 14px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 16px 36px rgba(22, 50, 74, 0.14);
+    z-index: 50;
+  }
+
+  .bubbleHead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bubbleName {
+    font-size: 14px;
+    font-weight: 800;
+    color: #122033;
+  }
+
+  .bubbleLevel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #127a68;
+  }
+
+  .xpTrack {
+    height: 6px;
+    border-radius: 999px;
+    background: #efebe3;
+    overflow: hidden;
+  }
+
+  .xpFill {
+    height: 100%;
+    border-radius: 999px;
+    background: #168c78;
+  }
+
+  .xpCaption {
+    font-size: 11px;
+    color: #667085;
+  }
+
+  .bubbleMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-top: 1px solid #efebe3;
+    padding-top: 8px;
+  }
+
+  .bubbleLink {
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3b4658;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    width: 100%;
+  }
+
+  .bubbleLink:hover {
+    background: #f5f3ee;
+    color: #16324a;
+  }
+
+  .bubbleLogout {
+    color: #b42318;
+  }
+
+  .bubbleLogout:hover {
+    background: #fef3f2;
+    color: #b42318;
+  }
+
+/* Prevent squeeze between 1024px and 1320px while 248px sidebar is visible */
+@media (min-width: 1024px) and (max-width: 1320px) {
+  .statPill {
+    display: none;
+  }
+
+  .searchBox {
+    width: 170px;
+    flex-basis: 170px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .desktopHeader {
+    padding: 0 16px;
+  }
+
+  .grid {
+    gap: 10px;
+  }
+
+  .brandText {
+    display: none;
+  }
+
+  .brandIsland {
+    padding: 0 12px;
+  }
+
+  .navIsland {
+    padding: 0 8px;
+    gap: 2px;
+  }
+
+  .navItem {
+    width: 38px;
+    height: 38px;
+  }
+
+  .utilityIsland {
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .searchBox {
+    width: 130px;
+    min-width: 110px;
+    flex-basis: 130px;
+    padding: 0 10px;
+  }
+}

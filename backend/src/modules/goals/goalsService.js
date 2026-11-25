@@ -1,4 +1,3 @@
-import { usersRepository } from '../users/usersRepository.js'
 import { goalsRepository } from './goalsRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
 
@@ -30,14 +29,9 @@ const getGoalById = async (goalId, userId) => {
 }
 
 
-// Tạo mới mục tiêu sau khi kiểm tra sự tồn tại của người dùng và tính hợp lệ của khoảng thời gian.
-const createGoal = async (goalData) => {
-  const user = await usersRepository.findUserById(goalData.userId)
-
-  if (!user) {
-    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND')
-  }
-
+// Tạo mới mục tiêu sau khi kiểm tra tính hợp lệ của khoảng thời gian.
+// userId được lấy từ token (đã authenticated), không cần kiểm tra user tồn tại nữa.
+const createGoal = async (userId, goalData) => {
   const startDate = new Date(goalData.startDate)
   const dueDate = new Date(goalData.dueDate)
 
@@ -46,7 +40,7 @@ const createGoal = async (goalData) => {
   }
 
   const goal = await goalsRepository.createGoal({
-    userId: goalData.userId,
+    userId,
     title: goalData.title,
     description: goalData.description,
     startDate,
@@ -88,21 +82,6 @@ const updateGoal = async (goalId, userId, updateData) => {
   return updatedGoal
 }
 
-const archiveGoal = async (goalId, userId) => {
-  // Kiểm tra Goal tồn tại và User có quyền truy cập
-  const goal = await getGoalById(goalId, userId)
-
-  if (goal.status === 'ARCHIVED') {
-    throw new ApiError(400, 'Goal is already archived', 'GOAL_ALREADY_ARCHIVED')
-  }
-
-  if (goal.status === 'COMPLETED') {
-    throw new ApiError(400, 'Cannot archived a completed goal', 'GOAL_CANNOT_BE_ARCHIVED')
-  }
-  const archivedGoal = await goalsRepository.archiveGoal(goalId)
-  return archivedGoal
-}
-
 
 const pauseGoal = async (goalId, userId) => {
   const goal = await getGoalById(goalId, userId)
@@ -115,11 +94,51 @@ const pauseGoal = async (goalId, userId) => {
 }
 
 
+const resumeGoal = async (goalId, userId) => {
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status !== 'PAUSED') {
+    throw new ApiError(400, 'Only paused goals can be resumed', 'GOAL_CANNOT_BE_RESUMED')
+  }
+
+  const resumedGoal = await goalsRepository.resumeGoal(goalId)
+  return resumedGoal
+}
+
+
+const completeGoal = async (goalId, userId) => {
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status !== 'ACTIVE') {
+    throw new ApiError(400, 'Only active goals can be completed', 'GOAL_CANNOT_BE_COMPLETED')
+  }
+
+  const completedGoal = await goalsRepository.completeGoal(goalId)
+  return completedGoal
+}
+
+
+const archiveGoal = async (goalId, userId) => {
+  // Kiểm tra Goal tồn tại và User có quyền truy cập
+  const goal = await getGoalById(goalId, userId)
+
+  if (goal.status === 'ARCHIVED') {
+    throw new ApiError(400, 'Goal is already archived', 'GOAL_ALREADY_ARCHIVED')
+  }
+
+  if (goal.status === 'COMPLETED') {
+    throw new ApiError(400, 'Cannot archive a completed goal', 'GOAL_CANNOT_BE_ARCHIVED')
+  }
+  const archivedGoal = await goalsRepository.archiveGoal(goalId)
+  return archivedGoal
+}
 export const goalsService = {
   getGoalsByUserId,
   getGoalById,
   createGoal,
   updateGoal,
-  archiveGoal,
-  pauseGoal
+  pauseGoal,
+  resumeGoal,
+  completeGoal,
+  archiveGoal
 }
