@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Eye, FlipHorizontal2, RotateCcw, Sparkles, ZoomIn, ZoomOut } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Eye, FlipHorizontal2, RotateCcw, Shirt, Sparkles, Store, ZoomIn, ZoomOut } from 'lucide-react'
 import { Chip } from '@/components/ui/Chip'
 import { useCompanion } from '@/features/mascot/CompanionProvider'
 import type { FoxCameraCommand } from '@/features/mascot/FoxCanvas'
@@ -11,13 +10,14 @@ import type { ActiveDialogueBubble } from '@/features/mascot/dialogue/types'
 import styles from './WardrobeDressingRoom.module.css'
 
 export interface WardrobeDressingRoomProps {
-  onResetPreview: () => void
+  mode: 'wardrobe' | 'shop'
+  onSwitchMode: (mode: 'wardrobe' | 'shop') => void
 }
 
-export function WardrobeDressingRoom({ onResetPreview }: WardrobeDressingRoomProps) {
+export function WardrobeDressingRoom({ mode, onSwitchMode }: WardrobeDressingRoomProps) {
   const companion = useCompanion()
   const [cameraCommand, setCameraCommand] = useState<FoxCameraCommand | null>(null)
-  const [cameraFacing, setCameraFacing] = useState<'front' | 'back'>('front')
+  const [cameraFacing, setCameraFacing] = useState<'front' | 'side' | 'back'>('front')
   const [activeDialogue, setActiveDialogue] = useState<ActiveDialogueBubble | null>(() =>
     foxDialogueBus.getActive()
   )
@@ -30,6 +30,7 @@ export function WardrobeDressingRoom({ onResetPreview }: WardrobeDressingRoomPro
 
   const sendCamera = useCallback((type: FoxCameraCommand['type']) => {
     if (type === 'front' || type === 'reset') setCameraFacing('front')
+    if (type === 'side') setCameraFacing('side')
     if (type === 'back') setCameraFacing('back')
     setCameraCommand((prev) => ({ type, seq: (prev?.seq ?? 0) + 1 }))
   }, [])
@@ -63,15 +64,28 @@ export function WardrobeDressingRoom({ onResetPreview }: WardrobeDressingRoomPro
           )}
         </div>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onResetPreview}
-          disabled={previewCount === 0}
-        >
-          <RotateCcw size={14} aria-hidden="true" />
-          <span>Khôi phục mặc định ({previewCount})</span>
-        </Button>
+        <nav className={styles.modeSwitch} aria-label="Chuyển đổi Tủ đồ và Cửa hàng">
+          <button
+            type="button"
+            className={`${styles.modeBtn} ${mode === 'wardrobe' ? styles.modeBtnActive : ''}`.trim()}
+            aria-current={mode === 'wardrobe' ? 'page' : undefined}
+            onClick={() => onSwitchMode('wardrobe')}
+            data-testid="wardrobe-tab-btn"
+          >
+            <Shirt size={14} aria-hidden="true" />
+            <span>Tủ đồ</span>
+          </button>
+          <button
+            type="button"
+            className={`${styles.modeBtn} ${mode === 'shop' ? styles.modeBtnActive : ''}`.trim()}
+            aria-current={mode === 'shop' ? 'page' : undefined}
+            onClick={() => onSwitchMode('shop')}
+            data-testid="shop-tab-btn"
+          >
+            <Store size={14} aria-hidden="true" />
+            <span>Cửa hàng</span>
+          </button>
+        </nav>
       </div>
 
       <div className={styles.canvasStage}>
@@ -108,6 +122,15 @@ export function WardrobeDressingRoom({ onResetPreview }: WardrobeDressingRoomPro
           >
             <Eye size={14} aria-hidden="true" />
             <span>Trước</span>
+          </button>
+          <button
+            type="button"
+            className={`${styles.camBtn} ${cameraFacing === 'side' ? styles.camBtnActive : ''}`.trim()}
+            onClick={() => sendCamera('side')}
+            aria-label="Góc nhìn mặt ngang"
+            title="Mặt ngang"
+          >
+            <span>Ngang</span>
           </button>
           <button
             type="button"

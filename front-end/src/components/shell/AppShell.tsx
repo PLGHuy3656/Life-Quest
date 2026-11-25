@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Plus,
   Search,
+  Store,
   ZapOff
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -167,6 +168,19 @@ export function AppShell({ children }: { children: ReactNode }) {
               <aside className={styles.leftRailStack} data-testid="shared-left-rail-stack" aria-label="Thanh tiện ích trái">
                 <PinnedTaskRail />
                 <PlayerStatsRail />
+                <NavLink
+                  to="/wardrobe/shop"
+                  className={({ isActive }) =>
+                    `${styles.shopRailBtn} ${isActive ? styles.shopRailBtnActive : ''}`.trim()
+                  }
+                  aria-label="Cửa hàng trang phục"
+                  title="Cửa hàng trang phục"
+                  data-testid="left-rail-shop-btn"
+                >
+                  <span className={styles.shopRailIcon} aria-hidden="true">
+                    <Store size={15} strokeWidth={2.2} />
+                  </span>
+                </NavLink>
               </aside>
               <div className={styles.centerRegion} data-testid="shared-center-region">
                 {children}
