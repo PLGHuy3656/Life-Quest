@@ -27,7 +27,7 @@ const createUserWithRelations = async (userData) => {
         userId: user.id,
         displayName: user.username,
         bio: null,
-        avatarUrl: null
+        title: null
       }
     })
 
@@ -35,9 +35,10 @@ const createUserWithRelations = async (userData) => {
     await tx.userSettings.create({
       data: {
         userId: user.id,
+        timezone: 'UTC',
         language: 'vi',
-        theme: 'light',
-        emailNotifications: true
+        privacyMode: 'FRIENDS',
+        notificationEnabled: true
       }
     })
 
@@ -46,8 +47,8 @@ const createUserWithRelations = async (userData) => {
       data: {
         userId: user.id,
         level: 1,
-        currentXp: 0,
-        totalXp: 0
+        totalXp: BigInt(0),
+        coinBalance: BigInt(0)
       }
     })
 
@@ -72,7 +73,6 @@ const createSession = async (sessionData) => {
       id: sessionData.id,
       userId: sessionData.userId,
       refreshTokenHash: sessionData.refreshTokenHash,
-      deviceId: sessionData.deviceId || null,
       ipAddress: sessionData.ipAddress || null,
       userAgent: sessionData.userAgent || null,
       expiresAt: sessionData.expiresAt
