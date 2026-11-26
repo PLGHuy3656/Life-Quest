@@ -1,5 +1,7 @@
 import { challengesRepository } from './challengesRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
+import { eventBus } from '../../common/events/eventBus.js'
+import { EVENT_TYPES } from '../../common/events/eventTypes.js'
 
 // Format số Decimal cho thành viên Challenge
 const formatMember = (member, rank) => {
@@ -140,6 +142,15 @@ const inviteMember = async (userId, challengeId, targetUserId) => {
   const member = await challengesRepository.upsertChallengeMember(challengeId, targetUserId, {
     status: 'INVITED'
   })
+
+  try {
+    eventBus.emit(EVENT_TYPES.CHALLENGE_INVITED, {
+      challengeId,
+      challengeName: challenge.name,
+      inviterId: userId,
+      targetUserId
+    })
+  } catch { /* ignore */ }
 
   return formatMember(member)
 }

@@ -17,6 +17,7 @@ import { friendsRoute, friendRequestsRoute, pokesRoute } from '../modules/friend
 import { feedRoute, postsRoute, commentsRoute } from '../modules/social/socialRoute.js'
 import { duosRoute } from '../modules/duos/duosRoute.js'
 import { challengesRoute } from '../modules/challenges/challengesRoute.js'
+import { notificationsRoute } from '../modules/notifications/notificationsRoute.js'
 
 const Router = express.Router()
 
@@ -84,5 +85,8 @@ Router.use('/duos', duosRoute)
 
 // Challenges Module
 Router.use('/challenges', challengesRoute)
+
+// Notifications Module
+Router.use('/notifications', notificationsRoute)
 
 export const routes = Router

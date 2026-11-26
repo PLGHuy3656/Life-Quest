@@ -1,5 +1,7 @@
 import { friendsRepository } from './friendsRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
+import { eventBus } from '../../common/events/eventBus.js'
+import { EVENT_TYPES } from '../../common/events/eventTypes.js'
 
 // Lấy danh sách bạn bè chính thức
 const getFriends = async (userId) => {
@@ -48,7 +50,7 @@ const sendFriendRequest = async (requesterId, receiverId) => {
     }
 
     // Nếu trước đó là DECLINED, cho phép gửi lại lời mời
-    return await friendsRepository.updateFriendship(existing.id, {
+    const resent = await friendsRepository.updateFriendship(existing.id, {
       requesterId,
       receiverId,
       status: 'PENDING',
@@ -56,9 +58,25 @@ const sendFriendRequest = async (requesterId, receiverId) => {
       acceptedAt: null,
       blockedAt: null
     })
+    try {
+      eventBus.emit(EVENT_TYPES.FRIEND_REQUEST_SENT, {
+        requesterId,
+        receiverId,
+        friendshipId: resent.id
+      })
+    } catch { /* ignore */ }
+    return resent
   }
 
-  return await friendsRepository.createFriendship(requesterId, receiverId)
+  const created = await friendsRepository.createFriendship(requesterId, receiverId)
+  try {
+    eventBus.emit(EVENT_TYPES.FRIEND_REQUEST_SENT, {
+      requesterId,
+      receiverId,
+      friendshipId: created.id
+    })
+  } catch { /* ignore */ }
+  return created
 }
 
 // Chấp nhận lời mời kết bạn
@@ -68,10 +86,18 @@ const acceptFriendRequest = async (userId, requestId) => {
     throw new ApiError(404, 'Friend request not found or already processed', 'REQUEST_NOT_FOUND')
   }
 
-  return await friendsRepository.updateFriendship(requestId, {
+  const updated = await friendsRepository.updateFriendship(requestId, {
     status: 'ACCEPTED',
     acceptedAt: new Date()
   })
+  try {
+    eventBus.emit(EVENT_TYPES.FRIEND_REQUEST_ACCEPTED, {
+      requesterId: request.requesterId,
+      receiverId: userId,
+      friendshipId: updated.id
+    })
+  } catch { /* ignore */ }
+  return updated
 }
 
 // Từ chối lời mời kết bạn
@@ -139,7 +165,15 @@ const sendPoke = async (senderId, receiverId) => {
     }
   }
 
-  return await friendsRepository.createPoke(senderId, receiverId)
+  const poke = await friendsRepository.createPoke(senderId, receiverId)
+  try {
+    eventBus.emit(EVENT_TYPES.POKE_SENT, {
+      senderId,
+      receiverId,
+      pokeId: poke.id
+    })
+  } catch { /* ignore */ }
+  return poke
 }
 
 export const friendsService = {

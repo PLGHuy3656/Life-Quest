@@ -1,6 +1,8 @@
 import { duosRepository } from './duosRepository.js'
 import { friendsRepository } from '../friends/friendsRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
+import { eventBus } from '../../common/events/eventBus.js'
+import { EVENT_TYPES } from '../../common/events/eventTypes.js'
 
 // Lấy danh sách Duo của User
 const getDuos = async (userId, query) => {
@@ -19,7 +21,15 @@ const createDuo = async (userId, { partnerId, ruleId }) => {
     throw new ApiError(403, 'You can only create a duo with an accepted friend', 'NOT_FRIENDS')
   }
 
-  return await duosRepository.createDuoWithMembers(userId, partnerId, ruleId)
+  const duo = await duosRepository.createDuoWithMembers(userId, partnerId, ruleId)
+  try {
+    eventBus.emit(EVENT_TYPES.DUO_INVITED, {
+      duoId: duo.id,
+      inviterId: userId,
+      partnerId
+    })
+  } catch { /* ignore */ }
+  return duo
 }
 
 // Chi tiết Duo theo ID
@@ -48,7 +58,15 @@ const invitePartner = async (userId, duoId, partnerId) => {
     throw new ApiError(403, 'Only the duo creator can invite partners', 'FORBIDDEN')
   }
 
-  return await duosRepository.addDuoMember(duoId, partnerId, 'INVITED')
+  const invitedMember = await duosRepository.addDuoMember(duoId, partnerId, 'INVITED')
+  try {
+    eventBus.emit(EVENT_TYPES.DUO_INVITED, {
+      duoId,
+      inviterId: userId,
+      partnerId
+    })
+  } catch { /* ignore */ }
+  return invitedMember
 }
 
 // Chấp nhận lời mời tham gia Duo
@@ -67,7 +85,15 @@ const acceptDuoInvitation = async (userId, duoId, memberId) => {
   // Khi đối tác đã chấp nhận -> kích hoạt Duo chuyển sang ACTIVE
   await duosRepository.updateDuoStatus(duoId, 'ACTIVE')
 
-  return await duosRepository.findDuoById(duoId)
+  const updatedDuo = await duosRepository.findDuoById(duoId)
+  try {
+    eventBus.emit(EVENT_TYPES.DUO_ACCEPTED, {
+      duoId,
+      creatorId: updatedDuo?.createdBy,
+      partnerId: userId
+    })
+  } catch { /* ignore */ }
+  return updatedDuo
 }
 
 // Từ chối lời mời tham gia Duo

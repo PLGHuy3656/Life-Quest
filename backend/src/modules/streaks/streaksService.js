@@ -1,5 +1,9 @@
 import { streaksRepository } from './streaksRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
+import { eventBus } from '../../common/events/eventBus.js'
+import { EVENT_TYPES } from '../../common/events/eventTypes.js'
+
+const STREAK_MILESTONES = [3, 7, 14, 30, 50, 100, 365]
 
 // Format số Decimal cho StreakRule
 const formatRule = (rule) => {
@@ -121,6 +125,16 @@ const recordStreakProgress = async (userId, ruleId, qualifiedDate = new Date()) 
         longestCount: newLongest,
         lastQualifiedDate: today
       })
+      if (STREAK_MILESTONES.includes(newCurrent)) {
+        try {
+          eventBus.emit(EVENT_TYPES.STREAK_MILESTONE, {
+            userId,
+            streakId: updated.id,
+            ruleId,
+            currentCount: newCurrent
+          })
+        } catch { /* ignore */ }
+      }
       return formatStreak(updated)
     }
   }

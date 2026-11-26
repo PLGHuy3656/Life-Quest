@@ -1,6 +1,8 @@
 import { socialRepository } from './socialRepository.js'
 import { friendsRepository } from '../friends/friendsRepository.js'
 import ApiError from '../../common/errors/ApiError.js'
+import { eventBus } from '../../common/events/eventBus.js'
+import { EVENT_TYPES } from '../../common/events/eventTypes.js'
 
 // Kiểm tra quyền xem bài viết
 const ensureCanViewPost = async (userId, post) => {
@@ -101,6 +103,14 @@ const toggleReaction = async (userId, postId, reactionType) => {
   }
 
   const reaction = await socialRepository.createReaction(postId, userId, reactionType)
+  try {
+    eventBus.emit(EVENT_TYPES.POST_REACTED, {
+      postId,
+      postOwnerId: post.userId,
+      actorId: userId,
+      reactionType
+    })
+  } catch { /* ignore */ }
   return { reacted: true, reaction, message: 'Reaction added' }
 }
 
@@ -150,7 +160,16 @@ const addComment = async (userId, postId, content) => {
   }
 
   await ensureCanViewPost(userId, post)
-  return await socialRepository.createComment(postId, userId, content)
+  const comment = await socialRepository.createComment(postId, userId, content)
+  try {
+    eventBus.emit(EVENT_TYPES.POST_COMMENTED, {
+      postId,
+      postOwnerId: post.userId,
+      actorId: userId,
+      commentId: comment.id
+    })
+  } catch { /* ignore */ }
+  return comment
 }
 
 // Xóa bình luận
