@@ -17,6 +17,11 @@ import { friendsRoute, friendRequestsRoute, pokesRoute } from '../modules/friend
 import { feedRoute, postsRoute, commentsRoute } from '../modules/social/socialRoute.js'
 import { duosRoute } from '../modules/duos/duosRoute.js'
 import { challengesRoute } from '../modules/challenges/challengesRoute.js'
+import { notificationsRoute, devicesRoute } from '../modules/notifications/notificationsRoute.js'
+import { analyticsRoute } from '../modules/analytics/analyticsRoute.js'
+import { recommendationsRoute } from '../modules/recommendations/recommendationsRoute.js'
+import { aiPlansRoute } from '../modules/ai-plans/aiPlansRoute.js'
+import { reportsRoute, adminRoute } from '../modules/admin/adminRoute.js'
 
 const Router = express.Router()
 
@@ -84,5 +89,22 @@ Router.use('/duos', duosRoute)
 
 // Challenges Module
 Router.use('/challenges', challengesRoute)
+
+// Notifications & Devices Module
+Router.use('/notifications', notificationsRoute)
+Router.use('/devices', devicesRoute)
+
+// Analytics Module
+Router.use('/analytics', analyticsRoute)
+
+// Recommendations Module
+Router.use('/recommendations', recommendationsRoute)
+
+// AI Plans Module
+Router.use('/ai-plans', aiPlansRoute)
+
+// Reports & Admin Module
+Router.use('/reports', reportsRoute)
+Router.use('/admin', adminRoute)
 
 export const routes = Router
