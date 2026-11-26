@@ -95,11 +95,33 @@ enum ChallengeMemberStatus {
   COMPLETED
 }
 
+enum RecommendationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+enum AiPlanStatus {
+  DRAFT
+  ACCEPTED
+  REJECTED
+  APPLIED
+}
+
+enum ReportStatus {
+  PENDING
+  REVIEWED
+  RESOLVED
+  DISMISSED
+}
+
 model User {
   id              String    @id @default(uuid())
   email           String    @unique
   username        String    @unique
   passwordHash    String
+  role            String    @default("USER")
   status          String    @default("ACTIVE")
   emailVerifiedAt DateTime?
   lastLoginAt     DateTime?
@@ -132,6 +154,14 @@ model User {
   duoMemberships      DuoMember[]
   createdChallenges   Challenge[]    @relation("ChallengeCreator")
   challengeMemberships ChallengeMember[]
+  devices              Device[]
+  notifications        Notification[]
+  behaviorEvents       BehaviorEvent[]
+  recommendations      Recommendation[]
+  aiPlans              AiPlan[]
+  filedReports         Report[]       @relation("ReportReporter")
+  reviewedReports      Report[]       @relation("ReportReviewer")
+  auditLogs            AuditLog[]     @relation("AuditActor")
 }
 
 model UserProfile {
@@ -596,4 +626,103 @@ model ChallengeMember {
   user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([challengeId, userId])
+}
+
+model Device {
+  id           String    @id @default(uuid())
+  userId       String
+  platform     String    @db.VarChar(20)
+  pushToken    String?
+  deviceName   String?   @db.VarChar(100)
+  lastActiveAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String
+  type      String    @db.VarChar(50)
+  title     String    @db.VarChar(200)
+  body      String
+  data      Json?
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BehaviorEvent {
+  id         String   @id @default(uuid())
+  userId     String
+  eventType  String   @db.VarChar(50)
+  source     String?  @db.VarChar(50)
+  entityType String?  @db.VarChar(50)
+  entityId   String?
+  metadata   Json?
+  occurredAt DateTime
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Recommendation {
+  id         String               @id @default(uuid())
+  userId     String
+  type       String               @db.VarChar(50)
+  source     String               @db.VarChar(50)
+  payload    Json
+  status     RecommendationStatus @default(PENDING)
+  createdAt  DateTime             @default(now())
+  acceptedAt DateTime?
+  rejectedAt DateTime?
+
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AiPlan {
+  id            String       @id @default(uuid())
+  userId        String
+  input         Json
+  generatedPlan Json
+  status        AiPlanStatus @default(DRAFT)
+  model         String?      @db.VarChar(100)
+  version       String?      @db.VarChar(30)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Report {
+  id          String       @id @default(uuid())
+  reporterId  String
+  targetType  String       @db.VarChar(50)
+  targetId    String
+  reason      String       @db.VarChar(100)
+  description String?
+  status      ReportStatus @default(PENDING)
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  createdAt   DateTime     @default(now())
+
+  reporter    User         @relation("ReportReporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reviewer    User?        @relation("ReportReviewer", fields: [reviewedBy], references: [id], onDelete: SetNull)
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  actorUserId String?
+  action      String   @db.VarChar(100)
+  entityType  String   @db.VarChar(50)
+  entityId    String?
+  oldData     Json?
+  newData     Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  actor       User?    @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
 }
