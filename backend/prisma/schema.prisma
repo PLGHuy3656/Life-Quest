@@ -130,8 +130,9 @@ model User {
   postComments        PostComment[]
   createdDuos         Duo[]          @relation("DuoCreator")
   duoMemberships      DuoMember[]
-  createdChallenges   Challenge[]    @relation("ChallengeCreator")
+  createdChallenges    Challenge[]    @relation("ChallengeCreator")
   challengeMemberships ChallengeMember[]
+  notifications        Notification[]
 }
 
 model UserProfile {
@@ -596,4 +597,20 @@ model ChallengeMember {
   user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([challengeId, userId])
+}
+
+model Notification {
+  id        String    @id @default(uuid())
+  userId    String
+  type      String    @db.VarChar(80)
+  title     String    @db.VarChar(200)
+  body      String
+  data      Json?
+  isRead    Boolean   @default(false)
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead, createdAt])
 }
