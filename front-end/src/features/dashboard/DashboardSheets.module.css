@@ -1,7 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .field {
@@ -10,20 +10,225 @@
   gap: 6px;
 }
 
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .label {
-  font-size: 13px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.charCount {
+  font-size: 11.5px;
   font-weight: 700;
-  color: var(--lq-primary);
+  color: #8c7b6b;
 }
 
 .input,
 .select {
   width: 100%;
+  box-sizing: border-box;
+  padding: 10px 13px;
+  border-radius: 13px;
+  border: 1.5px solid #e6dcd0;
+  background: #fcfaf7;
+  font-family: inherit;
+  font-size: 14px;
+  color: #16324a;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #f26b3a;
+  background: #ffffff;
+}
+
+/* Segmented Entity Pills */
+.entityPillGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.entityPillBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 11px;
+  border-radius: 14px;
+  border: 1.5px solid #ebe1d5;
+  background: #fcfaf7;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 140ms ease, background-color 140ms ease, transform 120ms ease;
+}
+
+.entityPillBtn:hover {
+  border-color: #e4cbb2;
+  background: #fff9f2;
+}
+
+.entityPillActive {
+  border-color: #f26b3a;
+  background: #fff3ea;
+  box-shadow: 0 3px 0 #f4d4be;
+}
+
+.entityPillDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-bottom: 2px;
+}
+
+.entityPillLabel {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.entityPillSub {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #7c6d5f;
+}
+
+/* Category Chips */
+.categoryChipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.categoryChip {
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1.5px solid #e8dfd4;
+  background: #fcfaf7;
+  color: #4d6274;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.categoryChipActive {
+  border-color: #f26b3a;
+  background: #fff1e6;
+  color: #b84317;
+}
+
+/* Date & Time Card */
+.scheduleCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #faf6f0;
+  border: 1.5px solid #eee4d8;
+}
+
+.scheduleCardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.scheduleCardTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.presetDayRow {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.presetDayBtn {
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid #e4d8ca;
+  background: #ffffff;
+  color: #556372;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.presetDayBtnActive {
+  border-color: #f26b3a;
+  background: #fff0e6;
+  color: #b84317;
+}
+
+.dateTimeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.dateTimeField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #667085;
+}
+
+.quickTimeChips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.quickTimeBtn {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #e5d9cb;
+  background: #ffffff;
+  color: #4d6274;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quickTimeBtnActive {
+  border-color: #f26b3a;
+  background: #fff0e6;
+  color: #b84317;
+}
+
+.previewNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   padding: 10px 12px;
   border-radius: 12px;
-  border: 1px solid var(--lq-border-strong);
-  background: var(--lq-bg-elevated);
-  font-size: 14px;
+  background: #fff8f0;
+  border: 1.5px dashed #ebcba9;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #7c563a;
 }
 
 .row {
@@ -41,7 +246,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .infoBox {

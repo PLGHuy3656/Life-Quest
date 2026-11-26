@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import { useUserMeQuery } from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
+import { PROFILE_AVATAR_PRESETS, useMockProfileStore } from '@/stores/mockProfileStore'
 import { useUiStore } from '@/stores/uiStore'
 import styles from './DesktopHeader.module.css'
 
@@ -47,6 +48,10 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
 
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
   const authUser = useAuthStore((s) => s.user)
+  const isMockSession = useMockProfileStore((s) => s.isMockSession)
+  const isSignedIn = isAuthenticated || isMockSession
+  const mockProfile = useMockProfileStore((s) => s.profile)
+  const mockStats = useMockProfileStore((s) => s.stats)
 
   // Read live user identity only when authenticated (Streak/Coin/Level moved to PlayerStatsRail)
   const userMeQuery = useUserMeQuery()
@@ -75,12 +80,22 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
   const liveUser =
     isAuthenticated && userMeQuery.data?.source === 'LIVE' ? userMeQuery.data.data : null
 
-  const displayName =
-    liveUser?.profile?.displayName?.trim() ||
-    liveUser?.username?.trim() ||
-    authUser?.username?.trim() ||
-    'Bạn'
+  const displayName = isMockSession
+    ? mockProfile.displayName
+    : liveUser?.profile?.displayName?.trim() ||
+      liveUser?.username?.trim() ||
+      authUser?.username?.trim() ||
+      'Bạn'
   const initials = getInitials(displayName)
+  const avatarSrc = isMockSession
+    ? mockProfile.customAvatarUrl ||
+      PROFILE_AVATAR_PRESETS.find((p) => p.id === mockProfile.avatarPresetId)?.src ||
+      PROFILE_AVATAR_PRESETS[0].src
+    : null
+  const isCustomPhoto = Boolean(isMockSession && mockProfile.customAvatarUrl)
+  const bubbleSubtitle = isMockSession
+    ? `Cấp ${mockStats.level} · @${mockProfile.username}`
+    : 'Tài khoản đã đăng nhập'
 
   return (
     <header className={styles.desktopHeader} data-testid="desktop-canvas-header">
@@ -159,7 +174,7 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
             <Bell size={18} aria-hidden="true" />
           </button>
 
-          {isAuthenticated ? (
+          {isSignedIn ? (
             <div className={styles.profileWrap} ref={profileWrapRef}>
               <button
                 type="button"
@@ -168,9 +183,18 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
                 aria-expanded={profileOpen}
                 aria-haspopup="menu"
                 onClick={() => setProfileOpen((v) => !v)}
+                data-testid="desktop-header-profile-btn"
               >
                 <span className={styles.avatar} aria-hidden="true">
-                  {initials}
+                  {avatarSrc ? (
+                    <img
+                      src={avatarSrc}
+                      alt=""
+                      className={isCustomPhoto ? styles.avatarImgCover : styles.avatarImgFox}
+                    />
+                  ) : (
+                    initials
+                  )}
                 </span>
                 <span className={styles.uname}>{displayName}</span>
                 <ChevronDown size={14} color="#667085" aria-hidden="true" />
@@ -180,11 +204,19 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
                 <div className={styles.bubble} role="menu" aria-label="Tài khoản">
                   <div className={styles.bubbleHead}>
                     <span className={styles.avatar} aria-hidden="true">
-                      {initials}
+                      {avatarSrc ? (
+                        <img
+                          src={avatarSrc}
+                          alt=""
+                          className={isCustomPhoto ? styles.avatarImgCover : styles.avatarImgFox}
+                        />
+                      ) : (
+                        initials
+                      )}
                     </span>
                     <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                       <span className={styles.bubbleName}>{displayName}</span>
-                      <span className={styles.bubbleLevel}>Tài khoản đã đăng nhập</span>
+                      <span className={styles.bubbleLevel}>{bubbleSubtitle}</span>
                     </span>
                   </div>
 

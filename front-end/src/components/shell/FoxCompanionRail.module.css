@@ -494,3 +494,134 @@
   width: 11%;
   height: 14%;
 }
+
+.scheduleWrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.moreChipBtnActive {
+  width: auto !important;
+  padding: 0 9px !important;
+  border-color: #f26b3a !important;
+  background: #fff2e8 !important;
+  color: #b84317 !important;
+}
+
+.scheduleBadgeText {
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.schedulePopover {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 10px);
+  width: 256px;
+  background: #ffffff;
+  border: 1.5px solid #eadfd2;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 14px 32px rgba(22, 50, 74, 0.16);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 40;
+}
+
+.scheduleTitle {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #16324a;
+}
+
+.scheduleFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.scheduleField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #667085;
+}
+
+.scheduleInput {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1.5px solid #e6dcd0;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  color: #16324a;
+  background: #fcfaf7;
+}
+
+.scheduleInput:focus {
+  outline: none;
+  border-color: #f26b3a;
+  background: #ffffff;
+}
+
+.quickTimeRow {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.quickTimeChip {
+  flex: 1;
+  min-width: 48px;
+  padding: 5px 6px;
+  border-radius: 8px;
+  border: 1px solid #eadfd2;
+  background: #faf6f0;
+  color: #4d6274;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quickTimeChipActive {
+  border-color: #f26b3a;
+  background: #fff1e6;
+  color: #b84317;
+}
+
+.scheduleActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.scheduleResetBtn {
+  border: none;
+  background: transparent;
+  color: #7c6d5f;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.scheduleDoneBtn {
+  border: none;
+  border-radius: 9px;
+  background: #f26b3a;
+  color: #ffffff;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}

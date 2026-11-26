@@ -56,6 +56,8 @@ interface UiState {
   foxRailCollapsed: boolean
   quickCreateDraft: string
   quickCreateEntityType: WorkEntityType
+  quickCreateDate: string
+  quickCreateTime: string
   socialComposerDraft: string
   setReducedMotion: (enabled: boolean) => void
   toggleReducedMotion: () => void
@@ -68,6 +70,8 @@ interface UiState {
   toggleFoxRail: () => void
   setQuickCreateDraft: (draft: string) => void
   setQuickCreateEntityType: (entityType: WorkEntityType) => void
+  setQuickCreateDate: (date: string) => void
+  setQuickCreateTime: (time: string) => void
   setSocialComposerDraft: (draft: string) => void
 }
 
@@ -82,6 +86,8 @@ export const useUiStore = create<UiState>((set, get) => ({
   foxRailCollapsed: false,
   quickCreateDraft: '',
   quickCreateEntityType: 'TASK',
+  quickCreateDate: '',
+  quickCreateTime: '',
   socialComposerDraft: '',
   setReducedMotion: (enabled) => {
     applyReducedMotionClass(enabled)
@@ -114,5 +120,7 @@ export const useUiStore = create<UiState>((set, get) => ({
   toggleFoxRail: () => set((s) => ({ foxRailCollapsed: !s.foxRailCollapsed })),
   setQuickCreateDraft: (quickCreateDraft) => set({ quickCreateDraft }),
   setQuickCreateEntityType: (quickCreateEntityType) => set({ quickCreateEntityType }),
+  setQuickCreateDate: (quickCreateDate) => set({ quickCreateDate }),
+  setQuickCreateTime: (quickCreateTime) => set({ quickCreateTime }),
   setSocialComposerDraft: (socialComposerDraft) => set({ socialComposerDraft })
 }))

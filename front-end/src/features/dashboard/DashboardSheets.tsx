@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { Calendar, Clock, Info, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { Sheet } from '@/components/ui/Sheet'
@@ -21,9 +22,28 @@ import styles from './DashboardSheets.module.css'
 
 export function DashboardSheets({ quests }: { quests: Quest[] }) {
   const activeSheet = useUiStore((s) => s.activeSheet)
+  if (!activeSheet) return null
+  return <DashboardSheetsInner quests={quests} activeSheet={activeSheet} />
+}
+
+function DashboardSheetsInner({
+  quests,
+  activeSheet
+}: {
+  quests: Quest[]
+  activeSheet: NonNullable<ReturnType<typeof useUiStore.getState>['activeSheet']>
+}) {
   const closeSheet = useUiStore((s) => s.closeSheet)
   const searchQuery = useUiStore((s) => s.searchQuery)
   const setSearchQuery = useUiStore((s) => s.setSearchQuery)
+  const entityType = useUiStore((s) => s.quickCreateEntityType)
+  const setEntityType = useUiStore((s) => s.setQuickCreateEntityType)
+  const title = useUiStore((s) => s.quickCreateDraft)
+  const setTitle = useUiStore((s) => s.setQuickCreateDraft)
+  const dueDate = useUiStore((s) => s.quickCreateDate)
+  const setDueDate = useUiStore((s) => s.setQuickCreateDate)
+  const dueTime = useUiStore((s) => s.quickCreateTime)
+  const setDueTime = useUiStore((s) => s.setQuickCreateTime)
 
   const accessToken = useAuthStore((s) => s.accessToken)
   const user = useAuthStore((s) => s.user)
@@ -35,8 +55,6 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
   const { createGoal } = useGoalMutations()
   const pinQuest = usePinQuestMutation()
 
-  const [entityType, setEntityType] = useState<WorkEntityType>('TASK')
-  const [title, setTitle] = useState('')
   const [questType, setQuestType] = useState<QuestType>('SIMPLE')
   const [formError, setFormError] = useState<string | null>(null)
 
@@ -61,18 +79,26 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
       return
     }
     try {
+      const today = getTodayLocalDate()
+      const resolvedDate = dueDate || today
+      const resolvedTime = dueTime || '23:59'
       if (entityType === 'QUEST') {
-        const today = getTodayLocalDate()
         await createGoal.mutateAsync({
           title: title.trim(),
           description: '',
           startDate: `${today}T00:00:00.000Z`,
-          dueDate: `${addDaysLocal(today, 30)}T23:59:59.000Z`
+          dueDate: `${dueDate || addDaysLocal(today, 30)}T${resolvedTime}:00.000Z`
         })
       } else {
-        await createQuest.mutateAsync({ title: title.trim(), type: questType })
+        await createQuest.mutateAsync({
+          title: title.trim(),
+          type: questType,
+          dueAt: `${resolvedDate}T${resolvedTime}:00.000Z`
+        })
       }
       setTitle('')
+      setDueDate('')
+      setDueTime('')
       closeSheet()
     } catch (submitErr) {
       setFormError(submitErr instanceof Error ? submitErr.message : 'Không thể tạo mục mới.')
@@ -116,69 +142,156 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
       <Sheet
         open={activeSheet === 'quick-create'}
         title="Tạo nhiệm vụ nhanh"
-        subtitle="Kết nối trực tiếp POST /api/v1/quests khi đã đăng nhập Backend."
+        subtitle="Chọn loại mục, đặt ngày giờ và bắt đầu ngay cùng Fox V2."
         onClose={closeSheet}
       >
         <form className={styles.form} onSubmit={handleCreateSubmit}>
+          {/* Segmented Entity Selector */}
           <div className={styles.field}>
-            <label htmlFor="lq-entity-type" className={styles.label}>
-              Loại mục (Entity)
-            </label>
-            <select
-              id="lq-entity-type"
-              className={styles.select}
-              value={entityType}
-              onChange={(e) => {
-                setEntityType(e.target.value as WorkEntityType)
-                setFormError(null)
-              }}
-            >
-              {WORK_ENTITY_OPTIONS.map((opt) => (
-                <option key={opt.type} value={opt.type}>
-                  {opt.label} · {opt.viLabel} ({opt.capability})
-                </option>
-              ))}
-            </select>
+            <span className={styles.label}>Loại mục</span>
+            <div className={styles.entityPillGrid} role="radiogroup" aria-label="Loại mục">
+              {WORK_ENTITY_OPTIONS.map((opt) => {
+                const active = entityType === opt.type
+                return (
+                  <button
+                    key={opt.type}
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    className={`${styles.entityPillBtn} ${active ? styles.entityPillActive : ''}`.trim()}
+                    onClick={() => {
+                      setEntityType(opt.type as WorkEntityType)
+                      setFormError(null)
+                    }}
+                  >
+                    <span
+                      className={styles.entityPillDot}
+                      style={{ background: opt.dotColor }}
+                      aria-hidden="true"
+                    />
+                    <span className={styles.entityPillLabel}>{opt.label}</span>
+                    <span className={styles.entityPillSub}>{opt.viLabel}</span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
 
+          {/* Title Input */}
           <div className={styles.field}>
-            <label htmlFor="lq-quest-title" className={styles.label}>
-              Tiêu đề
-            </label>
+            <div className={styles.labelRow}>
+              <label htmlFor="lq-quest-title" className={styles.label}>
+                Tiêu đề
+              </label>
+              <span className={styles.charCount}>{title.length}/100</span>
+            </div>
             <input
               id="lq-quest-title"
               className={styles.input}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ví dụ: Đọc 10 trang sách buổi tối"
+              placeholder={
+                entityType === 'QUEST'
+                  ? 'Ví dụ: Đạt IELTS 6.5 trong 3 tháng'
+                  : entityType === 'HABIT'
+                    ? 'Ví dụ: Uống đủ 2 lít nước mỗi ngày'
+                    : 'Ví dụ: Đọc 10 trang sách buổi tối'
+              }
               maxLength={100}
             />
           </div>
 
+          {/* Task Category Chips */}
           {entityType === 'TASK' && (
             <div className={styles.field}>
-              <label htmlFor="lq-quest-type" className={styles.label}>
-                Phân loại nhiệm vụ (Category)
-              </label>
-              <select
-                id="lq-quest-type"
-                className={styles.select}
-                value={questType}
-                onChange={(e) => setQuestType(e.target.value as QuestType)}
-              >
-                {TASK_CATEGORY_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+              <span className={styles.label}>Phân loại</span>
+              <div className={styles.categoryChipRow} role="radiogroup" aria-label="Phân loại nhiệm vụ">
+                {TASK_CATEGORY_OPTIONS.map((opt) => {
+                  const active = questType === opt.value
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      role="radio"
+                      aria-checked={active}
+                      className={`${styles.categoryChip} ${active ? styles.categoryChipActive : ''}`.trim()}
+                      onClick={() => setQuestType(opt.value as QuestType)}
+                    >
+                      {opt.label.replace(/\s*\([^)]*\)/g, '')}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           )}
 
+          {/* Date & Time Picker */}
+          <div className={styles.scheduleCard}>
+            <div className={styles.scheduleCardHead}>
+              <span className={styles.scheduleCardTitle}>
+                <Calendar size={14} aria-hidden="true" />
+                <span>Ngày &amp; giờ thực hiện</span>
+              </span>
+              <div className={styles.presetDayRow}>
+                {[
+                  { label: 'Hôm nay', value: getTodayLocalDate() },
+                  { label: 'Ngày mai', value: addDaysLocal(getTodayLocalDate(), 1) },
+                  { label: 'Tuần này', value: addDaysLocal(getTodayLocalDate(), 7) }
+                ].map((d) => (
+                  <button
+                    key={d.label}
+                    type="button"
+                    className={`${styles.presetDayBtn} ${(dueDate || getTodayLocalDate()) === d.value ? styles.presetDayBtnActive : ''}`.trim()}
+                    onClick={() => setDueDate(d.value)}
+                  >
+                    {d.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.dateTimeGrid}>
+              <label className={styles.dateTimeField}>
+                <span>Ngày</span>
+                <input
+                  type="date"
+                  className={styles.input}
+                  value={dueDate || getTodayLocalDate()}
+                  onChange={(e) => setDueDate(e.target.value)}
+                />
+              </label>
+              <label className={styles.dateTimeField}>
+                <span>Giờ</span>
+                <input
+                  type="time"
+                  className={styles.input}
+                  value={dueTime}
+                  onChange={(e) => setDueTime(e.target.value)}
+                />
+              </label>
+            </div>
+
+            <div className={styles.quickTimeChips}>
+              <Clock size={12} color="#7c6d5f" aria-hidden="true" />
+              {['09:00', '14:00', '18:00', '21:00'].map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  className={`${styles.quickTimeBtn} ${dueTime === t ? styles.quickTimeBtnActive : ''}`.trim()}
+                  onClick={() => setDueTime(t)}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {!isAuthenticated && (
-            <div className={styles.infoBox}>
-              Bạn đang ở chế độ Hybrid Preview (chưa đăng nhập). Hệ thống sẽ không giả lập tạo thành
-              công; gửi biểu mẫu sẽ báo lỗi <code>AUTHENTICATION_REQUIRED</code>.
+            <div className={styles.previewNotice}>
+              <Info size={15} color="#b84317" style={{ flexShrink: 0, marginTop: 1 }} aria-hidden="true" />
+              <span>
+                Bạn chưa đăng nhập Backend — đăng nhập tài khoản để lưu nhiệm vụ mới lên máy chủ.
+              </span>
             </div>
           )}
 
@@ -188,8 +301,21 @@ export function DashboardSheets({ quests }: { quests: Quest[] }) {
             <Button variant="ghost" onClick={closeSheet}>
               Hủy
             </Button>
-            <Button type="submit" variant="accent" disabled={createQuest.isPending}>
-              {createQuest.isPending ? 'Đang gửi...' : 'Tạo nhiệm vụ'}
+            <Button
+              type="submit"
+              variant="accent"
+              disabled={createQuest.isPending || createGoal.isPending}
+            >
+              <Sparkles size={14} aria-hidden="true" />
+              <span>
+                {createQuest.isPending || createGoal.isPending
+                  ? 'Đang lưu...'
+                  : entityType === 'QUEST'
+                    ? 'Tạo Quest'
+                    : entityType === 'HABIT'
+                      ? 'Tạo thói quen'
+                      : 'Tạo nhiệm vụ'}
+              </span>
             </Button>
           </div>
         </form>

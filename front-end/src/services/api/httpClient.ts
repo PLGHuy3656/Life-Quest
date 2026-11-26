@@ -123,7 +123,7 @@ export async function apiRequest<T>(path: string, options: RequestOptions = {}):
       if (refreshedToken) {
         return apiRequest<T>(path, { ...options, _isRetry: true })
       }
-    } else {
+    } else if (useAuthStore.getState().accessToken !== 'mock-local-session-token') {
       useAuthStore.getState().expireSession('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
     }
   } else if (response.status === 401 && requiresAuth && _isRetry) {

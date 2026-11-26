@@ -3,6 +3,11 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { AlertCircle, CheckCircle2, Eye, EyeOff, Info, Loader2, WifiOff } from 'lucide-react'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
+import {
+  isMockLoginCredential,
+  MOCK_LOGIN_CREDENTIALS,
+  useMockProfileStore,
+} from '@/stores/mockProfileStore'
 import { ApiClientError } from '@/types/api'
 import { AuthLayout, type AuthFoxReaction } from './AuthLayout'
 import { validateSafeRedirect } from './authRedirect'
@@ -71,6 +76,28 @@ export function LoginPage() {
     submitLockRef.current = true
     setSubmitting(true)
     setFoxReaction('LOGIN_LOADING')
+
+    // Local QA Mock Account shortcut (only matches explicit demo credentials; never touches localStorage)
+    if (isMockLoginCredential(email, password)) {
+      const mockState = useMockProfileStore.getState()
+      mockState.activateMockSession()
+      setFoxReaction('LOGIN_SUCCESS')
+      setSession({
+        accessToken: 'mock-local-session-token',
+        refreshToken: null,
+        user: {
+          id: MOCK_LOGIN_CREDENTIALS.userId,
+          email: MOCK_LOGIN_CREDENTIALS.email,
+          username: mockState.profile.username,
+          status: 'ACTIVE',
+        },
+      })
+      submitLockRef.current = false
+      setSubmitting(false)
+      navigate(searchParams.get('redirect') ? safeRedirect : '/profile', { replace: true })
+      return
+    }
+
     try {
       const result = await authApi.login({
         email: email.trim().toLowerCase(),
@@ -270,6 +297,61 @@ export function LoginPage() {
           <span>{submitting ? 'Đang đăng nhập...' : 'Đăng nhập'}</span>
         </button>
       </form>
+
+      <div
+        style={{
+          marginTop: 14,
+          padding: '12px 14px',
+          borderRadius: 14,
+          background: '#FFF8F1',
+          border: '1.5px dashed #EBCBA9',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}
+        data-testid="mock-login-box"
+      >
+        <div style={{ fontSize: 12, fontWeight: 800, color: '#9A4A1C' }}>
+          Tài khoản Mock kiểm thử Hồ sơ (Local QA)
+        </div>
+        <div style={{ fontSize: 12, color: '#5F6E7D', lineHeight: 1.45 }}>
+          Email: <code>{MOCK_LOGIN_CREDENTIALS.email}</code> · Mật khẩu:{' '}
+          <code>{MOCK_LOGIN_CREDENTIALS.password}</code>
+        </div>
+        <button
+          type="button"
+          data-testid="mock-login-btn"
+          onClick={() => {
+            const mockState = useMockProfileStore.getState()
+            mockState.activateMockSession()
+            setFoxReaction('LOGIN_SUCCESS')
+            setSession({
+              accessToken: 'mock-local-session-token',
+              refreshToken: null,
+              user: {
+                id: MOCK_LOGIN_CREDENTIALS.userId,
+                email: MOCK_LOGIN_CREDENTIALS.email,
+                username: mockState.profile.username,
+                status: 'ACTIVE',
+              },
+            })
+            navigate(searchParams.get('redirect') ? safeRedirect : '/profile', { replace: true })
+          }}
+          style={{
+            border: '1.5px solid #F26B3A',
+            background: '#FFFFFF',
+            color: '#B84317',
+            borderRadius: 11,
+            padding: '8px 12px',
+            fontSize: 13,
+            fontWeight: 800,
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+          }}
+        >
+          Dùng nhanh tài khoản Mock → Hồ sơ
+        </button>
+      </div>
 
       <footer className={styles.legalFooter}>
         <p className={styles.legalText}>

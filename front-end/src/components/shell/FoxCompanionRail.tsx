@@ -83,6 +83,10 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const setPrompt = useUiStore((s) => s.setQuickCreateDraft)
   const entityType = useUiStore((s) => s.quickCreateEntityType)
   const setEntityType = useUiStore((s) => s.setQuickCreateEntityType)
+  const customDate = useUiStore((s) => s.quickCreateDate)
+  const setCustomDate = useUiStore((s) => s.setQuickCreateDate)
+  const customTime = useUiStore((s) => s.quickCreateTime)
+  const setCustomTime = useUiStore((s) => s.setQuickCreateTime)
   const activeSheet = useUiStore((s) => s.activeSheet)
   const openSheet = useUiStore((s) => s.openSheet)
 
@@ -97,8 +101,10 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const [horizon, setHorizon] = useState<QuickHorizon>('today')
   const [highPriority, setHighPriority] = useState(false)
   const [entityMenuOpen, setEntityMenuOpen] = useState(false)
+  const [scheduleOpen, setScheduleOpen] = useState(false)
   const [voiceOpen, setVoiceOpen] = useState(false)
   const entityMenuRef = useRef<HTMLDivElement>(null)
+  const scheduleWrapRef = useRef<HTMLDivElement>(null)
   const [feedback, setFeedback] = useState<{ kind: 'info' | 'ok' | 'err'; text: string } | null>(
     null
   )
@@ -348,6 +354,24 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
   const displayName = user?.profile?.displayName?.trim() || user?.username?.trim() || 'Bạn'
   const greetingPrefix = getVietnameseGreeting(new Date().getHours())
 
+  useEffect(() => {
+    if (!scheduleOpen) return
+    const onPointerDown = (e: MouseEvent) => {
+      if (scheduleWrapRef.current && !scheduleWrapRef.current.contains(e.target as Node)) {
+        setScheduleOpen(false)
+      }
+    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setScheduleOpen(false)
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [scheduleOpen])
+
   const supportingLine = today
     ? `Hôm nay đã hoàn thành ${today.summary.completedTasks}/${today.summary.totalTasks} nhiệm vụ — cùng Fox giữ nhịp thật nhẹ nhàng nhé.`
     : 'Fox luôn sẵn sàng đồng hành cùng những bước tiến nhỏ mỗi ngày của bạn.'
@@ -384,11 +408,13 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
 
     const baseDate = getTodayLocalDate()
     const targetDate =
-      horizon === 'today'
+      customDate ||
+      (horizon === 'today'
         ? baseDate
         : horizon === 'tomorrow'
           ? addDaysLocal(baseDate, 1)
-          : addDaysLocal(baseDate, 7)
+          : addDaysLocal(baseDate, 7))
+    const targetTime = customTime || '23:59'
 
     try {
       if (entityType === 'QUEST') {
@@ -396,9 +422,11 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
           title,
           description: '',
           startDate: `${baseDate}T00:00:00.000Z`,
-          dueDate: `${addDaysLocal(baseDate, 30)}T23:59:59.000Z`
+          dueDate: `${customDate || addDaysLocal(baseDate, 30)}T${targetTime}:00.000Z`
         })
         setPrompt('')
+        setCustomDate('')
+        setCustomTime('')
         setFeedback({ kind: 'ok', text: `Đã tạo hành trình "${title}"!` })
         return
       }
@@ -407,9 +435,11 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
         title,
         type: 'SIMPLE',
         priority: highPriority ? 1 : 2,
-        dueAt: `${targetDate}T23:59:00.000Z`
+        dueAt: `${targetDate}T${targetTime}:00.000Z`
       })
       setPrompt('')
+      setCustomDate('')
+      setCustomTime('')
       setFeedback({ kind: 'ok', text: `Đã thêm "${title}" vào danh sách của bạn!` })
     } catch (err) {
       foxDialogueBus.emit({ event: 'BACKEND_ERROR' })
@@ -697,22 +727,104 @@ export function FoxCompanionRail({ hideCanvas = false }: FoxCompanionRailProps) 
               <button
                 key={id}
                 type="button"
-                className={`${styles.quickChip} ${horizon === id ? styles.quickChipActive : ''}`.trim()}
-                aria-pressed={horizon === id}
-                onClick={() => setHorizon(id)}
+                className={`${styles.quickChip} ${!customDate && horizon === id ? styles.quickChipActive : ''}`.trim()}
+                aria-pressed={!customDate && horizon === id}
+                onClick={() => {
+                  setHorizon(id)
+                  setCustomDate('')
+                }}
               >
                 <Clock size={11} aria-hidden="true" />
                 <span>{label}</span>
               </button>
             ))}
-            <button
-              type="button"
-              className={styles.moreChipBtn}
-              onClick={() => openSheet('quick-create')}
-              aria-label="Tùy chọn lịch khác"
-            >
-              <MoreHorizontal size={13} aria-hidden="true" />
-            </button>
+
+            <div className={styles.scheduleWrap} ref={scheduleWrapRef}>
+              <button
+                type="button"
+                className={`${styles.moreChipBtn} ${customDate || customTime ? styles.moreChipBtnActive : ''}`.trim()}
+                onClick={() => setScheduleOpen((o) => !o)}
+                aria-label="Chọn ngày và giờ cụ thể"
+                aria-expanded={scheduleOpen}
+                aria-haspopup="dialog"
+                title="Chọn ngày & giờ"
+                data-testid="fox-schedule-more-btn"
+              >
+                {customDate || customTime ? (
+                  <span className={styles.scheduleBadgeText}>
+                    {customDate ? `${customDate.slice(8, 10)}/${customDate.slice(5, 7)}` : ''}
+                    {customDate && customTime ? ' · ' : ''}
+                    {customTime || ''}
+                  </span>
+                ) : (
+                  <MoreHorizontal size={13} aria-hidden="true" />
+                )}
+              </button>
+
+              {scheduleOpen && (
+                <div
+                  className={styles.schedulePopover}
+                  role="dialog"
+                  aria-label="Chọn ngày và giờ"
+                  data-testid="fox-schedule-popover"
+                >
+                  <div className={styles.scheduleTitle}>Chọn ngày &amp; giờ</div>
+                  <div className={styles.scheduleFields}>
+                    <label className={styles.scheduleField}>
+                      <span>Ngày</span>
+                      <input
+                        type="date"
+                        className={styles.scheduleInput}
+                        value={customDate || getTodayLocalDate()}
+                        onChange={(e) => setCustomDate(e.target.value)}
+                      />
+                    </label>
+                    <label className={styles.scheduleField}>
+                      <span>Giờ</span>
+                      <input
+                        type="time"
+                        className={styles.scheduleInput}
+                        value={customTime}
+                        onChange={(e) => setCustomTime(e.target.value)}
+                      />
+                    </label>
+                  </div>
+
+                  <div className={styles.quickTimeRow}>
+                    {['09:00', '14:00', '18:00', '21:00'].map((t) => (
+                      <button
+                        key={t}
+                        type="button"
+                        className={`${styles.quickTimeChip} ${customTime === t ? styles.quickTimeChipActive : ''}`.trim()}
+                        onClick={() => setCustomTime(t)}
+                      >
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className={styles.scheduleActions}>
+                    <button
+                      type="button"
+                      className={styles.scheduleResetBtn}
+                      onClick={() => {
+                        setCustomDate('')
+                        setCustomTime('')
+                      }}
+                    >
+                      Xóa lịch
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.scheduleDoneBtn}
+                      onClick={() => setScheduleOpen(false)}
+                    >
+                      Áp dụng
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {feedback && (

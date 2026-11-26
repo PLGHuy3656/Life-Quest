@@ -25,6 +25,7 @@ import { useIsDesktop } from '@/hooks/useIsDesktop'
 import { authApi } from '@/services/api/authApi'
 import { useAuthStore } from '@/stores/authStore'
 import { useMessengerStore } from '@/stores/messengerStore'
+import { useMockProfileStore } from '@/stores/mockProfileStore'
 import { useUiStore } from '@/stores/uiStore'
 import { DesktopHeader } from './DesktopHeader'
 import { FoxCompanionRail } from './FoxCompanionRail'
@@ -84,6 +85,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       // Always clear local in-memory session
     } finally {
       clearSession()
+      useMockProfileStore.getState().deactivateMockSession()
       queryClient.clear()
       useMessengerStore.getState().clearPrivateSession()
       navigate('/login')
