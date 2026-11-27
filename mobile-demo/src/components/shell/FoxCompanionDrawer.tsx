@@ -137,7 +137,7 @@ export const FoxCompanionDrawer: React.FC = () => {
           </div>
 
           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--lq-ink)' }}>
-            {equippedOutfit ? equippedOutfit.name : 'Áo Tân Thủ'}
+            {equippedOutfit ? equippedOutfit.displayNameVi : 'Áo Tân Thủ'}
           </div>
 
           {/* Affection Bar */}

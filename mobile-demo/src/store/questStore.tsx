@@ -7,11 +7,16 @@ import {
   ScheduleItem,
   SocialFeedPost,
   FoxState,
-  WardrobeItem,
   Category,
-  Priority,
-  QuestDifficulty
+  Priority
 } from '../types'
+import {
+  EXACT_WARDROBE_CATALOG,
+  OUTFIT_PRESETS,
+  WardrobeCatalogItem,
+  OutfitId,
+  CosmeticSlot
+} from '../data/wardrobeCatalog'
 import confetti from 'canvas-confetti'
 
 const INITIAL_PLAYER: Player = {
@@ -196,91 +201,11 @@ const INITIAL_FOX: FoxState = {
   name: 'Kitsu',
   mood: 'happy',
   affection: 72,
-  speechBubble: 'Xin chào hiệp sĩ! Cùng tiếp tục cuộc phiêu lưu chinh phục mục tiêu hôm nay nhé!',
-  equippedHat: 'straw_hat',
-  equippedOutfit: 'apprentice_robe',
-  equippedAccessory: 'wooden_staff'
+  speechBubble: 'Chào mừng đến phòng thử đồ! Hôm nay mình phối bộ nào nhỉ?',
+  equippedHat: 'student_cap',
+  equippedOutfit: 'simple_jacket',
+  equippedAccessory: 'student_glasses'
 }
-
-const INITIAL_WARDROBE: WardrobeItem[] = [
-  {
-    id: 'straw_hat',
-    name: 'Nón Rơm Thám Hiểm',
-    category: 'hat',
-    price: 0,
-    icon: '👒',
-    unlocked: true,
-    equipped: true,
-    description: 'Nón che nắng kinh điển của mọi nhà thám hiểm trẻ tuổi.',
-    buffText: '+5% Tốc độ hồi phục'
-  },
-  {
-    id: 'wizard_hat',
-    name: 'Mũ Pháp Sư Tinh Anh',
-    category: 'hat',
-    price: 150,
-    icon: '🧙‍♂️',
-    unlocked: false,
-    equipped: false,
-    description: 'Tập trung tư tưởng cao độ, tăng XP học tập.',
-    buffText: '+10% XP học tập'
-  },
-  {
-    id: 'golden_crown',
-    name: 'Vương Miện Vương Giả',
-    category: 'hat',
-    price: 500,
-    icon: '👑',
-    unlocked: false,
-    equipped: false,
-    description: 'Dành cho hiệp sĩ kiên trì giữ streak trên 30 ngày.',
-    buffText: '+15% Vàng thưởng'
-  },
-  {
-    id: 'apprentice_robe',
-    name: 'Áo Choàng Tân Thủ',
-    category: 'outfit',
-    price: 0,
-    icon: '🥋',
-    unlocked: true,
-    equipped: true,
-    description: 'Trang phục thoải mái cho mọi hoạt động hàng ngày.',
-    buffText: '+5% XP thói quen'
-  },
-  {
-    id: 'cyber_jacket',
-    name: 'Áo Cyberpunk Neon',
-    category: 'outfit',
-    price: 260,
-    icon: '🥼',
-    unlocked: false,
-    equipped: false,
-    description: 'Công nghệ cao hỗ trợ tập trung và chống xao nhãng.',
-    buffText: '+10% Tập trung Pomodoro'
-  },
-  {
-    id: 'wooden_staff',
-    name: 'Gậy Gỗ Tập Sự',
-    category: 'accessory',
-    price: 0,
-    icon: '🦯',
-    unlocked: true,
-    equipped: true,
-    description: 'Vũ khí xua đuổi sự lười biếng và trì hoãn.',
-    buffText: '+2 STR'
-  },
-  {
-    id: 'flame_blade',
-    name: 'Kiếm Lửa Ý Chí',
-    category: 'accessory',
-    price: 380,
-    icon: '🗡️',
-    unlocked: false,
-    equipped: false,
-    description: 'Ngọn lửa nhiệt huyết luôn bừng cháy.',
-    buffText: '+5 STR, +10% Boss DMG'
-  }
-]
 
 interface StoreContextType {
   player: Player
@@ -290,7 +215,7 @@ interface StoreContextType {
   schedules: ScheduleItem[]
   socialPosts: SocialFeedPost[]
   fox: FoxState
-  wardrobe: WardrobeItem[]
+  wardrobe: WardrobeCatalogItem[]
   isFoxDrawerOpen: boolean
   toggleFoxDrawer: () => void
   toggleTask: (id: string) => void
@@ -300,8 +225,10 @@ interface StoreContextType {
   toggleMilestone: (questId: string, milestoneId: string) => void
   addQuestItem: (quest: Omit<QuestItem, 'id' | 'progressPercent'>) => void
   petFox: () => void
-  buyItem: (item: WardrobeItem) => boolean
-  equipItem: (item: WardrobeItem) => void
+  buyItem: (item: WardrobeCatalogItem) => boolean
+  equipItem: (item: WardrobeCatalogItem) => void
+  equipOutfitPreset: (presetId: OutfitId) => void
+  resetOutfitToDefault: () => void
   likeSocialPost: (id: string) => void
   cheerSocialPost: (id: string) => void
   toggleTheme: () => void
@@ -343,13 +270,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   })
 
   const [fox, setFox] = useState<FoxState>(() => {
-    const s = localStorage.getItem('lq_demo_fox')
+    const s = localStorage.getItem('lq_demo_fox_v2')
     return s ? JSON.parse(s) : INITIAL_FOX
   })
 
-  const [wardrobe, setWardrobe] = useState<WardrobeItem[]>(() => {
-    const s = localStorage.getItem('lq_demo_wardrobe')
-    return s ? JSON.parse(s) : INITIAL_WARDROBE
+  const [wardrobe, setWardrobe] = useState<WardrobeCatalogItem[]>(() => {
+    const s = localStorage.getItem('lq_demo_wardrobe_v2')
+    return s ? JSON.parse(s) : EXACT_WARDROBE_CATALOG
   })
 
   const [isFoxDrawerOpen, setIsFoxDrawerOpen] = useState(false)
@@ -365,8 +292,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   useEffect(() => localStorage.setItem('lq_demo_quests', JSON.stringify(quests)), [quests])
   useEffect(() => localStorage.setItem('lq_demo_schedules', JSON.stringify(schedules)), [schedules])
   useEffect(() => localStorage.setItem('lq_demo_social', JSON.stringify(socialPosts)), [socialPosts])
-  useEffect(() => localStorage.setItem('lq_demo_fox', JSON.stringify(fox)), [fox])
-  useEffect(() => localStorage.setItem('lq_demo_wardrobe', JSON.stringify(wardrobe)), [wardrobe])
+  useEffect(() => localStorage.setItem('lq_demo_fox_v2', JSON.stringify(fox)), [fox])
+  useEffect(() => localStorage.setItem('lq_demo_wardrobe_v2', JSON.stringify(wardrobe)), [wardrobe])
 
   const triggerConfetti = () => {
     try {
@@ -529,26 +456,30 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setQuests((prev) => [newQuest, ...prev])
   }
 
+  // Official Mascot Dialogues from mascot/fox-v2/dialogues/touch.json
   const petFox = () => {
-    setFox((prev) => {
-      const phrases = [
-        'Yay! Cảm ơn bạn xoa đầu tớ, cảm thấy đầy tràn năng lượng!',
-        'Gâu! Kitsu sẽ luôn đồng hành cùng hiệp sĩ tới đích!',
-        'Hôm nay chúng ta cùng giữ chuỗi Streak rực rỡ nhé!',
-        'Tớ thích nhất là lúc thấy bạn tích dấu hoàn thành nhiệm vụ!',
-        'Cố lên! Bạn đang tiến rất gần tới Cấp độ tiếp theo rồi!'
-      ]
-      return {
-        ...prev,
-        mood: 'happy',
-        affection: Math.min(100, prev.affection + 5),
-        speechBubble: phrases[Math.floor(Math.random() * phrases.length)]
-      }
-    })
+    const touchLines = [
+      'Hì, nhột tai Fox đó nha! Bạn gọi Fox có việc gì nào?',
+      'Chạm nhẹ thế này thích ghê, mình cùng làm một việc nhỏ nha?',
+      'Cảm ơn cái xoa đầu ấm áp nha, pin của Fox đầy thêm một vạch rồi!',
+      'Vẫy đuôi chào bạn nè! Hôm nay tinh thần của bạn thế nào?',
+      'Xoa đầu một cái là Fox tỉnh táo hẳn luôn đó!',
+      'Khoan đã nào, bấm liên tục thế này Fox chóng mặt mất!',
+      'Fox không phải nút bấm đâu nha... nhưng mà xoa đầu thì vẫn thích!',
+      'É khoan, đang trốn việc sang chọc Fox đúng không nè?'
+    ]
+    const line = touchLines[Math.floor(Math.random() * touchLines.length)]
+
+    setFox((prev) => ({
+      ...prev,
+      mood: 'happy',
+      affection: Math.min(100, prev.affection + 5),
+      speechBubble: line
+    }))
     triggerConfetti()
   }
 
-  const buyItem = (item: WardrobeItem) => {
+  const buyItem = (item: WardrobeCatalogItem) => {
     if (player.coins < item.price) {
       setFox((f) => ({
         ...f,
@@ -564,17 +495,74 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return true
   }
 
-  const equipItem = (item: WardrobeItem) => {
+  const equipItem = (item: WardrobeCatalogItem) => {
     setWardrobe((prev) =>
-      prev.map((i) => (i.category === item.category ? { ...i, equipped: i.id === item.id } : i))
+      prev.map((i) => (i.slot === item.slot ? { ...i, equipped: i.id === item.id } : i))
     )
 
     setFox((f) => {
-      if (item.category === 'hat') return { ...f, equippedHat: item.id }
-      if (item.category === 'outfit') return { ...f, equippedOutfit: item.id }
-      if (item.category === 'accessory') return { ...f, equippedAccessory: item.id }
-      return f
+      let updated = { ...f }
+      if (item.slot === 'HEAD') updated.equippedHat = item.id
+      if (item.slot === 'BODY') updated.equippedOutfit = item.id
+      if (item.slot === 'FACE' || item.slot === 'HAND_RIGHT' || item.slot === 'FEET') {
+        updated.equippedAccessory = item.id
+      }
+      updated.speechBubble = `Thử món "${item.displayNameVi}" này lên nhìn hợp phong cách lắm luôn!`
+      updated.mood = 'happy'
+      return updated
     })
+  }
+
+  const equipOutfitPreset = (presetId: OutfitId) => {
+    const preset = OUTFIT_PRESETS.find((p) => p.id === presetId)
+    if (!preset) return
+
+    const itemIds = Object.values(preset.slots) as string[]
+
+    setWardrobe((prev) =>
+      prev.map((item) => {
+        if (itemIds.includes(item.id)) {
+          return { ...item, unlocked: true, equipped: true }
+        }
+        // If same slot as any in preset, unequip
+        const slotMatch = Object.keys(preset.slots).find((slot) => {
+          return item.slot === slot && !itemIds.includes(item.id)
+        })
+        if (slotMatch) {
+          return { ...item, equipped: false }
+        }
+        return item
+      })
+    )
+
+    setFox((f) => ({
+      ...f,
+      equippedHat: preset.slots.HEAD || null,
+      equippedOutfit: preset.slots.BODY || null,
+      equippedAccessory: preset.slots.FACE || preset.slots.HAND_RIGHT || preset.slots.FEET || null,
+      speechBubble: `Đã khoác trọn ${preset.nameVi}! ${preset.buff}`,
+      mood: 'cheering'
+    }))
+
+    triggerConfetti()
+  }
+
+  const resetOutfitToDefault = () => {
+    setWardrobe((prev) =>
+      prev.map((i) => ({
+        ...i,
+        equipped: i.id === 'default_scarf' || i.id === 'default_backpack'
+      }))
+    )
+
+    setFox((f) => ({
+      ...f,
+      equippedHat: null,
+      equippedOutfit: null,
+      equippedAccessory: null,
+      speechBubble: 'Quay về bộ khăn đỏ và balo quen thuộc rồi nè!',
+      mood: 'happy'
+    }))
   }
 
   const likeSocialPost = (id: string) => {
@@ -582,11 +570,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       prev.map((p) => {
         if (p.id !== id) return p
         const isLiked = !p.isLiked
-        return {
-          ...p,
-          isLiked,
-          likes: isLiked ? p.likes + 1 : p.likes - 1
-        }
+        return { ...p, isLiked, likes: isLiked ? p.likes + 1 : p.likes - 1 }
       })
     )
   }
@@ -597,11 +581,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         if (p.id !== id) return p
         const isCheered = !p.isCheered
         if (isCheered) triggerConfetti()
-        return {
-          ...p,
-          isCheered,
-          cheers: isCheered ? p.cheers + 1 : p.cheers - 1
-        }
+        return { ...p, isCheered, cheers: isCheered ? p.cheers + 1 : p.cheers - 1 }
       })
     )
   }
@@ -653,7 +633,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setSchedules(INITIAL_SCHEDULES)
     setSocialPosts(INITIAL_SOCIAL_POSTS)
     setFox(INITIAL_FOX)
-    setWardrobe(INITIAL_WARDROBE)
+    setWardrobe(EXACT_WARDROBE_CATALOG)
     localStorage.clear()
   }
 
@@ -679,6 +659,8 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         petFox,
         buyItem,
         equipItem,
+        equipOutfitPreset,
+        resetOutfitToDefault,
         likeSocialPost,
         cheerSocialPost,
         toggleTheme,
