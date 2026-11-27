@@ -94,11 +94,94 @@ export const WardrobeScreen: React.FC = () => {
   const [mode, setMode] = useState<'wardrobe' | 'shop'>('wardrobe')
   const [selectedCategory, setSelectedCategory] = useState<WardrobeCategoryId>('ALL')
   const [currentOutfit, setCurrentOutfit] = useState<OutfitPreset>(OUTFIT_PRESETS[0])
-  const [cameraFacing, setCameraFacing] = useState<'front' | 'side' | 'back'>('front')
-  const [zoomLevel, setZoomLevel] = useState<number>(1)
   const [speechText, setSpeechText] = useState<string>(OUTFIT_PRESETS[0].dialogue)
   const [isDialogueVisible, setIsDialogueVisible] = useState(true)
   const [mascotAnim, setMascotAnim] = useState<string>('/assets/fox/fox-cp4-anim.webp')
+
+  // Natural Finger Touch & 3D Gesture Rotation State
+  const [rotationY, setRotationY] = useState(0)
+  const [rotationX, setRotationX] = useState(0)
+  const [zoom, setZoom] = useState(1)
+  const [isDragging, setIsDragging] = useState(false)
+  const pointerStart = React.useRef({ x: 0, y: 0, rotY: 0, rotX: 0 })
+  const initialTouchDistance = React.useRef<number | null>(null)
+  const initialZoom = React.useRef(1)
+
+  // 1. One finger drag / mouse drag for smooth 360 rotation
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return
+    setIsDragging(true)
+    pointerStart.current = {
+      x: e.clientX,
+      y: e.clientY,
+      rotY: rotationY,
+      rotX: rotationX
+    }
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDragging) return
+    const deltaX = e.clientX - pointerStart.current.x
+    const deltaY = e.clientY - pointerStart.current.y
+
+    const newRotY = pointerStart.current.rotY + deltaX * 0.95
+    const newRotX = Math.max(-18, Math.min(18, pointerStart.current.rotX - deltaY * 0.2))
+
+    setRotationY(newRotY)
+    setRotationX(newRotX)
+  }
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    setIsDragging(false)
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    } catch {}
+  }
+
+  // 2. Two fingers pinch to zoom (2 ngón phóng to thu nhỏ)
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 2) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      )
+      initialTouchDistance.current = dist
+      initialZoom.current = zoom
+    }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length === 2 && initialTouchDistance.current !== null) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      )
+      const scaleFactor = dist / initialTouchDistance.current
+      const newZoom = Math.max(0.75, Math.min(1.65, initialZoom.current * scaleFactor))
+      setZoom(newZoom)
+    }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (e.touches.length < 2) {
+      initialTouchDistance.current = null
+    }
+  }
+
+  // 3. Mouse wheel zoom support for desktop browsers
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    setZoom((prev) => Math.max(0.75, Math.min(1.65, prev - e.deltaY * 0.0012)))
+  }
+
+  // 4. Reset gesture
+  const handleReset = () => {
+    setRotationY(0)
+    setRotationX(0)
+    setZoom(1)
+  }
 
   // Count items by category
   const getCategoryCount = (catId: WardrobeCategoryId) => {
@@ -145,13 +228,8 @@ export const WardrobeScreen: React.FC = () => {
     }
   }
 
-  // Camera transforms
-  let mascotTransform = `scale(${zoomLevel})`
-  if (cameraFacing === 'side') {
-    mascotTransform += ' rotateY(38deg) skewY(-2deg)'
-  } else if (cameraFacing === 'back') {
-    mascotTransform += ' rotateY(180deg)'
-  }
+  // 3D mascot smooth transform
+  const mascotTransform = `scale(${zoom}) rotateX(${rotationX}deg) rotateY(${rotationY}deg)`
 
   return (
     <div style={{
@@ -291,22 +369,36 @@ export const WardrobeScreen: React.FC = () => {
           </div>
         )}
 
-        {/* 3D Mascot Stage Viewport */}
-        <div style={{
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: 240,
-          background: 'linear-gradient(160deg, #FFE9D6 0%, #FFF6EC 100%)',
-          borderRadius: 20,
-          border: '1px solid rgba(242, 107, 58, 0.2)',
-          overflow: 'hidden',
-          padding: '14px 0 10px',
-          boxShadow: 'inset 0 2px 10px rgba(242, 107, 58, 0.08)'
-        }}>
-          {/* Top-Left Chip: 3D status */}
+        {/* 3D Mascot Stage Viewport with Finger Drag & Pinch-to-Zoom */}
+        <div
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onWheel={handleWheel}
+          onDoubleClick={handleReset}
+          style={{
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: 250,
+            background: 'linear-gradient(160deg, #FFE9D6 0%, #FFF6EC 100%)',
+            borderRadius: 20,
+            border: '1px solid rgba(242, 107, 58, 0.2)',
+            overflow: 'hidden',
+            padding: '16px 0 12px',
+            boxShadow: 'inset 0 2px 10px rgba(242, 107, 58, 0.08)',
+            cursor: isDragging ? 'grabbing' : 'grab',
+            touchAction: 'none',
+            userSelect: 'none'
+          }}
+        >
+          {/* Top-Left Chip: Gesture instruction */}
           <span style={{
             position: 'absolute',
             top: 10,
@@ -315,16 +407,46 @@ export const WardrobeScreen: React.FC = () => {
             color: 'var(--lq-ink)',
             fontSize: 10,
             fontWeight: 800,
-            padding: '2px 8px',
-            borderRadius: 10
+            padding: '3px 8px',
+            borderRadius: 10,
+            pointerEvents: 'none'
           }}>
-            Xem 3D · chạm xoay
+            👆 Lướt xoay 360° · 🤏 2 ngón thu phóng
           </span>
+
+          {/* Top-Right Reset Button if transformed */}
+          {(rotationY !== 0 || rotationX !== 0 || zoom !== 1) && (
+            <button
+              onClick={handleReset}
+              style={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(22, 50, 74, 0.12)',
+                color: 'var(--lq-ink)',
+                fontSize: 10,
+                fontWeight: 800,
+                padding: '3px 8px',
+                borderRadius: 10,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
+                zIndex: 10
+              }}
+              title="Đặt lại góc nhìn ban đầu"
+            >
+              <RotateCcw size={10} />
+              <span>Gốc</span>
+            </button>
+          )}
 
           {/* Bottom-Left Chip: Active Outfit */}
           <span style={{
             position: 'absolute',
-            bottom: 46,
+            bottom: 10,
             left: 10,
             background: 'var(--lq-accent-soft)',
             color: 'var(--lq-accent)',
@@ -332,7 +454,8 @@ export const WardrobeScreen: React.FC = () => {
             fontWeight: 800,
             padding: '3px 8px',
             borderRadius: 10,
-            border: '1px solid rgba(242, 107, 58, 0.25)'
+            border: '1px solid rgba(242, 107, 58, 0.25)',
+            pointerEvents: 'none'
           }}>
             Bộ: {currentOutfit.name} {currentOutfit.emoji}
           </span>
@@ -340,11 +463,12 @@ export const WardrobeScreen: React.FC = () => {
           {/* Official Animated 3D Fox Mascot */}
           <div style={{
             perspective: 800,
-            width: 190,
-            height: 190,
+            width: 195,
+            height: 195,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            pointerEvents: 'none'
           }}>
             <img
               src={mascotAnim}
@@ -354,104 +478,13 @@ export const WardrobeScreen: React.FC = () => {
                 height: '100%',
                 objectFit: 'contain',
                 transform: mascotTransform,
-                transition: 'transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                transition: isDragging ? 'none' : 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)',
                 filter: 'drop-shadow(0 8px 20px rgba(22, 50, 74, 0.18))'
               }}
               onError={(e) => {
                 ;(e.target as HTMLImageElement).src = '/assets/fox/fox-cp4.png'
               }}
             />
-          </div>
-
-          {/* Camera View Controls */}
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 3,
-            padding: '3px 8px',
-            borderRadius: 20,
-            background: '#FFFFFF',
-            border: '1px solid rgba(22, 50, 74, 0.1)',
-            boxShadow: '0 3px 10px rgba(22, 50, 74, 0.08)',
-            marginTop: 6,
-            zIndex: 5
-          }}>
-            <button
-              onClick={() => setCameraFacing('front')}
-              style={{
-                border: 'none',
-                background: cameraFacing === 'front' ? '#16324A' : 'transparent',
-                color: cameraFacing === 'front' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 14,
-                padding: '3px 8px',
-                fontSize: 10.5,
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-            >
-              • Trước
-            </button>
-
-            <button
-              onClick={() => setCameraFacing('side')}
-              style={{
-                border: 'none',
-                background: cameraFacing === 'side' ? '#16324A' : 'transparent',
-                color: cameraFacing === 'side' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 14,
-                padding: '3px 8px',
-                fontSize: 10.5,
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-            >
-              Ngang
-            </button>
-
-            <button
-              onClick={() => setCameraFacing('back')}
-              style={{
-                border: 'none',
-                background: cameraFacing === 'back' ? '#16324A' : 'transparent',
-                color: cameraFacing === 'back' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 14,
-                padding: '3px 8px',
-                fontSize: 10.5,
-                fontWeight: 700,
-                cursor: 'pointer'
-              }}
-            >
-              • Sau
-            </button>
-
-            <div style={{ width: 1, height: 12, background: '#E2DFD8', margin: '0 1px' }} />
-
-            <button
-              onClick={() => setZoomLevel((z) => Math.min(1.3, z + 0.1))}
-              style={{ background: 'transparent', border: 'none', color: '#4D6274', padding: 3, cursor: 'pointer' }}
-              title="Phóng to"
-            >
-              <ZoomIn size={13} />
-            </button>
-
-            <button
-              onClick={() => setZoomLevel((z) => Math.max(0.8, z - 0.1))}
-              style={{ background: 'transparent', border: 'none', color: '#4D6274', padding: 3, cursor: 'pointer' }}
-              title="Thu nhỏ"
-            >
-              <ZoomOut size={13} />
-            </button>
-
-            <button
-              onClick={() => {
-                setCameraFacing('front')
-                setZoomLevel(1)
-              }}
-              style={{ background: 'transparent', border: 'none', color: '#4D6274', padding: 3, cursor: 'pointer' }}
-              title="Đặt lại góc nhìn"
-            >
-              <RotateCcw size={12} />
-            </button>
           </div>
         </div>
       </section>
