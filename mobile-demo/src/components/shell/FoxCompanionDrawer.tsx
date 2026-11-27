@@ -126,12 +126,8 @@ export const FoxCompanionDrawer: React.FC = () => {
             justifyContent: 'center'
           }}>
             <MascotVisual
-              size={135}
-              className="animate-mascot"
-              equippedHat={fox.equippedHat}
-              equippedOutfit={fox.equippedOutfit}
-              equippedAccessory={fox.equippedAccessory}
-              emotion={fox.mood}
+              size={142}
+              emotion={heartAnim ? 'celebrate' : fox.mood}
               onClick={handlePet}
             />
           </div>
