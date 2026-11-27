@@ -149,15 +149,16 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
 
-  // Vertical snap-scroll container ref + mouse drag helper for desktop testing
+  // Vertical snap-scroll container ref + short-distance swipe snap (45px threshold)
   const scrollContainerRef = useRef<HTMLDivElement | null>(null)
-  const mouseDragRef = useRef<{
+  const verticalDragRef = useRef<{
     active: boolean
     startX: number
     startY: number
     startScrollTop: number
     locked: 'x' | 'y' | null
-  }>({ active: false, startX: 0, startY: 0, startScrollTop: 0, locked: null })
+    lastDy: number
+  }>({ active: false, startX: 0, startY: 0, startScrollTop: 0, locked: null, lastDy: 0 })
 
   const currentPose = FOX_POSES[poseIdx]
 
@@ -198,42 +199,67 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
     }
   }, [useRealCamera])
 
-  // Mouse vertical drag-to-scroll so PC users can pull up/down just like touch swipe
-  const handleMouseDownScroll = (e: React.MouseEvent<HTMLDivElement>) => {
-    const tag = (e.target as HTMLElement | null)?.tagName
+  // Short-distance vertical swipe/drag handler (only ~45px needed to snap to next/prev page!)
+  const startVerticalDrag = (clientX: number, clientY: number, target: EventTarget | null) => {
+    const tag = (target as HTMLElement | null)?.tagName
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'BUTTON') return
     const el = scrollContainerRef.current
     if (!el) return
-    mouseDragRef.current = {
+    verticalDragRef.current = {
       active: true,
-      startX: e.clientX,
-      startY: e.clientY,
+      startX: clientX,
+      startY: clientY,
       startScrollTop: el.scrollTop,
-      locked: null
+      locked: null,
+      lastDy: 0
     }
   }
 
-  const handleMouseMoveScroll = (e: React.MouseEvent<HTMLDivElement>) => {
-    const d = mouseDragRef.current
+  const moveVerticalDrag = (clientX: number, clientY: number, isMouse: boolean) => {
+    const d = verticalDragRef.current
     const el = scrollContainerRef.current
     if (!d.active || !el) return
 
-    const dx = e.clientX - d.startX
-    const dy = e.clientY - d.startY
+    const dx = clientX - d.startX
+    const dy = clientY - d.startY
 
     if (!d.locked) {
-      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return
       d.locked = Math.abs(dy) >= Math.abs(dx) ? 'y' : 'x'
     }
 
     if (d.locked === 'y') {
-      el.scrollTop = d.startScrollTop - dy
+      d.lastDy = dy
+      if (isMouse) {
+        // Direct follow-the-cursor feel while dragging with mouse
+        el.scrollTo({ top: d.startScrollTop - dy * 1.35, behavior: 'auto' })
+      }
     }
   }
 
-  const handleMouseUpScroll = () => {
-    mouseDragRef.current.active = false
-    mouseDragRef.current.locked = null
+  const endVerticalDrag = () => {
+    const d = verticalDragRef.current
+    const el = scrollContainerRef.current
+    if (!d.active || !el) return
+
+    const pageH = el.clientHeight || 1
+    const startPage = Math.round(d.startScrollTop / pageH)
+    const maxPage = feed.length // Page 0 = Camera, Pages 1..feed.length = Photos
+
+    if (d.locked === 'y') {
+      let targetPage = startPage
+      // Short 45px drag is enough to smoothly snap to next or previous screen!
+      if (d.lastDy < -45) {
+        targetPage = Math.min(maxPage, startPage + 1)
+      } else if (d.lastDy > 45) {
+        targetPage = Math.max(0, startPage - 1)
+      }
+      el.scrollTo({ top: targetPage * pageH, behavior: 'smooth' })
+    }
+
+    d.active = false
+    d.locked = null
+    d.lastDy = 0
   }
 
   const scrollToFeed = () => {
@@ -355,10 +381,21 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
       {/* Vertical Snap-Scroll Feed Container: Page 0 = Camera, Pages 1..N = Shared Photos */}
       <div
         ref={scrollContainerRef}
-        onMouseDown={handleMouseDownScroll}
-        onMouseMove={handleMouseMoveScroll}
-        onMouseUp={handleMouseUpScroll}
-        onMouseLeave={handleMouseUpScroll}
+        onMouseDown={(e) => startVerticalDrag(e.clientX, e.clientY, e.target)}
+        onMouseMove={(e) => moveVerticalDrag(e.clientX, e.clientY, true)}
+        onMouseUp={endVerticalDrag}
+        onMouseLeave={endVerticalDrag}
+        onTouchStart={(e) => {
+          if (e.touches.length === 1) {
+            startVerticalDrag(e.touches[0].clientX, e.touches[0].clientY, e.target)
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length === 1) {
+            moveVerticalDrag(e.touches[0].clientX, e.touches[0].clientY, false)
+          }
+        }}
+        onTouchEnd={endVerticalDrag}
         className="phone-content"
         style={{
           position: 'relative',
@@ -367,7 +404,6 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
           height: '100%',
           overflowY: 'auto',
           scrollSnapType: 'y mandatory',
-          scrollBehavior: 'smooth',
           paddingBottom: 0
         }}
       >

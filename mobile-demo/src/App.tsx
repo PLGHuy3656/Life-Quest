@@ -116,9 +116,9 @@ function MobileAppContent() {
     if (!s.active) return
 
     if (s.locked === 'x') {
-      if (!isCameraOpen && s.offset > 70) {
+      if (!isCameraOpen && s.offset > 40) {
         setIsCameraOpen(true)
-      } else if (isCameraOpen && s.offset < -70) {
+      } else if (isCameraOpen && s.offset < -40) {
         setIsCameraOpen(false)
       }
     }
