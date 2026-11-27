@@ -4,14 +4,10 @@ import { X, Heart, Sparkles, Volume2, Shield } from 'lucide-react'
 import { MascotVisual } from '../common/MascotVisual'
 
 export const FoxCompanionDrawer: React.FC = () => {
-  const { fox, wardrobe, isFoxDrawerOpen, toggleFoxDrawer, petFox } = useStore()
+  const { fox, isFoxDrawerOpen, toggleFoxDrawer, petFox } = useStore()
   const [heartAnim, setHeartAnim] = useState(false)
 
   if (!isFoxDrawerOpen) return null
-
-  const equippedHat = wardrobe.find((i) => i.id === fox.equippedHat)
-  const equippedOutfit = wardrobe.find((i) => i.id === fox.equippedOutfit)
-  const equippedAccessory = wardrobe.find((i) => i.id === fox.equippedAccessory)
 
   const handlePet = () => {
     petFox()
@@ -130,10 +126,6 @@ export const FoxCompanionDrawer: React.FC = () => {
               emotion={heartAnim ? 'celebrate' : fox.mood}
               onClick={handlePet}
             />
-          </div>
-
-          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--lq-ink)' }}>
-            {equippedOutfit ? equippedOutfit.displayNameVi : 'Áo Tân Thủ'}
           </div>
 
           {/* Affection Bar */}
