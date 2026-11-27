@@ -238,43 +238,75 @@ export const TopBar: React.FC<TopBarProps> = ({
             <Sparkles size={11} color="#E69A28" />
           </button>
 
-          {/* Fox Paw Trigger with Notification Badge (Kept as requested) */}
+          {/* Tactile 3D Fox Paw Trigger with Notification Badge */}
           <button
             onClick={toggleFoxDrawer}
             style={{
               position: 'relative',
-              width: 34,
-              height: 34,
-              borderRadius: 12,
-              background: '#F26B3A',
+              width: 38,
+              height: 38,
+              borderRadius: 14,
+              background: 'linear-gradient(145deg, #FF9559 0%, #F26B3A 55%, #D94A1E 100%)',
               color: '#FFFFFF',
-              border: 'none',
+              border: '1.5px solid rgba(255, 236, 210, 0.72)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 16,
-              boxShadow: '0 2px 8px rgba(242, 107, 58, 0.35)',
+              boxShadow:
+                '0 3px 0 #AD3813, 0 6px 14px rgba(242, 107, 58, 0.38), inset 0 1.5px 2px rgba(255, 255, 255, 0.45)',
               cursor: 'pointer'
             }}
             title="Bé Cáo Đồng Hành"
+            aria-label="Mở Bé Cáo Đồng Hành"
           >
-            🐾
+            {/* Glossy top sheen */}
             <span
               style={{
                 position: 'absolute',
-                top: -3,
-                right: -3,
-                background: '#FFFFFF',
-                color: '#F26B3A',
-                fontSize: 9,
-                fontWeight: 800,
-                width: 14,
-                height: 14,
-                borderRadius: '50%',
+                top: 2,
+                left: 6,
+                right: 6,
+                height: 10,
+                borderRadius: 99,
+                background:
+                  'linear-gradient(180deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 100%)',
+                pointerEvents: 'none'
+              }}
+            />
+
+            {/* Crisp Custom Fox Paw Print SVG */}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              style={{ filter: 'drop-shadow(0 1px 2px rgba(138, 38, 8, 0.38))' }}
+            >
+              <circle cx="12" cy="14.6" r="4.5" fill="#FFF8EE" />
+              <circle cx="6.7" cy="9.2" r="2.15" fill="#FFF8EE" />
+              <circle cx="12" cy="6.9" r="2.25" fill="#FFF8EE" />
+              <circle cx="17.3" cy="9.2" r="2.15" fill="#FFF8EE" />
+            </svg>
+
+            {/* Crisp Navy-Gold Notification Count Badge */}
+            <span
+              style={{
+                position: 'absolute',
+                top: -5,
+                right: -5,
+                background: 'linear-gradient(135deg, #1E3E5B 0%, #12263A 100%)',
+                color: '#F6C85F',
+                fontSize: 9.5,
+                fontWeight: 900,
+                minWidth: 17,
+                height: 17,
+                padding: '0 4px',
+                borderRadius: 99,
+                border: '2px solid #FFFFFF',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.2)'
+                boxShadow: '0 2px 5px rgba(22, 50, 74, 0.35)'
               }}
             >
               3
