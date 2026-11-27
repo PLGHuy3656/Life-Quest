@@ -119,3 +119,48 @@ button:active {
 .animate-pulse-glow {
   animation: pulseGlow 2s infinite;
 }
+
+/* Signature LifeQuest Floating Fox Dock */
+@keyframes foxOrbPulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 0 #A83512,
+      0 0 0 4px #16324A,
+      0 10px 22px rgba(242, 107, 58, 0.5),
+      inset 0 2px 4px rgba(255, 255, 255, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 4px 0 #A83512,
+      0 0 0 4px #16324A,
+      0 12px 28px rgba(242, 107, 58, 0.72),
+      inset 0 2px 4px rgba(255, 255, 255, 0.55);
+  }
+}
+
+.lq-fox-orb {
+  animation: foxOrbPulse 3.2s ease-in-out infinite;
+  transition: transform 0.14s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.14s ease !important;
+}
+
+.lq-fox-orb:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.lq-fox-orb:active {
+  transform: translateY(2px) scale(0.95) !important;
+  box-shadow:
+    0 1px 0 #A83512,
+    0 0 0 4px #16324A,
+    0 5px 14px rgba(242, 107, 58, 0.45),
+    inset 0 2px 4px rgba(255, 255, 255, 0.35) !important;
+}
+
+.lq-dock-tab {
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.lq-dock-tab:hover:not(.lq-dock-tab-active) {
+  color: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}

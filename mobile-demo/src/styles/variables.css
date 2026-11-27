@@ -42,7 +42,7 @@
   --shadow-float: 0 12px 32px rgba(22, 50, 74, 0.12);
   --shadow-accent: 0 10px 24px rgba(242, 107, 58, 0.28);
 
-  --bnav-h: 68px;
+  --bnav-h: 84px;
 }
 
 [data-theme="dark"] {
