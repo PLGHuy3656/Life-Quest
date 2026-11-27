@@ -57,9 +57,12 @@ function MobileAppContent() {
   const [frameMode, setFrameMode] = useState<FrameMode>('iphone')
   const [activeChatContact, setActiveChatContact] = useState('Hà My')
 
-  // Left-to-Right Swipe Gesture for Fox Snap Camera (from Dashboard)
+  // Unified Horizontal Swipe Pager:
+  // [Fox Camera] <-> 05_dashboard (Trang chủ) <-> 14_messages (Tin nhắn) <-> 13_calendar (Lịch) <-> 06_tasks (Công việc)
+  const MAIN_TAB_SCREENS: ScreenId[] = ['05_dashboard', '14_messages', '13_calendar', '06_tasks']
   const [isCameraOpen, setIsCameraOpen] = useState(false)
   const [swipeOffset, setSwipeOffset] = useState(0)
+  const [tabDragOffset, setTabDragOffset] = useState(0)
   const [isSwiping, setIsSwiping] = useState(false)
   const swipeState = useRef<{
     startX: number
@@ -67,20 +70,24 @@ function MobileAppContent() {
     active: boolean
     locked: 'x' | 'y' | null
     offset: number
-  }>({ startX: 0, startY: 0, active: false, locked: null, offset: 0 })
+    mode: 'camera' | 'tabs' | null
+  }>({ startX: 0, startY: 0, active: false, locked: null, offset: 0, mode: null })
 
-  const canSwipeCamera = currentScreen === '05_dashboard' || isCameraOpen
+  const currentTabIndex = MAIN_TAB_SCREENS.indexOf(currentScreen)
+  const canSwipeHorizontal = isCameraOpen || currentTabIndex !== -1
 
   const beginSwipe = (clientX: number, clientY: number, target: EventTarget | null) => {
-    if (!canSwipeCamera) return
-    const tag = (target as HTMLElement | null)?.tagName
+    if (!canSwipeHorizontal) return
+    const el = target as HTMLElement | null
+    const tag = el?.tagName
     if (tag === 'INPUT' || tag === 'TEXTAREA') return
     swipeState.current = {
       startX: clientX,
       startY: clientY,
       active: true,
       locked: null,
-      offset: 0
+      offset: 0,
+      mode: null
     }
   }
 
@@ -98,16 +105,40 @@ function MobileAppContent() {
 
     if (s.locked !== 'x') return
 
-    if (!isCameraOpen && dx > 0) {
+    // Case 1: Camera is open -> drag right-to-left (dx < 0) closes camera back to Trang chủ
+    if (isCameraOpen) {
+      if (dx < 0) {
+        const clamped = Math.max(-430, dx)
+        s.mode = 'camera'
+        s.offset = clamped
+        setIsSwiping(true)
+        setSwipeOffset(clamped)
+      }
+      return
+    }
+
+    // Case 2: On Trang chủ (index 0) and dragging left-to-right (dx > 0) -> open Fox Camera
+    if (currentTabIndex === 0 && dx > 0) {
       const clamped = Math.min(430, dx)
+      s.mode = 'camera'
       s.offset = clamped
       setIsSwiping(true)
       setSwipeOffset(clamped)
-    } else if (isCameraOpen && dx < 0) {
-      const clamped = Math.max(-430, dx)
-      s.offset = clamped
-      setIsSwiping(true)
-      setSwipeOffset(clamped)
+      setTabDragOffset(0)
+      return
+    }
+
+    // Case 3: Swiping between the 4 main tabs (Trang chủ <-> Tin nhắn <-> Lịch <-> Công việc)
+    if (currentTabIndex !== -1) {
+      const canGoNext = dx < 0 && currentTabIndex < MAIN_TAB_SCREENS.length - 1
+      const canGoPrev = dx > 0 && currentTabIndex > 0
+      if (canGoNext || canGoPrev) {
+        s.mode = 'tabs'
+        s.offset = dx
+        setIsSwiping(true)
+        setSwipeOffset(0)
+        setTabDragOffset(Math.max(-90, Math.min(90, dx * 0.45)))
+      }
     }
   }
 
@@ -116,18 +147,31 @@ function MobileAppContent() {
     if (!s.active) return
 
     if (s.locked === 'x') {
-      if (!isCameraOpen && s.offset > 40) {
-        setIsCameraOpen(true)
-      } else if (isCameraOpen && s.offset < -40) {
-        setIsCameraOpen(false)
+      if (s.mode === 'camera') {
+        if (!isCameraOpen && s.offset > 40) {
+          setIsCameraOpen(true)
+        } else if (isCameraOpen && s.offset < -40) {
+          setIsCameraOpen(false)
+        }
+      } else if (s.mode === 'tabs' && currentTabIndex !== -1) {
+        // Right -> Left (dx < -45): Next tab (Trang chủ -> Tin nhắn -> Lịch -> Công việc)
+        if (s.offset < -45 && currentTabIndex < MAIN_TAB_SCREENS.length - 1) {
+          setCurrentScreen(MAIN_TAB_SCREENS[currentTabIndex + 1])
+        }
+        // Left -> Right (dx > 45): Previous tab (Công việc -> Lịch -> Tin nhắn -> Trang chủ)
+        else if (s.offset > 45 && currentTabIndex > 0) {
+          setCurrentScreen(MAIN_TAB_SCREENS[currentTabIndex - 1])
+        }
       }
     }
 
     s.active = false
     s.locked = null
     s.offset = 0
+    s.mode = null
     setIsSwiping(false)
     setSwipeOffset(0)
+    setTabDragOffset(0)
   }
 
   // Map ScreenId to BottomNav active Tab
@@ -419,7 +463,9 @@ function MobileAppContent() {
             overflowX: 'hidden',
             paddingBottom: isFullStandaloneScreen ? 0 : 'calc(var(--bnav-h) + 16px)',
             WebkitOverflowScrolling: 'touch',
-            position: 'relative'
+            position: 'relative',
+            transform: tabDragOffset !== 0 ? `translateX(${tabDragOffset}px)` : 'none',
+            transition: isSwiping ? 'none' : 'transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)'
           }}
         >
           {/* 01. Loading */}
@@ -604,25 +650,25 @@ function MobileAppContent() {
             style={{
               position: 'absolute',
               left: 0,
-              top: '50%',
+              top: '29%',
               transform: 'translateY(-50%)',
               zIndex: 42,
               background: 'linear-gradient(180deg, #FF9357 0%, #F26B3A 100%)',
               color: '#FFFFFF',
-              border: '1.5px solid rgba(255, 255, 255, 0.7)',
+              border: '1.5px solid rgba(255, 255, 255, 0.75)',
               borderLeft: 'none',
-              borderRadius: '0 14px 14px 0',
-              padding: '10px 5px 10px 4px',
+              borderRadius: '0 12px 12px 0',
+              padding: '8px 4px 8px 3px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: 3,
-              boxShadow: '2px 4px 14px rgba(242, 107, 58, 0.38)',
+              boxShadow: '2px 4px 12px rgba(242, 107, 58, 0.35)',
               cursor: 'pointer'
             }}
           >
-            <Camera size={13} />
-            <span style={{ width: 3, height: 14, borderRadius: 99, background: 'rgba(255,255,255,0.75)' }} />
+            <Camera size={12} />
+            <span style={{ width: 2.5, height: 12, borderRadius: 99, background: 'rgba(255,255,255,0.75)' }} />
           </button>
         )}
 
