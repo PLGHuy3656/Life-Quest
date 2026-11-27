@@ -276,10 +276,42 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
           flexDirection: 'column',
           alignItems: 'center',
           gap: 10,
-          marginTop: 6
+          marginTop: 22
         }}
       >
-        <div style={{ position: 'relative', width: '100%', maxWidth: 324 }}>
+        <div style={{ position: 'relative', width: '100%', maxWidth: 320 }}>
+          {/* Fox Mascot perched playfully ON TOP of the viewfinder (never blocks your face!) */}
+          <div
+            onClick={() => setPoseIdx((i) => (i + 1) % FOX_POSES.length)}
+            title="Chạm vào Fox để đổi biểu cảm"
+            style={{
+              position: 'absolute',
+              top: -54,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 6,
+              display: 'flex',
+              alignItems: 'flex-end',
+              gap: 6,
+              cursor: 'pointer'
+            }}
+          >
+            <img
+              src={currentPose.img}
+              alt={currentPose.label}
+              style={{
+                width: 72,
+                height: 72,
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 6px 14px rgba(0, 0, 0, 0.42))',
+                transition: 'transform 0.2s ease'
+              }}
+              onError={(e) => {
+                ;(e.target as HTMLImageElement).src = currentPose.fallback
+              }}
+            />
+          </div>
+
           {/* Cute Fox Ears peeking from top corners of the viewfinder */}
           <svg
             width="100%"
@@ -323,17 +355,17 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
               aspectRatio: '1 / 1',
               borderRadius: 42,
               background: currentPose.bg,
-              border: '3px solid rgba(246, 200, 95, 0.72)',
+              border: '3px solid rgba(246, 200, 95, 0.78)',
               boxShadow:
-                '0 0 0 4px rgba(242, 107, 58, 0.22), 0 22px 44px rgba(0, 0, 0, 0.45)',
+                '0 0 0 4px rgba(242, 107, 58, 0.24), 0 22px 44px rgba(0, 0, 0, 0.45)',
               overflow: 'hidden',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center'
             }}
           >
-            {/* Real Camera Stream (if enabled) */}
-            {useRealCamera && (
+            {/* Real Camera Stream (if enabled) — 100% clear & unobstructed */}
+            {useRealCamera ? (
               <video
                 ref={videoRef}
                 autoPlay
@@ -348,27 +380,40 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
                   transform: 'scaleX(-1)'
                 }}
               />
+            ) : (
+              /* Clean Studio Placeholder when real camera is off */
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  padding: '24px',
+                  gap: 10
+                }}
+              >
+                <div
+                  style={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: 22,
+                    background: 'rgba(242, 107, 58, 0.14)',
+                    border: '2px dashed rgba(242, 107, 58, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#F26B3A'
+                  }}
+                >
+                  <Camera size={28} />
+                </div>
+                <b style={{ fontSize: 15, color: '#16324A' }}>Khung chụp Fox Snap</b>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#586D80', maxWidth: 210, lineHeight: 1.4 }}>
+                  Bấm <b>Bật Cam</b> ở góc trên để chụp ảnh thật hoặc bấm nút chụp để lưu khoảnh khắc!
+                </span>
+              </div>
             )}
-
-            {/* Fox Mascot Pose inside Viewfinder */}
-            <img
-              src={currentPose.img}
-              alt={currentPose.label}
-              style={{
-                position: useRealCamera ? 'absolute' : 'relative',
-                bottom: useRealCamera ? 8 : 'auto',
-                right: useRealCamera ? 10 : 'auto',
-                width: useRealCamera ? 112 : 220,
-                height: useRealCamera ? 112 : 220,
-                objectFit: 'contain',
-                filter: 'drop-shadow(0 12px 22px rgba(22, 50, 74, 0.22))',
-                transition: 'all 0.25s ease',
-                zIndex: 3
-              }}
-              onError={(e) => {
-                ;(e.target as HTMLImageElement).src = currentPose.fallback
-              }}
-            />
 
             {/* Top-left Fox Snap Live Tag */}
             <div
@@ -495,7 +540,7 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
         )}
       </div>
 
-      {/* 3. Camera Controls Row (Flash · Fox Shutter · Flip/Pose) */}
+      {/* 3. Camera Controls Row (Special Jewel Flash · Standout Fox-Eared Shutter · Special Emerald Flip) */}
       <div
         style={{
           position: 'relative',
@@ -503,96 +548,198 @@ export const FoxCameraScreen: React.FC<FoxCameraScreenProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-around',
-          padding: '4px 14px'
+          padding: '8px 10px 2px'
         }}
       >
         {!captured ? (
           <>
-            {/* Flash Button */}
-            <button
-              onClick={() => setFlashOn((v) => !v)}
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: '50%',
-                background: flashOn
-                  ? 'rgba(246, 200, 95, 0.22)'
-                  : 'rgba(255, 255, 255, 0.08)',
-                border: flashOn
-                  ? '1.5px solid #F6C85F'
-                  : '1.5px solid rgba(255, 255, 255, 0.14)',
-                color: flashOn ? '#F6C85F' : '#FFFFFF',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer'
-              }}
-              title="Bật/tắt đèn flash"
-            >
-              <Zap size={22} fill={flashOn ? '#F6C85F' : 'none'} />
-            </button>
-
-            {/* Iconic Fox-Ring Shutter Button */}
-            <button
-              onClick={handleCapture}
-              style={{
-                position: 'relative',
-                width: 74,
-                height: 74,
-                borderRadius: '50%',
-                background: 'transparent',
-                border: '4px solid #F6C85F',
-                padding: 4,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow:
-                  '0 0 0 3px rgba(242, 107, 58, 0.45), 0 8px 22px rgba(242, 107, 58, 0.45)',
-                cursor: 'pointer'
-              }}
-              title="Chụp Fox Snap"
-            >
-              <span
+            {/* Left Special Button: 3D Amber-Gold Flash Jewel */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
+              <button
+                onClick={() => setFlashOn((v) => !v)}
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(145deg, #FFFFFF 0%, #FFF3E6 100%)',
+                  position: 'relative',
+                  width: 54,
+                  height: 54,
+                  borderRadius: 18,
+                  background: flashOn
+                    ? 'linear-gradient(145deg, #FFE27A 0%, #F2AC22 100%)'
+                    : 'linear-gradient(155deg, rgba(246, 200, 95, 0.24) 0%, rgba(196, 130, 18, 0.14) 100%)',
+                  border: flashOn
+                    ? '2px solid #FFF4C2'
+                    : '1.5px solid rgba(246, 200, 95, 0.45)',
+                  color: flashOn ? '#6E4600' : '#F6C85F',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: 'inset 0 -3px 6px rgba(242, 107, 58, 0.18)'
+                  boxShadow: flashOn
+                    ? '0 4px 0 #B57606, 0 10px 22px rgba(246, 200, 95, 0.5)'
+                    : '0 4px 0 rgba(10, 22, 34, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.2)',
+                  cursor: 'pointer'
+                }}
+                title="Bật/tắt đèn flash"
+              >
+                <Zap size={23} strokeWidth={2.4} fill={flashOn ? '#6E4600' : 'rgba(246, 200, 95, 0.25)'} />
+                {flashOn && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: -5,
+                      right: -5,
+                      background: '#F26B3A',
+                      color: '#FFFFFF',
+                      fontSize: 8.5,
+                      fontWeight: 900,
+                      padding: '2px 5px',
+                      borderRadius: 99,
+                      border: '1.5px solid #12263A'
+                    }}
+                  >
+                    ON
+                  </span>
+                )}
+              </button>
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: flashOn ? '#F6C85F' : 'rgba(255,255,255,0.68)' }}>
+                Flash
+              </span>
+            </div>
+
+            {/* Center Standout Hero Shutter: Tactile 3D Fox-Eared Orange & Gold Shutter */}
+            <div style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {/* Mini Fox Ears on top of the Shutter Button */}
+              <svg
+                width="82"
+                height="28"
+                viewBox="0 0 82 28"
+                fill="none"
+                style={{
+                  position: 'absolute',
+                  top: -12,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  pointerEvents: 'none',
+                  zIndex: 1
                 }}
               >
-                {/* Tiny Fox Paw Icon inside shutter */}
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="14.5" r="4.2" fill="#F26B3A" />
-                  <circle cx="7" cy="9.2" r="2" fill="#F26B3A" />
-                  <circle cx="12" cy="7.2" r="2.1" fill="#F26B3A" />
-                  <circle cx="17" cy="9.2" r="2" fill="#F26B3A" />
-                </svg>
-              </span>
-            </button>
+                <path
+                  d="M15 24 L10 5 C9.6 2.8 11.9 1.4 13.8 2.6 L30 13 Z"
+                  fill="#F26B3A"
+                  stroke="#F6C85F"
+                  strokeWidth="2.4"
+                  strokeLinejoin="round"
+                />
+                <path d="M17 19 L14.5 9 L24 15 Z" fill="#FFF3E0" />
+                <path
+                  d="M67 24 L72 5 C72.4 2.8 70.1 1.4 68.2 2.6 L52 13 Z"
+                  fill="#F26B3A"
+                  stroke="#F6C85F"
+                  strokeWidth="2.4"
+                  strokeLinejoin="round"
+                />
+                <path d="M65 19 L67.5 9 L58 15 Z" fill="#FFF3E0" />
+              </svg>
 
-            {/* Switch Pose / Camera Button */}
-            <button
-              onClick={() => setPoseIdx((i) => (i + 1) % FOX_POSES.length)}
-              style={{
-                width: 48,
-                height: 48,
-                borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1.5px solid rgba(255, 255, 255, 0.14)',
-                color: '#FFFFFF',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer'
-              }}
-              title="Đổi biểu cảm Fox / Camera"
-            >
-              <RefreshCw size={21} />
-            </button>
+              <button
+                onClick={handleCapture}
+                style={{
+                  position: 'relative',
+                  zIndex: 2,
+                  width: 82,
+                  height: 82,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(145deg, #FF995C 0%, #F26B3A 55%, #D94A1E 100%)',
+                  border: '3.5px solid #F6C85F',
+                  padding: 5,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow:
+                    '0 5px 0 #9E3010, 0 0 0 5px rgba(242, 107, 58, 0.28), 0 12px 30px rgba(242, 107, 58, 0.65)',
+                  cursor: 'pointer'
+                }}
+                title="Chụp Fox Snap"
+              >
+                <span
+                  style={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(160deg, #FFFFFF 0%, #FFF1E3 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: 'inset 0 -3px 6px rgba(242, 107, 58, 0.22), inset 0 2px 4px #FFFFFF'
+                  }}
+                >
+                  {/* Bold Fox Paw Print Emblem */}
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="14.6" r="4.5" fill="#F26B3A" />
+                    <circle cx="6.8" cy="9.2" r="2.1" fill="#F26B3A" />
+                    <circle cx="12" cy="7" r="2.2" fill="#F26B3A" />
+                    <circle cx="17.2" cy="9.2" r="2.1" fill="#F26B3A" />
+                  </svg>
+                  {/* Tiny Golden Sparkle */}
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: 7,
+                      right: 11,
+                      width: 6,
+                      height: 6,
+                      borderRadius: '50%',
+                      background: '#F6C85F',
+                      boxShadow: '0 0 6px #F6C85F'
+                    }}
+                  />
+                </span>
+              </button>
+            </div>
+
+            {/* Right Special Button: 3D Emerald-Teal Pose/Flip Jewel */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5 }}>
+              <button
+                onClick={() => setPoseIdx((i) => (i + 1) % FOX_POSES.length)}
+                style={{
+                  position: 'relative',
+                  width: 54,
+                  height: 54,
+                  borderRadius: 18,
+                  background:
+                    'linear-gradient(155deg, rgba(46, 196, 166, 0.3) 0%, rgba(22, 140, 120, 0.18) 100%)',
+                  border: '1.5px solid rgba(68, 224, 192, 0.5)',
+                  color: '#7CF2D9',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow:
+                    '0 4px 0 rgba(10, 48, 42, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.22)',
+                  cursor: 'pointer'
+                }}
+                title="Đổi biểu cảm Fox / Camera"
+              >
+                <RefreshCw size={22} strokeWidth={2.4} />
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: -5,
+                    right: -5,
+                    background: '#168C78',
+                    color: '#FFFFFF',
+                    fontSize: 8.5,
+                    fontWeight: 900,
+                    padding: '2px 5px',
+                    borderRadius: 99,
+                    border: '1.5px solid #12263A'
+                  }}
+                >
+                  {poseIdx + 1}/4
+                </span>
+              </button>
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: 'rgba(124, 242, 217, 0.9)' }}>
+                Đổi Fox
+              </span>
+            </div>
           </>
         ) : (
           <>
