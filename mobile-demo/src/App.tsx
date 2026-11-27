@@ -13,14 +13,14 @@ import { WardrobeScreen } from './screens/WardrobeScreen'
 import { SocialScreen } from './screens/SocialScreen'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { TabId } from './types'
-import { Smartphone, Maximize2, Minimize2, Wifi, Battery, Layers } from 'lucide-react'
+import { Flame, Award, Timer, Maximize2, Minimize2 } from 'lucide-react'
 
 function MobileAppContent() {
-  const { tasks } = useStore()
-  const [currentTab, setCurrentTab] = useState<TabId>('dashboard')
+  const { tasks, toggleFoxDrawer, player } = useStore()
+  const [currentTab, setCurrentTab] = useState<TabId>('wardrobe') // Default to Wardrobe so user sees it right away!
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isFigmaOpen, setIsFigmaOpen] = useState(false)
-  const [isFramed, setIsFramed] = useState(true)
+  const [isFramed, setIsFramed] = useState(false) // Default to full responsive view so it doesn't look like a weird black box
 
   const pendingTasksCount = tasks.filter((t) => !t.completed).length
 
@@ -31,140 +31,160 @@ function MobileAppContent() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      background: '#0E1720',
-      padding: isFramed ? '16px 8px' : 0
+      justifyContent: 'flex-start',
+      background: 'var(--lq-bg)',
+      position: 'relative'
     }}>
-      {/* Top Preview Controls for Desktop Testing */}
-      <div style={{
-        position: 'fixed',
-        top: 10,
-        right: 14,
-        zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
-        background: 'rgba(255, 255, 255, 0.15)',
-        backdropFilter: 'blur(10px)',
-        padding: '5px 12px',
-        borderRadius: 20,
-        color: '#FFFFFF',
-        fontSize: 11,
-        fontWeight: 600
-      }}>
-        <button
-          onClick={() => setIsFigmaOpen(true)}
-          style={{
-            background: 'linear-gradient(135deg, #0ACF83 0%, #A259FF 100%)',
-            color: '#FFFFFF',
-            padding: '3px 8px',
-            borderRadius: 10,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            fontSize: 11,
-            fontWeight: 800
-          }}
-        >
-          <Layers size={12} />
-          <span>Figma Design</span>
-        </button>
-
-        <button
-          onClick={() => setIsFramed(!isFramed)}
-          style={{
-            background: 'rgba(255, 255, 255, 0.2)',
-            color: '#FFFFFF',
-            padding: '3px 8px',
-            borderRadius: 10,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            fontSize: 11
-          }}
-        >
-          {isFramed ? <Maximize2 size={11} /> : <Minimize2 size={11} />}
-          <span>{isFramed ? 'Toàn màn hình' : 'Khung điện thoại'}</span>
-        </button>
-      </div>
-
-      {/* Main Phone Viewport */}
+      {/* Viewport container */}
       <div
-        className="phone-viewport"
         style={{
-          maxWidth: isFramed ? 430 : '100%',
-          height: isFramed ? '890px' : '100vh',
-          maxHeight: isFramed ? '92vh' : '100vh',
-          borderRadius: isFramed ? 44 : 0,
-          border: isFramed ? '10px solid #202933' : 'none'
+          width: '100%',
+          maxWidth: isFramed ? 430 : 960,
+          minHeight: '100vh',
+          background: 'var(--lq-bg)',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          boxShadow: isFramed ? '0 10px 40px rgba(0,0,0,0.15)' : 'none',
+          borderRadius: isFramed ? 36 : 0,
+          border: isFramed ? '8px solid #28333E' : 'none',
+          margin: isFramed ? '20px auto' : '0 auto',
+          transition: 'all 0.3s ease'
         }}
       >
-        {/* Dynamic Island / Notch */}
-        <div style={{
-          height: 36,
-          background: 'var(--lq-surface)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 22px',
-          fontSize: 11,
-          fontWeight: 700,
-          color: 'var(--lq-ink)',
-          flexShrink: 0
-        }}>
-          <span>9:41</span>
-          <div style={{
-            width: 84,
-            height: 18,
-            background: '#16324A',
-            borderRadius: 9
-          }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <Wifi size={12} />
-            <Battery size={14} />
-          </div>
-        </div>
-
-        {/* Top Bar Header with Figma Link Button */}
+        {/* Top Header - Exact match to Desktop Screenshot */}
         <TopBar
+          currentTab={currentTab}
           onNavigateTab={setCurrentTab}
           onOpenFigma={() => setIsFigmaOpen(true)}
         />
 
-        {/* Scrollable Main Screen */}
-        <div className="phone-content">
+        {/* Quick Side Rail Floating Widget (Matches Desktop screenshot's left rail!) */}
+        <div style={{
+          position: 'fixed',
+          top: '50%',
+          left: 10,
+          transform: 'translateY(-50%)',
+          zIndex: 45,
+          background: '#FFFFFF',
+          borderRadius: 24,
+          padding: '8px 5px',
+          boxShadow: '0 4px 16px rgba(22, 50, 74, 0.1)',
+          border: '1px solid rgba(22, 50, 74, 0.08)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 10
+        }}>
+          {/* Fox Paw with orange badge 3 (from screenshot) */}
+          <button
+            onClick={toggleFoxDrawer}
+            style={{
+              position: 'relative',
+              width: 32,
+              height: 32,
+              borderRadius: 12,
+              background: '#F26B3A',
+              color: '#FFFFFF',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 16,
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(242, 107, 58, 0.35)'
+            }}
+            title="Mở Bé Cáo Kitsu"
+          >
+            🐾
+            <span style={{
+              position: 'absolute',
+              top: -3,
+              right: -3,
+              background: '#FFFFFF',
+              color: '#F26B3A',
+              fontSize: 9,
+              fontWeight: 800,
+              width: 13,
+              height: 13,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              3
+            </span>
+          </button>
+
+          {/* Streak Flame */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            fontSize: 10,
+            fontWeight: 800,
+            color: '#F26B3A'
+          }}>
+            <Flame size={15} />
+            <span style={{ fontSize: 9 }}>{player.streak}</span>
+          </div>
+
+          {/* Timer Mode */}
+          <button
+            onClick={() => setCurrentTab('focus')}
+            style={{ background: 'transparent', color: '#768796', padding: 2 }}
+            title="Tập trung Pomodoro"
+          >
+            <Timer size={15} />
+          </button>
+
+          {/* Achievements Medal */}
+          <button
+            onClick={() => setCurrentTab('profile')}
+            style={{ background: 'transparent', color: '#768796', padding: 2 }}
+            title="Hồ sơ & Thành tựu"
+          >
+            <Award size={15} />
+          </button>
+
+          {/* Toggle Phone frame mode */}
+          <button
+            onClick={() => setIsFramed(!isFramed)}
+            style={{ background: 'transparent', color: '#768796', padding: 2 }}
+            title={isFramed ? 'Toàn màn hình' : 'Khung điện thoại'}
+          >
+            {isFramed ? <Maximize2 size={13} /> : <Minimize2 size={13} />}
+          </button>
+        </div>
+
+        {/* Scrollable Screen Content */}
+        <main style={{ flex: 1, paddingLeft: 42 }}>
+          {currentTab === 'wardrobe' && <WardrobeScreen />}
           {currentTab === 'dashboard' && (
             <DashboardScreen
               onNavigateTab={setCurrentTab}
               onOpenCreate={() => setIsCreateOpen(true)}
             />
           )}
-
           {currentTab === 'work' && (
             <WorkScreen
               onOpenCreate={() => setIsCreateOpen(true)}
             />
           )}
-
           {currentTab === 'calendar' && <CalendarScreen />}
-
           {currentTab === 'focus' && <FocusScreen />}
-
-          {currentTab === 'wardrobe' && <WardrobeScreen />}
-
           {currentTab === 'social' && <SocialScreen />}
-
           {currentTab === 'profile' && <ProfileScreen />}
-        </div>
+        </main>
 
-        {/* Bottom Navigation */}
+        {/* Bottom Nav */}
         <BottomNav
           currentTab={currentTab}
           onSelectTab={setCurrentTab}
           pendingTasksCount={pendingTasksCount}
         />
 
-        {/* Fox Companion Drawer */}
+        {/* Slide-over Fox Drawer */}
         <FoxCompanionDrawer />
 
         {/* Quick Create Sheet */}

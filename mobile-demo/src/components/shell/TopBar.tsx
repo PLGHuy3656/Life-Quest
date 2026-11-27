@@ -1,187 +1,186 @@
 import React from 'react'
 import { useStore } from '../../store/questStore'
-import { Flame, Coins, Moon, Sun, Layers } from 'lucide-react'
+import {
+  Home,
+  Layers,
+  Calendar,
+  ShoppingBag,
+  Search,
+  Settings,
+  Bell,
+  Volume2,
+  LogIn,
+  ExternalLink
+} from 'lucide-react'
 import { TabId } from '../../types'
-import { MascotVisual } from '../common/MascotVisual'
 
 interface TopBarProps {
+  currentTab: TabId
   onNavigateTab: (tab: TabId) => void
   onOpenFigma: () => void
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab, onOpenFigma }) => {
-  const { player, fox, toggleTheme, toggleFoxDrawer, isFoxDrawerOpen } = useStore()
-  const xpPercent = Math.min(100, Math.round((player.currentLevelXp / player.nextLevelXp) * 100))
+export const TopBar: React.FC<TopBarProps> = ({
+  currentTab,
+  onNavigateTab,
+  onOpenFigma
+}) => {
+  const { toggleFoxDrawer } = useStore()
+
+  const navItems = [
+    { id: 'dashboard' as TabId, icon: Home, label: 'Trang chủ' },
+    { id: 'work' as TabId, icon: Layers, label: 'Nhiệm vụ' },
+    { id: 'calendar' as TabId, icon: Calendar, label: 'Lịch' },
+    { id: 'wardrobe' as TabId, icon: ShoppingBag, label: 'Tủ đồ' },
+    { id: 'social' as TabId, icon: Search, label: 'Tìm kiếm' },
+    { id: 'profile' as TabId, icon: Settings, label: 'Cài đặt' }
+  ]
 
   return (
     <header style={{
-      padding: '10px 14px 8px',
-      background: 'var(--lq-surface)',
-      borderBottom: '1px solid var(--lq-border)',
+      padding: '8px 14px',
+      background: '#FFFFFF',
+      borderBottom: '1px solid rgba(22, 50, 74, 0.08)',
       position: 'sticky',
       top: 0,
-      zIndex: 40,
+      zIndex: 50,
       display: 'flex',
-      flexDirection: 'column',
-      gap: 8,
-      boxShadow: 'var(--shadow-sm)'
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+      boxShadow: '0 2px 8px rgba(22, 50, 74, 0.04)'
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* User Info & Mascot Avatar */}
-        <div
-          onClick={() => onNavigateTab('profile')}
-          style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
+      {/* 1. Left: LifeQuest Logo */}
+      <div
+        onClick={() => onNavigateTab('dashboard')}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 7,
+          cursor: 'pointer',
+          flexShrink: 0
+        }}
+      >
+        <span style={{ fontSize: 20 }}>🦊</span>
+        <span style={{
+          fontSize: 16,
+          fontWeight: 800,
+          color: '#16324A',
+          letterSpacing: '-0.3px'
+        }}>
+          LifeQuest
+        </span>
+      </div>
+
+      {/* 2. Center: Navigation Icon Pills (Matches desktop screenshot!) */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        background: '#FAF6EE',
+        padding: '3px 4px',
+        borderRadius: 24,
+        border: '1px solid #EFE6D8',
+        gap: 2
+      }}>
+        {navItems.map((item) => {
+          const Icon = item.icon
+          const isActive = currentTab === item.id
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => onNavigateTab(item.id)}
+              style={{
+                width: 32,
+                height: 30,
+                borderRadius: 16,
+                border: isActive ? '1.5px solid #F26B3A' : 'none',
+                background: isActive ? '#FFFFFF' : 'transparent',
+                color: isActive ? '#F26B3A' : '#768796',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: isActive ? '0 2px 6px rgba(242, 107, 58, 0.15)' : 'none',
+                transition: 'all 0.15s ease'
+              }}
+              title={item.label}
+            >
+              <Icon size={16} strokeWidth={isActive ? 2.4 : 1.8} />
+            </button>
+          )
+        })}
+      </div>
+
+      {/* 3. Right: Quick Actions & Figma Link */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
+        {/* Figma Link Pill */}
+        <button
+          onClick={onOpenFigma}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            padding: '5px 9px',
+            borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(10, 207, 131, 0.15) 0%, rgba(162, 89, 255, 0.2) 100%)',
+            border: '1px solid rgba(162, 89, 255, 0.35)',
+            color: '#16324A',
+            fontSize: 11,
+            fontWeight: 800
+          }}
+          title="Mở liên kết Figma Design"
         >
-          <div style={{
-            position: 'relative',
-            width: 38,
-            height: 38,
+          <span style={{ fontSize: 11, color: '#A259FF', fontWeight: 800 }}>Figma</span>
+          <ExternalLink size={11} color="#A259FF" />
+        </button>
+
+        {/* Notification Bell */}
+        <button
+          style={{
+            width: 30,
+            height: 30,
             borderRadius: '50%',
-            background: 'var(--lq-surface-subtle)',
+            background: '#FAF6EE',
+            border: '1px solid #EFE6D8',
+            color: '#4D6274',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            border: '1.5px solid var(--lq-border)'
-          }}>
-            <MascotVisual
-              size={32}
-              equippedHat={fox.equippedHat}
-              equippedAccessory={fox.equippedAccessory}
-            />
-            <span style={{
-              position: 'absolute',
-              bottom: -2,
-              right: -3,
-              background: 'var(--lq-accent)',
-              color: '#FFFFFF',
-              fontSize: 9,
-              fontWeight: 800,
-              padding: '1px 4px',
-              borderRadius: 6,
-              border: '1.5px solid var(--lq-surface)'
-            }}>
-              {player.level}
-            </span>
-          </div>
-
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 13, color: 'var(--lq-ink)', lineHeight: 1.2 }}>
-              {player.displayName}
-            </div>
-            <div style={{ fontSize: 10, color: 'var(--lq-ink-muted)', marginTop: 2 }}>
-              Cấp {player.level} &bull; {player.currentLevelXp}/{player.nextLevelXp} XP
-            </div>
-          </div>
-        </div>
-
-        {/* Currency, Figma Link & Mascot Paw */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          {/* Streak */}
+            position: 'relative'
+          }}
+        >
+          <Bell size={14} />
           <div style={{
+            position: 'absolute',
+            top: 5,
+            right: 5,
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: '#F26B3A'
+          }} />
+        </button>
+
+        {/* Login Button (Matches desktop screenshot!) */}
+        <button
+          onClick={() => onNavigateTab('profile')}
+          style={{
+            border: 'none',
+            background: '#16324A',
+            color: '#FFFFFF',
+            borderRadius: 16,
+            padding: '5px 10px',
+            fontSize: 11,
+            fontWeight: 700,
             display: 'flex',
             alignItems: 'center',
-            gap: 3,
-            background: 'var(--lq-accent-soft)',
-            padding: '4px 7px',
-            borderRadius: 14,
-            color: 'var(--lq-accent)',
-            fontWeight: 800,
-            fontSize: 11
-          }}>
-            <Flame size={13} className="animate-pulse-glow" />
-            <span>{player.streak}</span>
-          </div>
-
-          {/* Coins */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 3,
-            background: 'var(--lq-reward-soft)',
-            padding: '4px 7px',
-            borderRadius: 14,
-            color: 'var(--lq-reward-ink)',
-            fontWeight: 800,
-            fontSize: 11
-          }}>
-            <Coins size={13} />
-            <span>{player.coins}</span>
-          </div>
-
-          {/* FIGMA LINK BUTTON */}
-          <button
-            onClick={onOpenFigma}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              padding: '4px 8px',
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, rgba(10, 207, 131, 0.15) 0%, rgba(162, 89, 255, 0.2) 100%)',
-              border: '1px solid rgba(162, 89, 255, 0.35)',
-              color: 'var(--lq-ink)',
-              fontSize: 11,
-              fontWeight: 800
-            }}
-            title="Mở liên kết bản vẽ Figma"
-          >
-            <Layers size={13} color="#A259FF" />
-            <span style={{ fontSize: 10 }}>Figma</span>
-          </button>
-
-          {/* Fox Paw Toggle */}
-          <button
-            onClick={toggleFoxDrawer}
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 10,
-              background: isFoxDrawerOpen ? 'var(--lq-accent)' : 'var(--lq-surface-subtle)',
-              color: isFoxDrawerOpen ? '#FFFFFF' : 'var(--lq-accent)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 14
-            }}
-            title="Bé Cáo Kitsu Đồng Hành"
-          >
-            🐾
-          </button>
-
-          {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 10,
-              background: 'var(--lq-surface-subtle)',
-              color: 'var(--lq-ink-secondary)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            title="Đổi giao diện sáng/tối"
-          >
-            {player.theme === 'light' ? <Moon size={13} /> : <Sun size={13} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Level XP Progress Bar */}
-      <div style={{
-        height: 4,
-        background: 'var(--lq-surface-subtle)',
-        borderRadius: 2,
-        overflow: 'hidden'
-      }}>
-        <div style={{
-          width: `${xpPercent}%`,
-          height: '100%',
-          background: 'linear-gradient(90deg, #F26B3A 0%, #F6C85F 100%)',
-          borderRadius: 2,
-          transition: 'width 0.4s ease'
-        }} />
+            gap: 4,
+            boxShadow: '0 2px 6px rgba(22, 50, 74, 0.2)'
+          }}
+        >
+          <LogIn size={12} />
+          <span>Đăng nhập</span>
+        </button>
       </div>
     </header>
   )
