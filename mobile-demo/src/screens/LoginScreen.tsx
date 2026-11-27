@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { X, Eye } from 'lucide-react'
+import { X, Eye, EyeOff } from 'lucide-react'
 
 interface LoginScreenProps {
   onLoginSuccess: () => void
@@ -13,7 +13,8 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
   onClose
 }) => {
   const [email, setEmail] = useState('minhanh@lifequest.app')
-  const [password, setPassword] = useState('••••••••')
+  const [password, setPassword] = useState('lifequest123')
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
     <div style={{
@@ -134,7 +135,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
           justifyContent: 'space-between'
         }}>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Mật khẩu"
@@ -152,7 +153,14 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({
             <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--lq-ink-secondary)', cursor: 'pointer' }}>
               QUÊN?
             </span>
-            <Eye size={18} color="var(--lq-ink-muted)" />
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              style={{ background: 'transparent', border: 'none', padding: 2, display: 'flex', color: 'var(--lq-ink-muted)', cursor: 'pointer' }}
+              aria-label="Hiện/ẩn mật khẩu"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
         </div>
       </div>

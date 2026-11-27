@@ -32,8 +32,8 @@ type FrameMode = 'iphone' | 'max' | 'fluid'
 const ALL_SCREENS: { id: ScreenId; label: string; group: string }[] = [
   { id: '01_loading', label: '01 · Loading', group: 'Onboarding' },
   { id: '02_welcome', label: '02 · Welcome', group: 'Onboarding' },
-  { id: '03_login', label: '03 · Login', group: 'Onboarding' },
-  { id: '04_register', label: '04 · Khảo sát Đăng ký', group: 'Onboarding' },
+  { id: '03_login', label: '03 · Đăng nhập', group: 'Onboarding' },
+  { id: '04_register', label: '04 · Đăng ký', group: 'Onboarding' },
   { id: '05_dashboard', label: '05 · Trang chủ', group: 'Chính' },
   { id: '06_tasks', label: '06 · Nhiệm vụ (Tasks)', group: 'Công việc' },
   { id: '07_task_detail', label: '07 · Chi tiết Task', group: 'Công việc' },
@@ -347,11 +347,12 @@ function MobileAppContent() {
             />
           )}
 
-          {/* 04. Register Survey */}
+          {/* 04. Register */}
           {currentScreen === '04_register' && (
             <RegisterScreen
               onComplete={() => setCurrentScreen('05_dashboard')}
               onBack={() => setCurrentScreen('02_welcome')}
+              onGoToLogin={() => setCurrentScreen('03_login')}
             />
           )}
 
