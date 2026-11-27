@@ -3,7 +3,6 @@ import { useStore } from '../../store/questStore'
 import {
   Bell,
   Sparkles,
-  ExternalLink,
   Flame,
   Wifi,
   Battery
@@ -13,13 +12,12 @@ import { TabId } from '../../types'
 interface TopBarProps {
   currentTab: TabId
   onNavigateTab: (tab: TabId) => void
-  onOpenFigma: () => void
+  onOpenFigma?: () => void
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
   currentTab,
-  onNavigateTab,
-  onOpenFigma
+  onNavigateTab
 }) => {
   const { toggleFoxDrawer, player } = useStore()
 
@@ -189,27 +187,6 @@ export const TopBar: React.FC<TopBarProps> = ({
             <Flame size={13} fill="#F26B3A" />
             <span>{player.streak}</span>
           </div>
-
-          {/* Figma Spec Button */}
-          <button
-            onClick={onOpenFigma}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 3,
-              padding: '4px 8px',
-              borderRadius: 12,
-              background: 'linear-gradient(135deg, rgba(162, 89, 255, 0.12) 0%, rgba(10, 207, 131, 0.12) 100%)',
-              border: '1px solid rgba(162, 89, 255, 0.3)',
-              color: '#7C3AED',
-              fontSize: 11,
-              fontWeight: 800
-            }}
-            title="Mở Figma UI Kit"
-          >
-            <span>Figma</span>
-            <ExternalLink size={10} />
-          </button>
 
           {/* Fox Paw Trigger with Notification Badge */}
           <button

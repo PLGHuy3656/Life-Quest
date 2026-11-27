@@ -3,7 +3,6 @@ import { StoreProvider } from './store/questStore'
 import { TopBar } from './components/shell/TopBar'
 import { BottomNav } from './components/shell/BottomNav'
 import { FoxCompanionDrawer } from './components/shell/FoxCompanionDrawer'
-import { FigmaLinkModal } from './components/shell/FigmaLinkModal'
 
 // All 18 Screens from LifeQuest Mobile UI Specification
 import { LoadingScreen } from './screens/LoadingScreen'
@@ -26,7 +25,7 @@ import { ProfileScreen } from './screens/ProfileScreen'
 import { SettingsScreen } from './screens/SettingsScreen'
 
 import { ScreenId, TabId } from './types'
-import { Smartphone, Monitor, Palette, Layers } from 'lucide-react'
+import { Smartphone, Monitor, Layers } from 'lucide-react'
 
 type FrameMode = 'iphone' | 'max' | 'fluid'
 
@@ -54,7 +53,6 @@ const ALL_SCREENS: { id: ScreenId; label: string; group: string }[] = [
 function MobileAppContent() {
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('05_dashboard')
   const [isCreateOpen, setIsCreateOpen] = useState(false)
-  const [isFigmaOpen, setIsFigmaOpen] = useState(false)
   const [frameMode, setFrameMode] = useState<FrameMode>('iphone')
   const [activeChatContact, setActiveChatContact] = useState('Hà My')
 
@@ -292,29 +290,6 @@ function MobileAppContent() {
               <Monitor size={13} />
             </button>
           </div>
-
-          <button
-            onClick={() => setIsFigmaOpen(true)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              border: 'none',
-              background: 'linear-gradient(135deg, rgba(162, 89, 255, 0.25) 0%, rgba(10, 207, 131, 0.2) 100%)',
-              color: '#D8B4FE',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              borderColor: 'rgba(162, 89, 255, 0.4)',
-              borderRadius: 16,
-              padding: '4px 10px',
-              fontSize: 11,
-              fontWeight: 800,
-              cursor: 'pointer'
-            }}
-          >
-            <Palette size={12} />
-            <span>Figma</span>
-          </button>
         </div>
       </div>
 
@@ -336,7 +311,6 @@ function MobileAppContent() {
           <TopBar
             currentTab={getActiveTab()}
             onNavigateTab={handleSelectTab}
-            onOpenFigma={() => setIsFigmaOpen(true)}
           />
         )}
 
@@ -531,12 +505,6 @@ function MobileAppContent() {
         <CreateSheetModal
           isOpen={isCreateOpen}
           onClose={() => setIsCreateOpen(false)}
-        />
-
-        {/* Figma Design Link Modal */}
-        <FigmaLinkModal
-          isOpen={isFigmaOpen}
-          onClose={() => setIsFigmaOpen(false)}
         />
       </div>
     </div>
