@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LifeQuest – Mobile UI Prototype (18 Màn Hình)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F1722;
+      --card-bg: #1A232E;
+      --accent: #F26B3A;
+      --accent-soft: rgba(242, 107, 58, 0.15);
+      --ink: #EDF3F8;
+      --muted: #94A3B8;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 16px 24px;
+      background: #16202C;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justifyContent: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-group span.emoji { font-size: 24px; }
+    .logo-group h1 { font-size: 18px; font-weight: 800; color: #FFF; }
+    .logo-group p { font-size: 12px; color: var(--muted); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-link {
+      padding: 7px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: #FFF;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-link:hover { background: var(--accent); border-color: var(--accent); }
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .main-layout {
+      flex: 1;
+      display: flex;
+      padding: 24px;
+      gap: 28px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    /* Phone simulator column */
+    .phone-col {
+      flex: 0 0 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: sticky;
+      top: 24px;
+      height: fit-content;
+    }
+    .phone-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: var(--card-bg);
+      padding: 6px 12px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+    }
+    .phone-controls button {
+      background: transparent;
+      border: none;
+      color: var(--ink);
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .phone-controls button.active {
+      background: var(--accent);
+      color: #FFF;
+    }
+    .phone-frame {
+      width: 390px;
+      height: 844px;
+      border-radius: 46px;
+      border: 10px solid #1E2630;
+      background: #F5F3EE;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    .phone-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #F5F3EE;
+    }
+    /* Gallery grid column */
+    .gallery-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .gallery-header {
+      display: flex;
+      align-items: center;
+      justifyContent: space-between;
+    }
+    .gallery-header h2 { font-size: 20px; font-weight: 800; color: #FFF; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .screen-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .screen-card:hover, .screen-card.active {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(242, 107, 58, 0.2);
+    }
+    .screen-thumb {
+      width: 100%;
+      aspect-ratio: 390 / 844;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #F5F3EE;
+    }
+    .screen-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .screen-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .screen-meta b { font-size: 13px; color: #FFF; }
+    .screen-meta span {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    @media (max-width: 960px) {
+      .main-layout { flex-direction: column; align-items: center; }
+      .phone-col { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-group">
+      <span class="emoji">🦊</span>
+      <div>
+        <h1>LifeQuest Mobile UI Prototype</h1>
+        <p>Bộ 18 màn hình hoàn chỉnh thiết kế 390×844 · Fox Mascot V2</p>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="screens/00_board.html" class="btn-link" target="_blank">🎨 Design Tokens & Mascot</a>
+      <a href="http://localhost:3002/" class="btn-link btn-primary" target="_blank">⚡ Mở Ứng Dụng React Mobile</a>
+    </div>
+  </header>
+
+  <div class="main-layout">
+    <!-- 1. Live Phone Simulator -->
+    <div class="phone-col">
+      <div class="phone-controls">
+        <button id="btnPrev">← Trước</button>
+        <span id="screenNameLabel" style="font-size: 12px; font-weight: 800; color: var(--accent);">05 · Dashboard</span>
+        <button id="btnNext">Sau →</button>
+      </div>
+
+      <div class="phone-frame">
+        <iframe id="phoneFrame" src="screens/05_dashboard.html"></iframe>
+      </div>
+    </div>
+
+    <!-- 2. Screens Gallery -->
+    <div class="gallery-col">
+      <div class="gallery-header">
+        <h2>Danh sách 18 Màn hình (Bấm để xem trực tiếp trên mô phỏng)</h2>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const screens = [
+      { id: '01', name: 'Loading', file: '01_loading.html', img: 'png/01_loading.png', tag: 'Onboarding' },
+      { id: '02', name: 'Welcome', file: '02_welcome.html', img: 'png/02_welcome.png', tag: 'Onboarding' },
+      { id: '03', name: 'Login', file: '03_login.html', img: 'png/03_login.png', tag: 'Onboarding' },
+      { id: '04', name: 'Register Survey', file: '04_register.html', img: 'png/04_register.png', tag: 'Onboarding' },
+      { id: '05', name: 'Dashboard', file: '05_dashboard.html', img: 'png/05_dashboard.png', tag: 'Chính' },
+      { id: '06', name: 'Tasks (Nhiệm vụ)', file: '06_tasks.html', img: 'png/06_tasks.png', tag: 'Công việc' },
+      { id: '07', name: 'Task Detail', file: '07_task_detail.html', img: 'png/07_task_detail.png', tag: 'Công việc' },
+      { id: '08', name: 'Focus (Pomodoro)', file: '08_focus.html', img: 'png/08_focus.png', tag: 'Công việc' },
+      { id: '09', name: 'Habits (Thói quen)', file: '09_habits.html', img: 'png/09_habits.png', tag: 'Công việc' },
+      { id: '10', name: 'Quests (Đại nhiệm vụ)', file: '10_quests.html', img: 'png/10_quests.png', tag: 'Công việc' },
+      { id: '11', name: 'Quest Detail', file: '11_quest_detail.html', img: 'png/11_quest_detail.png', tag: 'Công việc' },
+      { id: '12', name: 'Create Sheet', file: '12_create_sheet.html', img: 'png/12_create_sheet.png', tag: 'Chính' },
+      { id: '13', name: 'Calendar (Lịch)', file: '13_calendar.html', img: 'png/13_calendar.png', tag: 'Chính' },
+      { id: '14', name: 'Messages (Tin nhắn)', file: '14_messages.html', img: 'png/14_messages.png', tag: 'Xã hội' },
+      { id: '15', name: 'Chat Trực tiếp', file: '15_chat.html', img: 'png/15_chat.png', tag: 'Xã hội' },
+      { id: '16', name: 'Tủ đồ Fox V2', file: '16_wardrobe.html', img: 'png/16_wardrobe.png', tag: 'Mascot' },
+      { id: '17', name: 'Profile (Hồ sơ)', file: '17_profile.html', img: 'png/17_profile.png', tag: 'Cá nhân' },
+      { id: '18', name: 'Settings (Cài đặt)', file: '18_settings.html', img: 'png/18_settings.png', tag: 'Cá nhân' }
+    ];
+
+    let currentIndex = 4; // default to Dashboard (05)
+    const phoneFrame = document.getElementById('phoneFrame');
+    const label = document.getElementById('screenNameLabel');
+    const grid = document.getElementById('galleryGrid');
+
+    function loadScreen(index) {
+      currentIndex = index;
+      const s = screens[index];
+      phoneFrame.src = 'screens/' + s.file;
+      label.textContent = s.id + ' · ' + s.name;
+      document.querySelectorAll('.screen-card').forEach((c, idx) => {
+        c.classList.toggle('active', idx === index);
+      });
+    }
+
+    // Build gallery cards
+    screens.forEach((s, idx) => {
+      const card = document.createElement('div');
+      card.className = 'screen-card' + (idx === currentIndex ? ' active' : '');
+      card.onclick = () => loadScreen(idx);
+      card.innerHTML = `
+        <div class="screen-thumb">
+          <img src="${s.img}" alt="${s.name}" loading="lazy">
+        </div>
+        <div class="screen-meta">
+          <b>${s.id}. ${s.name}</b>
+          <span>${s.tag}</span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    document.getElementById('btnPrev').onclick = () => {
+      const prev = (currentIndex - 1 + screens.length) % screens.length;
+      loadScreen(prev);
+    };
+
+    document.getElementById('btnNext').onclick = () => {
+      const next = (currentIndex + 1) % screens.length;
+      loadScreen(next);
+    };
+  </script>
+</body>
+</html>

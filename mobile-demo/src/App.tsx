@@ -1,32 +1,122 @@
 import React, { useState } from 'react'
-import { StoreProvider, useStore } from './store/questStore'
+import { StoreProvider } from './store/questStore'
 import { TopBar } from './components/shell/TopBar'
 import { BottomNav } from './components/shell/BottomNav'
 import { FoxCompanionDrawer } from './components/shell/FoxCompanionDrawer'
-import { QuickCreateModal } from './components/shell/QuickCreateModal'
 import { FigmaLinkModal } from './components/shell/FigmaLinkModal'
+
+// All 18 Screens from LifeQuest Mobile UI Specification
+import { LoadingScreen } from './screens/LoadingScreen'
+import { WelcomeScreen } from './screens/WelcomeScreen'
+import { LoginScreen } from './screens/LoginScreen'
+import { RegisterScreen } from './screens/RegisterScreen'
 import { DashboardScreen } from './screens/DashboardScreen'
 import { WorkScreen } from './screens/WorkScreen'
-import { CalendarScreen } from './screens/CalendarScreen'
+import { TaskDetailScreen } from './screens/TaskDetailScreen'
 import { FocusScreen } from './screens/FocusScreen'
+import { HabitsScreen } from './screens/HabitsScreen'
+import { QuestsScreen } from './screens/QuestsScreen'
+import { QuestDetailScreen } from './screens/QuestDetailScreen'
+import { CreateSheetModal } from './screens/CreateSheetModal'
+import { CalendarScreen } from './screens/CalendarScreen'
+import { MessagesScreen } from './screens/MessagesScreen'
+import { ChatScreen } from './screens/ChatScreen'
 import { WardrobeScreen } from './screens/WardrobeScreen'
-import { SocialScreen } from './screens/SocialScreen'
 import { ProfileScreen } from './screens/ProfileScreen'
-import { TabId } from './types'
-import { Smartphone, Monitor, Palette, Sparkles } from 'lucide-react'
+import { SettingsScreen } from './screens/SettingsScreen'
+
+import { ScreenId, TabId } from './types'
+import { Smartphone, Monitor, Palette, Layers } from 'lucide-react'
 
 type FrameMode = 'iphone' | 'max' | 'fluid'
 
+const ALL_SCREENS: { id: ScreenId; label: string; group: string }[] = [
+  { id: '01_loading', label: '01 · Loading', group: 'Onboarding' },
+  { id: '02_welcome', label: '02 · Welcome', group: 'Onboarding' },
+  { id: '03_login', label: '03 · Login', group: 'Onboarding' },
+  { id: '04_register', label: '04 · Khảo sát Đăng ký', group: 'Onboarding' },
+  { id: '05_dashboard', label: '05 · Trang chủ', group: 'Chính' },
+  { id: '06_tasks', label: '06 · Nhiệm vụ (Tasks)', group: 'Công việc' },
+  { id: '07_task_detail', label: '07 · Chi tiết Task', group: 'Công việc' },
+  { id: '08_focus', label: '08 · Tập trung (Focus)', group: 'Công việc' },
+  { id: '09_habits', label: '09 · Thói quen (Habits)', group: 'Công việc' },
+  { id: '10_quests', label: '10 · Đại nhiệm vụ (Quests)', group: 'Công việc' },
+  { id: '11_quest_detail', label: '11 · Chi tiết Quest', group: 'Công việc' },
+  { id: '12_create_sheet', label: '12 · Tạo mới (Sheet)', group: 'Chính' },
+  { id: '13_calendar', label: '13 · Lịch trình', group: 'Chính' },
+  { id: '14_messages', label: '14 · Tin nhắn', group: 'Xã hội' },
+  { id: '15_chat', label: '15 · Trò chuyện', group: 'Xã hội' },
+  { id: '16_wardrobe', label: '16 · Tủ đồ Fox', group: 'Mascot' },
+  { id: '17_profile', label: '17 · Hồ sơ', group: 'Cá nhân' },
+  { id: '18_settings', label: '18 · Cài đặt', group: 'Cá nhân' }
+]
+
 function MobileAppContent() {
-  const { tasks } = useStore()
-  const [currentTab, setCurrentTab] = useState<TabId>('wardrobe') // Default to Wardrobe so user sees it right away!
+  const [currentScreen, setCurrentScreen] = useState<ScreenId>('05_dashboard')
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isFigmaOpen, setIsFigmaOpen] = useState(false)
-  const [frameMode, setFrameMode] = useState<FrameMode>('iphone') // Default to iPhone frame so it clearly looks like a mobile phone!
+  const [frameMode, setFrameMode] = useState<FrameMode>('iphone')
+  const [activeChatContact, setActiveChatContact] = useState('Hà My')
 
-  const pendingTasksCount = tasks.filter((t) => !t.completed).length
+  // Map ScreenId to BottomNav active Tab
+  const getActiveTab = (): TabId => {
+    switch (currentScreen) {
+      case '05_dashboard':
+        return 'dashboard'
+      case '14_messages':
+      case '15_chat':
+        return 'messages'
+      case '13_calendar':
+        return 'calendar'
+      case '06_tasks':
+      case '07_task_detail':
+      case '09_habits':
+      case '10_quests':
+      case '11_quest_detail':
+        return 'work'
+      case '16_wardrobe':
+        return 'wardrobe'
+      case '17_profile':
+      case '18_settings':
+        return 'profile'
+      case '08_focus':
+        return 'focus'
+      default:
+        return 'dashboard'
+    }
+  }
 
-  // Calculate container dimensions based on frameMode
+  // Handle BottomNav tab navigation
+  const handleSelectTab = (tab: TabId) => {
+    switch (tab) {
+      case 'dashboard':
+        setCurrentScreen('05_dashboard')
+        break
+      case 'messages':
+        setCurrentScreen('14_messages')
+        break
+      case 'calendar':
+        setCurrentScreen('13_calendar')
+        break
+      case 'work':
+      case 'tasks':
+        setCurrentScreen('06_tasks')
+        break
+      case 'wardrobe':
+        setCurrentScreen('16_wardrobe')
+        break
+      case 'profile':
+        setCurrentScreen('17_profile')
+        break
+      case 'focus':
+        setCurrentScreen('08_focus')
+        break
+      default:
+        setCurrentScreen('05_dashboard')
+    }
+  }
+
+  // Calculate container dimensions
   const getContainerStyles = (): React.CSSProperties => {
     if (frameMode === 'fluid') {
       return {
@@ -52,10 +142,17 @@ function MobileAppContent() {
       borderRadius: 48,
       border: '10px solid #1A232E',
       boxShadow: '0 25px 65px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08)',
-      margin: '12px auto 20px',
+      margin: '8px auto 16px',
       position: 'relative'
     }
   }
+
+  // Check if screen uses standard shell header & bottom nav
+  const isFullStandaloneScreen =
+    currentScreen === '01_loading' ||
+    currentScreen === '02_welcome' ||
+    currentScreen === '03_login' ||
+    currentScreen === '04_register'
 
   return (
     <div style={{
@@ -71,138 +168,158 @@ function MobileAppContent() {
       fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
       {/* ================================================================ */}
-      {/* 1. TOP STUDIO CONTROL BAR (For Desktop Testing & Previewing)    */}
+      {/* TOP STUDIO TOOLBAR (18 Screens Switcher & Device Controls)       */}
       {/* ================================================================ */}
       <div style={{
         width: '100%',
-        maxWidth: 720,
+        maxWidth: 900,
         padding: '10px 16px',
-        margin: '8px 0 6px',
+        margin: '6px 0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        gap: 8,
+        gap: 10,
         color: '#E2E8F0',
         zIndex: 50
       }}>
-        {/* Left: Title Badge */}
+        {/* Left: App Title */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 18 }}>🦊</span>
+          <span style={{ fontSize: 20 }}>🦊</span>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.2px' }}>
-              LifeQuest Mobile App
+            <div style={{ fontSize: 13.5, fontWeight: 800, color: '#FFFFFF' }}>
+              LifeQuest Mobile UI
             </div>
             <div style={{ fontSize: 11, color: '#94A3B8' }}>
-              Giao diện chuẩn Smartphone iOS / Android
+              18/18 màn hình hoàn chỉnh · Chuẩn iOS/Android
             </div>
           </div>
         </div>
 
-        {/* Center: Device Frame Switcher */}
+        {/* Center: 18 Screens Quick Jump Dropdown */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 4,
+          gap: 6,
           background: 'rgba(255, 255, 255, 0.08)',
-          padding: '3px 4px',
+          padding: '4px 8px',
           borderRadius: 20,
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          border: '1px solid rgba(255, 255, 255, 0.15)'
         }}>
-          <button
-            onClick={() => setFrameMode('iphone')}
+          <Layers size={14} color="#F26B3A" />
+          <span style={{ fontSize: 11.5, fontWeight: 700, color: '#CBD5E1' }}>Màn hình:</span>
+          <select
+            value={currentScreen}
+            onChange={(e) => setCurrentScreen(e.target.value as ScreenId)}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              border: 'none',
-              background: frameMode === 'iphone' ? '#F26B3A' : 'transparent',
+              background: '#1E293B',
               color: '#FFFFFF',
-              borderRadius: 16,
-              padding: '4px 10px',
-              fontSize: 11.5,
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: 14,
+              padding: '4px 8px',
+              fontSize: 12,
               fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease'
+              outline: 'none',
+              cursor: 'pointer'
             }}
-            title="Khung iPhone 16 Pro (395px)"
           >
-            <Smartphone size={13} />
-            <span>iPhone</span>
-          </button>
-
-          <button
-            onClick={() => setFrameMode('max')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              border: 'none',
-              background: frameMode === 'max' ? '#F26B3A' : 'transparent',
-              color: '#FFFFFF',
-              borderRadius: 16,
-              padding: '4px 10px',
-              fontSize: 11.5,
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease'
-            }}
-            title="Khung iPhone Pro Max (430px)"
-          >
-            <Smartphone size={15} />
-            <span>Pro Max</span>
-          </button>
-
-          <button
-            onClick={() => setFrameMode('fluid')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              border: 'none',
-              background: frameMode === 'fluid' ? '#F26B3A' : 'transparent',
-              color: '#FFFFFF',
-              borderRadius: 16,
-              padding: '4px 10px',
-              fontSize: 11.5,
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease'
-            }}
-            title="Toàn màn hình Mobile (100% Mobile)"
-          >
-            <Monitor size={13} />
-            <span>Toàn màn hình</span>
-          </button>
+            {ALL_SCREENS.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.label} ({s.group})
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* Right: Figma Spec Link */}
-        <button
-          onClick={() => setIsFigmaOpen(true)}
-          style={{
+        {/* Right: Device Frame Switcher & Figma */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 5,
-            border: 'none',
-            background: 'linear-gradient(135deg, rgba(162, 89, 255, 0.25) 0%, rgba(10, 207, 131, 0.2) 100%)',
-            color: '#D8B4FE',
-            borderStyle: 'solid',
-            borderWidth: 1,
-            borderColor: 'rgba(162, 89, 255, 0.4)',
-            borderRadius: 16,
-            padding: '5px 12px',
-            fontSize: 11.5,
-            fontWeight: 800,
-            cursor: 'pointer'
-          }}
-        >
-          <Palette size={13} />
-          <span>Figma Spec</span>
-        </button>
+            background: 'rgba(255, 255, 255, 0.08)',
+            padding: '2px 4px',
+            borderRadius: 18,
+            border: '1px solid rgba(255, 255, 255, 0.12)'
+          }}>
+            <button
+              onClick={() => setFrameMode('iphone')}
+              style={{
+                border: 'none',
+                background: frameMode === 'iphone' ? '#F26B3A' : 'transparent',
+                color: '#FFFFFF',
+                borderRadius: 14,
+                padding: '4px 8px',
+                fontSize: 11,
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+              title="iPhone 16 Pro (395px)"
+            >
+              <Smartphone size={13} />
+            </button>
+
+            <button
+              onClick={() => setFrameMode('max')}
+              style={{
+                border: 'none',
+                background: frameMode === 'max' ? '#F26B3A' : 'transparent',
+                color: '#FFFFFF',
+                borderRadius: 14,
+                padding: '4px 8px',
+                fontSize: 11,
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+              title="iPhone Pro Max (430px)"
+            >
+              <Smartphone size={15} />
+            </button>
+
+            <button
+              onClick={() => setFrameMode('fluid')}
+              style={{
+                border: 'none',
+                background: frameMode === 'fluid' ? '#F26B3A' : 'transparent',
+                color: '#FFFFFF',
+                borderRadius: 14,
+                padding: '4px 8px',
+                fontSize: 11,
+                fontWeight: 700,
+                cursor: 'pointer'
+              }}
+              title="Toàn màn hình Mobile"
+            >
+              <Monitor size={13} />
+            </button>
+          </div>
+
+          <button
+            onClick={() => setIsFigmaOpen(true)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              border: 'none',
+              background: 'linear-gradient(135deg, rgba(162, 89, 255, 0.25) 0%, rgba(10, 207, 131, 0.2) 100%)',
+              color: '#D8B4FE',
+              borderStyle: 'solid',
+              borderWidth: 1,
+              borderColor: 'rgba(162, 89, 255, 0.4)',
+              borderRadius: 16,
+              padding: '4px 10px',
+              fontSize: 11,
+              fontWeight: 800,
+              cursor: 'pointer'
+            }}
+          >
+            <Palette size={12} />
+            <span>Figma</span>
+          </button>
+        </div>
       </div>
 
       {/* ================================================================ */}
-      {/* 2. THE SMARTPHONE DEVICE VIEWPORT CONTAINER                       */}
+      {/* THE SMARTPHONE DEVICE CONTAINER                                  */}
       {/* ================================================================ */}
       <div
         style={{
@@ -214,48 +331,183 @@ function MobileAppContent() {
           transition: 'all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)'
         }}
       >
-        {/* Mobile Status Bar & Top App Header */}
-        <TopBar
-          currentTab={currentTab}
-          onNavigateTab={setCurrentTab}
-          onOpenFigma={() => setIsFigmaOpen(true)}
-        />
+        {/* Top App Header (Shown on main screens) */}
+        {!isFullStandaloneScreen && (
+          <TopBar
+            currentTab={getActiveTab()}
+            onNavigateTab={handleSelectTab}
+            onOpenFigma={() => setIsFigmaOpen(true)}
+          />
+        )}
 
-        {/* Scrollable Mobile Screen Content */}
+        {/* Scrollable Screen Content */}
         <main
           style={{
             flex: 1,
             overflowY: 'auto',
             overflowX: 'hidden',
-            paddingBottom: 'calc(var(--bnav-h) + 24px)',
+            paddingBottom: isFullStandaloneScreen ? 0 : 'calc(var(--bnav-h) + 16px)',
             WebkitOverflowScrolling: 'touch',
             position: 'relative'
           }}
         >
-          {currentTab === 'wardrobe' && <WardrobeScreen />}
-          {currentTab === 'dashboard' && (
-            <DashboardScreen
-              onNavigateTab={setCurrentTab}
-              onOpenCreate={() => setIsCreateOpen(true)}
+          {/* 01. Loading */}
+          {currentScreen === '01_loading' && (
+            <LoadingScreen onFinish={() => setCurrentScreen('02_welcome')} />
+          )}
+
+          {/* 02. Welcome */}
+          {currentScreen === '02_welcome' && (
+            <WelcomeScreen
+              onStart={() => setCurrentScreen('04_register')}
+              onLogin={() => setCurrentScreen('03_login')}
             />
           )}
-          {currentTab === 'work' && (
+
+          {/* 03. Login */}
+          {currentScreen === '03_login' && (
+            <LoginScreen
+              onLoginSuccess={() => setCurrentScreen('05_dashboard')}
+              onGoToRegister={() => setCurrentScreen('04_register')}
+              onClose={() => setCurrentScreen('02_welcome')}
+            />
+          )}
+
+          {/* 04. Register Survey */}
+          {currentScreen === '04_register' && (
+            <RegisterScreen
+              onComplete={() => setCurrentScreen('05_dashboard')}
+              onBack={() => setCurrentScreen('02_welcome')}
+            />
+          )}
+
+          {/* 05. Dashboard */}
+          {currentScreen === '05_dashboard' && (
+            <DashboardScreen
+              onNavigateTab={handleSelectTab}
+              onOpenTaskDetail={() => setCurrentScreen('07_task_detail')}
+              onOpenFocus={() => setCurrentScreen('08_focus')}
+              onOpenWardrobe={() => setCurrentScreen('16_wardrobe')}
+            />
+          )}
+
+          {/* 06. Tasks (Work) */}
+          {currentScreen === '06_tasks' && (
             <WorkScreen
               onOpenCreate={() => setIsCreateOpen(true)}
             />
           )}
-          {currentTab === 'calendar' && <CalendarScreen />}
-          {currentTab === 'focus' && <FocusScreen />}
-          {currentTab === 'social' && <SocialScreen />}
-          {currentTab === 'profile' && <ProfileScreen />}
+
+          {/* 07. Task Detail */}
+          {currentScreen === '07_task_detail' && (
+            <TaskDetailScreen
+              onBack={() => setCurrentScreen('06_tasks')}
+              onStartFocus={() => setCurrentScreen('08_focus')}
+            />
+          )}
+
+          {/* 08. Focus */}
+          {currentScreen === '08_focus' && (
+            <FocusScreen
+              onClose={() => setCurrentScreen('05_dashboard')}
+            />
+          )}
+
+          {/* 09. Habits */}
+          {currentScreen === '09_habits' && (
+            <HabitsScreen
+              onNavigateTab={(tab) => {
+                if (tab === 'tasks') setCurrentScreen('06_tasks')
+                else if (tab === 'quests') setCurrentScreen('10_quests')
+              }}
+            />
+          )}
+
+          {/* 10. Quests */}
+          {currentScreen === '10_quests' && (
+            <QuestsScreen
+              onNavigateTab={(tab) => {
+                if (tab === 'tasks') setCurrentScreen('06_tasks')
+                else if (tab === 'habits') setCurrentScreen('09_habits')
+              }}
+              onSelectQuest={() => setCurrentScreen('11_quest_detail')}
+            />
+          )}
+
+          {/* 11. Quest Detail */}
+          {currentScreen === '11_quest_detail' && (
+            <QuestDetailScreen
+              onBack={() => setCurrentScreen('10_quests')}
+            />
+          )}
+
+          {/* 12. Create Sheet Standalone Preview */}
+          {currentScreen === '12_create_sheet' && (
+            <div style={{ position: 'relative', height: '100%', minHeight: 600 }}>
+              <DashboardScreen
+                onNavigateTab={handleSelectTab}
+                onOpenTaskDetail={() => setCurrentScreen('07_task_detail')}
+                onOpenFocus={() => setCurrentScreen('08_focus')}
+                onOpenWardrobe={() => setCurrentScreen('16_wardrobe')}
+              />
+              <CreateSheetModal
+                isOpen={true}
+                onClose={() => setCurrentScreen('05_dashboard')}
+              />
+            </div>
+          )}
+
+          {/* 13. Calendar */}
+          {currentScreen === '13_calendar' && <CalendarScreen />}
+
+          {/* 14. Messages */}
+          {currentScreen === '14_messages' && (
+            <MessagesScreen
+              onOpenChat={(contact) => {
+                setActiveChatContact(contact)
+                setCurrentScreen('15_chat')
+              }}
+            />
+          )}
+
+          {/* 15. Chat */}
+          {currentScreen === '15_chat' && (
+            <ChatScreen
+              contactName={activeChatContact}
+              onBack={() => setCurrentScreen('14_messages')}
+            />
+          )}
+
+          {/* 16. Wardrobe */}
+          {currentScreen === '16_wardrobe' && <WardrobeScreen />}
+
+          {/* 17. Profile */}
+          {currentScreen === '17_profile' && (
+            <ProfileScreen
+              onOpenSettings={() => setCurrentScreen('18_settings')}
+              onOpenWardrobe={() => setCurrentScreen('16_wardrobe')}
+            />
+          )}
+
+          {/* 18. Settings */}
+          {currentScreen === '18_settings' && (
+            <SettingsScreen
+              onBack={() => setCurrentScreen('17_profile')}
+              onLogout={() => setCurrentScreen('02_welcome')}
+            />
+          )}
         </main>
 
-        {/* Bottom Mobile Tab Bar */}
-        <BottomNav
-          currentTab={currentTab}
-          onSelectTab={setCurrentTab}
-          pendingTasksCount={pendingTasksCount}
-        />
+        {/* Bottom Navigation Bar */}
+        {!isFullStandaloneScreen && (
+          <BottomNav
+            currentTab={getActiveTab()}
+            onSelectTab={handleSelectTab}
+            onOpenCreate={() => setIsCreateOpen(true)}
+            pendingTasksCount={2}
+            unreadMessagesCount={3}
+          />
+        )}
 
         {/* iOS Bottom Home Indicator Bar */}
         <div style={{
@@ -275,8 +527,8 @@ function MobileAppContent() {
         {/* Slide-over Fox Companion Drawer */}
         <FoxCompanionDrawer />
 
-        {/* Quick Create Sheet */}
-        <QuickCreateModal
+        {/* Dynamic Create Sheet Modal */}
+        <CreateSheetModal
           isOpen={isCreateOpen}
           onClose={() => setIsCreateOpen(false)}
         />

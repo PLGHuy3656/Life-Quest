@@ -1,4 +1,24 @@
-export type TabId = 'dashboard' | 'work' | 'calendar' | 'focus' | 'wardrobe' | 'social' | 'profile' | 'settings'
+export type TabId = 'dashboard' | 'messages' | 'calendar' | 'tasks' | 'wardrobe' | 'profile' | 'focus' | 'work' | 'social'
+
+export type ScreenId =
+  | '01_loading'
+  | '02_welcome'
+  | '03_login'
+  | '04_register'
+  | '05_dashboard'
+  | '06_tasks'
+  | '07_task_detail'
+  | '08_focus'
+  | '09_habits'
+  | '10_quests'
+  | '11_quest_detail'
+  | '12_create_sheet'
+  | '13_calendar'
+  | '14_messages'
+  | '15_chat'
+  | '16_wardrobe'
+  | '17_profile'
+  | '18_settings'
 
 export type WorkSubTab = 'tasks' | 'habits' | 'quests' | 'completed'
 

@@ -1,236 +1,232 @@
 import React, { useState, useEffect } from 'react'
-import { useStore } from '../store/questStore'
-import { Play, Pause, RotateCcw, Volume2, Sparkles, Zap, Award } from 'lucide-react'
+import { X, Pause, Play, Check } from 'lucide-react'
+import confetti from 'canvas-confetti'
 
-export const FocusScreen: React.FC = () => {
-  const { tasks, recordFocusSession } = useStore()
-  const [selectedDuration, setSelectedDuration] = useState<number>(25)
-  const [timeLeft, setTimeLeft] = useState<number>(25 * 60)
-  const [isRunning, setIsRunning] = useState<boolean>(false)
-  const [soundMode, setSoundMode] = useState<string>('rain')
+interface FocusScreenProps {
+  onClose?: () => void
+  taskTitle?: string
+}
+
+export const FocusScreen: React.FC<FocusScreenProps> = ({
+  onClose,
+  taskTitle = 'Ôn Chương 3 – Giải tích'
+}) => {
+  const TOTAL_SECONDS = 25 * 60
+  const [secondsLeft, setSecondsLeft] = useState(15 * 60 + 42) // 15:42 default like screenshot
+  const [isActive, setIsActive] = useState(true)
+  const [isCompleted, setIsCompleted] = useState(false)
 
   useEffect(() => {
-    let timer: any = null
-    if (isRunning && timeLeft > 0) {
-      timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000)
-    } else if (timeLeft === 0 && isRunning) {
-      setIsRunning(false)
-      recordFocusSession(selectedDuration)
+    let interval: ReturnType<typeof setInterval> | null = null
+    if (isActive && secondsLeft > 0) {
+      interval = setInterval(() => {
+        setSecondsLeft((sec) => sec - 1)
+      }, 1000)
+    } else if (secondsLeft === 0) {
+      setIsActive(false)
+      setIsCompleted(true)
+      confetti({ particleCount: 80, spread: 70 })
     }
-
     return () => {
-      if (timer) clearInterval(timer)
+      if (interval) clearInterval(interval)
     }
-  }, [isRunning, timeLeft, selectedDuration])
+  }, [isActive, secondsLeft])
 
-  const handleSelectDuration = (mins: number) => {
-    if (isRunning) return
-    setSelectedDuration(mins)
-    setTimeLeft(mins * 60)
+  const minutes = Math.floor(secondsLeft / 60)
+  const seconds = secondsLeft % 60
+  const timeFormatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+
+  // Calculate percentage for conic gradient
+  const progressPercent = Math.round(((TOTAL_SECONDS - secondsLeft) / TOTAL_SECONDS) * 100)
+
+  const handleComplete = () => {
+    setIsActive(false)
+    setIsCompleted(true)
+    confetti({ particleCount: 100, spread: 80 })
   }
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
-  }
-
-  const progressPercent = ((selectedDuration * 60 - timeLeft) / (selectedDuration * 60)) * 100
 
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: '16px', alignItems: 'center' }}>
-      <div style={{ textAlign: 'center' }}>
-        <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--lq-ink)' }}>
-          Đấu Trường Tập Trung (Pomodoro)
-        </h2>
-        <p style={{ fontSize: 12, color: 'var(--lq-ink-muted)', marginTop: 2 }}>
-          Luyện dòng chảy tập trung & nhận thưởng XP
-        </p>
-      </div>
-
-      {/* Mode / Time Pills */}
-      <div style={{ display: 'flex', gap: 6, background: 'var(--lq-surface-subtle)', padding: 4, borderRadius: 12 }}>
-        {[
-          { mins: 25, label: '25p (Chuẩn)' },
-          { mins: 50, label: '50p (Sâu)' },
-          { mins: 5, label: '5p (Nghỉ)' }
-        ].map((m) => (
-          <button
-            key={m.mins}
-            onClick={() => handleSelectDuration(m.mins)}
-            disabled={isRunning}
-            style={{
-              padding: '7px 12px',
-              borderRadius: 10,
-              fontSize: 12,
-              fontWeight: 700,
-              background: selectedDuration === m.mins ? 'var(--lq-surface)' : 'transparent',
-              color: selectedDuration === m.mins ? 'var(--lq-ink)' : 'var(--lq-ink-muted)',
-              boxShadow: selectedDuration === m.mins ? 'var(--shadow-sm)' : 'none',
-              opacity: isRunning && selectedDuration !== m.mins ? 0.4 : 1
-            }}
-          >
-            {m.label}
-          </button>
-        ))}
-      </div>
-
-      {/* Circular Progress Timer */}
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100%',
+      padding: '12px 16px 24px',
+      gap: 14
+    }}>
+      {/* Top Header */}
       <div style={{
-        position: 'relative',
-        width: 220,
-        height: 220,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+      }}>
+        <button
+          onClick={onClose}
+          style={{
+            width: 38,
+            height: 38,
+            borderRadius: '50%',
+            background: '#FFFFFF',
+            border: '1px solid var(--lq-border)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            color: 'var(--lq-ink)'
+          }}
+        >
+          <X size={18} />
+        </button>
+
+        <span style={{
+          fontSize: 11,
+          fontWeight: 800,
+          padding: '4px 10px',
+          borderRadius: 99,
+          background: 'var(--lq-success-soft)',
+          color: 'var(--lq-success)'
+        }}>
+          {isCompleted ? '✓ Hoàn thành phiên' : 'Đang tập trung'}
+        </span>
+
+        <div style={{ width: 38 }} />
+      </div>
+
+      {/* Main Focus Area */}
+      <div style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        background: 'var(--lq-surface)',
-        borderRadius: '50%',
-        boxShadow: isRunning ? 'var(--shadow-float)' : 'var(--shadow-card)',
-        border: '6px solid var(--lq-border)',
-        margin: '6px 0'
+        gap: 14,
+        marginTop: 6
       }}>
-        <svg style={{
-          position: 'absolute',
-          inset: -6,
-          width: 232,
-          height: 232,
-          transform: 'rotate(-90deg)',
-          pointerEvents: 'none'
-        }}>
-          <circle
-            cx="116"
-            cy="116"
-            r="107"
-            stroke="var(--lq-accent)"
-            strokeWidth="7"
-            fill="none"
-            strokeDasharray={2 * Math.PI * 107}
-            strokeDashoffset={2 * Math.PI * 107 * (1 - progressPercent / 100)}
-            strokeLinecap="round"
-            style={{ transition: 'stroke-dashoffset 0.5s ease' }}
-          />
-        </svg>
-
-        <div className={isRunning ? 'animate-mascot' : ''} style={{ fontSize: 32, marginBottom: 4 }}>
-          {isRunning ? '🦊🔥' : '🦊💤'}
+        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--lq-ink-muted)' }}>
+          {taskTitle}
         </div>
 
+        {/* Circular Timer Ring */}
         <div style={{
-          fontSize: 42,
-          fontWeight: 800,
-          color: 'var(--lq-ink)',
-          letterSpacing: '-1px',
-          fontVariantNumeric: 'tabular-nums'
+          width: 236,
+          height: 236,
+          borderRadius: '50%',
+          background: `conic-gradient(var(--lq-accent) 0 ${progressPercent}%, var(--lq-surface-subtle) 0)`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 8px 24px rgba(242, 107, 58, 0.15)'
         }}>
-          {formatTime(timeLeft)}
+          <div style={{
+            width: 202,
+            height: 202,
+            borderRadius: '50%',
+            background: 'var(--lq-bg)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <div style={{
+              fontSize: 52,
+              fontWeight: 800,
+              letterSpacing: '-2px',
+              color: 'var(--lq-ink)',
+              lineHeight: 1
+            }}>
+              {timeFormatted}
+            </div>
+            <span style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: 'var(--lq-ink-muted)',
+              marginTop: 4
+            }}>
+              còn lại / 25:00
+            </span>
+          </div>
         </div>
 
-        <div style={{ fontSize: 11, fontWeight: 700, color: isRunning ? 'var(--lq-accent)' : 'var(--lq-ink-muted)' }}>
-          {isRunning ? 'Đang tập trung cao độ...' : 'Sẵn sàng kích hoạt'}
-        </div>
-      </div>
-
-      {/* Control Buttons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-        <button
-          onClick={() => {
-            setIsRunning(false)
-            setTimeLeft(selectedDuration * 60)
-          }}
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 22,
-            background: 'var(--lq-surface)',
-            color: 'var(--lq-ink-muted)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid var(--lq-border)'
-          }}
-          title="Đặt lại"
-        >
-          <RotateCcw size={18} />
-        </button>
-
-        <button
-          onClick={() => setIsRunning(!isRunning)}
-          style={{
-            width: 68,
-            height: 68,
-            borderRadius: 34,
-            background: isRunning
-              ? 'var(--lq-primary)'
-              : 'linear-gradient(135deg, #F26B3A 0%, #DE5A2A 100%)',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: isRunning ? 'var(--shadow-card)' : 'var(--shadow-accent)'
-          }}
-        >
-          {isRunning ? (
-            <Pause size={26} fill="#FFFFFF" />
-          ) : (
-            <Play size={26} fill="#FFFFFF" style={{ marginLeft: 3 }} />
-          )}
-        </button>
-
+        {/* Mascot Sitting Fox with Speech Bubble */}
         <div style={{
-          width: 44,
-          height: 44,
-          borderRadius: 22,
-          background: 'var(--lq-reward-soft)',
-          color: 'var(--lq-reward-ink)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 10,
-          fontWeight: 800
+          gap: 8,
+          marginTop: 6
         }}>
-          <span>+{selectedDuration * 5}</span>
-          <span style={{ fontSize: 8 }}>XP</span>
+          <img
+            src="/assets/fox/fox-cp1-anim.webp"
+            alt="Fox Sitting"
+            style={{ width: 145, height: 'auto', objectFit: 'contain' }}
+            onError={(e) => {
+              ;(e.target as HTMLImageElement).src = '/assets/fox/fox-cp1.png'
+            }}
+          />
+
+          <div style={{
+            background: '#FFFFFF',
+            borderRadius: 18,
+            padding: '10px 16px',
+            boxShadow: 'var(--shadow-f)',
+            fontWeight: 700,
+            fontSize: 13,
+            border: '1px solid var(--lq-border)',
+            color: 'var(--lq-ink)'
+          }}>
+            {isCompleted ? 'Tuyệt vời! Bạn đã hoàn thành phiên tập trung!' : 'Fox ngồi học cùng bạn nhé!'}
+          </div>
         </div>
       </div>
 
-      {/* Ambient Sound Mode */}
-      <div className="card" style={{ width: '100%', padding: '12px 14px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--lq-ink)', display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Volume2 size={15} color="var(--lq-primary)" />
-            <span>Âm thanh nền tập trung</span>
-          </div>
-          <span style={{ fontSize: 10, color: 'var(--lq-success)', fontWeight: 700 }}>Đang bật</span>
-        </div>
+      {/* Bottom Buttons */}
+      <div style={{ marginTop: 'auto', display: 'flex', gap: 10 }}>
+        <button
+          onClick={() => setIsActive(!isActive)}
+          style={{
+            flex: 1,
+            height: 52,
+            borderRadius: 16,
+            background: '#FFFFFF',
+            color: 'var(--lq-accent)',
+            fontWeight: 800,
+            fontSize: 14,
+            border: '1px solid var(--lq-border)',
+            boxShadow: '0 3px 0 var(--lq-surface-subtle)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            cursor: 'pointer'
+          }}
+        >
+          {isActive ? <Pause size={18} /> : <Play size={18} />}
+          <span>{isActive ? 'Tạm dừng' : 'Tiếp tục'}</span>
+        </button>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
-          {[
-            { id: 'rain', label: '🌧️ Mưa' },
-            { id: 'forest', label: '🌲 Rừng' },
-            { id: 'cafe', label: '☕ Cafe' },
-            { id: 'white', label: '🌊 Sóng' }
-          ].map((snd) => (
-            <button
-              key={snd.id}
-              onClick={() => setSoundMode(snd.id)}
-              style={{
-                padding: '7px 4px',
-                borderRadius: 8,
-                fontSize: 11,
-                fontWeight: 600,
-                background: soundMode === snd.id ? 'var(--lq-primary-soft)' : 'var(--lq-surface-subtle)',
-                color: soundMode === snd.id ? 'var(--lq-primary)' : 'var(--lq-ink-muted)',
-                border: '1px solid',
-                borderColor: soundMode === snd.id ? 'var(--lq-primary)' : 'transparent'
-              }}
-            >
-              {snd.label}
-            </button>
-          ))}
-        </div>
+        <button
+          onClick={handleComplete}
+          style={{
+            flex: 1,
+            height: 52,
+            borderRadius: 16,
+            background: 'var(--lq-accent)',
+            color: '#FFFFFF',
+            fontWeight: 800,
+            fontSize: 15,
+            border: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 0 #C4491F',
+            letterSpacing: '0.4px',
+            textTransform: 'uppercase',
+            gap: 6,
+            cursor: 'pointer'
+          }}
+        >
+          <Check size={18} strokeWidth={3} />
+          <span>Hoàn thành</span>
+        </button>
       </div>
     </div>
   )
 }
+export default FocusScreen
