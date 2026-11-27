@@ -1,19 +1,21 @@
 import React from 'react'
 import { useStore } from '../../store/questStore'
-import { Flame, Coins, Bell, Moon, Sun } from 'lucide-react'
+import { Flame, Coins, Moon, Sun, Layers } from 'lucide-react'
 import { TabId } from '../../types'
+import { MascotVisual } from '../common/MascotVisual'
 
 interface TopBarProps {
   onNavigateTab: (tab: TabId) => void
+  onOpenFigma: () => void
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
-  const { player, toggleTheme, toggleFoxDrawer, isFoxDrawerOpen } = useStore()
+export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab, onOpenFigma }) => {
+  const { player, fox, toggleTheme, toggleFoxDrawer, isFoxDrawerOpen } = useStore()
   const xpPercent = Math.min(100, Math.round((player.currentLevelXp / player.nextLevelXp) * 100))
 
   return (
     <header style={{
-      padding: '12px 16px 10px',
+      padding: '10px 14px 8px',
       background: 'var(--lq-surface)',
       borderBottom: '1px solid var(--lq-border)',
       position: 'sticky',
@@ -25,27 +27,30 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
       boxShadow: 'var(--shadow-sm)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* User Info & Avatar */}
+        {/* User Info & Mascot Avatar */}
         <div
           onClick={() => onNavigateTab('profile')}
-          style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
         >
           <div style={{
+            position: 'relative',
             width: 38,
             height: 38,
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #16324A 0%, #1E4261 100%)',
+            background: 'var(--lq-surface-subtle)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: 18,
-            position: 'relative',
-            boxShadow: '0 2px 6px rgba(22, 50, 74, 0.2)'
+            border: '1.5px solid var(--lq-border)'
           }}>
-            {player.avatar}
+            <MascotVisual
+              size={32}
+              equippedHat={fox.equippedHat}
+              equippedAccessory={fox.equippedAccessory}
+            />
             <span style={{
               position: 'absolute',
-              bottom: -3,
+              bottom: -2,
               right: -3,
               background: 'var(--lq-accent)',
               color: '#FFFFFF',
@@ -69,7 +74,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
           </div>
         </div>
 
-        {/* Currency, Streak & Quick Actions */}
+        {/* Currency, Figma Link & Mascot Paw */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           {/* Streak */}
           <div style={{
@@ -77,8 +82,8 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
             alignItems: 'center',
             gap: 3,
             background: 'var(--lq-accent-soft)',
-            padding: '4px 8px',
-            borderRadius: 16,
+            padding: '4px 7px',
+            borderRadius: 14,
             color: 'var(--lq-accent)',
             fontWeight: 800,
             fontSize: 11
@@ -93,8 +98,8 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
             alignItems: 'center',
             gap: 3,
             background: 'var(--lq-reward-soft)',
-            padding: '4px 8px',
-            borderRadius: 16,
+            padding: '4px 7px',
+            borderRadius: 14,
             color: 'var(--lq-reward-ink)',
             fontWeight: 800,
             fontSize: 11
@@ -103,19 +108,40 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
             <span>{player.coins}</span>
           </div>
 
-          {/* Fox Paw Toggle (Companion Drawer) */}
+          {/* FIGMA LINK BUTTON */}
+          <button
+            onClick={onOpenFigma}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              padding: '4px 8px',
+              borderRadius: 10,
+              background: 'linear-gradient(135deg, rgba(10, 207, 131, 0.15) 0%, rgba(162, 89, 255, 0.2) 100%)',
+              border: '1px solid rgba(162, 89, 255, 0.35)',
+              color: 'var(--lq-ink)',
+              fontSize: 11,
+              fontWeight: 800
+            }}
+            title="Mở liên kết bản vẽ Figma"
+          >
+            <Layers size={13} color="#A259FF" />
+            <span style={{ fontSize: 10 }}>Figma</span>
+          </button>
+
+          {/* Fox Paw Toggle */}
           <button
             onClick={toggleFoxDrawer}
             style={{
-              width: 32,
-              height: 32,
+              width: 30,
+              height: 30,
               borderRadius: 10,
               background: isFoxDrawerOpen ? 'var(--lq-accent)' : 'var(--lq-surface-subtle)',
               color: isFoxDrawerOpen ? '#FFFFFF' : 'var(--lq-accent)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 15
+              fontSize: 14
             }}
             title="Bé Cáo Kitsu Đồng Hành"
           >
@@ -137,7 +163,7 @@ export const TopBar: React.FC<TopBarProps> = ({ onNavigateTab }) => {
             }}
             title="Đổi giao diện sáng/tối"
           >
-            {player.theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
+            {player.theme === 'light' ? <Moon size={13} /> : <Sun size={13} />}
           </button>
         </div>
       </div>

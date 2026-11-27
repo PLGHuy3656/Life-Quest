@@ -1,0 +1,28 @@
+{
+  "category": "dashboard",
+  "version": "1.0.0",
+  "entries": [
+    { "id": "dash-01", "event": "PIN_UPDATED", "text": "Đã cập nhật Bảng ghim! Giữ đúng việc quan trọng trước mắt là chuẩn bài.", "emotion": "happy", "weight": 1 },
+    { "id": "dash-02", "event": "PIN_UPDATED", "text": "Ghim gọn gàng rồi đó, giờ nhìn sang trái là thấy ngay ưu tiên số một.", "emotion": "encouraging", "weight": 1 },
+    { "id": "dash-03", "event": "PIN_UPDATED", "text": "Fox đã nhớ thứ tự ghim mới của bạn rồi nha.", "emotion": "happy", "weight": 1 },
+    { "id": "dash-04", "event": "PIN_UPDATED", "text": "Sắp xếp lại ghim giúp đầu óc đỡ rối hẳn luôn đó.", "emotion": "calm", "weight": 1 },
+    { "id": "dash-05", "event": "PIN_UPDATED", "text": "Tối đa ba thẻ ghim là vừa đẹp — chọn lọc kỹ ghê!", "emotion": "playful", "weight": 1 },
+    { "id": "dash-06", "event": "DASHBOARD_ACTION", "text": "Đang mở chi tiết công cụ mới hả? Fox nghía cùng một chút nha.", "emotion": "curious", "weight": 1 },
+    { "id": "dash-07", "event": "DASHBOARD_ACTION", "text": "Chỉnh sửa gọn gàng rồi mình quay lại giữ nhịp tiếp nhé.", "emotion": "calm", "weight": 1 },
+    { "id": "dash-08", "event": "DASHBOARD_ACTION", "text": "Cứ thoải mái tùy biến góc làm việc sao cho bạn thấy dễ chịu nhất.", "emotion": "encouraging", "weight": 1 },
+    { "id": "dash-09", "event": "DASHBOARD_ACTION", "text": "Fox thích cách bạn chủ động tổ chức lại mọi thứ đó.", "emotion": "happy", "weight": 1 },
+    { "id": "dash-10", "event": "DASHBOARD_ACTION", "text": "Mở ra xem kỹ một chút rồi quyết định cũng chưa muộn đâu.", "emotion": "calm", "weight": 1 },
+    { "id": "dash-11", "event": "ROUTE_SWITCHED", "text": "Sang góc Công việc rồi nè, cùng rà lại mục tiêu và cột mốc nhé!", "emotion": "curious", "weight": 1 },
+    { "id": "dash-12", "event": "ROUTE_SWITCHED", "text": "Đổi sang không gian mới cho đỡ nhàm mắt ha, Fox vẫn đi theo bạn đây.", "emotion": "playful", "weight": 1 },
+    { "id": "dash-13", "event": "ROUTE_SWITCHED", "text": "Xem lịch trình một lượt giúp ngày hôm nay trôi êm ru luôn.", "emotion": "calm", "weight": 1 },
+    { "id": "dash-14", "event": "ROUTE_SWITCHED", "text": "Quay lại bảng tin rồi nè, xem bạn bè hôm nay có gì vui không.", "emotion": "curious", "weight": 1 },
+    { "id": "dash-15", "event": "ROUTE_SWITCHED", "text": "Ghé Tủ đồ hả? Chọn phụ kiện mới cho Fox diện thử đi!", "emotion": "happy", "weight": 1 },
+    { "id": "dash-16", "event": "ROUTE_SWITCHED", "text": "Kiểm tra cài đặt chút xíu cho mọi thứ đúng ý bạn nhé.", "emotion": "neutral", "weight": 1 },
+    { "id": "dash-17", "event": "ROUTE_SWITCHED", "text": "Dù bạn chuyển qua màn hình nào, Fox vẫn giữ chỗ ngay góc phải nha.", "emotion": "playful", "weight": 1 },
+    { "id": "dash-18", "event": "RAIL_TOGGLED", "text": "Thu gọn thanh ghim cho thoáng mắt hả? Cần lúc nào bấm dấu chân Fox mở lại nha.", "emotion": "playful", "weight": 1 },
+    { "id": "dash-19", "event": "RAIL_TOGGLED", "text": "Mở lại Ghim nhanh rồi nè — sẵn sàng tập trung chưa?", "emotion": "curious", "weight": 1 },
+    { "id": "dash-20", "event": "RAIL_TOGGLED", "text": "Tùy chỉnh không gian rộng hẹp linh hoạt thế này thích ghê.", "emotion": "happy", "weight": 1 },
+    { "id": "dash-21", "event": "RAIL_TOGGLED", "text": "Fox rất thích nút dấu chân cáo đó, bấm êm tay ha!", "emotion": "playful", "weight": 1 },
+    { "id": "dash-22", "event": "DASHBOARD_ACTION", "text": "Tìm thấy thứ bạn cần chưa? Gõ từ khóa nhanh trên thanh tìm kiếm cũng tiện lắm.", "emotion": "curious", "weight": 1 }
+  ]
+}

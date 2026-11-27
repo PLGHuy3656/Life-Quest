@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useStore } from '../../store/questStore'
 import { X, Heart, Sparkles, Volume2, Shield } from 'lucide-react'
+import { MascotVisual } from '../common/MascotVisual'
 
 export const FoxCompanionDrawer: React.FC = () => {
   const { fox, wardrobe, isFoxDrawerOpen, toggleFoxDrawer, petFox } = useStore()
@@ -22,9 +23,9 @@ export const FoxCompanionDrawer: React.FC = () => {
     <div style={{
       position: 'absolute',
       inset: 0,
-      background: 'rgba(0, 0, 0, 0.5)',
+      background: 'rgba(0, 0, 0, 0.55)',
       backdropFilter: 'blur(6px)',
-      zIndex: 60,
+      zIndex: 70,
       display: 'flex',
       alignItems: 'flex-end',
       animation: 'fadeIn 0.2s ease'
@@ -41,14 +42,14 @@ export const FoxCompanionDrawer: React.FC = () => {
       }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 20 }}>🦊</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <MascotVisual size={32} />
             <div>
               <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--lq-ink)' }}>
-                Bé Cáo {fox.name}
+                Bé Cáo {fox.name} (Official Mascot)
               </h3>
               <div style={{ fontSize: 11, color: 'var(--lq-ink-muted)' }}>
-                Đồng hành & Động viên hiệp sĩ
+                Đồng hành & Tương tác thực tế LifeQuest
               </div>
             </div>
           </div>
@@ -114,30 +115,25 @@ export const FoxCompanionDrawer: React.FC = () => {
             </div>
           )}
 
+          {/* Official 3D Rendered Mascot */}
           <div style={{
             position: 'relative',
-            width: 100,
-            height: 100,
+            width: 140,
+            height: 140,
             margin: '0 auto 10px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            background: 'radial-gradient(circle, rgba(242, 107, 58, 0.15) 0%, rgba(0,0,0,0) 70%)',
-            borderRadius: '50%'
+            justifyContent: 'center'
           }}>
-            {equippedHat && (
-              <div style={{ position: 'absolute', top: 2, fontSize: 26, zIndex: 4 }}>
-                {equippedHat.icon}
-              </div>
-            )}
-            <div className="animate-mascot" style={{ fontSize: 56, zIndex: 2 }}>
-              🦊
-            </div>
-            {equippedAccessory && (
-              <div style={{ position: 'absolute', bottom: 4, right: 6, fontSize: 20, zIndex: 4 }}>
-                {equippedAccessory.icon}
-              </div>
-            )}
+            <MascotVisual
+              size={135}
+              className="animate-mascot"
+              equippedHat={fox.equippedHat}
+              equippedOutfit={fox.equippedOutfit}
+              equippedAccessory={fox.equippedAccessory}
+              emotion={fox.mood}
+              onClick={handlePet}
+            />
           </div>
 
           <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--lq-ink)' }}>

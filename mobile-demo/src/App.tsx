@@ -4,6 +4,7 @@ import { TopBar } from './components/shell/TopBar'
 import { BottomNav } from './components/shell/BottomNav'
 import { FoxCompanionDrawer } from './components/shell/FoxCompanionDrawer'
 import { QuickCreateModal } from './components/shell/QuickCreateModal'
+import { FigmaLinkModal } from './components/shell/FigmaLinkModal'
 import { DashboardScreen } from './screens/DashboardScreen'
 import { WorkScreen } from './screens/WorkScreen'
 import { CalendarScreen } from './screens/CalendarScreen'
@@ -12,12 +13,13 @@ import { WardrobeScreen } from './screens/WardrobeScreen'
 import { SocialScreen } from './screens/SocialScreen'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { TabId } from './types'
-import { Smartphone, Maximize2, Minimize2, Wifi, Battery } from 'lucide-react'
+import { Smartphone, Maximize2, Minimize2, Wifi, Battery, Layers } from 'lucide-react'
 
 function MobileAppContent() {
   const { tasks } = useStore()
   const [currentTab, setCurrentTab] = useState<TabId>('dashboard')
   const [isCreateOpen, setIsCreateOpen] = useState(false)
+  const [isFigmaOpen, setIsFigmaOpen] = useState(false)
   const [isFramed, setIsFramed] = useState(true)
 
   const pendingTasksCount = tasks.filter((t) => !t.completed).length
@@ -50,8 +52,24 @@ function MobileAppContent() {
         fontSize: 11,
         fontWeight: 600
       }}>
-        <Smartphone size={13} color="#F26B3A" />
-        <span>Mobile UI Demo</span>
+        <button
+          onClick={() => setIsFigmaOpen(true)}
+          style={{
+            background: 'linear-gradient(135deg, #0ACF83 0%, #A259FF 100%)',
+            color: '#FFFFFF',
+            padding: '3px 8px',
+            borderRadius: 10,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            fontSize: 11,
+            fontWeight: 800
+          }}
+        >
+          <Layers size={12} />
+          <span>Figma Design</span>
+        </button>
+
         <button
           onClick={() => setIsFramed(!isFramed)}
           style={{
@@ -62,8 +80,7 @@ function MobileAppContent() {
             display: 'flex',
             alignItems: 'center',
             gap: 4,
-            fontSize: 11,
-            marginLeft: 4
+            fontSize: 11
           }}
         >
           {isFramed ? <Maximize2 size={11} /> : <Minimize2 size={11} />}
@@ -108,8 +125,11 @@ function MobileAppContent() {
           </div>
         </div>
 
-        {/* Top Bar Header */}
-        <TopBar onNavigateTab={setCurrentTab} />
+        {/* Top Bar Header with Figma Link Button */}
+        <TopBar
+          onNavigateTab={setCurrentTab}
+          onOpenFigma={() => setIsFigmaOpen(true)}
+        />
 
         {/* Scrollable Main Screen */}
         <div className="phone-content">
@@ -151,6 +171,12 @@ function MobileAppContent() {
         <QuickCreateModal
           isOpen={isCreateOpen}
           onClose={() => setIsCreateOpen(false)}
+        />
+
+        {/* Figma Design Link Modal */}
+        <FigmaLinkModal
+          isOpen={isFigmaOpen}
+          onClose={() => setIsFigmaOpen(false)}
         />
       </div>
     </div>

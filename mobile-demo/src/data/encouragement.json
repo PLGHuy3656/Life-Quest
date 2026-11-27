@@ -1,0 +1,28 @@
+{
+  "category": "encouragement",
+  "version": "1.0.0",
+  "entries": [
+    { "id": "enc-01", "event": "ENCOURAGEMENT", "text": "Bạn đang làm tốt hơn bạn nghĩ nhiều đó, cứ tin vào nhịp độ của mình nhé.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-02", "event": "ENCOURAGEMENT", "text": "Mỗi việc nhỏ hoàn thành hôm nay đều đang xây nền cho mục tiêu lớn.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-03", "event": "ENCOURAGEMENT", "text": "Không sao nếu hôm nay đi hơi chậm, miễn là mình vẫn tiếp tục đi.", "emotion": "calm", "weight": 1 },
+    { "id": "enc-04", "event": "ENCOURAGEMENT", "text": "Fox cổ vũ bạn hết mình! Bắt đầu từ việc dễ nhất để lấy đà nha.", "emotion": "happy", "weight": 1 },
+    { "id": "enc-05", "event": "ENCOURAGEMENT", "text": "Những ngày hơi mệt mà vẫn giữ được một thói quen nhỏ là rất đáng nể rồi.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-06", "event": "ENCOURAGEMENT", "text": "Đừng so sánh chặng đường của mình với ai khác, bạn có nhịp riêng mà.", "emotion": "calm", "weight": 1 },
+    { "id": "enc-07", "event": "ENCOURAGEMENT", "text": "Chia việc lớn thành ba bước bé xíu, Fox đảm bảo nhìn dễ thở hơn hẳn.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-08", "event": "ENCOURAGEMENT", "text": "Chỉ cần vượt qua 5 phút đầu tiên thôi, phần còn lại sẽ trôi mượt lắm.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-09", "event": "ENCOURAGEMENT", "text": "Bình tĩnh xử lý từng thứ một, Fox ở ngay đây đồng hành cùng bạn.", "emotion": "calm", "weight": 1 },
+    { "id": "enc-10", "event": "ENCOURAGEMENT", "text": "Hôm nay không cần rực rỡ, chỉ cần tử tế với bản thân và làm đều đặn.", "emotion": "calm", "weight": 1 },
+    { "id": "enc-11", "event": "ENCOURAGEMENT", "text": "Cố lên nha! Tới lúc nhìn lại cuối tuần bạn sẽ bất ngờ với chính mình đó.", "emotion": "happy", "weight": 1 },
+    { "id": "enc-12", "event": "ENCOURAGEMENT", "text": "Lỡ xao nhãng một chút cũng chẳng sao, quay lại ngay lúc này là thắng rồi.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-13", "event": "ENCOURAGEMENT", "text": "Fox tin bạn làm được! Thử tập trung một nhịp ngắn không mở tab thừa nhé.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-14", "event": "ENCOURAGEMENT", "text": "Mỗi lần bạn chủ động sắp xếp lại danh sách là một bước trưởng thành đó.", "emotion": "happy", "weight": 1 },
+    { "id": "enc-15", "event": "ENCOURAGEMENT", "text": "Khó khăn nhất thường chỉ là nút bắt đầu — bấm chạy đi, Fox canh giờ cho.", "emotion": "playful", "weight": 1 },
+    { "id": "enc-16", "event": "ENCOURAGEMENT", "text": "Giữ tinh thần thoải mái nhé, áp lực quá không giúp mình đi nhanh hơn đâu.", "emotion": "calm", "weight": 1 },
+    { "id": "enc-17", "event": "ENCOURAGEMENT", "text": "Thói quen bền bỉ luôn thắng cảm hứng nhất thời, cứ đều tay nha.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-18", "event": "ENCOURAGEMENT", "text": "Bạn đã đi được tới đây rồi, đừng bỏ quên công sức của chính mình nhé.", "emotion": "encouraging", "weight": 1 },
+    { "id": "enc-19", "event": "ENCOURAGEMENT", "text": "Thử thưởng cho mình một ly nước ngon sau khi xong đầu việc này nhé!", "emotion": "playful", "weight": 1 },
+    { "id": "enc-20", "event": "ENCOURAGEMENT", "text": "Có những ngày tiến độ chỉ là giữ vững tinh thần — vậy cũng rất ổn rồi.", "emotion": "calm", "weight": 1 },
+    { "id": "enc-21", "event": "ENCOURAGEMENT", "text": "Từng dấu tick nhỏ sẽ nối thành một hành trình rất đẹp, cùng đi tiếp nào.", "emotion": "happy", "weight": 1 },
+    { "id": "enc-22", "event": "ENCOURAGEMENT", "text": "Fox giơ hai chân ủng hộ bạn luôn! Mình xử lý gọn việc tiếp theo nhé.", "emotion": "happy", "weight": 1 }
+  ]
+}

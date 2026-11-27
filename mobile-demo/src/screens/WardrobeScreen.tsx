@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useStore } from '../store/questStore'
-import { Sparkles, Coins, Check } from 'lucide-react'
+import { Coins } from 'lucide-react'
+import { MascotVisual } from '../components/common/MascotVisual'
 
 export const WardrobeScreen: React.FC = () => {
   const { fox, wardrobe, player, buyItem, equipItem } = useStore()
@@ -17,7 +18,7 @@ export const WardrobeScreen: React.FC = () => {
 
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '16px' }}>
-      {/* Dressing Room Showcase */}
+      {/* Dressing Room Showcase with Real 3D Mascot */}
       <div className="card" style={{
         textAlign: 'center',
         padding: '20px 14px',
@@ -30,29 +31,21 @@ export const WardrobeScreen: React.FC = () => {
           display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: 105,
-          height: 105,
-          background: 'radial-gradient(circle, rgba(242, 107, 58, 0.15) 0%, rgba(0,0,0,0) 70%)',
-          borderRadius: '50%',
+          width: 140,
+          height: 140,
           margin: '0 auto 8px'
         }}>
-          {equippedHat && (
-            <div style={{ position: 'absolute', top: 2, fontSize: 26, zIndex: 4 }}>
-              {equippedHat.icon}
-            </div>
-          )}
-          <div className="animate-mascot" style={{ fontSize: 56, zIndex: 2 }}>
-            🦊
-          </div>
-          {equippedAccessory && (
-            <div style={{ position: 'absolute', bottom: 4, right: 6, fontSize: 20, zIndex: 4 }}>
-              {equippedAccessory.icon}
-            </div>
-          )}
+          <MascotVisual
+            size={130}
+            className="animate-mascot"
+            equippedHat={fox.equippedHat}
+            equippedOutfit={fox.equippedOutfit}
+            equippedAccessory={fox.equippedAccessory}
+          />
         </div>
 
         <h3 style={{ fontSize: 16, fontWeight: 800, color: 'var(--lq-ink)' }}>
-          Bé Cáo {fox.name}
+          Phòng Thử Đồ Bé Cáo {fox.name}
         </h3>
         <p style={{ fontSize: 11, color: 'var(--lq-ink-muted)', marginTop: 2 }}>
           {equippedOutfit ? `Đang mặc: ${equippedOutfit.name}` : 'Trang phục tân thủ'}

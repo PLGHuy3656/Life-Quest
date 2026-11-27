@@ -10,10 +10,10 @@ import {
   ChevronRight,
   Sparkles,
   Heart,
-  MessageSquare,
   Award,
   Clock
 } from 'lucide-react'
+import { MascotVisual } from '../components/common/MascotVisual'
 
 interface DashboardScreenProps {
   onNavigateTab: (tab: TabId) => void
@@ -28,7 +28,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
     player,
     fox,
     tasks,
-    quests,
     schedules,
     socialPosts,
     toggleTask,
@@ -107,7 +106,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         </div>
       </div>
 
-      {/* Mascot Companion Hero Card */}
+      {/* Mascot Companion Hero Card with Real 3D Mascot */}
       <div className="card" style={{
         background: 'var(--lq-surface)',
         display: 'flex',
@@ -127,20 +126,25 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
           lineHeight: 1.4,
           display: 'flex',
           alignItems: 'flex-start',
-          gap: 6
+          gap: 8
         }}>
-          <span style={{ fontSize: 16 }}>🦊</span>
+          <Sparkles size={15} color="var(--lq-accent)" style={{ flexShrink: 0, marginTop: 2 }} />
           <span>{fox.speechBubble}</span>
         </div>
 
         {/* Mascot & Petting Action */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div className="animate-mascot" style={{ fontSize: 32 }}>
-              🦊
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div className="animate-mascot" style={{ width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <MascotVisual
+                size={48}
+                equippedHat={fox.equippedHat}
+                equippedAccessory={fox.equippedAccessory}
+                onClick={petFox}
+              />
             </div>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--lq-ink)' }}>
+              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--lq-ink)' }}>
                 Bé Cáo {fox.name}
               </div>
               <div style={{ fontSize: 11, color: 'var(--lq-ink-muted)' }}>
@@ -236,7 +240,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         </button>
       </div>
 
-      {/* Pinned Tasks (Ghim Ưu Tiên) */}
+      {/* Pinned Tasks */}
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, padding: '0 2px' }}>
           <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--lq-ink)' }}>
@@ -372,7 +376,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         </div>
       </div>
 
-      {/* Social Feed Preview (Tương tác cộng đồng từ desktop) */}
+      {/* Social Feed Preview */}
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8, padding: '0 2px' }}>
           <h3 style={{ fontSize: 15, fontWeight: 800, color: 'var(--lq-ink)' }}>
