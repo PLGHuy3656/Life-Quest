@@ -2,13 +2,10 @@ import React, { useState } from 'react'
 import { useStore } from '../store/questStore'
 import {
   WARDROBE_CATEGORIES,
-  EXACT_WARDROBE_CATALOG,
   WardrobeCategoryId,
   WardrobeCatalogItem
 } from '../data/wardrobeCatalog'
 import { CosmeticPreviewThumb } from '../components/common/CosmeticPreviewThumb'
-import { MascotVisual } from '../components/common/MascotVisual'
-import { MiniHangerHook, ClosetBotanicalDecor } from '../components/common/ClosetBotanicalDecor'
 import {
   Shirt,
   Store,
@@ -18,110 +15,198 @@ import {
   ZoomOut,
   X,
   Mic,
-  Archive,
-  Layers
+  Check,
+  Crown
 } from 'lucide-react'
+import confetti from 'canvas-confetti'
+
+interface OutfitPreset {
+  id: string
+  name: string
+  emoji: string
+  color: string
+  gradient: string
+  dialogue: string
+  items: string[]
+}
+
+const OUTFIT_PRESETS: OutfitPreset[] = [
+  {
+    id: 'student',
+    name: 'Học sinh',
+    emoji: '🎓',
+    color: '#24406B',
+    gradient: 'linear-gradient(135deg, #24406B, #1E7F8C)',
+    dialogue: 'Kính tròn và áo khoác học sinh vừa vặn lắm, cùng đến trường nào!',
+    items: ['student_cap', 'student_glasses', 'simple_jacket']
+  },
+  {
+    id: 'sports',
+    name: 'Thể thao',
+    emoji: '🏃',
+    color: '#168C78',
+    gradient: 'linear-gradient(135deg, #168C78, #1F6FD1)',
+    dialogue: 'Băng đô và giày thể thao siêu êm, sẵn sàng bứt phá chuỗi 5K rồi!',
+    items: ['sports_headband', 'sports_jersey', 'sports_sneakers']
+  },
+  {
+    id: 'explorer',
+    name: 'Thám hiểm',
+    emoji: '🧭',
+    color: '#5E7A3A',
+    gradient: 'linear-gradient(135deg, #D8C08A, #5E7A3A)',
+    dialogue: 'Mũ safari và kính lúp đã sẵn sàng, cùng đi tìm bí mật mới thôi!',
+    items: ['explorer_hat', 'explorer_backpack', 'explorer_magnifier']
+  },
+  {
+    id: 'mage',
+    name: 'Pháp sư',
+    emoji: '🧙‍♂️',
+    color: '#4B2E83',
+    gradient: 'linear-gradient(135deg, #4B2E83, #F2C14E)',
+    dialogue: 'Đũa sao phát sáng kìa! Hôm nay mình sẽ làm phép nhân đôi năng suất!',
+    items: ['mage_hat', 'mage_capelet', 'mage_wand']
+  },
+  {
+    id: 'ninja',
+    name: 'Ninja',
+    emoji: '🥷',
+    color: '#1D2433',
+    gradient: 'linear-gradient(135deg, #1D2433, #E0533A)',
+    dialogue: 'Cuộn bí kíp đã mở, bước đi không một tiếng động để hoàn thành task!',
+    items: ['ninja_headband', 'ninja_gi', 'ninja_scroll']
+  },
+  {
+    id: 'tet',
+    name: 'Tết',
+    emoji: '🧧',
+    color: '#C1121F',
+    gradient: 'linear-gradient(135deg, #C1121F, #E9B949)',
+    dialogue: 'Khăn đóng và áo dài rực rỡ, chúc bạn vạn sự như ý, chuỗi ngày bất tận!',
+    items: ['tet_khan_dong', 'tet_ao_dai', 'tet_lixi']
+  }
+]
 
 export const WardrobeScreen: React.FC = () => {
-  const {
-    fox,
-    wardrobe,
-    equipItem
-  } = useStore()
+  const { wardrobe, equipItem } = useStore()
 
-  // State matching desktop Web exactly
+  // State matching specification
   const [mode, setMode] = useState<'wardrobe' | 'shop'>('wardrobe')
-  const [closetTab, setClosetTab] = useState<'drawers' | 'hanging'>('drawers')
   const [selectedCategory, setSelectedCategory] = useState<WardrobeCategoryId>('ALL')
+  const [currentOutfit, setCurrentOutfit] = useState<OutfitPreset>(OUTFIT_PRESETS[0])
   const [cameraFacing, setCameraFacing] = useState<'front' | 'side' | 'back'>('front')
   const [zoomLevel, setZoomLevel] = useState<number>(1)
+  const [speechText, setSpeechText] = useState<string>(OUTFIT_PRESETS[0].dialogue)
   const [isDialogueVisible, setIsDialogueVisible] = useState(true)
+  const [mascotAnim, setMascotAnim] = useState<string>('/assets/fox/fox-cp4-anim.webp')
 
-  // Dialogue from screenshot: "Đuôi mình vẫn vẫy thoải mái — phối thêm món khác xem sao nhé!"
-  const speechText = isDialogueVisible
-    ? fox.speechBubble || 'Đuôi mình vẫn vẫy thoải mái — phối thêm món khác xem sao nhé!'
-    : null
+  // Count items by category
+  const getCategoryCount = (catId: WardrobeCategoryId) => {
+    if (catId === 'ALL') return wardrobe.length
+    return wardrobe.filter((i) => i.category === catId).length
+  }
 
-  // Count previewed / equipped items
-  const previewedItems = wardrobe.filter((i) => i.equipped)
-  const previewCount = previewedItems.length
-
-  // Filter items by selected category
+  // Filter items by category
   const filteredItems = wardrobe.filter((item) => {
     if (selectedCategory === 'ALL') return true
     return item.category === selectedCategory
   })
 
-  // Toggle item preview/equip
-  const handleTogglePreview = (item: WardrobeCatalogItem) => {
-    equipItem(item)
+  // Equip full outfit preset
+  const handleSelectPreset = (preset: OutfitPreset) => {
+    setCurrentOutfit(preset)
+    setSpeechText(preset.dialogue)
+    setIsDialogueVisible(true)
+
+    // Trigger celebration animation
+    setMascotAnim('/assets/fox/fox-mood-celebrate-anim.webp')
+    confetti({ particleCount: 60, spread: 70 })
+
+    setTimeout(() => {
+      setMascotAnim('/assets/fox/fox-cp4-anim.webp')
+    }, 2200)
+
+    // Equip items in this preset
+    wardrobe.forEach((item) => {
+      if (preset.items.includes(item.id) && !item.equipped) {
+        equipItem(item)
+      }
+    })
   }
 
-  // Camera controls
-  const handleZoomIn = () => setZoomLevel((z) => Math.min(1.3, z + 0.1))
-  const handleZoomOut = () => setZoomLevel((z) => Math.max(0.8, z - 0.1))
-  const handleResetCamera = () => {
-    setCameraFacing('front')
-    setZoomLevel(1)
+  // Toggle single item equip
+  const handleToggleItem = (item: WardrobeCatalogItem) => {
+    equipItem(item)
+
+    if (!item.equipped) {
+      setSpeechText(`Món "${item.displayNameVi}" hợp với Fox ghê! Cùng thử thêm nhé!`)
+      setIsDialogueVisible(true)
+      confetti({ particleCount: 35, spread: 50 })
+    }
+  }
+
+  // Camera transforms
+  let mascotTransform = `scale(${zoomLevel})`
+  if (cameraFacing === 'side') {
+    mascotTransform += ' rotateY(38deg) skewY(-2deg)'
+  } else if (cameraFacing === 'back') {
+    mascotTransform += ' rotateY(180deg)'
   }
 
   return (
-    <div className="animate-fade-in" style={{
+    <div style={{
       display: 'flex',
       flexDirection: 'column',
-      gap: 16,
-      padding: '12px 14px 70px',
+      gap: 14,
+      padding: '8px 16px 80px',
       background: 'var(--lq-bg)',
       minHeight: '100%'
     }}>
       {/* ================================================================ */}
-      {/* 1. PHÒNG THỬ ĐỒ 3D (Match LEFT CARD from desktop screenshot)     */}
+      {/* 1. PHÒNG THỬ ĐỒ 3D VỚI MASCOT HOẠT ẢNH CHUYỂN ĐỘNG             */}
       {/* ================================================================ */}
       <section style={{
         background: '#FFFFFF',
         borderRadius: 24,
         padding: '14px',
         border: '1px solid rgba(22, 50, 74, 0.1)',
-        boxShadow: '0 4px 18px rgba(22, 50, 74, 0.05)',
+        boxShadow: 'var(--shadow)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 12
+        gap: 10
       }}>
         {/* Stage Header */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          flexWrap: 'wrap',
           gap: 6
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: 5,
-              padding: '4px 8px',
+              gap: 4,
+              padding: '3px 8px',
               borderRadius: 20,
-              background: '#fff3ea',
-              color: '#c85020',
+              background: 'var(--lq-accent-soft)',
+              color: 'var(--lq-accent)',
               fontSize: 11.5,
               fontWeight: 800
             }}>
-              <Sparkles size={12} color="#c85020" />
+              <Sparkles size={12} />
               <span>Phòng thử đồ 3D</span>
             </span>
 
             <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
+              fontSize: 11,
+              fontWeight: 800,
               padding: '3px 8px',
               borderRadius: 20,
-              background: '#fff8e6',
-              color: '#b45309',
-              fontSize: 11,
-              fontWeight: 700
+              background: 'var(--lq-reward-soft)',
+              color: 'var(--lq-reward-ink)'
             }}>
-              Đang xem trước ({previewCount})
+              1.280 Xu
             </span>
           </div>
 
@@ -129,76 +214,77 @@ export const WardrobeScreen: React.FC = () => {
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 3,
-            padding: 3,
+            gap: 2,
+            padding: 2,
             borderRadius: 20,
-            background: '#f5f0e6',
-            border: '1px solid #e9e0d1'
+            background: 'var(--lq-surface-subtle)'
           }}>
             <button
               onClick={() => setMode('wardrobe')}
               style={{
                 border: 'none',
                 background: mode === 'wardrobe' ? '#16324A' : 'transparent',
-                color: mode === 'wardrobe' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 20,
-                padding: '4px 10px',
-                fontSize: 12,
+                color: mode === 'wardrobe' ? '#FFFFFF' : 'var(--lq-ink-muted)',
+                borderRadius: 16,
+                padding: '4px 9px',
+                fontSize: 11,
                 fontWeight: 700,
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 4,
-                boxShadow: mode === 'wardrobe' ? '0 2px 8px rgba(22, 50, 74, 0.2)' : 'none'
+                gap: 3,
+                cursor: 'pointer'
               }}
             >
-              <Shirt size={12} />
+              <Shirt size={11} />
               <span>Tủ đồ</span>
             </button>
+
             <button
               onClick={() => setMode('shop')}
               style={{
                 border: 'none',
                 background: mode === 'shop' ? '#16324A' : 'transparent',
-                color: mode === 'shop' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 20,
-                padding: '4px 10px',
-                fontSize: 12,
+                color: mode === 'shop' ? '#FFFFFF' : 'var(--lq-ink-muted)',
+                borderRadius: 16,
+                padding: '4px 9px',
+                fontSize: 11,
                 fontWeight: 700,
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 4
+                gap: 3,
+                cursor: 'pointer'
               }}
             >
-              <Store size={12} />
+              <Store size={11} />
               <span>Cửa hàng</span>
             </button>
           </div>
         </div>
 
-        {/* Speech Bubble (Identical to screenshot) */}
-        {speechText && (
+        {/* Mascot Speech Bubble */}
+        {isDialogueVisible && speechText && (
           <div style={{
             background: '#FAF9F6',
-            border: '1px solid rgba(22, 50, 74, 0.1)',
+            border: '1px solid var(--lq-border)',
             borderRadius: 16,
-            padding: '10px 14px',
+            padding: '9px 12px',
             fontSize: 12,
-            fontWeight: 600,
-            color: '#16324A',
-            lineHeight: 1.4,
+            fontWeight: 700,
+            color: 'var(--lq-ink)',
+            lineHeight: 1.35,
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'space-between',
             gap: 8,
-            boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+            boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#F26B3A', flexShrink: 0 }} />
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--lq-accent)', flexShrink: 0 }} />
               <span>{speechText}</span>
             </div>
             <button
               onClick={() => setIsDialogueVisible(false)}
-              style={{ background: 'transparent', color: '#8B9DAE', padding: 2 }}
+              style={{ background: 'transparent', border: 'none', color: 'var(--lq-ink-muted)', padding: 0, cursor: 'pointer' }}
             >
               <X size={13} />
             </button>
@@ -212,34 +298,83 @@ export const WardrobeScreen: React.FC = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 220,
-          background: 'radial-gradient(circle, #FFF4E8 0%, #FAF9F6 70%)',
+          minHeight: 240,
+          background: 'linear-gradient(160deg, #FFE9D6 0%, #FFF6EC 100%)',
           borderRadius: 20,
-          border: '1px solid rgba(242, 107, 58, 0.15)',
+          border: '1px solid rgba(242, 107, 58, 0.2)',
           overflow: 'hidden',
-          padding: '16px 0 10px'
+          padding: '14px 0 10px',
+          boxShadow: 'inset 0 2px 10px rgba(242, 107, 58, 0.08)'
         }}>
-          {/* Real Mascot Render with Glasses + Jacket */}
-          <MascotVisual
-            size={185}
-            facing={cameraFacing}
-            zoom={zoomLevel}
-            equippedHat={fox.equippedHat}
-            equippedOutfit={fox.equippedOutfit}
-            equippedAccessory={fox.equippedAccessory}
-          />
+          {/* Top-Left Chip: 3D status */}
+          <span style={{
+            position: 'absolute',
+            top: 10,
+            left: 10,
+            background: 'rgba(22, 50, 74, 0.08)',
+            color: 'var(--lq-ink)',
+            fontSize: 10,
+            fontWeight: 800,
+            padding: '2px 8px',
+            borderRadius: 10
+          }}>
+            Xem 3D · chạm xoay
+          </span>
 
-          {/* Floating Camera / View Controls Bar (Matches desktop screenshot!) */}
+          {/* Bottom-Left Chip: Active Outfit */}
+          <span style={{
+            position: 'absolute',
+            bottom: 46,
+            left: 10,
+            background: 'var(--lq-accent-soft)',
+            color: 'var(--lq-accent)',
+            fontSize: 10.5,
+            fontWeight: 800,
+            padding: '3px 8px',
+            borderRadius: 10,
+            border: '1px solid rgba(242, 107, 58, 0.25)'
+          }}>
+            Bộ: {currentOutfit.name} {currentOutfit.emoji}
+          </span>
+
+          {/* Official Animated 3D Fox Mascot */}
+          <div style={{
+            perspective: 800,
+            width: 190,
+            height: 190,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <img
+              src={mascotAnim}
+              alt="Fox Mascot Animated"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                transform: mascotTransform,
+                transition: 'transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                filter: 'drop-shadow(0 8px 20px rgba(22, 50, 74, 0.18))'
+              }}
+              onError={(e) => {
+                ;(e.target as HTMLImageElement).src = '/assets/fox/fox-cp4.png'
+              }}
+            />
+          </div>
+
+          {/* Camera View Controls */}
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 4,
-            padding: '4px 8px',
-            borderRadius: 24,
+            gap: 3,
+            padding: '3px 8px',
+            borderRadius: 20,
             background: '#FFFFFF',
-            border: '1px solid rgba(22, 50, 74, 0.12)',
-            boxShadow: '0 4px 14px rgba(22, 50, 74, 0.08)',
-            marginTop: 8
+            border: '1px solid rgba(22, 50, 74, 0.1)',
+            boxShadow: '0 3px 10px rgba(22, 50, 74, 0.08)',
+            marginTop: 6,
+            zIndex: 5
           }}>
             <button
               onClick={() => setCameraFacing('front')}
@@ -247,16 +382,14 @@ export const WardrobeScreen: React.FC = () => {
                 border: 'none',
                 background: cameraFacing === 'front' ? '#16324A' : 'transparent',
                 color: cameraFacing === 'front' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 16,
-                padding: '4px 10px',
-                fontSize: 11,
+                borderRadius: 14,
+                padding: '3px 8px',
+                fontSize: 10.5,
                 fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 3
+                cursor: 'pointer'
               }}
             >
-              <span style={{ fontSize: 9 }}>•</span> Trước
+              • Trước
             </button>
 
             <button
@@ -265,10 +398,11 @@ export const WardrobeScreen: React.FC = () => {
                 border: 'none',
                 background: cameraFacing === 'side' ? '#16324A' : 'transparent',
                 color: cameraFacing === 'side' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 16,
-                padding: '4px 10px',
-                fontSize: 11,
-                fontWeight: 700
+                borderRadius: 14,
+                padding: '3px 8px',
+                fontSize: 10.5,
+                fontWeight: 700,
+                cursor: 'pointer'
               }}
             >
               Ngang
@@ -280,172 +414,140 @@ export const WardrobeScreen: React.FC = () => {
                 border: 'none',
                 background: cameraFacing === 'back' ? '#16324A' : 'transparent',
                 color: cameraFacing === 'back' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 16,
-                padding: '4px 10px',
-                fontSize: 11,
+                borderRadius: 14,
+                padding: '3px 8px',
+                fontSize: 10.5,
                 fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 3
+                cursor: 'pointer'
               }}
             >
-              <span style={{ fontSize: 9 }}>•</span> Sau
+              • Sau
             </button>
 
-            <div style={{ width: 1, height: 12, background: '#E2DFD8', margin: '0 2px' }} />
+            <div style={{ width: 1, height: 12, background: '#E2DFD8', margin: '0 1px' }} />
 
             <button
-              onClick={handleZoomIn}
-              style={{ background: 'transparent', color: '#4D6274', padding: 4 }}
+              onClick={() => setZoomLevel((z) => Math.min(1.3, z + 0.1))}
+              style={{ background: 'transparent', border: 'none', color: '#4D6274', padding: 3, cursor: 'pointer' }}
               title="Phóng to"
             >
-              <ZoomIn size={14} />
+              <ZoomIn size={13} />
             </button>
 
             <button
-              onClick={handleZoomOut}
-              style={{ background: 'transparent', color: '#4D6274', padding: 4 }}
+              onClick={() => setZoomLevel((z) => Math.max(0.8, z - 0.1))}
+              style={{ background: 'transparent', border: 'none', color: '#4D6274', padding: 3, cursor: 'pointer' }}
               title="Thu nhỏ"
             >
-              <ZoomOut size={14} />
+              <ZoomOut size={13} />
             </button>
 
             <button
-              onClick={handleResetCamera}
-              style={{ background: 'transparent', color: '#4D6274', padding: 4 }}
+              onClick={() => {
+                setCameraFacing('front')
+                setZoomLevel(1)
+              }}
+              style={{ background: 'transparent', border: 'none', color: '#4D6274', padding: 3, cursor: 'pointer' }}
               title="Đặt lại góc nhìn"
             >
-              <RotateCcw size={13} />
+              <RotateCcw size={12} />
             </button>
           </div>
         </div>
       </section>
 
       {/* ================================================================ */}
-      {/* 2. TỦ ĐỒ FOX V2 (Match RIGHT CARD from desktop screenshot)        */}
+      {/* 2. CHỌN NHANH 6 BỘ TRANG PHỤC (OUTFIT LIBRARY)                   */}
+      {/* ================================================================ */}
+      <div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 8
+        }}>
+          <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--lq-ink)', display: 'flex', alignItems: 'center', gap: 5 }}>
+            <Crown size={15} color="#F26B3A" />
+            <span>6 Bộ Trang Phục Chính</span>
+          </div>
+          <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--lq-ink-muted)' }}>
+            Chạm để mặc cả bộ
+          </span>
+        </div>
+
+        <div style={{
+          display: 'flex',
+          gap: 8,
+          overflowX: 'auto',
+          paddingBottom: 4
+        }}>
+          {OUTFIT_PRESETS.map((preset) => {
+            const isSelected = currentOutfit.id === preset.id
+            return (
+              <button
+                key={preset.id}
+                onClick={() => handleSelectPreset(preset)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  padding: '6px 12px',
+                  borderRadius: 16,
+                  background: isSelected ? preset.gradient : '#FFFFFF',
+                  color: isSelected ? '#FFFFFF' : 'var(--lq-ink)',
+                  border: isSelected ? 'none' : '1px solid var(--lq-border)',
+                  boxShadow: isSelected ? '0 4px 12px rgba(22, 50, 74, 0.2)' : '0 1px 3px rgba(0,0,0,0.03)',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                <span>{preset.emoji}</span>
+                <span>{preset.name}</span>
+                {isSelected && <Check size={12} strokeWidth={3} />}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* ================================================================ */}
+      {/* 3. TỦ ĐỒ VẬT PHẨM FOX V2 (GRID 3 CỘT CHUẨN SKELETON 16)          */}
       {/* ================================================================ */}
       <section style={{
         background: '#FFFFFF',
         borderRadius: 24,
-        padding: '16px',
+        padding: '14px',
         border: '1px solid rgba(22, 50, 74, 0.1)',
-        boxShadow: '0 4px 18px rgba(22, 50, 74, 0.05)',
-        position: 'relative'
+        boxShadow: 'var(--shadow)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 12
       }}>
-        {/* Botanical Vine Decor on top */}
-        <ClosetBotanicalDecor />
-
-        {/* Panel Header */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 8,
-          marginBottom: 12,
-          position: 'relative',
-          zIndex: 3
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <h3 style={{ fontSize: 17, fontWeight: 800, color: '#16324A', margin: 0 }}>
-              Tủ đồ Fox V2
-            </h3>
-            <span style={{
-              background: '#fef3c7',
-              color: '#92400e',
-              fontSize: 10,
-              fontWeight: 800,
-              padding: '2px 8px',
-              borderRadius: 12,
-              border: '1px solid #fde68a'
-            }}>
-              PREVIEW ONLY
-            </span>
-          </div>
-
-          {/* Sub-tabs: [🗄️ Ngăn kéo] vs [👕 Hộc tủ] */}
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 2,
-            padding: 3,
-            borderRadius: 20,
-            background: '#f5f0e6',
-            border: '1px solid #e9e0d1'
-          }}>
-            <button
-              onClick={() => setClosetTab('drawers')}
-              style={{
-                border: 'none',
-                background: closetTab === 'drawers' ? '#16324A' : 'transparent',
-                color: closetTab === 'drawers' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 20,
-                padding: '4px 10px',
-                fontSize: 11,
-                fontWeight: 700,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4
-              }}
-            >
-              <Archive size={12} />
-              <span>Ngăn kéo</span>
-            </button>
-            <button
-              onClick={() => setClosetTab('hanging')}
-              style={{
-                border: 'none',
-                background: closetTab === 'hanging' ? '#16324A' : 'transparent',
-                color: closetTab === 'hanging' ? '#FFFFFF' : '#4D6274',
-                borderRadius: 20,
-                padding: '4px 10px',
-                fontSize: 11,
-                fontWeight: 700,
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 4
-              }}
-            >
-              <Shirt size={12} />
-              <span>Hộc tủ</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Category Chips Bar (Tất cả 18, Mũ 6, Khăn 1, Balo 3, Trang phục 4, Phụ kiện 5) */}
+        {/* Category Filter Pills */}
         <div style={{
           display: 'flex',
           gap: 6,
           overflowX: 'auto',
-          paddingBottom: 8,
-          marginBottom: 12,
-          position: 'relative',
-          zIndex: 3
+          paddingBottom: 4
         }}>
-          {[
-            { id: 'ALL' as WardrobeCategoryId, label: 'Tất cả', count: 18 },
-            { id: 'HAT' as WardrobeCategoryId, label: 'Mũ', count: 6 },
-            { id: 'SCARF' as WardrobeCategoryId, label: 'Khăn', count: 1 },
-            { id: 'BACKPACK' as WardrobeCategoryId, label: 'Balo', count: 3 },
-            { id: 'OUTFIT' as WardrobeCategoryId, label: 'Trang phục', count: 4 },
-            { id: 'ACCESSORY' as WardrobeCategoryId, label: 'Phụ kiện', count: 5 }
-          ].map((cat) => {
+          {WARDROBE_CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat.id
             return (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 style={{
-                  border: isSelected ? '1.5px solid #F26B3A' : '1px solid #E9E0D1',
-                  background: isSelected ? '#FFF7F2' : '#FFFFFF',
-                  color: isSelected ? '#F26B3A' : '#4D6274',
-                  padding: '6px 12px',
+                  border: isSelected ? '1.5px solid var(--lq-accent)' : '1px solid var(--lq-border)',
+                  background: isSelected ? 'var(--lq-accent-soft)' : '#FFFFFF',
+                  color: isSelected ? 'var(--lq-accent)' : 'var(--lq-ink-muted)',
+                  padding: '5px 12px',
                   borderRadius: 20,
-                  fontSize: 11,
+                  fontSize: 11.5,
                   fontWeight: 700,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 5,
+                  cursor: 'pointer',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -453,167 +555,114 @@ export const WardrobeScreen: React.FC = () => {
                 <span style={{
                   fontSize: 10,
                   fontWeight: 800,
-                  background: isSelected ? '#F26B3A' : 'rgba(22, 50, 74, 0.08)',
-                  color: isSelected ? '#FFFFFF' : '#768796',
-                  padding: '1px 5px',
-                  borderRadius: 10
+                  marginLeft: 4,
+                  opacity: 0.8
                 }}>
-                  {cat.count}
+                  ({getCategoryCount(cat.id)})
                 </span>
               </button>
             )
           })}
         </div>
 
-        {/* Item Cards Grid - Mobile Touch Optimized */}
+        {/* 3-Column Items Touch Grid (Matches screens/16_wardrobe.html) */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: 10,
-          position: 'relative',
-          zIndex: 3
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: 8
         }}>
           {filteredItems.map((item) => {
-            const isPreviewing = item.equipped
+            const isEquipped = item.equipped
 
             return (
-              <article
+              <div
                 key={item.id}
+                onClick={() => handleToggleItem(item)}
                 style={{
-                  position: 'relative',
-                  background: '#FFFFFF',
-                  border: isPreviewing ? '1.5px solid #F26B3A' : '1px solid rgba(22, 50, 74, 0.1)',
-                  borderRadius: 18,
-                  padding: '12px 14px',
-                  boxShadow: isPreviewing ? '0 4px 16px rgba(242, 107, 58, 0.12)' : '0 2px 6px rgba(22, 50, 74, 0.03)',
+                  background: isEquipped ? 'var(--lq-accent-soft)' : '#FFFFFF',
+                  borderRadius: 16,
+                  border: isEquipped ? '2px solid var(--lq-accent)' : '1px solid var(--lq-border)',
+                  padding: '8px 6px',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 8
+                  gap: 6,
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  boxShadow: isEquipped ? '0 3px 10px rgba(242, 107, 58, 0.18)' : '0 1px 3px rgba(0,0,0,0.02)',
+                  transition: 'all 0.15s ease'
                 }}
               >
-                {/* Mini Coat Hanger Hook on Top */}
-                <div style={{
-                  position: 'absolute',
-                  top: -10,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  pointerEvents: 'none'
-                }}>
-                  <MiniHangerHook />
-                </div>
-
-                {/* Top Row: Vector Thumbnail + Info */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  {/* Vector Thumbnail */}
-                  <div style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 14,
-                    background: '#FAF6EE',
+                {/* Equipped Check Badge */}
+                {isEquipped && (
+                  <span style={{
+                    position: 'absolute',
+                    top: 5,
+                    right: 5,
+                    width: 16,
+                    height: 16,
+                    borderRadius: '50%',
+                    background: 'var(--lq-accent)',
+                    color: '#FFFFFF',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0,
-                    border: '1px solid #EFE6D8'
+                    fontSize: 9
                   }}>
-                    <CosmeticPreviewThumb
-                      kind={item.iconKind}
-                      palette={item.palette}
-                      size={44}
-                    />
-                  </div>
+                    <Check size={10} strokeWidth={3.5} />
+                  </span>
+                )}
 
-                  {/* Title & Subtitle */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{
-                      fontSize: 13,
-                      fontWeight: 800,
-                      color: '#16324A',
-                      lineHeight: 1.3,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis'
-                    }}>
-                      {item.displayNameVi}
-                    </div>
-
-                    <div style={{
-                      fontSize: 10.5,
-                      color: '#768796',
-                      marginTop: 2,
-                      lineHeight: 1.3,
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis'
-                    }}>
-                      {item.subtitleVi}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Row: Theme Badge + Action Buttons (Thử ngay / Tháo) */}
+                {/* Clean Vector SVG Thumbnail Tile */}
                 <div style={{
+                  width: '100%',
+                  aspectRatio: '1',
+                  borderRadius: 12,
+                  background: isEquipped ? 'rgba(242, 107, 58, 0.12)' : 'var(--lq-surface-subtle)',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginTop: 2,
-                  paddingTop: 6,
-                  borderTop: '1px solid rgba(22, 50, 74, 0.06)'
+                  justifyContent: 'center'
                 }}>
-                  {/* Theme pill */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    {item.outfitThemeVi && (
-                      <span style={{
-                        fontSize: 10,
-                        fontWeight: 700,
-                        color: '#16324A',
-                        background: '#EDF3F8',
-                        padding: '2px 8px',
-                        borderRadius: 10
-                      }}>
-                        {item.outfitThemeVi}
-                      </span>
-                    )}
-
-                    {isPreviewing && (
-                      <span style={{
-                        fontSize: 10,
-                        fontWeight: 800,
-                        background: '#FFF8E6',
-                        color: '#B45309',
-                        padding: '2px 8px',
-                        borderRadius: 10
-                      }}>
-                        Đang thử
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Action Button: Thử ngay (navy) or Tháo (ghost/outline) */}
-                  <button
-                    onClick={() => handleTogglePreview(item)}
-                    style={{
-                      border: isPreviewing ? '1px solid #D1D5DB' : 'none',
-                      background: isPreviewing ? '#FFFFFF' : '#16324A',
-                      color: isPreviewing ? '#4B5563' : '#FFFFFF',
-                      borderRadius: 14,
-                      padding: '5px 14px',
-                      fontSize: 11.5,
-                      fontWeight: 800,
-                      cursor: 'pointer',
-                      boxShadow: isPreviewing ? 'none' : '0 2px 6px rgba(22, 50, 74, 0.15)'
-                    }}
-                  >
-                    {isPreviewing ? 'Tháo' : 'Thử ngay'}
-                  </button>
+                  <CosmeticPreviewThumb
+                    kind={item.iconKind}
+                    palette={item.palette}
+                    size={38}
+                  />
                 </div>
-              </article>
+
+                {/* Title */}
+                <div style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: isEquipped ? 'var(--lq-accent)' : 'var(--lq-ink)',
+                  lineHeight: 1.25,
+                  minHeight: 28,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {item.displayNameVi}
+                </div>
+
+                {/* Equip Status Tag */}
+                <span style={{
+                  fontSize: 9.5,
+                  fontWeight: 800,
+                  padding: '1px 6px',
+                  borderRadius: 8,
+                  background: isEquipped ? 'var(--lq-accent)' : 'var(--lq-surface-subtle)',
+                  color: isEquipped ? '#FFFFFF' : 'var(--lq-ink-muted)'
+                }}>
+                  {isEquipped ? 'Đang thử' : 'Thử ngay'}
+                </span>
+              </div>
             )
           })}
         </div>
       </section>
 
-      {/* Floating Button: [🎙️ Trợ lý Fox] (Inside Mobile Screen right above BottomNav) */}
+      {/* Floating Bottom-Right Assistant Button */}
       <div style={{
         position: 'sticky',
         bottom: 8,
@@ -628,7 +677,7 @@ export const WardrobeScreen: React.FC = () => {
             background: '#16324A',
             color: '#FFFFFF',
             borderRadius: 24,
-            padding: '9px 15px',
+            padding: '8px 14px',
             fontSize: 11.5,
             fontWeight: 800,
             display: 'flex',
@@ -647,3 +696,4 @@ export const WardrobeScreen: React.FC = () => {
     </div>
   )
 }
+export default WardrobeScreen

@@ -438,29 +438,6 @@ export const WorkScreen: React.FC<WorkScreenProps> = ({ onOpenCreate }) => {
           })}
         </div>
       )}
-
-      {/* Floating Action Button */}
-      <button
-        onClick={onOpenCreate}
-        style={{
-          position: 'fixed',
-          bottom: 'calc(var(--bnav-h) + 16px)',
-          right: 'calc(50% - 200px + 16px)',
-          width: 50,
-          height: 50,
-          borderRadius: 25,
-          background: 'linear-gradient(135deg, #F26B3A 0%, #DE5A2A 100%)',
-          color: '#FFFFFF',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: 'var(--shadow-accent)',
-          zIndex: 45
-        }}
-        title="Thêm mục tiêu mới"
-      >
-        <Plus size={24} strokeWidth={3} />
-      </button>
     </div>
   )
 }
