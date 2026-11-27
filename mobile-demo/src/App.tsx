@@ -13,16 +13,49 @@ import { WardrobeScreen } from './screens/WardrobeScreen'
 import { SocialScreen } from './screens/SocialScreen'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { TabId } from './types'
-import { Flame, Award, Timer, Maximize2, Minimize2 } from 'lucide-react'
+import { Smartphone, Monitor, Palette, Sparkles } from 'lucide-react'
+
+type FrameMode = 'iphone' | 'max' | 'fluid'
 
 function MobileAppContent() {
-  const { tasks, toggleFoxDrawer, player } = useStore()
+  const { tasks } = useStore()
   const [currentTab, setCurrentTab] = useState<TabId>('wardrobe') // Default to Wardrobe so user sees it right away!
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isFigmaOpen, setIsFigmaOpen] = useState(false)
-  const [isFramed, setIsFramed] = useState(false) // Default to full responsive view so it doesn't look like a weird black box
+  const [frameMode, setFrameMode] = useState<FrameMode>('iphone') // Default to iPhone frame so it clearly looks like a mobile phone!
 
   const pendingTasksCount = tasks.filter((t) => !t.completed).length
+
+  // Calculate container dimensions based on frameMode
+  const getContainerStyles = (): React.CSSProperties => {
+    if (frameMode === 'fluid') {
+      return {
+        width: '100%',
+        maxWidth: 480,
+        minHeight: '100vh',
+        height: '100vh',
+        borderRadius: 0,
+        border: 'none',
+        boxShadow: 'none',
+        margin: '0 auto'
+      }
+    }
+
+    const width = frameMode === 'iphone' ? 395 : 430
+    const height = frameMode === 'iphone' ? 844 : 920
+
+    return {
+      width,
+      maxWidth: '96vw',
+      height,
+      maxHeight: '94vh',
+      borderRadius: 48,
+      border: '10px solid #1A232E',
+      boxShadow: '0 25px 65px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+      margin: '12px auto 20px',
+      position: 'relative'
+    }
+  }
 
   return (
     <div style={{
@@ -32,133 +65,173 @@ function MobileAppContent() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'flex-start',
-      background: 'var(--lq-bg)',
-      position: 'relative'
+      background: '#0F1722',
+      position: 'relative',
+      paddingBottom: 24,
+      fontFamily: "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
-      {/* Viewport container */}
+      {/* ================================================================ */}
+      {/* 1. TOP STUDIO CONTROL BAR (For Desktop Testing & Previewing)    */}
+      {/* ================================================================ */}
+      <div style={{
+        width: '100%',
+        maxWidth: 720,
+        padding: '10px 16px',
+        margin: '8px 0 6px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 8,
+        color: '#E2E8F0',
+        zIndex: 50
+      }}>
+        {/* Left: Title Badge */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontSize: 18 }}>🦊</span>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.2px' }}>
+              LifeQuest Mobile App
+            </div>
+            <div style={{ fontSize: 11, color: '#94A3B8' }}>
+              Giao diện chuẩn Smartphone iOS / Android
+            </div>
+          </div>
+        </div>
+
+        {/* Center: Device Frame Switcher */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 4,
+          background: 'rgba(255, 255, 255, 0.08)',
+          padding: '3px 4px',
+          borderRadius: 20,
+          border: '1px solid rgba(255, 255, 255, 0.12)'
+        }}>
+          <button
+            onClick={() => setFrameMode('iphone')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              border: 'none',
+              background: frameMode === 'iphone' ? '#F26B3A' : 'transparent',
+              color: '#FFFFFF',
+              borderRadius: 16,
+              padding: '4px 10px',
+              fontSize: 11.5,
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease'
+            }}
+            title="Khung iPhone 16 Pro (395px)"
+          >
+            <Smartphone size={13} />
+            <span>iPhone</span>
+          </button>
+
+          <button
+            onClick={() => setFrameMode('max')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              border: 'none',
+              background: frameMode === 'max' ? '#F26B3A' : 'transparent',
+              color: '#FFFFFF',
+              borderRadius: 16,
+              padding: '4px 10px',
+              fontSize: 11.5,
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease'
+            }}
+            title="Khung iPhone Pro Max (430px)"
+          >
+            <Smartphone size={15} />
+            <span>Pro Max</span>
+          </button>
+
+          <button
+            onClick={() => setFrameMode('fluid')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              border: 'none',
+              background: frameMode === 'fluid' ? '#F26B3A' : 'transparent',
+              color: '#FFFFFF',
+              borderRadius: 16,
+              padding: '4px 10px',
+              fontSize: 11.5,
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease'
+            }}
+            title="Toàn màn hình Mobile (100% Mobile)"
+          >
+            <Monitor size={13} />
+            <span>Toàn màn hình</span>
+          </button>
+        </div>
+
+        {/* Right: Figma Spec Link */}
+        <button
+          onClick={() => setIsFigmaOpen(true)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 5,
+            border: 'none',
+            background: 'linear-gradient(135deg, rgba(162, 89, 255, 0.25) 0%, rgba(10, 207, 131, 0.2) 100%)',
+            color: '#D8B4FE',
+            borderStyle: 'solid',
+            borderWidth: 1,
+            borderColor: 'rgba(162, 89, 255, 0.4)',
+            borderRadius: 16,
+            padding: '5px 12px',
+            fontSize: 11.5,
+            fontWeight: 800,
+            cursor: 'pointer'
+          }}
+        >
+          <Palette size={13} />
+          <span>Figma Spec</span>
+        </button>
+      </div>
+
+      {/* ================================================================ */}
+      {/* 2. THE SMARTPHONE DEVICE VIEWPORT CONTAINER                       */}
+      {/* ================================================================ */}
       <div
         style={{
-          width: '100%',
-          maxWidth: isFramed ? 430 : 960,
-          minHeight: '100vh',
+          ...getContainerStyles(),
           background: 'var(--lq-bg)',
-          position: 'relative',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: isFramed ? '0 10px 40px rgba(0,0,0,0.15)' : 'none',
-          borderRadius: isFramed ? 36 : 0,
-          border: isFramed ? '8px solid #28333E' : 'none',
-          margin: isFramed ? '20px auto' : '0 auto',
-          transition: 'all 0.3s ease'
+          overflow: 'hidden',
+          transition: 'all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)'
         }}
       >
-        {/* Top Header - Exact match to Desktop Screenshot */}
+        {/* Mobile Status Bar & Top App Header */}
         <TopBar
           currentTab={currentTab}
           onNavigateTab={setCurrentTab}
           onOpenFigma={() => setIsFigmaOpen(true)}
         />
 
-        {/* Quick Side Rail Floating Widget (Matches Desktop screenshot's left rail!) */}
-        <div style={{
-          position: 'fixed',
-          top: '50%',
-          left: 10,
-          transform: 'translateY(-50%)',
-          zIndex: 45,
-          background: '#FFFFFF',
-          borderRadius: 24,
-          padding: '8px 5px',
-          boxShadow: '0 4px 16px rgba(22, 50, 74, 0.1)',
-          border: '1px solid rgba(22, 50, 74, 0.08)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 10
-        }}>
-          {/* Fox Paw with orange badge 3 (from screenshot) */}
-          <button
-            onClick={toggleFoxDrawer}
-            style={{
-              position: 'relative',
-              width: 32,
-              height: 32,
-              borderRadius: 12,
-              background: '#F26B3A',
-              color: '#FFFFFF',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 16,
-              cursor: 'pointer',
-              boxShadow: '0 2px 6px rgba(242, 107, 58, 0.35)'
-            }}
-            title="Mở Bé Cáo Kitsu"
-          >
-            🐾
-            <span style={{
-              position: 'absolute',
-              top: -3,
-              right: -3,
-              background: '#FFFFFF',
-              color: '#F26B3A',
-              fontSize: 9,
-              fontWeight: 800,
-              width: 13,
-              height: 13,
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              3
-            </span>
-          </button>
-
-          {/* Streak Flame */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            fontSize: 10,
-            fontWeight: 800,
-            color: '#F26B3A'
-          }}>
-            <Flame size={15} />
-            <span style={{ fontSize: 9 }}>{player.streak}</span>
-          </div>
-
-          {/* Timer Mode */}
-          <button
-            onClick={() => setCurrentTab('focus')}
-            style={{ background: 'transparent', color: '#768796', padding: 2 }}
-            title="Tập trung Pomodoro"
-          >
-            <Timer size={15} />
-          </button>
-
-          {/* Achievements Medal */}
-          <button
-            onClick={() => setCurrentTab('profile')}
-            style={{ background: 'transparent', color: '#768796', padding: 2 }}
-            title="Hồ sơ & Thành tựu"
-          >
-            <Award size={15} />
-          </button>
-
-          {/* Toggle Phone frame mode */}
-          <button
-            onClick={() => setIsFramed(!isFramed)}
-            style={{ background: 'transparent', color: '#768796', padding: 2 }}
-            title={isFramed ? 'Toàn màn hình' : 'Khung điện thoại'}
-          >
-            {isFramed ? <Maximize2 size={13} /> : <Minimize2 size={13} />}
-          </button>
-        </div>
-
-        {/* Scrollable Screen Content */}
-        <main style={{ flex: 1, paddingLeft: 42 }}>
+        {/* Scrollable Mobile Screen Content */}
+        <main
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            paddingBottom: 'calc(var(--bnav-h) + 24px)',
+            WebkitOverflowScrolling: 'touch',
+            position: 'relative'
+          }}
+        >
           {currentTab === 'wardrobe' && <WardrobeScreen />}
           {currentTab === 'dashboard' && (
             <DashboardScreen
@@ -177,14 +250,29 @@ function MobileAppContent() {
           {currentTab === 'profile' && <ProfileScreen />}
         </main>
 
-        {/* Bottom Nav */}
+        {/* Bottom Mobile Tab Bar */}
         <BottomNav
           currentTab={currentTab}
           onSelectTab={setCurrentTab}
           pendingTasksCount={pendingTasksCount}
         />
 
-        {/* Slide-over Fox Drawer */}
+        {/* iOS Bottom Home Indicator Bar */}
+        <div style={{
+          position: 'absolute',
+          bottom: 5,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 128,
+          height: 4,
+          background: '#16324A',
+          borderRadius: 3,
+          opacity: 0.35,
+          pointerEvents: 'none',
+          zIndex: 60
+        }} />
+
+        {/* Slide-over Fox Companion Drawer */}
         <FoxCompanionDrawer />
 
         {/* Quick Create Sheet */}

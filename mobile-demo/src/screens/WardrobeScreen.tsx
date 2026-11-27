@@ -465,11 +465,11 @@ export const WardrobeScreen: React.FC = () => {
           })}
         </div>
 
-        {/* 2-Column Item Cards Grid (Matches desktop screenshot!) */}
+        {/* Item Cards Grid - Mobile Touch Optimized */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          gap: 12,
+          gridTemplateColumns: '1fr',
+          gap: 10,
           position: 'relative',
           zIndex: 3
         }}>
@@ -597,8 +597,8 @@ export const WardrobeScreen: React.FC = () => {
                       background: isPreviewing ? '#FFFFFF' : '#16324A',
                       color: isPreviewing ? '#4B5563' : '#FFFFFF',
                       borderRadius: 14,
-                      padding: '5px 12px',
-                      fontSize: 11,
+                      padding: '5px 14px',
+                      fontSize: 11.5,
                       fontWeight: 800,
                       cursor: 'pointer',
                       boxShadow: isPreviewing ? 'none' : '0 2px 6px rgba(22, 50, 74, 0.15)'
@@ -613,29 +613,37 @@ export const WardrobeScreen: React.FC = () => {
         </div>
       </section>
 
-      {/* Floating Bottom-Right Button: [🎙️ Trợ lý Fox] (Matches screenshot!) */}
-      <button
-        style={{
-          position: 'fixed',
-          bottom: 24,
-          right: 20,
-          background: '#16324A',
-          color: '#FFFFFF',
-          borderRadius: 24,
-          padding: '10px 16px',
-          fontSize: 12,
-          fontWeight: 800,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-          boxShadow: '0 6px 20px rgba(22, 50, 74, 0.3)',
-          zIndex: 45
-        }}
-        title="Trợ lý thoại Fox"
-      >
-        <Mic size={15} />
-        <span>Trợ lý Fox</span>
-      </button>
+      {/* Floating Button: [🎙️ Trợ lý Fox] (Inside Mobile Screen right above BottomNav) */}
+      <div style={{
+        position: 'sticky',
+        bottom: 8,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        pointerEvents: 'none',
+        zIndex: 35
+      }}>
+        <button
+          style={{
+            pointerEvents: 'auto',
+            background: '#16324A',
+            color: '#FFFFFF',
+            borderRadius: 24,
+            padding: '9px 15px',
+            fontSize: 11.5,
+            fontWeight: 800,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            boxShadow: '0 6px 18px rgba(22, 50, 74, 0.35)',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+          title="Trợ lý thoại Fox"
+        >
+          <Mic size={14} />
+          <span>Trợ lý Fox</span>
+        </button>
+      </div>
     </div>
   )
 }
