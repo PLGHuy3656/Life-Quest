@@ -68,9 +68,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         className={`lq-dock-tab ${active ? 'lq-dock-tab-active' : ''}`}
         style={{
           position: 'relative',
-          border: active ? '1px solid rgba(246, 200, 95, 0.36)' : '1px solid transparent',
+          border: active ? '1.5px solid rgba(242, 107, 58, 0.34)' : '1.5px solid transparent',
           background: active
-            ? 'linear-gradient(180deg, rgba(242, 107, 58, 0.28) 0%, rgba(246, 200, 95, 0.12) 100%)'
+            ? 'linear-gradient(180deg, #FFF4EC 0%, #FFE7D8 100%)'
             : 'transparent',
           borderRadius: 16,
           display: 'flex',
@@ -81,12 +81,14 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           fontSize: 10.5,
           fontWeight: active ? 800 : 600,
           letterSpacing: active ? '0.01em' : '0',
-          color: active ? '#FFFFFF' : 'rgba(232, 240, 248, 0.65)',
+          color: active ? '#D94E22' : '#586D80',
           cursor: 'pointer',
           width: 68,
           height: 50,
           padding: '4px 2px 5px',
-          boxShadow: active ? 'inset 0 1px 0 rgba(255, 255, 255, 0.14)' : 'none'
+          boxShadow: active
+            ? '0 2px 8px rgba(242, 107, 58, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9)'
+            : 'none'
         }}
       >
         <div
@@ -95,10 +97,10 @@ export const BottomNav: React.FC<BottomNavProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: active ? '#FFB66E' : 'rgba(232, 240, 248, 0.72)',
+            color: active ? '#F26B3A' : '#4D6274',
             transform: active ? 'translateY(-1px)' : 'none',
             transition: 'transform 0.2s ease, color 0.2s ease',
-            filter: active ? 'drop-shadow(0 2px 6px rgba(242, 107, 58, 0.5))' : 'none'
+            filter: active ? 'drop-shadow(0 2px 4px rgba(242, 107, 58, 0.28))' : 'none'
           }}
         >
           <Icon size={20} strokeWidth={active ? 2.5 : 2} />
@@ -120,8 +122,8 @@ export const BottomNav: React.FC<BottomNavProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '2px solid #16324A',
-                boxShadow: '0 2px 6px rgba(232, 74, 39, 0.5)'
+                border: '2px solid #FFFFFF',
+                boxShadow: '0 2px 6px rgba(232, 74, 39, 0.38)'
               }}
             >
               {item.badge}
@@ -131,19 +133,19 @@ export const BottomNav: React.FC<BottomNavProps> = ({
 
         <span style={{ lineHeight: 1.1 }}>{item.label}</span>
 
-        {/* Quest Gold Diamond Indicator */}
+        {/* Quest Orange-Gold Diamond Indicator */}
         {active && (
           <span
             style={{
               position: 'absolute',
-              bottom: -2.5,
+              bottom: -3,
               left: '50%',
               transform: 'translateX(-50%) rotate(45deg)',
-              width: 5,
-              height: 5,
+              width: 5.5,
+              height: 5.5,
               borderRadius: 1,
-              background: '#F6C85F',
-              boxShadow: '0 0 8px rgba(246, 200, 95, 0.95)'
+              background: '#F26B3A',
+              boxShadow: '0 0 6px rgba(242, 107, 58, 0.65)'
             }}
           />
         )}
@@ -168,7 +170,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         }}
       />
 
-      {/* Signature LifeQuest Floating Deep-Navy Fox Dock */}
+      {/* Signature LifeQuest Floating Web-Matched Cream/White Fox Dock */}
       <nav
         aria-label="Điều hướng chính LifeQuest"
         style={{
@@ -178,10 +180,10 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           right: 12,
           height: 66,
           borderRadius: 24,
-          background: 'linear-gradient(180deg, #1E3E5B 0%, #142C42 100%)',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          background: 'linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 100%)',
+          border: '1.5px solid #E8DFD2',
           boxShadow:
-            '0 4px 0 #0C1C2B, 0 14px 32px rgba(22, 50, 74, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.16)',
+            '0 4px 0 #DDD2C3, 0 14px 30px rgba(22, 50, 74, 0.14), inset 0 1px 0 #FFFFFF',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -189,7 +191,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           zIndex: 50
         }}
       >
-        {/* Subtle Gold Rim Highlight across top center of dock */}
+        {/* Subtle Warm Fox-Orange Accent Highlight across top center of dock */}
         <div
           style={{
             position: 'absolute',
@@ -200,7 +202,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
             height: 2,
             borderRadius: 2,
             background:
-              'linear-gradient(90deg, rgba(246,200,95,0) 0%, rgba(246,200,95,0.65) 50%, rgba(246,200,95,0) 100%)',
+              'linear-gradient(90deg, rgba(242,107,58,0) 0%, rgba(242,107,58,0.45) 50%, rgba(242,107,58,0) 100%)',
             pointerEvents: 'none'
           }}
         />

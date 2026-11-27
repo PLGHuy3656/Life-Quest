@@ -161,6 +161,6 @@ button:active {
 }
 
 .lq-dock-tab:hover:not(.lq-dock-tab-active) {
-  color: rgba(255, 255, 255, 0.92) !important;
-  background: rgba(255, 255, 255, 0.06) !important;
+  color: #16324A !important;
+  background: rgba(22, 50, 74, 0.05) !important;
 }
