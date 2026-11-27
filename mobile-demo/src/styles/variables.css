@@ -1,0 +1,67 @@
+:root {
+  /* LifeQuest Brand Tokens */
+  --lq-bg: #F5F3EE;
+  --lq-bg-elevated: #FAF9F6;
+  --lq-surface: #FFFFFF;
+  --lq-surface-subtle: #EFECE5;
+
+  --lq-primary: #16324A;
+  --lq-primary-hover: #1E4261;
+  --lq-primary-soft: rgba(22, 50, 74, 0.08);
+
+  --lq-accent: #F26B3A;
+  --lq-accent-hover: #DE5A2A;
+  --lq-accent-soft: rgba(242, 107, 58, 0.12);
+
+  --lq-success: #168C78;
+  --lq-success-soft: rgba(22, 140, 120, 0.12);
+
+  --lq-reward: #F6C85F;
+  --lq-reward-soft: rgba(246, 200, 95, 0.22);
+  --lq-reward-ink: #7A5400;
+
+  --lq-danger: #C84032;
+  --lq-danger-soft: rgba(200, 64, 50, 0.12);
+
+  --lq-ink: #16324A;
+  --lq-ink-secondary: #4D6274;
+  --lq-ink-muted: #768796;
+  --lq-border: rgba(22, 50, 74, 0.1);
+  --lq-border-strong: rgba(22, 50, 74, 0.18);
+
+  /* Radius */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* Elevation */
+  --shadow-sm: 0 2px 8px rgba(22, 50, 74, 0.04);
+  --shadow-card: 0 4px 16px rgba(22, 50, 74, 0.06);
+  --shadow-float: 0 12px 32px rgba(22, 50, 74, 0.12);
+  --shadow-accent: 0 10px 24px rgba(242, 107, 58, 0.28);
+
+  --bnav-h: 68px;
+}
+
+[data-theme="dark"] {
+  --lq-bg: #0D161F;
+  --lq-bg-elevated: #13202C;
+  --lq-surface: #182837;
+  --lq-surface-subtle: #1E3143;
+
+  --lq-primary: #3E79A7;
+  --lq-primary-hover: #4D8EBF;
+  --lq-primary-soft: rgba(62, 121, 167, 0.18);
+
+  --lq-ink: #EDF3F8;
+  --lq-ink-secondary: #A0B4C4;
+  --lq-ink-muted: #6E8599;
+  --lq-border: rgba(255, 255, 255, 0.1);
+  --lq-border-strong: rgba(255, 255, 255, 0.18);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-float: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
