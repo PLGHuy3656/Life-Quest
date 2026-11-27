@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { StoreProvider } from './store/questStore'
 import { TopBar } from './components/shell/TopBar'
 import { BottomNav } from './components/shell/BottomNav'
 import { FoxCompanionDrawer } from './components/shell/FoxCompanionDrawer'
+import { FoxCameraScreen } from './screens/FoxCameraScreen'
 
 // All 18 Screens from LifeQuest Mobile UI Specification
 import { LoadingScreen } from './screens/LoadingScreen'
@@ -25,7 +26,7 @@ import { ProfileScreen } from './screens/ProfileScreen'
 import { SettingsScreen } from './screens/SettingsScreen'
 
 import { ScreenId, TabId } from './types'
-import { Smartphone, Monitor, Layers } from 'lucide-react'
+import { Smartphone, Monitor, Layers, Camera } from 'lucide-react'
 
 type FrameMode = 'iphone' | 'max' | 'fluid'
 
@@ -55,6 +56,79 @@ function MobileAppContent() {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [frameMode, setFrameMode] = useState<FrameMode>('iphone')
   const [activeChatContact, setActiveChatContact] = useState('Hà My')
+
+  // Left-to-Right Swipe Gesture for Fox Snap Camera (from Dashboard)
+  const [isCameraOpen, setIsCameraOpen] = useState(false)
+  const [swipeOffset, setSwipeOffset] = useState(0)
+  const [isSwiping, setIsSwiping] = useState(false)
+  const swipeState = useRef<{
+    startX: number
+    startY: number
+    active: boolean
+    locked: 'x' | 'y' | null
+    offset: number
+  }>({ startX: 0, startY: 0, active: false, locked: null, offset: 0 })
+
+  const canSwipeCamera = currentScreen === '05_dashboard' || isCameraOpen
+
+  const beginSwipe = (clientX: number, clientY: number, target: EventTarget | null) => {
+    if (!canSwipeCamera) return
+    const tag = (target as HTMLElement | null)?.tagName
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return
+    swipeState.current = {
+      startX: clientX,
+      startY: clientY,
+      active: true,
+      locked: null,
+      offset: 0
+    }
+  }
+
+  const moveSwipe = (clientX: number, clientY: number) => {
+    const s = swipeState.current
+    if (!s.active) return
+
+    const dx = clientX - s.startX
+    const dy = clientY - s.startY
+
+    if (!s.locked) {
+      if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return
+      s.locked = Math.abs(dx) > Math.abs(dy) * 1.15 ? 'x' : 'y'
+    }
+
+    if (s.locked !== 'x') return
+
+    if (!isCameraOpen && dx > 0) {
+      const clamped = Math.min(430, dx)
+      s.offset = clamped
+      setIsSwiping(true)
+      setSwipeOffset(clamped)
+    } else if (isCameraOpen && dx < 0) {
+      const clamped = Math.max(-430, dx)
+      s.offset = clamped
+      setIsSwiping(true)
+      setSwipeOffset(clamped)
+    }
+  }
+
+  const endSwipe = () => {
+    const s = swipeState.current
+    if (!s.active) return
+
+    if (s.locked === 'x') {
+      if (!isCameraOpen && s.offset > 70) {
+        setIsCameraOpen(true)
+      } else if (isCameraOpen && s.offset < -70) {
+        setIsCameraOpen(false)
+      }
+    }
+
+    s.active = false
+    s.locked = null
+    s.offset = 0
+    setIsSwiping(false)
+    setSwipeOffset(0)
+  }
 
   // Map ScreenId to BottomNav active Tab
   const getActiveTab = (): TabId => {
@@ -297,6 +371,29 @@ function MobileAppContent() {
       {/* THE SMARTPHONE DEVICE CONTAINER                                  */}
       {/* ================================================================ */}
       <div
+        onTouchStart={(e) => {
+          if (e.touches.length === 1) {
+            beginSwipe(e.touches[0].clientX, e.touches[0].clientY, e.target)
+          }
+        }}
+        onTouchMove={(e) => {
+          if (e.touches.length === 1) {
+            moveSwipe(e.touches[0].clientX, e.touches[0].clientY)
+          }
+        }}
+        onTouchEnd={endSwipe}
+        onMouseDown={(e) => {
+          if (e.button === 0) {
+            beginSwipe(e.clientX, e.clientY, e.target)
+          }
+        }}
+        onMouseMove={(e) => {
+          if (swipeState.current.active) {
+            moveSwipe(e.clientX, e.clientY)
+          }
+        }}
+        onMouseUp={endSwipe}
+        onMouseLeave={endSwipe}
         style={{
           ...getContainerStyles(),
           background: 'var(--lq-bg)',
@@ -498,6 +595,66 @@ function MobileAppContent() {
           pointerEvents: 'none',
           zIndex: 60
         }} />
+
+        {/* Subtle Left-Edge Swipe Handle on Dashboard for Fox Snap Camera */}
+        {currentScreen === '05_dashboard' && !isCameraOpen && (
+          <button
+            onClick={() => setIsCameraOpen(true)}
+            title="Kéo từ trái sang phải (hoặc bấm) để mở Fox Snap Camera"
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 42,
+              background: 'linear-gradient(180deg, #FF9357 0%, #F26B3A 100%)',
+              color: '#FFFFFF',
+              border: '1.5px solid rgba(255, 255, 255, 0.7)',
+              borderLeft: 'none',
+              borderRadius: '0 14px 14px 0',
+              padding: '10px 5px 10px 4px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 3,
+              boxShadow: '2px 4px 14px rgba(242, 107, 58, 0.38)',
+              cursor: 'pointer'
+            }}
+          >
+            <Camera size={13} />
+            <span style={{ width: 3, height: 14, borderRadius: 99, background: 'rgba(255,255,255,0.75)' }} />
+          </button>
+        )}
+
+        {/* Sliding Fox Snap Camera Screen (Swipe Left -> Right from Dashboard) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 85,
+            transform: isCameraOpen
+              ? `translateX(${swipeOffset}px)`
+              : `translateX(calc(-100% + ${swipeOffset}px))`,
+            transition: isSwiping ? 'none' : 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)',
+            pointerEvents: isCameraOpen || swipeOffset > 0 ? 'auto' : 'none',
+            boxShadow:
+              isCameraOpen || swipeOffset > 0
+                ? '12px 0 36px rgba(10, 22, 34, 0.45)'
+                : 'none'
+          }}
+        >
+          <FoxCameraScreen
+            onCloseToDashboard={() => setIsCameraOpen(false)}
+            onOpenProfile={() => {
+              setIsCameraOpen(false)
+              setCurrentScreen('17_profile')
+            }}
+            onOpenMessages={() => {
+              setIsCameraOpen(false)
+              setCurrentScreen('14_messages')
+            }}
+          />
+        </div>
 
         {/* Slide-over Fox Companion Drawer */}
         <FoxCompanionDrawer />
