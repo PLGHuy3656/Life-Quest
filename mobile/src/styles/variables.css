@@ -1,0 +1,46 @@
+:root {
+  /* LifeQuest Brand Colors */
+  --bg-app: #F5F3EE;
+  --bg-card: #FFFFFF;
+  --bg-elevated: #FAF9F6;
+  --bg-subtle: #EFECE5;
+
+  --primary: #16324A;
+  --primary-hover: #1E4261;
+  --primary-soft: rgba(22, 50, 74, 0.08);
+
+  --accent: #F26B3A;
+  --accent-hover: #DE5A2A;
+  --accent-soft: rgba(242, 107, 58, 0.12);
+
+  --gold: #F6C85F;
+  --gold-soft: rgba(246, 200, 95, 0.22);
+  --gold-text: #7A5400;
+
+  --success: #168C78;
+  --success-soft: rgba(22, 140, 120, 0.12);
+
+  --danger: #C84032;
+  --danger-soft: rgba(200, 64, 50, 0.12);
+
+  --ink: #16324A;
+  --ink-secondary: #4D6274;
+  --ink-muted: #8B9DAE;
+  --border: rgba(22, 50, 74, 0.1);
+  --border-strong: rgba(22, 50, 74, 0.18);
+
+  /* Dimensions & Radius */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 2px 6px rgba(22, 50, 74, 0.05);
+  --shadow-md: 0 6px 16px rgba(22, 50, 74, 0.08);
+  --shadow-lg: 0 12px 28px rgba(22, 50, 74, 0.14);
+  --shadow-float: 0 16px 36px rgba(242, 107, 58, 0.28);
+
+  --bottom-nav-h: 72px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
