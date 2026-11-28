@@ -227,6 +227,30 @@
     background: #1e4261;
   }
 
+  .levelBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 36px;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: #fff4e8;
+    border: 1.5px solid #f3d5bc;
+    color: #b84317;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: background-color 140ms var(--lq-ez), border-color 140ms var(--lq-ez);
+  }
+
+  .levelBadge:hover {
+    background: #ffe9d6;
+    border-color: #f26b3a;
+  }
+
   .loginBtn {
     display: inline-flex;
     align-items: center;

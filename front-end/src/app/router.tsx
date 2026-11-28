@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from '@/components/shell/AppShell'
+import { AlbumPage } from '@/features/album/AlbumPage'
 import { ForgotPasswordPage } from '@/features/auth/ForgotPasswordPage'
 import { LoginPage } from '@/features/auth/LoginPage'
 import { ProtectedRoute } from '@/features/auth/ProtectedRoute'
@@ -108,6 +109,54 @@ export function AppRoutes() {
                 element={
                   <ProtectedRoute mode="workspace">
                     <ProfileBoundaryPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile/:userId"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <ProfileBoundaryPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/album"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <AlbumPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/album/gallery"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <AlbumPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/album/timeline"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <AlbumPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/album/shared/:albumId"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <AlbumPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/album/:albumId"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <AlbumPage />
                   </ProtectedRoute>
                 }
               />

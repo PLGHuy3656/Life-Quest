@@ -1,0 +1,543 @@
+/* Adventure Journal Design System Tokens & Shared Primitives (FE-13C + FE-14C) */
+
+.journalSurface {
+  --aj-cream: #f5f3ee;
+  --aj-paper: #fbf7ef;
+  --aj-paper-dot: rgba(22, 50, 74, 0.09);
+  --aj-orange: #f26b3a;
+  --aj-orange-text: #b84317;
+  --aj-navy: #16324a;
+  --aj-navy-cloth: #1c3a54;
+  --aj-teal: #168c78;
+  --aj-teal-cloth: #14594f;
+  --aj-plum-cloth: #4a3a5c;
+  --aj-sand-cloth: #8c7b66;
+  --aj-rust-cloth: #8e4a30;
+  --aj-border: rgba(22, 50, 74, 0.12);
+  --aj-muted: #5a6b7a;
+  --aj-hand: 'Patrick Hand', cursive, sans-serif;
+  --aj-book-shadow:
+    1px 0 0 #efe9dc,
+    2px 0 0 #d8d0c0,
+    3px 0 0 #f7f2e7,
+    4px 0 0 #cec5b4,
+    5px 0 0 #f5efe3,
+    0 26px 40px -22px rgba(22, 50, 74, 0.45);
+  color: var(--aj-navy);
+  position: relative;
+}
+
+/* Cloth Cover */
+.clothCover {
+  position: relative;
+  border-radius: 6px 18px 18px 6px;
+  color: #fbf7ef;
+  overflow: hidden;
+  box-shadow: var(--aj-book-shadow);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.clothCover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.24) 0px,
+    rgba(0, 0, 0, 0.08) 12px,
+    rgba(255, 255, 255, 0.08) 14px,
+    transparent 24px
+  );
+}
+
+.clothNavy {
+  background: radial-gradient(120% 90% at 80% 10%, #2a5377 0%, #1c3a54 62%, #13293d 100%);
+}
+
+.clothTeal {
+  background: radial-gradient(120% 90% at 80% 10%, #1e7c6d 0%, #14594f 62%, #0e3f38 100%);
+}
+
+.clothPlum {
+  background: radial-gradient(120% 90% at 80% 10%, #654f7d 0%, #4a3a5c 62%, #342842 100%);
+}
+
+.clothSand {
+  background: radial-gradient(120% 90% at 80% 10%, #a8957e 0%, #8c7b66 62%, #6e5f4e 100%);
+}
+
+.clothRust {
+  background: radial-gradient(120% 90% at 80% 10%, #b05e3f 0%, #8e4a30 62%, #6c3521 100%);
+}
+
+.clothStitched {
+  position: absolute;
+  inset: 8px 10px 8px 18px;
+  border: 1px dashed rgba(251, 247, 239, 0.26);
+  border-radius: 4px 12px 12px 4px;
+  pointer-events: none;
+}
+
+.clothElastic {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 16px;
+  width: 9px;
+  background: var(--aj-orange);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.16);
+  pointer-events: none;
+}
+
+.bookmarkRibbon {
+  position: absolute;
+  top: 0;
+  right: 34px;
+  width: 14px;
+  height: 40px;
+  background: var(--aj-teal);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bookmarkOrange {
+  background: var(--aj-orange);
+}
+
+/* Paper Page & Open Book Spine */
+.paperPage {
+  position: relative;
+  background-color: var(--aj-paper);
+  background-image: radial-gradient(var(--aj-paper-dot) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  border: 1px solid rgba(22, 50, 74, 0.1);
+  min-width: 0;
+}
+
+.paperLeft {
+  border-radius: 16px 4px 4px 16px;
+  box-shadow: inset -16px 0 22px -16px rgba(22, 50, 74, 0.2);
+}
+
+.paperRight {
+  border-radius: 4px 16px 16px 4px;
+  box-shadow: inset 16px 0 22px -16px rgba(22, 50, 74, 0.2);
+}
+
+.paperSingle {
+  border-radius: 16px;
+  box-shadow: 0 14px 28px -18px rgba(22, 50, 74, 0.35);
+}
+
+.bookSpine {
+  width: 16px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(22, 50, 74, 0.18) 0%,
+    rgba(251, 247, 239, 0.9) 45%,
+    rgba(22, 50, 74, 0.2) 100%
+  );
+  position: relative;
+}
+
+/* Handwritten Note */
+.handNote {
+  font-family: var(--aj-hand);
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--aj-navy);
+  letter-spacing: 0.01em;
+}
+
+/* Mounted Photo */
+.mountedPhoto {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #ede6d8;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+}
+
+.mountedPhoto img,
+.mountedPhoto:not(.deletedPhotoTile) > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoCorner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--aj-navy);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cornerTL {
+  top: 0;
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.cornerTR {
+  top: 0;
+  right: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.cornerBL {
+  bottom: 0;
+  left: 0;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+.cornerBR {
+  bottom: 0;
+  right: 0;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.photoPrivacySlot {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+}
+
+.deletedPhotoTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  aspect-ratio: 16 / 10;
+  padding: 12px;
+  text-align: center;
+  background: repeating-linear-gradient(
+    -45deg,
+    #f3ede0,
+    #f3ede0 8px,
+    #ebe3d3 8px,
+    #ebe3d3 16px
+  );
+  color: var(--aj-muted);
+  font-size: 11.5px;
+}
+
+.deletedPhotoTile > svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  opacity: 0.72;
+}
+
+/* Washi Tape */
+.washiTape {
+  position: absolute;
+  height: 16px;
+  width: 58px;
+  opacity: 0.86;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 3;
+  box-shadow: 0 1px 2px rgba(22, 50, 74, 0.14);
+}
+
+.washiCream {
+  background: rgba(244, 233, 206, 0.92);
+}
+
+.washiTeal {
+  background: rgba(22, 140, 120, 0.34);
+}
+
+.washiOrange {
+  background: rgba(242, 107, 58, 0.34);
+}
+
+/* Privacy Pills & Chips */
+.privacyPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.pillPrivate {
+  background: rgba(22, 50, 74, 0.85);
+  color: #fbf7ef;
+}
+
+.pillFriends {
+  background: rgba(22, 140, 120, 0.92);
+  color: #ffffff;
+}
+
+.pillGroup {
+  background: rgba(111, 78, 161, 0.92);
+  color: #ffffff;
+}
+
+.pillEvidence {
+  background: #e6f6f2;
+  color: #0e695a;
+  border: 1px solid rgba(22, 140, 120, 0.28);
+}
+
+.pillMoment {
+  background: #fff1eb;
+  color: #b84317;
+  border: 1px solid rgba(242, 107, 58, 0.3);
+}
+
+.pillDecorative {
+  background: #f2ece1;
+  color: #5e503f;
+  border: 1px solid rgba(94, 80, 63, 0.24);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 10px;
+}
+
+/* Ticket Stat Tile */
+.ticketStat {
+  position: relative;
+  background: var(--aj-paper);
+  border: 1.5px solid rgba(22, 50, 74, 0.14);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.ticketStat::before,
+.ticketStat::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--aj-cream);
+  border: 1.5px solid rgba(22, 50, 74, 0.14);
+  transform: translateY(-50%);
+}
+
+.ticketStat::before {
+  left: -6px;
+}
+
+.ticketStat::after {
+  right: -6px;
+}
+
+.ticketHidden {
+  border-style: dashed;
+  background: rgba(251, 247, 239, 0.55);
+  color: var(--aj-muted);
+}
+
+/* Passport Stamp */
+.passportStamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border: 2px solid var(--aj-navy);
+  border-radius: 999px;
+  color: var(--aj-navy);
+  opacity: 0.85;
+  transform: rotate(-12deg);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  user-select: none;
+}
+
+/* Milestone Pill */
+.milestonePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 10px;
+  border-radius: 6px 999px 999px 6px;
+  background: var(--aj-orange);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Route Line (Scenic Winding Trail) */
+.routeLineWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-top: 2px;
+}
+
+.routeLineSvg {
+  flex: 1;
+  height: 28px;
+  overflow: visible;
+}
+
+.routePathDash {
+  animation: lqRouteFlow 26s linear infinite;
+}
+
+.routePulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lqRoutePulse 3.2s ease-in-out infinite;
+}
+
+.routeFlagBadge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(242, 107, 58, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@keyframes lqRouteFlow {
+  to {
+    stroke-dashoffset: -130;
+  }
+}
+
+@keyframes lqRoutePulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.22);
+  }
+}
+
+/* Fox Stage (Single-WebGL safe: pre-rendered official Fox V2 WebP) */
+.foxStage {
+  position: relative;
+  background-color: var(--aj-paper);
+  background-image: radial-gradient(var(--aj-paper-dot) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+  border: 1px solid rgba(22, 50, 74, 0.12);
+  border-radius: 16px;
+  padding: 16px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.foxStageImg {
+  width: 164px;
+  height: 164px;
+  object-fit: contain;
+  user-select: none;
+}
+
+.foxStageCaption {
+  margin-top: 6px;
+  font-family: var(--aj-hand);
+  font-size: 14px;
+  color: var(--aj-muted);
+  text-align: center;
+}
+
+/* Preview / Backend Pending Chip */
+.previewChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #fff4e5;
+  color: #8f4a07;
+  border: 1px solid rgba(184, 67, 23, 0.25);
+}
+
+/* Undo Toast */
+.undoToast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  background: var(--aj-navy);
+  color: #fbf7ef;
+  padding: 10px 16px;
+  border-radius: 14px;
+  box-shadow: 0 14px 32px rgba(22, 50, 74, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  max-width: calc(100vw - 32px);
+}
+
+.undoBtn {
+  background: var(--aj-orange);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Focus indicators for accessibility */
+.journalSurface button:focus-visible,
+.journalSurface a:focus-visible,
+.journalSurface input:focus-visible,
+.journalSurface select:focus-visible,
+.journalSurface textarea:focus-visible {
+  outline: 2.5px solid var(--aj-orange);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .clothCover {
+    transition: none;
+  }
+
+  .routePathDash,
+  .routePulse {
+    animation: none;
+  }
+}
+
+:global(html.lq-rm) .clothCover {
+  transition: none;
+}
+
+:global(html.lq-rm) .routePathDash,
+:global(html.lq-rm) .routePulse {
+  animation: none;
+}

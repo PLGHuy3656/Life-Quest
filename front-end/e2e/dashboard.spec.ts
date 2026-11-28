@@ -53,13 +53,12 @@ test('wardrobe H1/H2 cosmetic switching & preview badge', async ({ page }) => {
   await expect(page.getByText('Đang xem trước (3)')).toBeVisible()
 })
 
-test('reduced-motion toggle and accessible Sheet Escape dismissal', async ({ page }) => {
+test('accessible Sheet Escape dismissal and header level badge', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.goto('/?nowebgl=1')
 
-  const rmBtn = page.getByRole('button', { name: /chế độ giảm chuyển động/i })
-  await rmBtn.click()
-  await expect(page.locator('html')).toHaveClass(/lq-rm/)
+  await expect(page.getByTestId('desktop-header-level-badge')).toBeVisible()
+  await expect(page.getByTestId('player-stat-hearts')).toHaveText('3')
 
   await page.getByRole('button', { name: 'Mở chi tiết tạo nhiệm vụ' }).click()
   const dialog = page.getByRole('dialog')

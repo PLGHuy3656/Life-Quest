@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { Coins, Flame, Heart } from 'lucide-react'
 import { useTodayQuery } from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
+import { useMockProfileStore } from '@/stores/mockProfileStore'
 import styles from './PlayerStatsRail.module.css'
 
-type StatId = 'streak' | 'coin' | 'level'
+type StatId = 'streak' | 'coin' | 'hearts'
 
 interface StatRow {
   id: StatId
@@ -13,6 +14,8 @@ interface StatRow {
   detail: string
   tone: 'streak' | 'coin' | 'level'
 }
+
+const DEFAULT_HEARTS = 3
 
 /**
  * FE-04A.3 Compact Left Player Stats Rail (Streak, Coin, Level).
@@ -28,15 +31,25 @@ export interface PlayerStatsRailProps {
 
 export function PlayerStatsRail({ horizontal = false }: PlayerStatsRailProps) {
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
+  const isMockSession = useMockProfileStore((s) => s.isMockSession)
+  const mockStats = useMockProfileStore((s) => s.stats)
   const todayQuery = useTodayQuery()
   const [openStat, setOpenStat] = useState<StatId | null>(null)
 
   const liveToday =
     isAuthenticated && todayQuery.data?.source === 'LIVE' ? todayQuery.data.data : null
 
-  const streakVal = liveToday ? String(liveToday.streak.currentCount) : '—'
-  const coinVal = liveToday ? String(liveToday.gamification.coinBalance) : '—'
-  const levelVal = liveToday ? `L${liveToday.gamification.level}` : '—'
+  const streakVal = liveToday
+    ? String(liveToday.streak.currentCount)
+    : isMockSession
+      ? String(mockStats.streakDays)
+      : '—'
+  const coinVal = liveToday
+    ? String(liveToday.gamification.coinBalance)
+    : isMockSession
+      ? String(mockStats.coinBalance)
+      : '—'
+  const heartsVal = String(DEFAULT_HEARTS)
 
   const rows: StatRow[] = [
     {
@@ -45,7 +58,9 @@ export function PlayerStatsRail({ horizontal = false }: PlayerStatsRailProps) {
       value: streakVal,
       detail: liveToday
         ? `${liveToday.streak.currentCount} ngày liên tiếp (kỷ lục: ${liveToday.streak.longestCount})`
-        : 'Đăng nhập để đồng bộ chuỗi ngày từ máy chủ',
+        : isMockSession
+          ? `${mockStats.streakDays} ngày liên tiếp (tài khoản Mock)`
+          : 'Đăng nhập để đồng bộ chuỗi ngày từ máy chủ',
       tone: 'streak'
     },
     {
@@ -54,16 +69,16 @@ export function PlayerStatsRail({ horizontal = false }: PlayerStatsRailProps) {
       value: coinVal,
       detail: liveToday
         ? `${liveToday.gamification.coinBalance} xu thưởng hiện có`
-        : 'Đăng nhập để đồng bộ số xu từ máy chủ',
+        : isMockSession
+          ? `${mockStats.coinBalance} xu thưởng hiện có (tài khoản Mock)`
+          : 'Đăng nhập để đồng bộ số xu từ máy chủ',
       tone: 'coin'
     },
     {
-      id: 'level',
-      label: 'Cấp độ hiện tại',
-      value: levelVal,
-      detail: liveToday
-        ? `Cấp ${liveToday.gamification.level} • ${liveToday.gamification.totalXp} XP`
-        : 'Đăng nhập để đồng bộ cấp độ từ máy chủ',
+      id: 'hearts',
+      label: 'Trái tim',
+      value: heartsVal,
+      detail: `${DEFAULT_HEARTS}/${DEFAULT_HEARTS} trái tim hiện có`,
       tone: 'level'
     }
   ]

@@ -26,7 +26,7 @@ const EMPTY_ATTACHMENTS: never[] = []
 export function FloatingChatWindow({
   conversationId,
   dockSide,
-  isFoxVisible,
+  isFoxVisible: _isFoxVisible,
   isMobile,
   onMinimize,
   onClose
@@ -88,15 +88,13 @@ export function FloatingChatWindow({
 
   if (!conversation) return null
 
-  // Collision-aware placement:
-  // - When docked left: opens at left: 84px (clears dock + never touches right-side Fox rail).
-  // - When docked right on a Fox-visible desktop route: offsets left of FoxCompanionRail (332px)
-  //   so it never covers Fox's face, speech bubble, or Fox controls.
+  // Anchor the floating chat window snugly beside the bubble dock on either edge.
+  void _isFoxVisible
   const desktopStyle: CSSProperties = isMobile
     ? {}
     : dockSide === 'left'
       ? { left: 74, bottom: 18 }
-      : { right: isFoxVisible ? 332 : 74, bottom: 18 }
+      : { right: 74, bottom: 18 }
 
   return (
     <>

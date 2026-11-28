@@ -11,9 +11,9 @@ import {
   Search,
   Settings,
   ShoppingBag,
-  ZapOff
+  Sparkles
 } from 'lucide-react'
-import { useUserMeQuery } from '@/hooks/useDashboardData'
+import { useTodayQuery, useUserMeQuery } from '@/hooks/useDashboardData'
 import { useAuthStore } from '@/stores/authStore'
 import { PROFILE_AVATAR_PRESETS, useMockProfileStore } from '@/stores/mockProfileStore'
 import { useUiStore } from '@/stores/uiStore'
@@ -40,8 +40,6 @@ export interface DesktopHeaderProps {
 }
 
 export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
-  const reducedMotion = useUiStore((s) => s.reducedMotion)
-  const toggleReducedMotion = useUiStore((s) => s.toggleReducedMotion)
   const openSheet = useUiStore((s) => s.openSheet)
   const searchQuery = useUiStore((s) => s.searchQuery)
   const setSearchQuery = useUiStore((s) => s.setSearchQuery)
@@ -53,8 +51,9 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
   const mockProfile = useMockProfileStore((s) => s.profile)
   const mockStats = useMockProfileStore((s) => s.stats)
 
-  // Read live user identity only when authenticated (Streak/Coin/Level moved to PlayerStatsRail)
+  // Read live user identity & level only when authenticated
   const userMeQuery = useUserMeQuery()
+  const todayQuery = useTodayQuery()
 
   const [profileOpen, setProfileOpen] = useState(false)
   const profileWrapRef = useRef<HTMLDivElement>(null)
@@ -79,6 +78,11 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
 
   const liveUser =
     isAuthenticated && userMeQuery.data?.source === 'LIVE' ? userMeQuery.data.data : null
+  const liveToday =
+    isAuthenticated && todayQuery.data?.source === 'LIVE' ? todayQuery.data.data : null
+  const currentLevel = isMockSession
+    ? mockStats.level
+    : liveToday?.gamification.level ?? 1
 
   const displayName = isMockSession
     ? mockProfile.displayName
@@ -156,23 +160,23 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
 
           <button
             type="button"
-            className={`${styles.circleBtn} ${reducedMotion ? styles.circleBtnActive : ''}`.trim()}
-            onClick={toggleReducedMotion}
-            aria-label={reducedMotion ? 'Tắt chế độ giảm chuyển động' : 'Bật chế độ giảm chuyển động'}
-            aria-pressed={reducedMotion}
-            title="Giảm chuyển động (lq-rm)"
-          >
-            <ZapOff size={17} aria-hidden="true" />
-          </button>
-
-          <button
-            type="button"
             className={styles.circleBtn}
             onClick={() => openSheet('notifications')}
             aria-label="Thông báo"
           >
             <Bell size={18} aria-hidden="true" />
           </button>
+
+          <Link
+            to="/profile"
+            className={styles.levelBadge}
+            aria-label={`Cấp độ hiện tại: Lv.${currentLevel}`}
+            title={`Cấp ${currentLevel}`}
+            data-testid="desktop-header-level-badge"
+          >
+            <Sparkles size={13} aria-hidden="true" />
+            <span>Lv.{currentLevel}</span>
+          </Link>
 
           {isSignedIn ? (
             <div className={styles.profileWrap} ref={profileWrapRef}>
@@ -227,7 +231,15 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
                       role="menuitem"
                       onClick={() => setProfileOpen(false)}
                     >
-                      Trang cá nhân &amp; Album
+                      Trang cá nhân
+                    </Link>
+                    <Link
+                      to="/album"
+                      className={styles.bubbleLink}
+                      role="menuitem"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Sổ kỷ niệm &amp; Album
                     </Link>
                     <Link
                       to="/settings"

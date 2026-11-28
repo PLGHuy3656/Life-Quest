@@ -41,6 +41,7 @@ const ROUTE_TITLES: Record<string, string> = {
   '/wardrobe': 'Tủ đồ Fox V2',
   '/wardrobe/shop': 'Cửa hàng Trang phục',
   '/profile': 'Trang cá nhân',
+  '/album': 'Sổ kỷ niệm & Album',
   '/settings': 'Cài đặt'
 }
 
@@ -73,8 +74,13 @@ export function AppShell({ children }: { children: ReactNode }) {
   const isQuestDetailRoute = Boolean(matchPath('/work/quests/:questId', location.pathname))
   /** FE-05A, FE-W01 & FE-06A Viewport-Fit Policy: Calendar, Wardrobe and Messenger fit inside one Desktop viewport without document scrolling. */
   const isCalendarRoute = location.pathname === '/calendar'
+  const isProfileOrAlbumRoute =
+    location.pathname === '/profile' ||
+    location.pathname.startsWith('/profile/') ||
+    location.pathname === '/album' ||
+    location.pathname.startsWith('/album/')
   const isViewportFitRoute = isCalendarRoute || isWardrobeRoute || isMessagesRoute
-  const isFoxHiddenRoute = isQuestDetailRoute || isCalendarRoute
+  const isFoxHiddenRoute = isQuestDetailRoute || isCalendarRoute || isProfileOrAlbumRoute
 
   const handleLogout = async () => {
     try {
