@@ -167,16 +167,18 @@ export function DesktopHeader({ onLogout }: DesktopHeaderProps) {
             <Bell size={18} aria-hidden="true" />
           </button>
 
-          <Link
-            to="/profile"
-            className={styles.levelBadge}
-            aria-label={`Cấp độ hiện tại: Lv.${currentLevel}`}
-            title={`Cấp ${currentLevel}`}
-            data-testid="desktop-header-level-badge"
-          >
-            <Sparkles size={13} aria-hidden="true" />
-            <span>Lv.{currentLevel}</span>
-          </Link>
+          {isSignedIn && (
+            <Link
+              to="/profile"
+              className={styles.levelBadge}
+              aria-label={`Cấp độ hiện tại: Lv.${currentLevel}`}
+              title={`Cấp ${currentLevel}`}
+              data-testid="desktop-header-level-badge"
+            >
+              <Sparkles size={13} aria-hidden="true" />
+              <span>Lv.{currentLevel}</span>
+            </Link>
+          )}
 
           {isSignedIn ? (
             <div className={styles.profileWrap} ref={profileWrapRef}>

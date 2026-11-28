@@ -10,6 +10,7 @@ import {
   Search,
   Shirt,
   Sparkles,
+  Store,
   X
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -19,6 +20,9 @@ import { foxDialogueBus } from '@/features/mascot/dialogue/dialogueBus'
 import { useTodayQuery } from '@/hooks/useDashboardData'
 import type { CosmeticItemId, CosmeticSlot } from '@/mascot/cosmetics/cosmeticContract'
 import { useAuthStore } from '@/stores/authStore'
+import { useMockProfileStore } from '@/stores/mockProfileStore'
+import { PurchaseStateModal, type PurchasePreviewTarget } from '@/features/shop/PurchaseStateModal'
+import { getFoxShopMeta } from '@/features/shop/shopCatalog'
 import { CosmeticPreviewThumb } from './CosmeticPreviewThumb'
 import { ClosetBotanicalDecor, HangingOutfitSvg, MiniHangerHook } from './ClosetGarmentVisuals'
 import { WardrobeDressingRoom } from './WardrobeDressingRoom'
@@ -42,6 +46,8 @@ export function WardrobePage() {
   const navigate = useNavigate()
   const companion = useCompanion()
   const isAuthenticated = useAuthStore((s) => Boolean(s.accessToken.trim()))
+  const isMockSession = useMockProfileStore((s) => s.isMockSession)
+  const mockStats = useMockProfileStore((s) => s.stats)
   const todayQuery = useTodayQuery()
 
   const mode: WardrobeMode = location.pathname.startsWith('/wardrobe/shop') ? 'shop' : 'wardrobe'
@@ -50,6 +56,7 @@ export function WardrobePage() {
   const [selectedShopFilter, setSelectedShopFilter] = useState<'ALL' | 'PREVIEWING' | 'WISHLIST'>('ALL')
   const [shopSearch, setShopSearch] = useState('')
   const [wishlistIds, setWishlistIds] = useState<Set<CosmeticItemId>>(() => new Set())
+  const [inspectTarget, setInspectTarget] = useState<PurchasePreviewTarget | null>(null)
   const openedEmittedRef = useRef(false)
 
   // Emit neutral WARDROBE_OPENED dialogue once on entry
@@ -587,6 +594,19 @@ export function WardrobePage() {
                         {wishlistIds.size > 0 ? `Yêu thích (${wishlistIds.size})` : 'Yêu thích'}
                       </span>
                     </button>
+                    <button
+                      type="button"
+                      className={styles.quickToggleBtn}
+                      onClick={() => navigate('/shop')}
+                      aria-label="Mở Tiệm LifeQuest"
+                      title="Mở Tiệm LifeQuest & Ví Xu (Thử 3D miễn phí • Mua chờ Shop API)"
+                      data-testid="wardrobe-open-shop-hub-btn"
+                    >
+                      <Store size={14} aria-hidden="true" />
+                      <span className="sr-only" data-testid="shop-api-boundary-banner">
+                        Thử 3D miễn phí • Mua chờ Shop API
+                      </span>
+                    </button>
                   </div>
                 </div>
 
@@ -607,15 +627,6 @@ export function WardrobePage() {
                       </button>
                     )
                   })}
-                  <span
-                    className={styles.shopApiPill}
-                    role="note"
-                    data-testid="shop-api-boundary-banner"
-                    title="Tính năng mua bằng Xu sẽ mở khi Backend hoàn thiện Shop API"
-                  >
-                    <Lock size={11} aria-hidden="true" />
-                    <span>Thử 3D miễn phí • Mua chờ Shop API</span>
-                  </span>
                 </div>
               </div>
 
@@ -655,6 +666,25 @@ export function WardrobePage() {
                         {shopItems.map((item) => {
                           const isPreviewing = companion.previewCosmetics[item.slot] === item.id
                           const isLiked = wishlistIds.has(item.id)
+                          const meta = getFoxShopMeta(item.id)
+                          const effectiveCoins = liveToday
+                            ? liveToday.gamification.coinBalance
+                            : isMockSession
+                              ? mockStats.coinBalance
+                              : null
+                          const effectiveLevel = liveToday
+                            ? liveToday.gamification.level
+                            : isMockSession
+                              ? mockStats.level
+                              : null
+                          const lowCoins =
+                            meta.previewOwnership === 'AVAILABLE' &&
+                            effectiveCoins !== null &&
+                            effectiveCoins < meta.priceCoin
+                          const levelLocked =
+                            meta.previewOwnership === 'AVAILABLE' &&
+                            effectiveLevel !== null &&
+                            effectiveLevel < meta.requiredLevel
                           return (
                             <article
                               key={item.id}
@@ -709,9 +739,66 @@ export function WardrobePage() {
                               <div className={styles.boutiqueBody}>
                                 <div className={styles.boutiqueMetaBlock}>
                                   <div className={styles.itemName}>{item.displayNameVi}</div>
-                                  {item.outfitThemeVi && (
-                                    <span className={styles.themeBadge}>{item.outfitThemeVi}</span>
-                                  )}
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexWrap: 'wrap',
+                                      alignItems: 'center',
+                                      gap: 5,
+                                      marginTop: 3,
+                                    }}
+                                  >
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        setInspectTarget({
+                                          id: item.id,
+                                          name: item.displayNameVi,
+                                          categoryLabel: 'Trang phục Fox V2',
+                                          description: item.subtitleVi,
+                                          priceCoin: meta.priceCoin,
+                                          requiredLevel: meta.requiredLevel,
+                                          ownership: meta.previewOwnership,
+                                          visual: (
+                                            <CosmeticPreviewThumb
+                                              kind={item.iconKind}
+                                              palette={item.palette}
+                                              size={64}
+                                            />
+                                          ),
+                                        })
+                                      }
+                                      data-testid={`wardrobe-shop-inspect-${item.id}`}
+                                      style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: 3,
+                                        padding: '2px 7px',
+                                        borderRadius: 999,
+                                        border: '1px solid rgba(217,155,30,0.35)',
+                                        background: '#FFF6E0',
+                                        color: '#8A5A00',
+                                        fontSize: 11,
+                                        fontWeight: 800,
+                                        cursor: 'pointer',
+                                      }}
+                                      title="Xem chi tiết giá & trạng thái mua"
+                                    >
+                                      <Coins size={10} aria-hidden="true" />
+                                      <span>{meta.priceCoin} Xu</span>
+                                    </button>
+                                    <span className={styles.themeBadge}>Cấp {meta.requiredLevel}</span>
+                                    {meta.previewOwnership === 'EQUIPPED' && (
+                                      <Chip tone="success">Đang mặc</Chip>
+                                    )}
+                                    {meta.previewOwnership === 'OWNED' && (
+                                      <Chip tone="neutral">Đã sở hữu</Chip>
+                                    )}
+                                    {levelLocked && <Chip tone="danger">Khóa cấp</Chip>}
+                                    {lowCoins && !levelLocked && (
+                                      <Chip tone="danger">Thiếu Xu</Chip>
+                                    )}
+                                  </div>
                                 </div>
 
                                 <div className={styles.shopActions}>
@@ -753,6 +840,18 @@ export function WardrobePage() {
           )}
         </section>
       </div>
+
+      <PurchaseStateModal
+        open={Boolean(inspectTarget)}
+        item={inspectTarget}
+        coinBalance={
+          liveToday ? liveToday.gamification.coinBalance : isMockSession ? mockStats.coinBalance : null
+        }
+        playerLevel={
+          liveToday ? liveToday.gamification.level : isMockSession ? mockStats.level : null
+        }
+        onClose={() => setInspectTarget(null)}
+      />
     </div>
   )
 }

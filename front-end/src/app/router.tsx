@@ -13,6 +13,8 @@ import { LoadingPage } from '@/features/loading/LoadingPage'
 import { MessagesPage } from '@/features/messages/MessagesPage'
 import { ProfileBoundaryPage } from '@/features/profile/ProfileBoundaryPage'
 import { SettingsPage } from '@/features/settings/SettingsPage'
+import { ShopHubPage } from '@/features/shop/ShopHubPage'
+import { ShopTopUpPage } from '@/features/shop/ShopTopUpPage'
 import { WardrobePage } from '@/features/wardrobe/WardrobePage'
 import { FocusModePage } from '@/features/work/FocusModePage'
 import { HabitsPage } from '@/features/work/HabitsPage'
@@ -192,6 +194,39 @@ export function AppRoutes() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/shop"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <ShopHubPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/shop/wallet"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <ShopHubPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/shop/topup"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <ShopTopUpPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/shop/profile"
+                element={
+                  <ProtectedRoute mode="workspace">
+                    <ShopHubPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/shop/fox" element={<Navigate to="/wardrobe/shop" replace />} />
               <Route path="/preview/social-first" element={<Navigate to="/" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

@@ -5,6 +5,7 @@ import {
   Bell,
   Calendar,
   CheckSquare,
+  Coins,
   Home,
   LogIn,
   LogOut,
@@ -40,6 +41,10 @@ const ROUTE_TITLES: Record<string, string> = {
   '/messages': 'Tin nhắn & Nhóm',
   '/wardrobe': 'Tủ đồ Fox V2',
   '/wardrobe/shop': 'Cửa hàng Trang phục',
+  '/shop': 'Tiệm LifeQuest',
+  '/shop/profile': 'Trang trí Hồ sơ',
+  '/shop/wallet': 'Ví Xu LifeQuest',
+  '/shop/topup': 'Nạp Xu vào Ví',
   '/profile': 'Trang cá nhân',
   '/album': 'Sổ kỷ niệm & Album',
   '/settings': 'Cài đặt'
@@ -78,7 +83,9 @@ export function AppShell({ children }: { children: ReactNode }) {
     location.pathname === '/profile' ||
     location.pathname.startsWith('/profile/') ||
     location.pathname === '/album' ||
-    location.pathname.startsWith('/album/')
+    location.pathname.startsWith('/album/') ||
+    location.pathname === '/shop' ||
+    location.pathname.startsWith('/shop/')
   const isViewportFitRoute = isCalendarRoute || isWardrobeRoute || isMessagesRoute
   const isFoxHiddenRoute = isQuestDetailRoute || isCalendarRoute || isProfileOrAlbumRoute
 
@@ -120,6 +127,32 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
 
             <div className={styles.headerActions}>
+              <Link
+                to="/shop"
+                aria-label="Mở Tiệm LifeQuest và Ví Xu"
+                data-testid="mobile-header-coin-entry"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  minHeight: 36,
+                  padding: '0 10px',
+                  borderRadius: 999,
+                  background: '#FFF6E0',
+                  border: '1px solid #EDD294',
+                  color: '#8A5A00',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  textDecoration: 'none',
+                }}
+              >
+                <Coins size={14} aria-hidden="true" />
+                <span>
+                  {todayQuery.data?.source === 'LIVE'
+                    ? todayQuery.data.data.gamification.coinBalance
+                    : 'Tiệm'}
+                </span>
+              </Link>
               <Button
                 variant="ghost"
                 size="icon"
@@ -190,12 +223,12 @@ export function AppShell({ children }: { children: ReactNode }) {
                 >
                   <PlayerStatsRail horizontal={!pinnedRailCollapsed} />
                   <NavLink
-                    to="/wardrobe/shop"
+                    to="/shop"
                     className={({ isActive }) =>
                       `${styles.shopRailBtn} ${isActive ? styles.shopRailBtnActive : ''}`.trim()
                     }
-                    aria-label="Cửa hàng trang phục"
-                    title="Cửa hàng trang phục"
+                    aria-label="Tiệm LifeQuest"
+                    title="Tiệm LifeQuest"
                     data-testid="left-rail-shop-btn"
                   >
                     <span className={styles.shopRailIcon} aria-hidden="true">

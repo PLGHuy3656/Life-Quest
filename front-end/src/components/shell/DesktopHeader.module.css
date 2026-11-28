@@ -227,6 +227,29 @@
     background: #1e4261;
   }
 
+  .coinBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    height: 36px;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: #fff6e0;
+    border: 1.5px solid #edd294;
+    color: #8a5a00;
+    font-size: 12.5px;
+    font-weight: 800;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: background-color 140ms var(--lq-ez), border-color 140ms var(--lq-ez);
+  }
+
+  .coinBadge:hover {
+    background: #ffefc7;
+    border-color: #d99b1e;
+  }
+
   .levelBadge {
     display: inline-flex;
     align-items: center;
